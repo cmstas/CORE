@@ -62,12 +62,21 @@ int closestJetIdx(const LorentzVector& lep_p4, float dRmin, float maxAbsEta){
 }
 
 LorentzVector closestJet(const LorentzVector& lep_p4, float dRmin, float maxAbsEta, int whichCorr){
-  std::string jecEra = "Summer16_23Sep2016BCDV3";
-  if (tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
+  std::string jecEra = "";
+  // std::string jecEraMC = "Summer16_23Sep2016V3";
+  std::string jecEraMC = "Fall17_17Nov2017_V6";
+  if (     tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
   else if (tas::evt_run() <= 278801 && tas::evt_run() >= 276831) jecEra = "Summer16_23Sep2016EFV3";
   else if (tas::evt_run() <= 280385 && tas::evt_run() >= 278802) jecEra = "Summer16_23Sep2016GV3";
-  else if (tas::evt_run() >= 280919) jecEra = "Summer16_23Sep2016HV3";
-  std::string jecEraMC = "Summer16_23Sep2016V3";
+  else if (tas::evt_run() <  294645 && tas::evt_run() >= 280919) jecEra = "Summer16_23Sep2016HV3";
+  else if (tas::evt_run() <= 299329 && tas::evt_run() >= 297046) jecEra = "Fall17_17Nov2017B_V6";
+  else if (tas::evt_run() <= 302029 && tas::evt_run() >= 299368) jecEra = "Fall17_17Nov2017C_V6";
+  else if (tas::evt_run() <= 303434 && tas::evt_run() >= 302030) jecEra = "Fall17_17Nov2017D_V6";
+  else if (tas::evt_run() <= 304797 && tas::evt_run() >= 303824) jecEra = "Fall17_17Nov2017E_V6";
+  else if (tas::evt_run() <= 306462 && tas::evt_run() >= 305040) jecEra = "Fall17_17Nov2017F_V6";
+  else {
+    throw std::invalid_argument("Can't classify run " + tas::evt_run());
+  }
   int closestIdx = closestJetIdx(lep_p4,dRmin,maxAbsEta);
   if (closestIdx < 0) return LorentzVector();
   LorentzVector jet = pfjets_p4().at(closestIdx);
