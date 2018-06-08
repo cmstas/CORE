@@ -1356,14 +1356,14 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_medium_v6):
       if (electronID(elIdx, SS_medium_noiso_v6)==0) return false; 
-      if (elIDCacheSet) return passMultiIsoCuts(0.12, 0.80, 7.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
-      else return passMultiIso(11, elIdx, 0.12, 0.80, 7.2, 3, 2);
+      if (elIDCacheSet) return passMultiIsoCuts(0.09, 0.85, 9.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
+      else return passMultiIso(11, elIdx, 0.09, 0.85, 9.2, 3, 2);
       break;
 
     case(SS_medium_no3chg_v6):
       if (electronID(elIdx, SS_medium_noiso_no3chg_v5)==0) return false; 
-      if (elIDCacheSet) return passMultiIsoCuts(0.12, 0.80, 7.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
-      else return passMultiIso(11, elIdx, 0.12, 0.80, 7.2, 3, 2);
+      if (elIDCacheSet) return passMultiIsoCuts(0.09, 0.85, 9.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
+      else return passMultiIso(11, elIdx, 0.09, 0.85, 9.2, 3, 2);
       break;
 
 
