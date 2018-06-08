@@ -65,17 +65,19 @@ LorentzVector closestJet(const LorentzVector& lep_p4, float dRmin, float maxAbsE
   std::string jecEra = "";
   // std::string jecEraMC = "Summer16_23Sep2016V3";
   std::string jecEraMC = "Fall17_17Nov2017_V6";
-  if (     tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
-  else if (tas::evt_run() <= 278801 && tas::evt_run() >= 276831) jecEra = "Summer16_23Sep2016EFV3";
-  else if (tas::evt_run() <= 280385 && tas::evt_run() >= 278802) jecEra = "Summer16_23Sep2016GV3";
-  else if (tas::evt_run() <  294645 && tas::evt_run() >= 280919) jecEra = "Summer16_23Sep2016HV3";
-  else if (tas::evt_run() <= 299329 && tas::evt_run() >= 297046) jecEra = "Fall17_17Nov2017B_V6";
-  else if (tas::evt_run() <= 302029 && tas::evt_run() >= 299368) jecEra = "Fall17_17Nov2017C_V6";
-  else if (tas::evt_run() <= 303434 && tas::evt_run() >= 302030) jecEra = "Fall17_17Nov2017D_V6";
-  else if (tas::evt_run() <= 304797 && tas::evt_run() >= 303824) jecEra = "Fall17_17Nov2017E_V6";
-  else if (tas::evt_run() <= 306462 && tas::evt_run() >= 305040) jecEra = "Fall17_17Nov2017F_V6";
-  else {
-    throw std::invalid_argument("Can't classify run " + tas::evt_run());
+  if (tas::evt_isRealData()) {
+      if (     tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
+      else if (tas::evt_run() <= 278801 && tas::evt_run() >= 276831) jecEra = "Summer16_23Sep2016EFV3";
+      else if (tas::evt_run() <= 280385 && tas::evt_run() >= 278802) jecEra = "Summer16_23Sep2016GV3";
+      else if (tas::evt_run() <= 294645 && tas::evt_run() >= 280919) jecEra = "Summer16_23Sep2016HV3";
+      else if (tas::evt_run() <= 299329 && tas::evt_run() >= 297046) jecEra = "Fall17_17Nov2017B_V6";
+      else if (tas::evt_run() <= 302029 && tas::evt_run() >= 299368) jecEra = "Fall17_17Nov2017C_V6";
+      else if (tas::evt_run() <= 303434 && tas::evt_run() >= 302030) jecEra = "Fall17_17Nov2017D_V6";
+      else if (tas::evt_run() <= 304797 && tas::evt_run() >= 303824) jecEra = "Fall17_17Nov2017E_V6";
+      else if (tas::evt_run() <= 306462 && tas::evt_run() >= 305040) jecEra = "Fall17_17Nov2017F_V6";
+      else {
+          throw std::invalid_argument("Can't classify run " + tas::evt_run());
+      }
   }
   int closestIdx = closestJetIdx(lep_p4,dRmin,maxAbsEta);
   if (closestIdx < 0) return LorentzVector();
@@ -247,7 +249,7 @@ float muMiniRelIsoCMS3_EA(unsigned int idx, int eaversion) {
   float pt = mus_p4().at(idx).pt();
   float dr = getMiniDR(pt);
   float rho = evt_fixgridfastjet_all_rho();
-  if (eaversion!=0) rho = evt_fixgridfastjet_centralneutral_rho();
+  // if (eaversion!=0) rho = evt_fixgridfastjet_centralneutral_rho();
   float correction = rho * muEA03(idx,eaversion) * (dr/0.3) * (dr/0.3);
   float absiso = mus_miniIso_ch().at(idx) + std::max(float(0.0), mus_miniIso_nh().at(idx) + mus_miniIso_em().at(idx) - correction);
   return absiso/(mus_p4().at(idx).pt());
@@ -424,7 +426,7 @@ float elMiniRelIsoCMS3_EA(unsigned int idx, int eaversion) {
   float pt = els_p4().at(idx).pt();
   float dr = getMiniDR(pt);
   float rho = evt_fixgridfastjet_all_rho();
-  if (eaversion!=0) rho = evt_fixgridfastjet_centralneutral_rho();
+  // if (eaversion!=0) rho = evt_fixgridfastjet_centralneutral_rho();
   float correction = rho * elEA03(idx, eaversion) * (dr/0.3) * (dr/0.3);
   float absiso = els_miniIso_ch().at(idx) + std::max(float(0.0), els_miniIso_nh().at(idx) + els_miniIso_em().at(idx) - correction);
   return absiso/(els_p4().at(idx).pt());
