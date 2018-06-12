@@ -1644,9 +1644,9 @@ float coneCorrPt(int id, int idx){
   LorentzVector lep_p4 = abs(id)==11 ? els_p4().at(idx) : mus_p4().at(idx);
   LorentzVector jet_p4  = closestJet(lep_p4, 0.4, 3.0, ssWhichCorr);
   float ptrel = ptRel(lep_p4, jet_p4, true);
-  float A = abs(id)==11 ? 0.12 : 0.16;
-  float B = abs(id)==11 ? 0.80 : 0.76;
-  float C = abs(id)==11 ? 7.20 : 7.20;
+  float A = abs(id)==11 ? 0.09 : 0.12;
+  float B = abs(id)==11 ? 0.85 : 0.80;
+  float C = abs(id)==11 ? 9.20 : 7.50;
   return ((ptrel > C) ? lep_p4.pt()*(1 + std::max((float)0, miniIso - A)) : std::max(lep_p4.pt(), jet_p4.pt() * B));
 }
 
