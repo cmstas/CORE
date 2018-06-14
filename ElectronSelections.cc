@@ -1914,7 +1914,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_veto_v3):
-    if (!( eleRelIso03EA(elIdx, 2) < 0.4                 )) return false;
+    if (!( elPtRatio(elIdx) > 0.58                       )) return false;
     if (!( electronID(elIdx, VVV_cutbased_veto_noiso_v3) )) return false;
     return true;
     break;
@@ -1940,7 +1940,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_fo_v3):
-    if (!( eleRelIso03EA(elIdx, 2) < 0.4                 )) return false;
+    if (!( elPtRatio(elIdx) > 0.65                       )) return false;
     if (!( isTriggerSafe_v1(elIdx)                     )) return false;
     if (!( electronID(elIdx, VVV_cutbased_fo_noiso_v3) )) return false;
     return true;
@@ -1955,13 +1955,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_tight_v3):
-    if (fabs(cms3.els_etaSC()[elIdx]) <= 1.6)
+    if (fabs(cms3.els_p4()[elIdx].eta()) <= 1.6)
     {
         if (!( elPtRatio(elIdx) > 0.9                  )) return false;
     }
     else
     {
-        if (!( eleRelIso03EA(elIdx, 2) < 0.03          )) return false;
+        if (!( elPtRatio(elIdx) > 0.8                  )) return false;
     }
     if (!( isTriggerSafe_v1(elIdx)                        )) return false;
     if (!( electronID(elIdx, VVV_cutbased_tight_noiso_v3) )) return false;
@@ -1987,7 +1987,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_3l_fo_v3):
-    if (!( eleRelIso03EA(elIdx, 2) < 0.4                  )) return false;
+    if (!( elPtRatio(elIdx) > 0.65                        )) return false;
     if (!( isTriggerSafe_v1(elIdx)                        )) return false;
     if (!( electronID(elIdx, VVV_cutbased_3l_fo_noiso_v3) )) return false;
     return true;
@@ -2002,16 +2002,122 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_3l_tight_v3):
-    if (fabs(cms3.els_etaSC()[elIdx]) <= 1.6)
+    if (fabs(cms3.els_p4()[elIdx].eta()) <= 1.6)
     {
         if (!( elPtRatio(elIdx) > 0.84                 )) return false;
     }
     else
     {
-        if (!( eleRelIso03EA(elIdx, 2) < 0.03          )) return false;
+        if (!( elPtRatio(elIdx) > 0.8                  )) return false;
     }
     if (!( isTriggerSafe_v1(elIdx)                           )) return false;
     if (!( electronID(elIdx, VVV_cutbased_3l_tight_noiso_v3) )) return false;
+    return true;
+    break;
+
+  //-------------
+  // Veto Leptons
+
+  case(VVV_cutbased_veto_noiso_v4):
+    if (!( fabs(cms3.els_etaSC().at(elIdx))     <  2.5   )) return false;
+    if (!( fabs(cms3.els_dxyPV().at(elIdx))     <  0.05  )) return false;
+    if (!( fabs(cms3.els_dzPV().at(elIdx))      <  0.1   )) return false;
+    if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    {
+        if (!( getMVAoutput(elIdx)               > 0.6   )) return false;
+    }
+    else
+    {
+        if (!( getMVAoutput(elIdx)               > 0.    )) return false;
+    }
+    return true;
+    break;
+
+  case(VVV_cutbased_veto_v4):
+    if (!( eleRelIso03EA(elIdx, 2, true) < 0.4           )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_veto_noiso_v4) )) return false;
+    return true;
+    break;
+
+
+  //---------------
+  //Fakable Objects
+
+  case(VVV_cutbased_fo_noiso_v4):
+    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
+    if (!( threeChargeAgree(elIdx)                       )) return false;
+    if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    {
+        if (!( getMVAoutput(elIdx)               > 0.941 )) return false;
+    }
+    else
+    {
+        if (!( getMVAoutput(elIdx)               > 0.925 )) return false;
+    }
+    if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_veto_noiso_v4) )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_fo_v4):
+    if (!( eleRelIso03EA(elIdx, 2, true) < 0.4         )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                     )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  //---------------
+  //Tight Selection
+
+  case(VVV_cutbased_tight_noiso_v4):
+    if (!( electronID(elIdx, VVV_cutbased_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_tight_v4):
+    if (!( eleRelIso03EA(elIdx, 2, true) < 0.03           )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                        )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_tight_noiso_v4) )) return false;
+    return true;
+    break;
+
+  //--------------------
+  //Fakable Objects (3l)
+
+  case(VVV_cutbased_3l_fo_noiso_v4):
+    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.015 )) return false;
+    if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    {
+        if (!( getMVAoutput(elIdx)               > 0.92  )) return false;
+    }
+    else
+    {
+        if (!( getMVAoutput(elIdx)               > 0.88  )) return false;
+    }
+    if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_veto_noiso_v4) )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_3l_fo_v4):
+    if (!( eleRelIso03EA(elIdx, 2, true) < 0.4            )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                        )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_3l_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  //--------------------
+  //Tight Selection (3l)
+
+  case(VVV_cutbased_3l_tight_noiso_v4):
+    if (!( electronID(elIdx, VVV_cutbased_3l_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_3l_tight_v4):
+    if (!( eleRelIso03EA(elIdx, 2, true) < 0.05              )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                           )) return false;
+    if (!( electronID(elIdx, VVV_cutbased_3l_tight_noiso_v4) )) return false;
     return true;
     break;
 

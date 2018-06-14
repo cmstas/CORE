@@ -188,11 +188,14 @@ float muEA03(unsigned int muIdx, int version){
   return ea;
 }
 
-float muRelIso03EA(unsigned int muIdx, int eaversion){
+float muRelIso03EA(unsigned int muIdx, int eaversion, bool include_leptons){
   float chiso     = mus_isoR03_pf_ChargedHadronPt().at(muIdx);
   float nhiso     = mus_isoR03_pf_NeutralHadronEt().at(muIdx);
   float emiso     = mus_isoR03_pf_PhotonEt().at(muIdx);
   float ea = muEA03(muIdx, eaversion);
+  if (include_leptons){
+    chiso = mus_isoR03_pf_ChargedParticlePt().at(muIdx);
+  }
   float absiso = chiso + std::max(float(0.0), nhiso + emiso - evt_fixgridfastjet_all_rho() * ea);
   return absiso/(mus_p4().at(muIdx).pt());
 }
@@ -205,7 +208,7 @@ float muRelIso03_noCorr(unsigned int muIdx){
   return absiso/(mus_p4().at(muIdx).pt());
 }
 
-float muRelIsoCustomCone(unsigned int muIdx, float dr, bool useVetoCones, float ptthresh, bool useDBcor, bool useEAcor, float mindr, int eaversion){
+float muRelIsoCustomCone(unsigned int muIdx, float dr, bool useVetoCones, float ptthresh, bool useDBcor, bool useEAcor, float mindr, int eaversion, bool include_leptons){
   cout << "WARNING: shouldn't use muRelIsoCustomCone in CMS4! It depends on entire set of PFCands." << endl;
 
   float chiso     = 0.;
@@ -222,7 +225,7 @@ float muRelIsoCustomCone(unsigned int muIdx, float dr, bool useVetoCones, float 
     float thisDR = fabs(ROOT::Math::VectorUtil::DeltaR(pfcands_p4().at(i),mus_p4().at(muIdx)));
     if (thisDR<mindr) continue;
     if (thisDR>dr) continue;  
-    if ( fabs(pfcands_particleId().at(i))==211 ) {
+    if ( fabs(pfcands_particleId().at(i))==211 || (include_leptons && ((fabs(pfcands_particleId().at(i)) == 11) || (fabs(pfcands_particleId().at(i)) == 13 && dr > 0.0005))) ) {
       if (pfcands_fromPV().at(i) > 1 && (!useVetoCones || thisDR > deadcone_ch) ) chiso+=pfcands_p4().at(i).pt();
       else if (useDBcor && pfcands_fromPV().at(i) <= 1 && (pfcands_p4().at(i).pt() > ptthresh) && (!useVetoCones || thisDR > deadcone_pu)) deltaBeta+=pfcands_p4().at(i).pt();
     }
@@ -348,12 +351,26 @@ float el90ContEA03(unsigned int elIdx) {
   return ea;
 }
 
-float eleRelIso03EA(unsigned int elIdx, int eaversion){
+float eleRelIso03EA(unsigned int elIdx, int eaversion, bool include_leptons){
   float chiso = els_pfChargedHadronIso().at(elIdx);
   float nhiso = els_pfNeutralHadronIso().at(elIdx);
   float emiso = els_pfPhotonIso().at(elIdx);
   float ea    = elEA03(elIdx, eaversion);
-  float absiso = chiso + std::max(float(0.0), nhiso + emiso - evt_fixgridfastjet_all_rho() * ea);
+  float lepiso = 0;
+  if (include_leptons){
+    for (unsigned int i=0; i<pfcands_particleId().size(); ++i){
+      float thisDR = fabs(ROOT::Math::VectorUtil::DeltaR(pfcands_p4().at(i),els_p4().at(elIdx)));
+      if (thisDR>0.3 || thisDR<0.0005) // To avoid adding itself
+        continue;
+      if (fabs(pfcands_particleId().at(i))==11 && pfcands_fromPV().at(i) > 1){
+        lepiso += pfcands_p4().at(i).pt();
+      }
+      if (fabs(pfcands_particleId().at(i))==13 && pfcands_fromPV().at(i) > 1){
+        lepiso += pfcands_p4().at(i).pt();
+      }
+    }
+  }
+  float absiso = chiso + std::max(float(0.0), nhiso + emiso - evt_fixgridfastjet_all_rho() * ea) + lepiso;
   return absiso/(els_p4().at(elIdx).pt());
 }
 
@@ -374,8 +391,8 @@ float eleRelIso03_noCorr(unsigned int elIdx){
   return absiso/(els_p4().at(elIdx).pt());
 }
 
-float elRelIsoCustomCone(unsigned int elIdx, float dr, bool useVetoCones, float ptthresh, bool useDBcor, bool useEAcor, float mindr, int eaversion){
-  cout << "WARNING: shouldn't use muRelIsoCustomCone in CMS4! It depends on entire set of PFCands." << endl;
+float elRelIsoCustomCone(unsigned int elIdx, float dr, bool useVetoCones, float ptthresh, bool useDBcor, bool useEAcor, float mindr, int eaversion, bool include_leptons){
+  cout << "WARNING: shouldn't use elRelIsoCustomCone in CMS4! It depends on entire set of PFCands." << endl;
 
   float chiso     = 0.;
   float nhiso     = 0.;
@@ -395,7 +412,7 @@ float elRelIsoCustomCone(unsigned int elIdx, float dr, bool useVetoCones, float 
     float thisDR = fabs(ROOT::Math::VectorUtil::DeltaR(pfcands_p4().at(i),els_p4().at(elIdx)));
     if ( thisDR<mindr ) continue;
     if ( thisDR>dr ) continue;  
-    if ( fabs(pfcands_particleId().at(i))==211 ) {
+    if ( fabs(pfcands_particleId().at(i))==211  || (include_leptons && ((fabs(pfcands_particleId().at(i)) == 11 && dr > 0.0005) || (fabs(pfcands_particleId().at(i)) == 13)))) {
       if (pfcands_fromPV().at(i) > 1 && (!useVetoCones || thisDR > deadcone_ch) ) chiso+=pfcands_p4().at(i).pt();
       else if (useDBcor && pfcands_fromPV().at(i) <= 1 && (pfcands_p4().at(i).pt() > ptthresh) && (!useVetoCones || thisDR > deadcone_pu)) deltaBeta+=pfcands_p4().at(i).pt();
     }

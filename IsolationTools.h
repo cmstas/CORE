@@ -21,8 +21,8 @@ float muRelIso04DB(unsigned int muIdx);
 float muRelIso03(unsigned int muIdx, analysis_t analysis);
 float muRelIso04(unsigned int muIdx, analysis_t analysis);
 float muEA03(unsigned int muIdx, int version = 0);
-float muRelIso03EA(unsigned int muIdx, int eaversion = 0);
-float muRelIsoCustomCone(unsigned int idx, float dr, bool useVetoCones=true, float ptthresh = 0.5, bool useDBcor=false, bool useEAcor=false, float mindr = -1., int eaversion = 0);
+float muRelIso03EA(unsigned int muIdx, int eaversion = 0, bool include_leptons = false);
+float muRelIsoCustomCone(unsigned int idx, float dr, bool useVetoCones=true, float ptthresh = 0.5, bool useDBcor=false, bool useEAcor=false, float mindr = -1., int eaversion = 0, bool include_leptons = false);
 [[deprecated("This function may not be correct in cms4 (needs all PFCands)")]]
 float muMiniRelIso(unsigned int idx, bool useVetoCones=true, float ptthresh = 0.5, bool useDBcor=false, bool useEAcor=false);
 float muMiniRelIsoCMS3_EA(unsigned int idx, int eaversion = 0);
@@ -39,9 +39,9 @@ float eleRelIso03(unsigned int elIdx, analysis_t analysis);
 float eleRelIso03DB(unsigned int elIdx);
 float elEA03(unsigned int elIdx, int version);
 float el90ContEA03(unsigned int elIdx);
-float eleRelIso03EA(unsigned int elIdx, int eaversion = 0);
+float eleRelIso03EA(unsigned int elIdx, int eaversion = 0, bool include_leptons = false);
 float eleRelIso03_90ContEA(unsigned int elIdx);
-float elRelIsoCustomCone(unsigned int idx, float dr, bool useVetoCones=true, float ptthresh = 0.0, bool useDBcor=false, bool useEAcor=false, float mindr = -1., int eaversion = 0);
+float elRelIsoCustomCone(unsigned int idx, float dr, bool useVetoCones=true, float ptthresh = 0.0, bool useDBcor=false, bool useEAcor=false, float mindr = -1., int eaversion = 0, bool include_leptons = false);
 [[deprecated("This function may not be correct in cms4 (needs all PFCands)")]]
 float elMiniRelIso(unsigned int idx, bool useVetoCones=true, float ptthresh = 0.0, bool useDBcor=false, bool useEAcor=false);
 float elMiniRelIsoCMS3_EA(unsigned int idx, int eaversion = 0);

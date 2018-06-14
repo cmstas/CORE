@@ -1,8 +1,7 @@
 Tool taken from BTV POG.
 
-Documentation:
-https://twiki.cern.ch/twiki/bin/view/CMS/BTagCalibration
+On github:
+https://github.com/cms-btv-pog/CMSPOS-BTaggingExercise/tree/solved/CSVReweight
 
-Location in github:
-https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/RecoBTag/PerformanceDB/test/BTagCalibrationStandalone.cc
-https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_X/RecoBTag/PerformanceDB/test/BTagCalibrationStandalone.h
+Documentation:
+https://twiki.cern.ch/twiki/bin/viewauth/CMS/BTagCalibration

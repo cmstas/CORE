@@ -397,7 +397,22 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("isotracks_isPFCand") != 0) {
     isotracks_isPFCand_branch = tree->GetBranch(tree->GetAlias("isotracks_isPFCand"));
     if (isotracks_isPFCand_branch) { isotracks_isPFCand_branch->SetAddress(&isotracks_isPFCand_); }
+  }  
+  isotracks_isLostTrack_branch = 0;
+  if (tree->GetAlias("isotracks_isLostTrack") != 0) {
+    isotracks_isLostTrack_branch = tree->GetBranch(tree->GetAlias("isotracks_isLostTrack"));
+    if (isotracks_isLostTrack_branch) { isotracks_isLostTrack_branch->SetAddress(&isotracks_isLostTrack_); }
   }
+  isotracks_lepOverlap_branch = 0;
+  if (tree->GetAlias("isotracks_lepOverlap") != 0) {
+    isotracks_lepOverlap_branch = tree->GetBranch(tree->GetAlias("isotracks_lepOverlap"));
+    if (isotracks_lepOverlap_branch) { isotracks_lepOverlap_branch->SetAddress(&isotracks_lepOverlap_); }
+  }
+  isotracks_pfNeutralSum_branch = 0;
+  if (tree->GetAlias("isotracks_pfNeutralSum") != 0) {
+    isotracks_pfNeutralSum_branch = tree->GetBranch(tree->GetAlias("isotracks_pfNeutralSum"));
+    if (isotracks_pfNeutralSum_branch) { isotracks_pfNeutralSum_branch->SetAddress(&isotracks_pfNeutralSum_); }
+  }  
   isotracks_isHighPurityTrack_branch = 0;
   if (tree->GetAlias("isotracks_isHighPurityTrack") != 0) {
     isotracks_isHighPurityTrack_branch = tree->GetBranch(tree->GetAlias("isotracks_isHighPurityTrack"));
@@ -407,6 +422,11 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("isotracks_isTightTrack") != 0) {
     isotracks_isTightTrack_branch = tree->GetBranch(tree->GetAlias("isotracks_isTightTrack"));
     if (isotracks_isTightTrack_branch) { isotracks_isTightTrack_branch->SetAddress(&isotracks_isTightTrack_); }
+  }
+  isotracks_pterr_branch = 0;
+  if(tree->GetAlias("isotracks_pterr")){
+      isotracks_pterr_branch = tree->GetBranch(tree->GetAlias("isotracks_pterr"));
+      if (isotracks_pterr_branch) { isotracks_pterr_branch->SetAddress(&isotracks_pterr_); }
   }
   isotracks_dEdxPixel_branch = 0;
   if (tree->GetAlias("isotracks_dEdxPixel") != 0) {
@@ -542,6 +562,26 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("isotracks_trackerLayersWithMeasurement") != 0) {
     isotracks_trackerLayersWithMeasurement_branch = tree->GetBranch(tree->GetAlias("isotracks_trackerLayersWithMeasurement"));
     if (isotracks_trackerLayersWithMeasurement_branch) { isotracks_trackerLayersWithMeasurement_branch->SetAddress(&isotracks_trackerLayersWithMeasurement_); }
+  }
+  isotracks_HitSignature_branch = 0;
+  if (tree->GetAlias("isotracks_HitSignature") != 0) {
+    isotracks_HitSignature_branch = tree->GetBranch(tree->GetAlias("isotracks_HitSignature"));
+    if (isotracks_HitSignature_branch) { isotracks_HitSignature_branch->SetAddress(&isotracks_HitSignature_); }
+  }
+  isotracks_nearestPF_id_branch = 0;
+  if (tree->GetAlias("isotracks_nearestPF_id") != 0) {
+    isotracks_nearestPF_id_branch = tree->GetBranch(tree->GetAlias("isotracks_nearestPF_id"));
+    if (isotracks_nearestPF_id_branch) { isotracks_nearestPF_id_branch->SetAddress(&isotracks_nearestPF_id_); }
+  }
+  isotracks_nearestPF_pt_branch = 0;
+  if (tree->GetAlias("isotracks_nearestPF_pt") != 0) {
+    isotracks_nearestPF_pt_branch = tree->GetBranch(tree->GetAlias("isotracks_nearestPF_pt"));
+    if (isotracks_nearestPF_pt_branch) { isotracks_nearestPF_pt_branch->SetAddress(&isotracks_nearestPF_pt_); }
+  }
+  isotracks_nearestPF_DR_branch = 0;
+  if (tree->GetAlias("isotracks_nearestPF_DR") != 0) {
+    isotracks_nearestPF_DR_branch = tree->GetBranch(tree->GetAlias("isotracks_nearestPF_DR"));
+    if (isotracks_nearestPF_DR_branch) { isotracks_nearestPF_DR_branch->SetAddress(&isotracks_nearestPF_DR_); }
   }
   isotracks_crossedHcalStatus_branch = 0;
   if (tree->GetAlias("isotracks_crossedHcalStatus") != 0) {
@@ -1808,6 +1848,16 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("filt_badMuons") != 0) {
     filt_badMuons_branch = tree->GetBranch(tree->GetAlias("filt_badMuons"));
     if (filt_badMuons_branch) { filt_badMuons_branch->SetAddress(&filt_badMuons_); }
+  }
+  filt_BadPFMuonFilter_branch = 0;
+  if (tree->GetAlias("filt_BadPFMuonFilter") != 0) {
+    filt_BadPFMuonFilter_branch = tree->GetBranch(tree->GetAlias("filt_BadPFMuonFilter"));
+    if (filt_BadPFMuonFilter_branch) { filt_BadPFMuonFilter_branch->SetAddress(&filt_BadPFMuonFilter_); }
+  }
+  filt_BadChargedCandidateFilter_branch = 0;
+  if (tree->GetAlias("filt_BadChargedCandidateFilter") != 0) {
+    filt_BadChargedCandidateFilter_branch = tree->GetBranch(tree->GetAlias("filt_BadChargedCandidateFilter"));
+    if (filt_BadChargedCandidateFilter_branch) { filt_BadChargedCandidateFilter_branch->SetAddress(&filt_BadChargedCandidateFilter_); }
   }
   filt_duplicateMuons_branch = 0;
   if (tree->GetAlias("filt_duplicateMuons") != 0) {
@@ -3766,6 +3816,12 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("evt_experimentType") != 0) {
     evt_experimentType_branch = tree->GetBranch(tree->GetAlias("evt_experimentType"));
     if (evt_experimentType_branch) { evt_experimentType_branch->SetAddress(&evt_experimentType_); }
+  }
+
+  filt_ecalBadCalibFilter_branch = 0;
+  if (tree->GetAlias("filt_ecalBadCalibFilter") != 0) {
+    filt_ecalBadCalibFilter_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilter"));
+    if (filt_ecalBadCalibFilter_branch) { filt_ecalBadCalibFilter_branch->SetAddress(&filt_ecalBadCalibFilter_); }
   }
   filt_ecalTP_branch = 0;
   if (tree->GetAlias("filt_ecalTP") != 0) {
@@ -7405,6 +7461,8 @@ void CMS3::GetEntry(unsigned int idx) {
   photonsscSeedSigmaIphiIphi_isLoaded = false;
   filt_metfilter_isLoaded = false;
   filt_badMuons_isLoaded = false;
+  filt_BadPFMuonFilter_isLoaded = false;
+  filt_BadChargedCandidateFilter_isLoaded = false;
   filt_duplicateMuons_isLoaded = false;
   filt_noBadMuons_isLoaded = false;
   photonsscPhiWidth_isLoaded = false;
@@ -7814,6 +7872,7 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_HLT_TkMu50_version_isLoaded = false;
   evt_experimentType_isLoaded = false;
   filt_ecalTP_isLoaded = false;
+  filt_ecalBadCalibFilter_isLoaded = false;
   els_ecalEnergy_isLoaded = false;
   evt_pfmet_JetEnUp_isLoaded = false;
   els_phiErr_isLoaded = false;
@@ -8215,8 +8274,12 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_d0corrPhi_isLoaded = false;
   isotracks_isHighPurityTrack_isLoaded = false;
   isotracks_isPFCand_isLoaded = false;
+  isotracks_isLostTrack_isLoaded = false;
+  isotracks_lepOverlap_isLoaded = false;
+  isotracks_pfNeutralSum_isLoaded = false;
   isotracks_isTightTrack_isLoaded = false;
   isotracks_p4_isLoaded = false;
+  isotracks_pterr_isLoaded = false;
   isotracks_dEdxPixel_isLoaded = false;
   isotracks_dEdxStrip_isLoaded = false;
   isotracks_deltaEta_isLoaded = false;
@@ -8244,6 +8307,10 @@ void CMS3::GetEntry(unsigned int idx) {
   isotracks_particleId_isLoaded = false;
   isotracks_pixelLayersWithMeasurement_isLoaded = false;
   isotracks_trackerLayersWithMeasurement_isLoaded = false;
+  isotracks_HitSignature_isLoaded = false;
+  isotracks_nearestPF_id_isLoaded = false;
+  isotracks_nearestPF_pt_isLoaded = false;
+  isotracks_nearestPF_DR_isLoaded = false;
   isotracks_crossedHcalStatus_isLoaded = false;
   isotracks_crossedEcalStatus_isLoaded = false;
   mus_d0Err_isLoaded = false;
@@ -8823,6 +8890,8 @@ void CMS3::LoadAllBranches() {
   if (photonsscSeedSigmaIphiIphi_branch != 0) photonsscSeedSigmaIphiIphi();
   if (filt_metfilter_branch != 0) filt_metfilter();
   if (filt_badMuons_branch != 0) filt_badMuons();
+  if (filt_BadPFMuonFilter_branch != 0) filt_BadPFMuonFilter();
+  if (filt_BadChargedCandidateFilter_branch != 0) filt_BadChargedCandidateFilter();
   if (filt_duplicateMuons_branch != 0) filt_duplicateMuons();
   if (filt_noBadMuons_branch != 0) filt_noBadMuons();
   if (photonsscPhiWidth_branch != 0) photonsscPhiWidth();
@@ -9232,6 +9301,7 @@ void CMS3::LoadAllBranches() {
   if (mus_HLT_TkMu50_version_branch != 0) mus_HLT_TkMu50_version();
   if (evt_experimentType_branch != 0) evt_experimentType();
   if (filt_ecalTP_branch != 0) filt_ecalTP();
+  if (filt_ecalBadCalibFilter_branch != 0) filt_ecalBadCalibFilter();
   if (els_ecalEnergy_branch != 0) els_ecalEnergy();
   if (evt_pfmet_JetEnUp_branch != 0) evt_pfmet_JetEnUp();
   if (els_phiErr_branch != 0) els_phiErr();
@@ -9666,8 +9736,12 @@ void CMS3::LoadAllBranches() {
   if (mus_d0phiCov_branch != 0) mus_d0phiCov();
   if (isotracks_isHighPurityTrack_branch != 0) isotracks_isHighPurityTrack();
   if (isotracks_isPFCand_branch != 0) isotracks_isPFCand();
+  if (isotracks_isLostTrack_branch != 0) isotracks_isLostTrack();
+  if (isotracks_lepOverlap_branch != 0) isotracks_lepOverlap();
+  if (isotracks_pfNeutralSum_branch != 0) isotracks_pfNeutralSum();
   if (isotracks_isTightTrack_branch != 0) isotracks_isTightTrack();
   if (isotracks_p4_branch != 0) isotracks_p4();
+  if (isotracks_pterr_branch != 0) isotracks_pterr();
   if (isotracks_dEdxPixel_branch != 0) isotracks_dEdxPixel();
   if (isotracks_dEdxStrip_branch != 0) isotracks_dEdxStrip();
   if (isotracks_deltaEta_branch != 0) isotracks_deltaEta();
@@ -9695,6 +9769,10 @@ void CMS3::LoadAllBranches() {
   if (isotracks_particleId_branch != 0) isotracks_particleId();
   if (isotracks_pixelLayersWithMeasurement_branch != 0) isotracks_pixelLayersWithMeasurement();
   if (isotracks_trackerLayersWithMeasurement_branch != 0) isotracks_trackerLayersWithMeasurement();
+  if (isotracks_HitSignature_branch != 0) isotracks_HitSignature();
+  if (isotracks_nearestPF_id_branch != 0) isotracks_nearestPF_id();
+  if (isotracks_nearestPF_pt_branch != 0) isotracks_nearestPF_pt();
+  if (isotracks_nearestPF_DR_branch != 0) isotracks_nearestPF_DR();
   if (isotracks_crossedHcalStatus_branch != 0) isotracks_crossedHcalStatus();
   if (isotracks_crossedEcalStatus_branch != 0) isotracks_crossedHcalStatus();
   if (mus_bfit_d0corr_branch != 0) mus_bfit_d0corr();
@@ -10894,7 +10972,45 @@ const vector<bool> &CMS3::isotracks_isPFCand() {
   }
   return isotracks_isPFCand_;
 }
-
+const vector<bool> &CMS3::isotracks_isLostTrack() {
+  if (not isotracks_isLostTrack_isLoaded) {
+    if (isotracks_isLostTrack_branch != 0) {
+      if (isotracks_isLostTrack_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_isLostTrack_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_isLostTrack_isLoaded = true;
+  }
+  return isotracks_isLostTrack_;
+}
+const vector<bool> &CMS3::isotracks_lepOverlap() {
+  if (not isotracks_lepOverlap_isLoaded) {
+    if (isotracks_lepOverlap_branch != 0) {
+      if (isotracks_lepOverlap_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_lepOverlap_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_lepOverlap_isLoaded = true;
+  }
+  return isotracks_lepOverlap_;
+}
+const vector<float> &CMS3::isotracks_pfNeutralSum() {
+  if (not isotracks_pfNeutralSum_isLoaded) {
+    if (isotracks_pfNeutralSum_branch != 0) {
+      if (isotracks_pfNeutralSum_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_pfNeutralSum_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_pfNeutralSum_isLoaded = true;
+  }
+  return isotracks_pfNeutralSum_;
+}
 const vector<bool> &CMS3::isotracks_isTightTrack() {
   if (not isotracks_isTightTrack_isLoaded) {
     if (isotracks_isTightTrack_branch != 0) {
@@ -10921,6 +11037,19 @@ const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &CMS3::i
   }
   return isotracks_p4_;
 }
+const vector<float> &CMS3::isotracks_pterr() {
+  if (not isotracks_pterr_isLoaded) {
+    if (isotracks_pterr_branch != 0) {
+      if (isotracks_pterr_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_pterr_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_pterr_isLoaded = true;
+  }
+  return isotracks_pterr_;
+}
 const vector<float> &CMS3::isotracks_dEdxPixel() {
   if (not isotracks_dEdxPixel_isLoaded) {
     if (isotracks_dEdxPixel_branch != 0) {
@@ -10934,7 +11063,6 @@ const vector<float> &CMS3::isotracks_dEdxPixel() {
   }
   return isotracks_dEdxPixel_;
 }
-
 const vector<float> &CMS3::isotracks_dEdxStrip() {
   if (not isotracks_dEdxStrip_isLoaded) {
     if (isotracks_dEdxStrip_branch != 0) {
@@ -11283,7 +11411,6 @@ const vector<int> &CMS3::isotracks_pixelLayersWithMeasurement() {
   }
   return isotracks_pixelLayersWithMeasurement_;
 }
-
 const vector<int> &CMS3::isotracks_trackerLayersWithMeasurement() {
   if (not isotracks_trackerLayersWithMeasurement_isLoaded) {
     if (isotracks_trackerLayersWithMeasurement_branch != 0) {
@@ -11296,6 +11423,58 @@ const vector<int> &CMS3::isotracks_trackerLayersWithMeasurement() {
     isotracks_trackerLayersWithMeasurement_isLoaded = true;
   }
   return isotracks_trackerLayersWithMeasurement_;
+}
+const vector<int> &CMS3::isotracks_HitSignature() {
+  if (not isotracks_HitSignature_isLoaded) {
+    if (isotracks_HitSignature_branch != 0) {
+      if (isotracks_HitSignature_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_HitSignature_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_HitSignature_isLoaded = true;
+  }
+  return isotracks_HitSignature_;
+}
+const vector<int> &CMS3::isotracks_nearestPF_id() {
+  if (not isotracks_nearestPF_id_isLoaded) {
+    if (isotracks_nearestPF_id_branch != 0) {
+      if (isotracks_nearestPF_id_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_nearestPF_id_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_nearestPF_id_isLoaded = true;
+  }
+  return isotracks_nearestPF_id_;
+}
+const vector<float> &CMS3::isotracks_nearestPF_pt() {
+  if (not isotracks_nearestPF_pt_isLoaded) {
+    if (isotracks_nearestPF_pt_branch != 0) {
+      if (isotracks_nearestPF_pt_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_nearestPF_pt_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_nearestPF_pt_isLoaded = true;
+  }
+  return isotracks_nearestPF_pt_;
+}
+const vector<float> &CMS3::isotracks_nearestPF_DR() {
+  if (not isotracks_nearestPF_DR_isLoaded) {
+    if (isotracks_nearestPF_DR_branch != 0) {
+      if (isotracks_nearestPF_DR_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_nearestPF_DR_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_nearestPF_DR_isLoaded = true;
+  }
+  return isotracks_nearestPF_DR_;
 }
 const vector<vector<unsigned int> > &CMS3::isotracks_crossedHcalStatus() {
   if (not isotracks_crossedHcalStatus_isLoaded) {
@@ -14104,6 +14283,32 @@ const bool &CMS3::filt_badMuons() {
     filt_badMuons_isLoaded = true;
   }
   return filt_badMuons_;
+}
+const bool &CMS3::filt_BadPFMuonFilter() {
+  if (not filt_BadPFMuonFilter_isLoaded) {
+    if (filt_BadPFMuonFilter_branch != 0) {
+      if (filt_BadPFMuonFilter_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch filt_BadPFMuonFilter_branch does not exist!\n");
+      exit(1);
+    }
+    filt_BadPFMuonFilter_isLoaded = true;
+  }
+  return filt_BadPFMuonFilter_;
+}
+const bool &CMS3::filt_BadChargedCandidateFilter() {
+  if (not filt_BadChargedCandidateFilter_isLoaded) {
+    if (filt_BadChargedCandidateFilter_branch != 0) {
+      if (filt_BadChargedCandidateFilter_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch filt_BadChargedCandidateFilter_branch does not exist!\n");
+      exit(1);
+    }
+    filt_BadChargedCandidateFilter_isLoaded = true;
+  }
+  return filt_BadChargedCandidateFilter_;
 }
 const bool &CMS3::filt_duplicateMuons() {
   if (not filt_duplicateMuons_isLoaded) {
@@ -19408,6 +19613,19 @@ const int &CMS3::evt_experimentType() {
     evt_experimentType_isLoaded = true;
   }
   return evt_experimentType_;
+}
+
+const bool &CMS3::filt_ecalBadCalibFilter() {
+  if (not filt_ecalBadCalibFilter_isLoaded) {
+    if (filt_ecalBadCalibFilter_branch != 0) {
+      filt_ecalBadCalibFilter_branch->GetEntry(index);
+    } else {
+      printf("branch filt_ecalBadCalibFilter_branch does not exist!\n");
+      exit(1);
+    }
+    filt_ecalBadCalibFilter_isLoaded = true;
+  }
+  return filt_ecalBadCalibFilter_;
 }
 const bool &CMS3::filt_ecalTP() {
   if (not filt_ecalTP_isLoaded) {
@@ -28510,8 +28728,12 @@ namespace tas {
   const vector<float> &pfjets_mc_gpdr() { return cms3.pfjets_mc_gpdr(); }
   const vector<bool> &isotracks_isHighPurityTrack() { return cms3.isotracks_isHighPurityTrack(); }
   const vector<bool> &isotracks_isPFCand() { return cms3.isotracks_isPFCand(); }
+  const vector<bool> &isotracks_isLostTrack() { return cms3.isotracks_isLostTrack(); }
+  const vector<bool> &isotracks_lepOverlap() { return cms3.isotracks_lepOverlap(); }
+  const vector<float> &isotracks_pfNeutralSum() { return cms3.isotracks_pfNeutralSum(); }
   const vector<bool> &isotracks_isTightTrack() { return cms3.isotracks_isTightTrack(); }
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &isotracks_p4() { return cms3.isotracks_p4(); }
+  const vector<float> &isotracks_pterr() { return cms3.isotracks_pterr(); }
   const vector<float> &isotracks_dEdxPixel() { return cms3.isotracks_dEdxPixel(); }
   const vector<float> &isotracks_dEdxStrip() { return cms3.isotracks_dEdxStrip(); }
   const vector<float> &isotracks_deltaEta() { return cms3.isotracks_deltaEta(); }
@@ -28539,6 +28761,10 @@ namespace tas {
   const vector<int> &isotracks_particleId() { return cms3.isotracks_particleId(); }
   const vector<int> &isotracks_pixelLayersWithMeasurement() { return cms3.isotracks_pixelLayersWithMeasurement(); }
   const vector<int> &isotracks_trackerLayersWithMeasurement() { return cms3.isotracks_trackerLayersWithMeasurement(); }
+  const vector<int> &isotracks_HitSignature() { return cms3.isotracks_HitSignature(); }
+  const vector<int> &isotracks_nearestPF_id() { return cms3.isotracks_nearestPF_id(); }
+  const vector<float> &isotracks_nearestPF_pt() { return cms3.isotracks_nearestPF_pt(); }
+  const vector<float> &isotracks_nearestPF_DR() { return cms3.isotracks_nearestPF_DR(); }
   const vector<vector<unsigned int> > &isotracks_crossedEcalStatus() { return cms3.isotracks_crossedHcalStatus(); }
   const vector<vector<float> > &els_clusterDPhiToSeed() { return cms3.els_clusterDPhiToSeed(); }
   const float &evt_puppi_pfmet_JetEnDown() { return cms3.evt_puppi_pfmet_JetEnDown(); }
@@ -28813,6 +29039,8 @@ namespace tas {
   const vector<float> &photonsscSeedSigmaIphiIphi() { return cms3.photonsscSeedSigmaIphiIphi(); }
   const bool &filt_metfilter() { return cms3.filt_metfilter(); }
   const bool &filt_badMuons() { return cms3.filt_badMuons(); }
+  const bool &filt_BadPFMuonFilter() { return cms3.filt_BadPFMuonFilter(); }
+  const bool &filt_BadChargedCandidateFilter() { return cms3.filt_BadChargedCandidateFilter(); }
   const bool &filt_duplicateMuons() { return cms3.filt_duplicateMuons(); }
   const bool &filt_noBadMuons() { return cms3.filt_noBadMuons(); }
   const vector<float> &photonsscPhiWidth() { return cms3.photonsscPhiWidth(); }
@@ -29222,6 +29450,7 @@ namespace tas {
   const unsigned int &mus_HLT_TkMu50_version() { return cms3.mus_HLT_TkMu50_version(); }
   const int &evt_experimentType() { return cms3.evt_experimentType(); }
   const bool &filt_ecalTP() { return cms3.filt_ecalTP(); }
+  const bool &filt_ecalBadCalibFilter() { return cms3.filt_ecalBadCalibFilter(); }
   const vector<float> &els_ecalEnergy() { return cms3.els_ecalEnergy(); }
   const float &evt_pfmet_JetEnUp() { return cms3.evt_pfmet_JetEnUp(); }
   const vector<float> &els_phiErr() { return cms3.els_phiErr(); }

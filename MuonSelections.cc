@@ -992,7 +992,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_veto_v3):
-    if (!( muRelIso03EA(muIdx, 2) < 0.4              )) return false;
+    if (!( muPtRatio(muIdx) > 0.58                   )) return false;
     if (!( muonID(muIdx, VVV_cutbased_veto_noiso_v3) )) return false;
     return true;
     break;
@@ -1011,7 +1011,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_fo_v3):
-    if (!( muRelIso03EA(muIdx, 2) < 0.4            )) return false;
+    if (!( muPtRatio(muIdx) > 0.65                 )) return false;
     if (!( muonID(muIdx, VVV_cutbased_fo_noiso_v3) )) return false;
     return true;
     break;
@@ -1031,7 +1031,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     }
     else
     {
-        if (!( muRelIso03EA(muIdx, 2) < 0.03          )) return false;
+        if (!( muPtRatio(muIdx) > 0.88                )) return false;
     }
     if (!( muonID(muIdx, VVV_cutbased_tight_noiso_v3) )) return false;
     return true;
@@ -1050,7 +1050,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_3l_fo_v3):
-    if (!( muRelIso03EA(muIdx, 2) < 0.4               )) return false;
+    if (!( muPtRatio(muIdx) > 0.65                    )) return false;
     if (!( muonID(muIdx, VVV_cutbased_3l_fo_noiso_v3) )) return false;
     return true;
     break;
@@ -1064,15 +1064,90 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_3l_tight_v3):
-    if (fabs(cms3.mus_p4()[muIdx].eta()) <= 1.6)
-    {
-        if (!( muPtRatio(muIdx) > 0.84                 )) return false;
-    }
-    else
-    {
-        if (!( muRelIso03EA(muIdx, 2) < 0.03          )) return false;
-    }
+    if (!( muPtRatio(muIdx) > 0.84                 )) return false;
     if (!( muonID(muIdx, VVV_cutbased_3l_tight_noiso_v3) )) return false;
+    return true;
+    break;
+
+  //-------------
+  // Veto Leptons
+
+  case(VVV_cutbased_veto_noiso_v4):
+    if (!( fabs(cms3.mus_p4().at(muIdx).eta()) <  2.4  )) return false;
+    if (!( fabs(cms3.mus_dxyPV().at(muIdx))    <  0.05 )) return false;
+    if (!( fabs(cms3.mus_dzPV().at(muIdx))     <  0.1  )) return false;
+    if (!( isLooseMuonPOG(muIdx)                       )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_veto_v4):
+    if (!( muRelIso03EA(muIdx, 2, true) < 0.4        )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_veto_noiso_v4) )) return false;
+    return true;
+    break;
+
+
+  //---------------
+  //Fakable Objects
+
+  case(VVV_cutbased_fo_noiso_v4):
+    if (!( fabs(cms3.mus_ip3d()[muIdx])                         < 0.015 )) return false;
+    if (!( fabs(mus_ip3d().at(muIdx))/mus_ip3derr().at(muIdx)   < 4     )) return false;
+    if (!( mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt()    < 0.2   )) return false;
+    if (!( isMediumMuonPOG(muIdx)                                       )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_veto_noiso_v4)                    )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_fo_v4):
+    if (!( muRelIso03EA(muIdx, 2, true) < 0.4      )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  //---------------
+  //Tight Selection
+
+  case(VVV_cutbased_tight_noiso_v4):
+    if (!( muonID(muIdx, VVV_cutbased_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_tight_v4):
+    if (!( muRelIso03EA(muIdx, 2, true) < 0.03     )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_tight_noiso_v4) )) return false;
+    return true;
+    break;
+
+  //--------------------
+  //Fakable Objects (3l)
+
+  case(VVV_cutbased_3l_fo_noiso_v4):
+    if (!( fabs(cms3.mus_ip3d()[muIdx])                         < 0.015 )) return false;
+    if (!( fabs(mus_ip3d().at(muIdx))/mus_ip3derr().at(muIdx)   < 4     )) return false;
+    if (!( mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt()    < 0.2   )) return false;
+    if (!( isMediumMuonPOG(muIdx)                                       )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_veto_noiso_v4)                    )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_3l_fo_v4):
+    if (!( muRelIso03EA(muIdx, 2, true) < 0.4         )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_3l_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  //--------------------
+  //Tight Selection (3l)
+
+  case(VVV_cutbased_3l_tight_noiso_v4):
+    if (!( muonID(muIdx, VVV_cutbased_3l_fo_noiso_v4) )) return false;
+    return true;
+    break;
+
+  case(VVV_cutbased_3l_tight_v4):
+    if (!( muRelIso03EA(muIdx, 2, true) < 0.07     )) return false;
+    if (!( muonID(muIdx, VVV_cutbased_3l_tight_noiso_v4) )) return false;
     return true;
     break;
 
