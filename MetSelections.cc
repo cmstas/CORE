@@ -371,7 +371,9 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
   
   for(unsigned int iJet = 0; iJet < cms3.pfjets_p4().size(); iJet++){
 
+
     LorentzVector jetp4_uncorr = cms3.pfjets_p4().at(iJet)*cms3.pfjets_undoJEC().at(iJet);
+
 
     // get L1FastL2L3 total correction
     jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
@@ -397,6 +399,15 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     if (jecUnc != 0) {
       if (uncUp) totalshift += shift;
       else  totalshift      -= shift;
+    }
+
+    if (use_cleaned_met == 2) {
+        float aeta = fabs(jetp4_uncorr.eta());
+        float pt = jetp4_uncorr.pt();
+        if (aeta < 3. && aeta > 2.7 && pt < 75) {
+            totalshift = 1.;
+            corr = 1.;
+        }
     }
 
     if ( corr * jetp4_uncorr.pt() > 15. ){		  
@@ -442,6 +453,15 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     //     jetp4_uncorr -= cms3.pfcands_p4()   .at(index);
     //   }
     // }
+
+    if (use_cleaned_met == 2) {
+        float aeta = fabs(jetp4_uncorr.eta());
+        float pt = jetp4_uncorr.pt();
+        if (aeta < 3. && aeta > 2.7 && pt < 75) {
+            corr = 1.;
+            corr_l1 = 1.;
+        }
+    }
 
     if ( corr * jetp4_uncorr.pt() > 15. ){		  
       T1_metx += jetp4_uncorr.px() * ( corr_l1 - corr );
