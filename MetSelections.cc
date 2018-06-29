@@ -372,6 +372,18 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
   for(unsigned int iJet = 0; iJet < cms3.pfjets_p4().size(); iJet++){
 
     LorentzVector jetp4_uncorr = cms3.pfjets_p4().at(iJet)*cms3.pfjets_undoJEC().at(iJet);
+    float emfrac = (cms3.pfjets_chargedEmE().at(iJet) + cms3.pfjets_neutralEmE().at(iJet)) / jetp4_uncorr.E();
+
+    if (emfrac > 0.9                  ) continue; // veto events with EM fraction > 0.9
+    if( abs(jetp4_uncorr.eta()) > 9.9 ) continue; // veto jets with eta > 9.9
+
+    //  
+    // remove SA or global muons from jets before correcting
+    //
+
+    for (unsigned int pfcind = 0; pfcind < cms3.pfjets_pfcandmup4().at(iJet).size(); pfcind++){
+      jetp4_uncorr -= cms3.pfjets_pfcandmup4().at(iJet).at(pfcind);
+    }
 
     // get L1FastL2L3 total correction
     jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
@@ -415,19 +427,7 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     if (emfrac > 0.9                  ) continue; // veto events with EM fraction > 0.9
     if( abs(jetp4_uncorr.eta()) > 9.9 ) continue; // veto jets with eta > 9.9
 
-    // get L1FastL2L3 total correction
-    jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
-    jet_corrector->setJetA  ( cms3.pfjets_area().at(iJet) );
-    jet_corrector->setJetPt ( jetp4_uncorr.pt()                      );
-    jet_corrector->setJetEta( jetp4_uncorr.eta()                     );
-
-    //Note the subcorrections are stored with corr_vals(N) = corr(N)*corr(N-1)*...*corr(1)
-    vector<float> corr_vals = jet_corrector->getSubCorrections();
-
-    double corr             = corr_vals.at(corr_vals.size()-1); // All corrections
-    double corr_l1          = corr_vals.at(0);                  // offset correction
-
-    //	
+    //  
     // remove SA or global muons from jets before correcting
     //
 
@@ -442,6 +442,18 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     //     jetp4_uncorr -= cms3.pfcands_p4()   .at(index);
     //   }
     // }
+
+    // get L1FastL2L3 total correction
+    jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
+    jet_corrector->setJetA  ( cms3.pfjets_area().at(iJet) );
+    jet_corrector->setJetPt ( jetp4_uncorr.pt()                      );
+    jet_corrector->setJetEta( jetp4_uncorr.eta()                     );
+
+    //Note the subcorrections are stored with corr_vals(N) = corr(N)*corr(N-1)*...*corr(1)
+    vector<float> corr_vals = jet_corrector->getSubCorrections();
+
+    double corr             = corr_vals.at(corr_vals.size()-1); // All corrections
+    double corr_l1          = corr_vals.at(0);                  // offset correction
 
     if ( corr * jetp4_uncorr.pt() > 15. ){		  
       T1_metx += jetp4_uncorr.px() * ( corr_l1 - corr );

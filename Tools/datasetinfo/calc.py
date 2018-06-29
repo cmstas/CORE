@@ -33,7 +33,10 @@ def get_line(metadata):
             nevts_eff_total += nevts_eff
         xsec_total = kfact*xsec*efact
         scale1fb = 1000.0*xsec_total/nevts_eff_total
-        return "{:155s}  {:17s}  {:9}  {:9}  {:8.5g}  {:10.5g}".format(dataset,tag,nevts_total,nevts_eff_total,xsec_total,scale1fb)
+
+        info = ",".join(["{}|{}|{}".format(idx,nevt,(nevt-nevteff)/2) for idx,(nevt,nevteff) in data["ijob_to_nevents"].items()])
+
+        return "{:155s}  {:17s}  {:9}  {:9}  {:8.5g}  {:10.5g} {}".format(dataset,tag,nevts_total,nevts_eff_total,xsec_total,scale1fb,info)
 
 if __name__ == "__main__":
 

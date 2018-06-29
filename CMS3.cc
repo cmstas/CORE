@@ -3817,12 +3817,6 @@ void CMS3::Init(TTree *tree) {
     evt_experimentType_branch = tree->GetBranch(tree->GetAlias("evt_experimentType"));
     if (evt_experimentType_branch) { evt_experimentType_branch->SetAddress(&evt_experimentType_); }
   }
-
-  filt_ecalBadCalibFilter_branch = 0;
-  if (tree->GetAlias("filt_ecalBadCalibFilter") != 0) {
-    filt_ecalBadCalibFilter_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilter"));
-    if (filt_ecalBadCalibFilter_branch) { filt_ecalBadCalibFilter_branch->SetAddress(&filt_ecalBadCalibFilter_); }
-  }
   filt_ecalTP_branch = 0;
   if (tree->GetAlias("filt_ecalTP") != 0) {
     filt_ecalTP_branch = tree->GetBranch(tree->GetAlias("filt_ecalTP"));
@@ -5904,6 +5898,11 @@ void CMS3::Init(TTree *tree) {
     filt_eeBadSc_branch = tree->GetBranch(tree->GetAlias("filt_eeBadSc"));
     if (filt_eeBadSc_branch) { filt_eeBadSc_branch->SetAddress(&filt_eeBadSc_); }
   }
+  filt_ecalBadCalibFilter_branch = 0;
+  if (tree->GetAlias("filt_ecalBadCalibFilter") != 0) {
+    filt_ecalBadCalibFilter_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilter"));
+    if (filt_ecalBadCalibFilter_branch) { filt_ecalBadCalibFilter_branch->SetAddress(&filt_ecalBadCalibFilter_); }
+  }
   evt_filt_eff_branch = 0;
   if (tree->GetAlias("evt_filt_eff") != 0) {
     evt_filt_eff_branch = tree->GetBranch(tree->GetAlias("evt_filt_eff"));
@@ -7872,7 +7871,6 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_HLT_TkMu50_version_isLoaded = false;
   evt_experimentType_isLoaded = false;
   filt_ecalTP_isLoaded = false;
-  filt_ecalBadCalibFilter_isLoaded = false;
   els_ecalEnergy_isLoaded = false;
   evt_pfmet_JetEnUp_isLoaded = false;
   els_phiErr_isLoaded = false;
@@ -8341,6 +8339,7 @@ void CMS3::GetEntry(unsigned int idx) {
   els_HLT_Ele33_CaloIdM_TrackIdM_PFJet30_ElectronLeg_version_isLoaded = false;
   filt_trkPOG_toomanystripclus53X_isLoaded = false;
   filt_eeBadSc_isLoaded = false;
+  filt_ecalBadCalibFilter_isLoaded = false;
   evt_filt_eff_isLoaded = false;
   convs_nHitsBeforeVtx_isLoaded = false;
   evt_pfmet_TauEnUp_isLoaded = false;
@@ -9301,7 +9300,6 @@ void CMS3::LoadAllBranches() {
   if (mus_HLT_TkMu50_version_branch != 0) mus_HLT_TkMu50_version();
   if (evt_experimentType_branch != 0) evt_experimentType();
   if (filt_ecalTP_branch != 0) filt_ecalTP();
-  if (filt_ecalBadCalibFilter_branch != 0) filt_ecalBadCalibFilter();
   if (els_ecalEnergy_branch != 0) els_ecalEnergy();
   if (evt_pfmet_JetEnUp_branch != 0) evt_pfmet_JetEnUp();
   if (els_phiErr_branch != 0) els_phiErr();
@@ -9729,6 +9727,7 @@ void CMS3::LoadAllBranches() {
   if (els_HLT_Ele33_CaloIdM_TrackIdM_PFJet30_ElectronLeg_version_branch != 0) els_HLT_Ele33_CaloIdM_TrackIdM_PFJet30_ElectronLeg_version();
   if (filt_trkPOG_toomanystripclus53X_branch != 0) filt_trkPOG_toomanystripclus53X();
   if (filt_eeBadSc_branch != 0) filt_eeBadSc();
+  if (filt_ecalBadCalibFilter_branch != 0) filt_ecalBadCalibFilter();
   if (evt_filt_eff_branch != 0) evt_filt_eff();
   if (convs_nHitsBeforeVtx_branch != 0) convs_nHitsBeforeVtx();
   if (evt_pfmet_TauEnUp_branch != 0) evt_pfmet_TauEnUp();
@@ -19614,19 +19613,6 @@ const int &CMS3::evt_experimentType() {
   }
   return evt_experimentType_;
 }
-
-const bool &CMS3::filt_ecalBadCalibFilter() {
-  if (not filt_ecalBadCalibFilter_isLoaded) {
-    if (filt_ecalBadCalibFilter_branch != 0) {
-      filt_ecalBadCalibFilter_branch->GetEntry(index);
-    } else {
-      printf("branch filt_ecalBadCalibFilter_branch does not exist!\n");
-      exit(1);
-    }
-    filt_ecalBadCalibFilter_isLoaded = true;
-  }
-  return filt_ecalBadCalibFilter_;
-}
 const bool &CMS3::filt_ecalTP() {
   if (not filt_ecalTP_isLoaded) {
     if (filt_ecalTP_branch != 0) {
@@ -25191,6 +25177,19 @@ const bool &CMS3::filt_eeBadSc() {
   }
   return filt_eeBadSc_;
 }
+const bool &CMS3::filt_ecalBadCalibFilter() {
+  if (not filt_ecalBadCalibFilter_isLoaded) {
+    if (filt_ecalBadCalibFilter_branch != 0) {
+      if (filt_ecalBadCalibFilter_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch filt_ecalBadCalibFilter_branch does not exist!\n");
+      exit(1);
+    }
+    filt_ecalBadCalibFilter_isLoaded = true;
+  }
+  return filt_ecalBadCalibFilter_;
+}
 const float &CMS3::evt_filt_eff() {
   if (not evt_filt_eff_isLoaded) {
     if (evt_filt_eff_branch != 0) {
@@ -29450,7 +29449,6 @@ namespace tas {
   const unsigned int &mus_HLT_TkMu50_version() { return cms3.mus_HLT_TkMu50_version(); }
   const int &evt_experimentType() { return cms3.evt_experimentType(); }
   const bool &filt_ecalTP() { return cms3.filt_ecalTP(); }
-  const bool &filt_ecalBadCalibFilter() { return cms3.filt_ecalBadCalibFilter(); }
   const vector<float> &els_ecalEnergy() { return cms3.els_ecalEnergy(); }
   const float &evt_pfmet_JetEnUp() { return cms3.evt_pfmet_JetEnUp(); }
   const vector<float> &els_phiErr() { return cms3.els_phiErr(); }
@@ -29878,6 +29876,7 @@ namespace tas {
   const unsigned int &els_HLT_Ele33_CaloIdM_TrackIdM_PFJet30_ElectronLeg_version() { return cms3.els_HLT_Ele33_CaloIdM_TrackIdM_PFJet30_ElectronLeg_version(); }
   const bool &filt_trkPOG_toomanystripclus53X() { return cms3.filt_trkPOG_toomanystripclus53X(); }
   const bool &filt_eeBadSc() { return cms3.filt_eeBadSc(); }
+  const bool &filt_ecalBadCalibFilter() { return cms3.filt_ecalBadCalibFilter(); }
   const float &evt_filt_eff() { return cms3.evt_filt_eff(); }
   const vector<vector<int> > &convs_nHitsBeforeVtx() { return cms3.convs_nHitsBeforeVtx(); }
   const float &evt_pfmet_TauEnUp() { return cms3.evt_pfmet_TauEnUp(); }

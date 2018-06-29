@@ -4,6 +4,9 @@
 #include "TString.h"
 #include "Base.h"
 
+// recommended jet id for 2017 94x analyses
+bool isTightPFJet_2017_v1(unsigned int pfJetIdx);
+
 // Jet ID as of Sept. 11th based on this twiki: https://twiki.cern.ch/twiki/bin/view/CMS/JetID?rev=95
 bool isLoosePFJet_Summer16_v1(unsigned int pfJetIdx, bool use_puppi = false);
 bool isTightPFJet_Summer16_v1(unsigned int pfJetIdx);
