@@ -1184,6 +1184,28 @@ int isGoodHyp(int iHyp, bool verbose){
     cout << "   lepton with pT " << pt_ll << " passes numer,denom id: " << passed_id_numer_ll << "," << passed_id_denom_ll << endl;
     cout << "   lepton with pT " << pt_lt << " passes numer,denom id: " << passed_id_numer_lt << "," << passed_id_denom_lt << endl;
     cout << "   lowMassVeto: " << ((tas::hyp_ll_p4().at(iHyp) + tas::hyp_lt_p4().at(iHyp)).M() < 8) << endl;
+
+    if (abs(id_ll) == 11) {
+        std::cout <<  " passMultiIso(): " << passMultiIso(11, idx_ll, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2) << std::endl;
+        std::cout <<  " (!isTriggerSafenoIso_v1(idx_ll)): " << (!isTriggerSafenoIso_v1(idx_ll)) <<  std::endl;
+        std::cout <<  " (els_conv_vtx_flag().at(idx_ll)): " << (els_conv_vtx_flag().at(idx_ll)) <<  std::endl;
+        std::cout <<  " (els_exp_innerlayers().at(idx_ll)>1): " << (els_exp_innerlayers().at(idx_ll)>1) <<  std::endl;
+        std::cout <<  " (fabs(els_dxyPV().at(idx_ll))>0.05): " << (fabs(els_dxyPV().at(idx_ll))>0.05) <<  std::endl;
+        std::cout <<  " (fabs(els_dzPV().at(idx_ll))>=0.1): " << (fabs(els_dzPV().at(idx_ll))>=0.1) <<  std::endl;
+        std::cout <<  " (fabs(els_etaSC().at(idx_ll))>2.5): " << (fabs(els_etaSC().at(idx_ll))>2.5) <<  std::endl;
+        std::cout <<  " (fabs(els_ip3d().at(idx_ll))/els_ip3derr().at(idx_ll)>=4): " << (fabs(els_ip3d().at(idx_ll))/els_ip3derr().at(idx_ll)>=4) <<  std::endl;
+    }
+    if (abs(id_lt) == 11) {
+        std::cout <<  " passMultiIso(): " << passMultiIso(11, idx_lt, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2) << std::endl;
+        std::cout <<  " (!isTriggerSafenoIso_v1(idx_lt)): " << (!isTriggerSafenoIso_v1(idx_lt)) <<  std::endl;
+        std::cout <<  " (els_conv_vtx_flag().at(idx_lt)): " << (els_conv_vtx_flag().at(idx_lt)) <<  std::endl;
+        std::cout <<  " (els_exp_innerlayers().at(idx_lt)>1): " << (els_exp_innerlayers().at(idx_lt)>1) <<  std::endl;
+        std::cout <<  " (fabs(els_dxyPV().at(idx_lt))>0.05): " << (fabs(els_dxyPV().at(idx_lt))>0.05) <<  std::endl;
+        std::cout <<  " (fabs(els_dzPV().at(idx_lt))>=0.1): " << (fabs(els_dzPV().at(idx_lt))>=0.1) <<  std::endl;
+        std::cout <<  " (fabs(els_etaSC().at(idx_lt))>2.5): " << (fabs(els_etaSC().at(idx_lt))>2.5) <<  std::endl;
+        std::cout <<  " (fabs(els_ip3d().at(idx_lt))/els_ip3derr().at(idx_lt)>=4): " << (fabs(els_ip3d().at(idx_lt))/els_ip3derr().at(idx_lt)>=4) <<  std::endl;
+    }
+
     if (abs(id_ll) == 11) cout << "   lepton with pT " << pt_ll << " passes 3chg: " << threeChargeAgree(idx_ll) << endl;
     if (abs(id_lt) == 11) cout << "   lepton with pT " << pt_lt << " passes 3chg: " << threeChargeAgree(idx_lt) << endl;
   }
