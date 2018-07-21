@@ -83,6 +83,8 @@ enum id_level_t {
   SS_veto_noiso_noip_v6,
   SS_fo_noiso_v6,
   SS_fo_v6,
+  SS_medium_looseMVA_noip_v6,
+  SS_medium_noip_v6,
   SS_fo_looseMVA_noiso_v6,
   SS_fo_looseMVA_v6,
   SS_fo_looseMVA_no3chg_v6,
@@ -92,6 +94,10 @@ enum id_level_t {
   SS_medium_no3chg_v6,
   SS_medium_noiso_no3chg_v6,
   SS_fo_looseMVA_noiso_no3chg_v6,
+  SS_fo_noiso_noip_v6,
+  SS_tight_noiso_v6,
+  SS_tight_v6,
+
   //MT2
   HAD_veto_noiso_v1,
   HAD_veto_v1, 
