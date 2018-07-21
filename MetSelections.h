@@ -36,6 +36,7 @@ pair <float, float> getT1PUPPIMET_fromMINIAOD( FactorizedJetCorrector * jet_corr
 bool passesMETfilter(bool is25 = 1);
 bool passesMETfilterv2();
 bool passesMETfilters2016(bool isData);
+bool passesMETfilters2017(bool isData);
 bool passesMETfiltersMoriond17(bool isData);
 pair <float, float> getT1CHSMET3p0( FactorizedJetCorrector * jet_corrector );
 
