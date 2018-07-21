@@ -585,7 +585,7 @@ bool passesMETfilterv2(){
 
 }
 
-bool passesMETfilters2016(bool isData){
+bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter){
 
   //primary vertex filter (re-run by user)
   if (firstGoodVertex() == -1) return false;
@@ -603,7 +603,9 @@ bool passesMETfilters2016(bool isData){
 
   // MC samples don't have algoOrig branch
   if(isData) {
-      if (!badChargedCandidateFilter()) return false;
+      if (!ignoreChargedCandFilter) {
+          if (!badChargedCandidateFilter()) return false;
+      }
       if (!filt_noBadMuons()) return false;
   }
 

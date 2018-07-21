@@ -35,7 +35,7 @@ pair<float,float> MET3p0(); // tracker style MET with no particles with eta > 3.
 pair <float, float> getT1PUPPIMET_fromMINIAOD( FactorizedJetCorrector * jet_corrector );
 bool passesMETfilter(bool is25 = 1);
 bool passesMETfilterv2();
-bool passesMETfilters2016(bool isData);
+bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter=false);
 bool passesMETfilters2017(bool isData);
 bool passesMETfiltersMoriond17(bool isData);
 pair <float, float> getT1CHSMET3p0( FactorizedJetCorrector * jet_corrector );
