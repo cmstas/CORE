@@ -351,10 +351,10 @@ bool isGoodLeptonNoIso(int id, int idx){
 
 bool isInSituFRLepton(int id, int idx){
   if (abs(id) == 11){
-    if (!electronID(idx, SS_medium_looseMVA_noip_v5) && !electronID(idx, SS_medium_v5)) return false;
+    if (!electronID(idx, SS_medium_looseMVA_noip_v6) && !electronID(idx, SS_medium_v6)) return false;
   }
   if (abs(id) == 13){
-    if (!muonID(idx, SS_fo_noiso_noip_v5) && !muonID(idx, SS_fo_noiso_v5)) return false;
+    if (!muonID(idx, SS_fo_noiso_noip_v6) && !muonID(idx, SS_fo_noiso_v6)) return false;
   }
 
   return true;
@@ -744,77 +744,6 @@ int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt
   return -1;
 }
 
-int signalRegionChargeSplit_old(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt){
-    int sr = signalRegion2016(njets, nbtags, met, ht, mt_min, id1, id2, lep1pt, lep2pt);
-    anal_type_t lep_pt = analysisCategory(id1, id2, lep1pt, lep2pt); 
-
-    // if ++ don't put into the new signal regions at the end, just return the original signal region.
-    // remember that sgn(pdgid) != sgn(charge), it's flipped. so mad.
-    if (id1 < 0) return sr;
-
-    // split regions not dominated by fakes (and don't split any of the LL)
-    // and put them consecutively right after the last SR
-    //    split HH: 5 6 7 8 12 13 14 15 16 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
-    //    split LL: 5 6 9 10 11 12 15 16 17 18 19 20 21 22 23 24 25 26 27
-    if (lep_pt == HighHigh) {
-        int off = 33;
-        if (sr ==  5) return off+1;
-        else if (sr ==  6) return off+2;
-        else if (sr ==  7) return off+3;
-        else if (sr ==  8) return off+4;
-        else if (sr == 12) return off+5;
-        else if (sr == 13) return off+6;
-        else if (sr == 14) return off+7;
-        else if (sr == 15) return off+8;
-        else if (sr == 16) return off+9;
-        else if (sr == 19) return off+10;
-        else if (sr == 20) return off+11;
-        else if (sr == 21) return off+12;
-        else if (sr == 22) return off+13;
-        else if (sr == 23) return off+14;
-        else if (sr == 24) return off+15;
-        else if (sr == 25) return off+16;
-        else if (sr == 26) return off+17;
-        else if (sr == 27) return off+18;
-        else if (sr == 28) return off+19;
-        else if (sr == 29) return off+20;
-        else if (sr == 30) return off+21;
-        else if (sr == 31) return off+22;
-        else if (sr == 32) return off+23;
-        else if (sr == 33) return off+24;
-        else return sr;
-
-    } else if (lep_pt == HighLow) {
-        int off = 27;
-        if (sr ==  5) return off+1;
-        else if (sr ==  6) return off+2;
-        else if (sr ==  9) return off+3;
-        else if (sr == 10) return off+4;
-        else if (sr == 11) return off+5;
-        else if (sr == 12) return off+6;
-        else if (sr == 15) return off+7;
-        else if (sr == 16) return off+8;
-        else if (sr == 17) return off+9;
-        else if (sr == 18) return off+10;
-        else if (sr == 19) return off+11;
-        else if (sr == 20) return off+12;
-        else if (sr == 21) return off+13;
-        else if (sr == 22) return off+14;
-        else if (sr == 23) return off+15;
-        else if (sr == 24) return off+16;
-        else if (sr == 25) return off+17;
-        else if (sr == 26) return off+18;
-        else if (sr == 27) return off+19;
-        else return sr;
-
-    } else if (lep_pt == LowLow) {
-        return sr ;
-
-    } 
-
-    return -1;
-}
-
 int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt){
   
   //Calculate lep_pt
@@ -929,192 +858,197 @@ int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int i
   return -1;
 }
 
-int signalRegionRed(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt){
-  
-  //Calculate lep_pt
-  anal_type_t lep_pt = analysisCategory(id1, id2, lep1pt, lep2pt); 
-
-  //Reject events out of kinematic acceptance
-  if (met < 50) return -1; 
-  if (njets < 2) return -1; 
-  if (lep_pt != LowLow && met > 500 && ht < 300) return -1; 
-
-  //High-high
-  if (lep_pt == HighHigh){
-    if (met >= 300) return 18;
-    if (ht >= 1125) return 19; 
-    if (ht < 300){
-      if (nbtags == 0 && mt_min < 120 && met < 200 && njets <= 4) return 1; 
-      if (nbtags == 0) return 3; 
-      if (nbtags == 1 && mt_min < 120 && met < 200 && njets <= 4) return 6; 
-      if (nbtags == 1) return 8; 
-      if (nbtags == 2 && mt_min < 120 && met < 200 && njets <= 4) return 11; 
-      if (nbtags == 2) return 13; 
-      if (nbtags >= 3 && mt_min < 120 && met < 200) return 16; 
-      if (nbtags >= 3 && mt_min < 120 && met >= 200) return 16; 
-      if (nbtags >= 3) return 16;
-    }
-    if (ht >= 300 && ht < 1125){
-      if (nbtags == 0){
-        if (mt_min < 120 && met < 200 && njets <= 4) return 2; 
-        if (mt_min < 120 && met < 200 && njets > 4) return 4; 
-        return 8;
-      } 
-      if (nbtags == 1){
-        if (mt_min < 120 && met < 200 && njets <= 4) return 7; 
-        if (mt_min < 120 && met < 200 && njets > 4) return 9; 
-        return 10;
-      } 
-      if (nbtags == 2){
-        if (mt_min < 120 && met < 200 && njets <= 4) return 12; 
-        if (mt_min < 120 && met < 200 && njets > 4) return 14; 
-        return 15;
-      } 
-      if (nbtags >= 3){
-        if (mt_min < 120 && met < 200) return 17;
-        if (mt_min < 120 && met >= 200) return 17;
-        if (mt_min >= 120) return 17;
-      }
-    }
-  }
-  
-  //High-Low
-  if (lep_pt == HighLow){
-    if (met >= 300) return 17;
-    if (ht >= 1125) return 18;
-    if (ht < 300){ 
-      if (nbtags == 0 && met < 200 && njets <= 4) return 1; 
-      if (mt_min < 120 && nbtags == 0) return 3;
-      if (mt_min < 120 && nbtags == 1 && met < 200 && njets <= 4) return 5; 
-      if (mt_min < 120 && nbtags == 1) return 7;
-      if (mt_min < 120 && nbtags == 2 && met < 200 && njets <= 4) return 9; 
-      if (mt_min < 120 && nbtags == 2) return 11;
-      if (mt_min < 120 && nbtags >= 3 && met < 200) return 13; 
-      if (mt_min < 120 && nbtags >= 3) return 13;
-      if (mt_min >= 120) return 15; 
-    }  
-    if (ht >= 300){
-      if (nbtags == 0 && mt_min < 120 && met < 200 && njets <= 4) return 2; 
-      if (nbtags == 0 && mt_min < 120 && met < 200 && njets > 4) return 4; 
-      if (nbtags == 0 && mt_min < 120 && met < 500 && njets <= 4) return 4; 
-      if (nbtags == 0 && mt_min < 120 && met < 500 && njets > 4) return 4; 
-      if (nbtags == 1 && mt_min < 120 && met < 200 && njets <= 4) return 6; 
-      if (nbtags == 1 && mt_min < 120 && met < 200 && njets > 4) return 8; 
-      if (nbtags == 1 && mt_min < 120 && met < 500 && njets <= 4) return 8; 
-      if (nbtags == 1 && mt_min < 120 && met < 500 && njets > 4) return 8; 
-      if (nbtags == 2 && mt_min < 120 && met < 200 && njets <= 4) return 10; 
-      if (nbtags == 2 && mt_min < 120 && met < 200 && njets > 4) return 12; 
-      if (nbtags == 2 && mt_min < 120 && met < 500 && njets <= 4) return 12; 
-      if (nbtags == 2 && mt_min < 120 && met < 500 && njets > 4) return 12; 
-      if (nbtags >= 3 && mt_min < 120 && met < 200) return 14; 
-      if (nbtags >= 3 && mt_min < 120 && met >= 200) return 14; 
-      if (mt_min >= 120) return 16;
-    }
-  }
-
-  //Low-Low
-  if (lep_pt == LowLow){
-    if (ht < 300) return -1; 
-    if (mt_min > 120) return 3; 
-    if (nbtags == 0 && met < 200) return 1;
-    if (nbtags == 0 && met >= 200) return 2;
-    if (nbtags == 1 && met < 200) return 1;
-    if (nbtags == 1 && met >= 200) return 2;
-    if (nbtags == 2 && met < 200) return 3;
-    if (nbtags == 2 && met >= 200) return 3;
-    if (nbtags >= 3) return 3;
-  }
-
-  //Otherwise undefined
-  cout << "WARNING: SR UNDEFINED (should never get here)" << endl;
-  cout << "  --> lepton pts are: " << lep1pt << " " << lep2pt << endl;
-  cout << "  --> ht & met are: " << ht << " " << met << endl;
-  cout << "  --> njets & nbtags: " << njets << " " << nbtags << endl;
-  return -1;
-}
-
 bool isGoodVetoElectronNoIso(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 7.) return false;
-  if (!electronID(elidx, SS_veto_noiso_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_noiso_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_noiso_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodVetoElectron(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 7.) return false;
-  if (!electronID(elidx, SS_veto_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_v6)) return false;
+    }
+    return true;
 }
 
 bool isFakableElectronNoIso(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_fo_looseMVA_noiso_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_noiso_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_noiso_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_noiso_v6)) return false;
+    }
+    return true;
 }
 
 bool isFakableElectron(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_fo_looseMVA_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_v6)) return false;
+    }
+    return true;
 }
 
 bool isFakableElectron_no3chg(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_fo_looseMVA_no3chg_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_no3chg_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_no3chg_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_no3chg_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodElectronNoIso(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_medium_noiso_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_noiso_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_noiso_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_noiso_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodElectron(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_medium_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodElectron_no3chg(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_medium_no3chg_v6)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_no3chg_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_no3chg_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_no3chg_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodVetoMuonNoIso(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 5.)         return false;
-  if (!muonID(muidx, SS_veto_noiso_v5))     return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_noiso_v5))     return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_noiso_v6))     return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_noiso_v6))     return false;
+    }
+    return true;
 }
 
 bool isGoodVetoMuon(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 5.)         return false;
-  if (!muonID(muidx, SS_veto_v5))           return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_v5))           return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_v6))           return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_v6))           return false;
+    }
+    return true;
 }
 
 bool isFakableMuonNoIso(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_fo_noiso_v5))       return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_noiso_v5))       return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_noiso_v6))       return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_noiso_v6))       return false;
+    }
+    return true;
 }
 
 bool isFakableMuon(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_fo_v5))             return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_v5))             return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_v6))             return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_v6))             return false;
+    }
+    return true;
 }
 
 bool isGoodMuonNoIso(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_tight_noiso_v5))    return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_noiso_v5))    return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_noiso_v6))    return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_noiso_v6))    return false;
+    }
+    return true;
 }
 
 bool isGoodMuon(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_tight_v5))          return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_v5))          return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_v6))          return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_v6))          return false;
+    }
+    return true;
 }
 
 bool isFromLight_mother(int mc_id, int mc_motherid){

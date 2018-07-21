@@ -68,8 +68,6 @@ int baselineRegion(int njets, int nbtags, float met, float ht, int id1, int id2,
 int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 int signalRegion2016(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
-int signalRegionChargeSplit_old(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
-int signalRegionRed(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 std::vector<int> signalRegionAggOverlap(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 
 //More Lepton selections
