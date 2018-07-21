@@ -3,6 +3,7 @@
 
 #include "CMS3.h"
 #include "Base.h"
+#include "Config.h"
 
 bool passPtRel(int id, int idx, float cut, bool subtractLep, int whichCorr);
 bool passMultiIsoCuts(float cutMiniIso, float cutPtRatio, float cutPtRel, float miniIsoValue, float ptRatioValue, float ptRelValue);

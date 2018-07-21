@@ -65,6 +65,7 @@ LorentzVector closestJet(const LorentzVector& lep_p4, float dRmin, float maxAbsE
   std::string jecEra = "";
   // std::string jecEraMC = "Summer16_23Sep2016V3";
   std::string jecEraMC = "Fall17_17Nov2017_V6";
+  // FIXME handle JEC properly for different years outside this loop? But then what about others that use this function...?
   if (tas::evt_isRealData()) {
       if (     tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
       else if (tas::evt_run() <= 278801 && tas::evt_run() >= 276831) jecEra = "Summer16_23Sep2016EFV3";
@@ -152,7 +153,7 @@ float muRelIso04DB(unsigned int muIdx){
 
 float muRelIso03(unsigned int muIdx, analysis_t analysis){
   if (analysis == WW  ) return muRelIso03EA(muIdx);
-  if (analysis == SS  ) return muRelIso03EA(muIdx,1);
+  if (analysis == SS  ) return muRelIso03EA(muIdx,gconf.ea_version);
   if (analysis == ZMET) return muRelIso03EA(muIdx);
   return muRelIso03DB(muIdx);
 }
@@ -170,6 +171,13 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0546;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0728;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.1177;
+  } else if (version==3) {
+      // Fall17 https://github.com/cms-data/PhysicsTools-NanoAOD/blob/master/effAreaMuons_cone03_pfNeuHadronsAndPhotons_94X.txt
+    if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0566;
+    else if (fabs(mus_p4().at(muIdx).eta())<=1.300) ea = 0.0562;
+    else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0363;
+    else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0119;
+    else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0064;
   } else {
     //Spring15 version
     if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0735;
@@ -274,7 +282,7 @@ float eleRelIso03(unsigned int elIdx, analysis_t analysis){
   if (analysis == HAD ) return eleRelIso03DB(elIdx);
   if (analysis == STOP) return eleRelIso03DB(elIdx);
   if (analysis == WW  ) return eleRelIso03_90ContEA(elIdx);
-  if (analysis == SS  ) return eleRelIso03EA(elIdx,1);
+  if (analysis == SS  ) return eleRelIso03EA(elIdx,gconf.ea_version);
   if (analysis == ZMET) return eleRelIso03EA(elIdx);
 
   else return eleRelIso03EA(elIdx,0);
@@ -318,6 +326,16 @@ float elEA03(unsigned int elIdx, int version) {
     else if (fabs(els_etaSC().at(elIdx))<=2.300) ea = 0.1635;
     else if (fabs(els_etaSC().at(elIdx))<=2.400) ea = 0.1937;
     else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.2393;
+  }
+  else if (version==3) {
+    //Fall17 https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_92X.txt
+    if      (fabs(els_etaSC().at(elIdx))<=1.000) ea = 0.1566;
+    else if (fabs(els_etaSC().at(elIdx))<=1.479) ea = 0.1626;
+    else if (fabs(els_etaSC().at(elIdx))<=2.000) ea = 0.1073;
+    else if (fabs(els_etaSC().at(elIdx))<=2.200) ea = 0.0854;
+    else if (fabs(els_etaSC().at(elIdx))<=2.300) ea = 0.1051;
+    else if (fabs(els_etaSC().at(elIdx))<=2.400) ea = 0.1204;
+    else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.1524;
   }
   return ea;
 }
