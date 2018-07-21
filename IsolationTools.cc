@@ -5,9 +5,6 @@
 using namespace std;
 using namespace tas;
 
-FactorizedJetCorrector *jetCorrAG3 = 0;
-FactorizedJetCorrector *jetCorrAG2 = 0;
-
 bool passMultiIsoCuts(float cutMiniIso, float cutPtRatio, float cutPtRel, float miniIsoValue, float ptRatioValue, float ptRelValue){
   return (miniIsoValue < cutMiniIso && (ptRatioValue>cutPtRatio || ptRelValue > cutPtRel));
 }
@@ -62,24 +59,6 @@ int closestJetIdx(const LorentzVector& lep_p4, float dRmin, float maxAbsEta){
 }
 
 LorentzVector closestJet(const LorentzVector& lep_p4, float dRmin, float maxAbsEta, int whichCorr){
-  std::string jecEra = "";
-  // std::string jecEraMC = "Summer16_23Sep2016V3";
-  std::string jecEraMC = "Fall17_17Nov2017_V6";
-  // FIXME handle JEC properly for different years outside this loop? But then what about others that use this function...?
-  if (tas::evt_isRealData()) {
-      if (     tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
-      else if (tas::evt_run() <= 278801 && tas::evt_run() >= 276831) jecEra = "Summer16_23Sep2016EFV3";
-      else if (tas::evt_run() <= 280385 && tas::evt_run() >= 278802) jecEra = "Summer16_23Sep2016GV3";
-      else if (tas::evt_run() <= 294645 && tas::evt_run() >= 280919) jecEra = "Summer16_23Sep2016HV3";
-      else if (tas::evt_run() <= 299329 && tas::evt_run() >= 297046) jecEra = "Fall17_17Nov2017B_V6";
-      else if (tas::evt_run() <= 302029 && tas::evt_run() >= 299368) jecEra = "Fall17_17Nov2017C_V6";
-      else if (tas::evt_run() <= 303434 && tas::evt_run() >= 302030) jecEra = "Fall17_17Nov2017D_V6";
-      else if (tas::evt_run() <= 304797 && tas::evt_run() >= 303824) jecEra = "Fall17_17Nov2017E_V6";
-      else if (tas::evt_run() <= 306462 && tas::evt_run() >= 305040) jecEra = "Fall17_17Nov2017F_V6";
-      else {
-          throw std::invalid_argument("Can't classify run " + tas::evt_run());
-      }
-  }
   int closestIdx = closestJetIdx(lep_p4,dRmin,maxAbsEta);
   if (closestIdx < 0) return LorentzVector();
   LorentzVector jet = pfjets_p4().at(closestIdx);
@@ -88,39 +67,22 @@ LorentzVector closestJet(const LorentzVector& lep_p4, float dRmin, float maxAbsE
   if (whichCorr == 0) return jet; 
 
   //Calculate JEC
-  if (jetCorrAG3 == 0){
-    std::vector<std::string> filenames;
-    if (tas::evt_isRealData() && whichCorr != 1) {
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L1FastJet_AK4PFchs.txt");
-    } else {
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L1FastJet_AK4PFchs.txt");
-    }
-    jetCorrAG3 = makeJetCorrector(filenames);
+  if (gconf.jet_corrector_L1 == 0){
+      throw std::runtime_error("jet corrector for L1 not initialized but needed for closestJet in IsolationTools");
   }
-  if (jetCorrAG2 == 0){
-    std::vector<std::string> filenames;
-    if (tas::evt_isRealData()) { 
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L2Relative_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L3Absolute_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L2L3Residual_AK4PFchs.txt");
-    } 
-    else {
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L2Relative_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L3Absolute_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L2L3Residual_AK4PFchs.txt");
-    }
-    jetCorrAG2 = makeJetCorrector(filenames);
+  if (gconf.jet_corrector_L2L3 == 0){
+      throw std::runtime_error("jet corrector for L2L3 not initialized but needed for closestJet in IsolationTools");
   }
-  jetCorrAG3->setJetEta(rawjet.eta()); 
-  jetCorrAG3->setJetPt(rawjet.pt()); 
-  jetCorrAG3->setJetA(tas::pfjets_area().at(closestIdx)); 
-  jetCorrAG3->setRho(tas::evt_fixgridfastjet_all_rho()); 
-  float JEC1 = jetCorrAG3->getCorrection(); 
-  jetCorrAG2->setJetEta(rawjet.eta()); 
-  jetCorrAG2->setJetPt(rawjet.pt()*JEC1); 
-  jetCorrAG2->setJetA(tas::pfjets_area().at(closestIdx)); 
-  jetCorrAG2->setRho(tas::evt_fixgridfastjet_all_rho()); 
-  float JEC2 = jetCorrAG2->getCorrection(); 
+  gconf.jet_corrector_L1->setJetEta(rawjet.eta()); 
+  gconf.jet_corrector_L1->setJetPt(rawjet.pt()); 
+  gconf.jet_corrector_L1->setJetA(tas::pfjets_area().at(closestIdx)); 
+  gconf.jet_corrector_L1->setRho(tas::evt_fixgridfastjet_all_rho()); 
+  float JEC1 = gconf.jet_corrector_L1->getCorrection(); 
+  gconf.jet_corrector_L2L3->setJetEta(rawjet.eta()); 
+  gconf.jet_corrector_L2L3->setJetPt(rawjet.pt()*JEC1); 
+  gconf.jet_corrector_L2L3->setJetA(tas::pfjets_area().at(closestIdx)); 
+  gconf.jet_corrector_L2L3->setRho(tas::evt_fixgridfastjet_all_rho()); 
+  float JEC2 = gconf.jet_corrector_L2L3->getCorrection(); 
 
   if (whichCorr == 1) return rawjet*JEC1;
   return (rawjet*JEC1 - lep_p4)*JEC2 + lep_p4;

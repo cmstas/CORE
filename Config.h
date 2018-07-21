@@ -2,6 +2,8 @@
 #define CONFIG_H
 #include <string>
 
+#include "Tools/JetCorrector.h"
+
 /*
    Need to check the year in a CORE function (or your own)? `gconf` is a global instance.
        if (gconf.year == 2017) { ... }
@@ -27,8 +29,10 @@ class GlobalConfig {
         float multiiso_mu_ptratio = -1;
         float multiiso_mu_ptrel = -1;
 
-        // JECs?
-        // FactorizedJetCorrector * jet_corrector_1 = 0;
+        // JECs
+        FactorizedJetCorrector * jet_corrector_L1 = 0;
+        FactorizedJetCorrector * jet_corrector_L2L3 = 0;
+        FactorizedJetCorrector * jet_corrector_L1L2L3 = 0;
 
         // ...
 };
