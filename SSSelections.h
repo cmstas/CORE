@@ -156,7 +156,21 @@ struct Jet {
     float pt() {return p4().pt();}
     float eta() {return p4().eta();}
     float phi() {return p4().phi();}
-    float disc() {return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);}
+    float disc() {
+        // holy hell this will be confusing...
+        // Originally deepCSV was called deepflavour (hence 2016 line)
+        // then it got renamed to deepcsv to ironically avoid confusion 
+        // because of its successor (deepflavour) (hence 2017 line)
+        // and now that deepflavour will be available in 2018, guess we're going to use deepflavour?
+        if (gconf.year == 2016) {
+            return tas::getbtagvalue("deepFlavourJetTags:probb",idx_) + tas::getbtagvalue("deepFlavourJetTags:probbb",idx_);
+        } else if (gconf.year == 2017) {
+            return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+        } else if (gconf.year == 2018) {
+            return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+        }
+        return -1;
+    }
     bool isBtag() {return disc()>gconf.btag_disc_wp;}
     int   mc3_id() {return cms3.pfjets_mc3_id()[idx_];}
     LorentzVector genjet_p4() {return cms3.pfjets_mc_p4()[idx_];}
