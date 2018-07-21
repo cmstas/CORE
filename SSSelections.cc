@@ -213,6 +213,8 @@ std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector*
   vector <float> result_disc;
   vector <float> result_corrpt;
 
+  int year = gconf.year;
+
   for (unsigned int i = 0; i < tas::pfjets_p4().size(); i++){
     LorentzVector jet = tas::pfjets_p4().at(i);
 
@@ -232,8 +234,16 @@ std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector*
     if (pt < bjetMinPt) continue;
     if (fabs(jet.eta()) > 2.4) continue;
 
-    //Require loose jet ID
-    if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
+    //Require jet ID
+    if (year == 2016) {
+        if (!isFastsim && !isLoosePFJet_Summer16_v1(i)) continue;
+    }
+    if (year == 2017) {
+        if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
+    }
+    if (year == 2018) {
+        if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
+    }
     
     //Get discriminator
     auto jetobj = Jet(i, JEC);
