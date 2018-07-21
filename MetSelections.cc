@@ -600,11 +600,11 @@ bool passesMETfilters2016(bool isData){
 
   if (!filt_goodVertices()) return false;
 
-  if (!badChargedCandidateFilter()) return false;
 
   // MC samples don't have algoOrig branch
   if(isData) {
-    if (!badMuonFilter()) return false;
+      if (!badChargedCandidateFilter()) return false;
+      if (!filt_noBadMuons()) return false;
   }
 
   //Otherwise good
