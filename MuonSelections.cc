@@ -431,7 +431,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
 
    case(SS_fo_v5):
       if (!muonID(muIdx, SS_fo_noiso_v5)) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,1) > 0.40) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.40) return false;
       return true;
       break;
 
@@ -457,7 +457,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
 
    case(SS_fo_v6):
       if (!muonID(muIdx, SS_fo_noiso_v6)) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,1) > 0.40) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.40) return false;
       return true;
       break;
 
