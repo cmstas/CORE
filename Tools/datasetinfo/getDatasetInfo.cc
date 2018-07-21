@@ -17,10 +17,9 @@ void DatasetInfoFromFile::update(DatasetInfoFromFile::datasetInfo* df, string in
         istringstream parts(token);
         string part;
         int ipart = 0;
-        int idx = -1;
         while (getline(parts, part, '|')) {
             switch (ipart) {
-                case 0: idx = stoi(part); break;
+                case 0: break;
                 case 1: nevents_total += stoi(part); break;
                 case 2: nevents_negative += stoi(part); break;
             }
@@ -37,7 +36,7 @@ void DatasetInfoFromFile::update(DatasetInfoFromFile::datasetInfo* df, string in
         std::cout << "=== " << dsname << " [" << tag << "] ===" << std::endl;
         printf("nevents total: %i -> %i [%+i]\n", old_nevts_tot, new_nevts_tot, new_nevts_tot-old_nevts_tot);
         printf("nevents effective: %i -> %i [%+i]\n", old_nevts_eff, new_nevts_eff, new_nevts_eff-old_nevts_eff);
-        printf("scale1fb: %g -> %g [%+.2f]\n", old_scale1fb, new_scale1fb, 100.*(new_scale1fb-old_scale1fb)/old_scale1fb);
+        printf("scale1fb: %g -> %g [%+.2f%%]\n", old_scale1fb, new_scale1fb, 100.*(new_scale1fb-old_scale1fb)/old_scale1fb);
         std::cout << "========================" << std::endl;
     }
     df->nevts_tot = new_nevts_tot;
@@ -45,7 +44,7 @@ void DatasetInfoFromFile::update(DatasetInfoFromFile::datasetInfo* df, string in
     df->scale1fb = new_scale1fb;
 }
 
-void DatasetInfoFromFile::loadFromFile(const string filename) {
+void DatasetInfoFromFile::loadFromFile(const string filename, bool verbose) {
   ifstream ifile(filename);
   if (!ifile) throw std::invalid_argument("Dataset info file " + filename + " does not exist!");
   string dsname, cmstag;
@@ -64,7 +63,7 @@ void DatasetInfoFromFile::loadFromFile(const string filename) {
       case 3: dsinfo.nevts_eff = stoul(entry); break;
       case 4: dsinfo.xsec = stof(entry); break;
       case 5: dsinfo.scale1fb = stof(entry); break;
-      case 6: update(&dsinfo, entry, dsname, cmstag, true); break;
+      case 6: update(&dsinfo, entry, dsname, cmstag, verbose); break;
       case 7: throw std::invalid_argument("Dataset info file has too many arguments! Please update this code!");
       }
     }
