@@ -161,28 +161,30 @@ JetCorrectorParameters::JetCorrectorParameters(const std::string& fFile, const s
 //------------------------------------------------------------------------
 int JetCorrectorParameters::binIndex(const std::vector<float>& fX) const 
 {
-  int result = -1;
-  unsigned N = mDefinitions.nBinVar();
-  if (N != fX.size()) 
+    int result = -1;
+    unsigned N = mDefinitions.nBinVar();
+    if (N != fX.size())
     {
-      std::stringstream sserr; 
-      sserr<<"# bin variables "<<N<<" doesn't correspont to requested #: "<<fX.size();
-      handleError("JetCorrectorParameters",sserr.str());
+        std::stringstream sserr;
+        sserr<<"# bin variables "<<N<<" doesn't correspond to requested #: "<<fX.size();
+        handleError("JetCorrectorParameters",sserr.str());
     }
-  unsigned tmp;
-  for (unsigned i = 0; i < size(); ++i) 
+    unsigned tmp;
+    for (unsigned i = 0; i < size(); ++i)
     {
-      tmp = 0;
-      for (unsigned j=0;j<N;j++)
-        if (fX[j] >= record(i).xMin(j) && fX[j] < record(i).xMax(j))
-          tmp+=1;
-      if (tmp==N)
+        tmp = 0;
+        for (unsigned j=0;j<N;j++) {
+            if (fX[j] >= record(i).xMin(j) && fX[j] < record(i).xMax(j)) {
+                tmp+=1;
+            }
+        }
+        if (tmp==N)
         { 
-          result = i;
-          break;
+            result = i;
+            break;
         }
     } 
-  return result;
+    return result;
 }
 //------------------------------------------------------------------------
 //--- returns the neighbouring bins of fIndex in the direction of fVar ---
