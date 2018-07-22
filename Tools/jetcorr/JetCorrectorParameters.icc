@@ -169,6 +169,26 @@ int JetCorrectorParameters::binIndex(const std::vector<float>& fX) const
         sserr<<"# bin variables "<<N<<" doesn't correspond to requested #: "<<fX.size();
         handleError("JetCorrectorParameters",sserr.str());
     }
+
+    // for N=1, binary search overhead is too costly
+    if (N == 2) {
+        auto it = std::lower_bound(mRecords.begin(), mRecords.end(), fX);
+        result = std::distance(mRecords.begin(), it);
+        // lower bound returns the first element that is greater than the target, so subtract 1 to get target bin
+        // unless we somehow underflow, but that should never happen unless jet eta < ~6
+        if (result > 0) result -= 1;
+
+        // if (N == 1) {
+        //     std::cout <<  "fX[0]: " << fX[0] <<  std::endl;
+        //     std::cout <<  "result: " << result <<  " " << mRecords[result].xMin(0) <<  "," << mRecords[result].xMax(0) << std::endl;
+        // } else {
+        //     std::cout <<  "fX[0]: " << fX[0] <<  " fX[1]: " << fX[1] <<  std::endl;
+        //     std::cout <<  "result: " << result <<  " " << mRecords[result].xMin(0) <<  "," << mRecords[result].xMax(0) <<  " | " << mRecords[result].xMin(1) <<  "," << mRecords[result].xMax(1) <<  std::endl;
+        // }
+
+        return result;
+    }
+
     unsigned tmp;
     for (unsigned i = 0; i < size(); ++i)
     {
@@ -184,6 +204,8 @@ int JetCorrectorParameters::binIndex(const std::vector<float>& fX) const
             break;
         }
     } 
+
+
     return result;
 }
 //------------------------------------------------------------------------
