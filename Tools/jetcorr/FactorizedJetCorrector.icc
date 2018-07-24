@@ -358,11 +358,7 @@ std::vector<float> FactorizedJetCorrector::getSubCorrections()
   factor = 1;
   for(unsigned int i=0;i<mLevels.size();i++)
     { 
-      vx = fillVector(mBinTypes[i]);
-      vy = fillVector(mParTypes[i]);
-      //if (mLevels[i]==kL2 || mLevels[i]==kL6)
-        //mCorrectors[i]->setInterpolation(true); 
-      scale = mCorrectors[i]->correction(vx,vy); 	
+      scale = mCorrectors[i]->correction(fillVector(mBinTypes[i]), fillVector(mParTypes[i]));
       if (mLevels[i]==kL6 && mAddLepToJet) scale *= 1.0 + getLepPt() / mJetPt;
       factor*=scale; 
       factors.push_back(factor);	
@@ -388,69 +384,69 @@ std::vector<float> FactorizedJetCorrector::getSubCorrections()
 //------------------------------------------------------------------------
 std::vector<float> FactorizedJetCorrector::fillVector(std::vector<VarTypes> fVarTypes)
 {
-  std::vector<float> result;
+  std::vector<float> result(fVarTypes.size(),0.);
   for(unsigned i=0;i<fVarTypes.size();i++) 
     {
       if (fVarTypes[i] == kJetEta)
         {
           if (!mIsJetEtaset) 
             handleError("FactorizedJetCorrector","jet eta is not set");
-          result.push_back(mJetEta);
+          result[i] = mJetEta;
         }
       else if (fVarTypes[i] == kNPV)
         {
           if (!mIsNPVset)
             handleError("FactorizedJetCorrector","number of primary vertices is not set");
-          result.push_back(mNPV);
+          result[i] = mNPV;
         }
       else if (fVarTypes[i] == kJetPt) 
         {
           if (!mIsJetPtset)
             handleError("FactorizedJetCorrector","jet pt is not set");
-          result.push_back(mJetPt);
+          result[i] = mJetPt;
         }
       else if (fVarTypes[i] == kJetPhi) 
         {
           if (!mIsJetPhiset) 
             handleError("FactorizedJetCorrector","jet phi is not set");
-          result.push_back(mJetPhi);
+          result[i] = mJetPhi;
         }
       else if (fVarTypes[i] == kJetE) 
         {
           if (!mIsJetEset) 
             handleError("FactorizedJetCorrector","jet E is not set");
-          result.push_back(mJetE);
+          result[i] = mJetE;
         }
       else if (fVarTypes[i] == kJetEMF) 
         {
           if (!mIsJetEMFset) 
             handleError("FactorizedJetCorrector","jet EMF is not set");
-          result.push_back(mJetEMF);
+          result[i] = mJetEMF;
         } 
       else if (fVarTypes[i] == kJetA) 
         {
           if (!mIsJetAset) 
             handleError("FactorizedJetCorrector","jet area is not set");
-          result.push_back(mJetA);
+          result[i] = mJetA;
         }
       else if (fVarTypes[i] == kRho) 
         {
           if (!mIsRhoset) 
             handleError("FactorizedJetCorrector","fastjet density Rho is not set");
-          result.push_back(mRho);
+          result[i] = mRho;
         }
       else if (fVarTypes[i] == kRelLepPt) 
         {
           if (!mIsJetPtset||!mIsAddLepToJetset||!mIsLepPxset||!mIsLepPyset) 
             handleError("FactorizedJetCorrector","can't calculate rel lepton pt");
-          result.push_back(getRelLepPt());
+          result[i] = getRelLepPt();
         }
       else if (fVarTypes[i] == kPtRel) 
         {
           if (!mIsJetPtset||!mIsJetEtaset||!mIsJetPhiset||!mIsJetEset||
 	      !mIsAddLepToJetset||!mIsLepPxset||!mIsLepPyset||!mIsLepPzset) 
             handleError("FactorizedJetCorrector","can't calculate ptrel");
-          result.push_back(getPtRel());
+          result[i] = getPtRel();
         }
       else 
         {
