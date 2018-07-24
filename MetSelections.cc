@@ -585,7 +585,7 @@ bool passesMETfilterv2(){
 
 }
 
-bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter){
+bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter, bool ignoreBadMuonFilter){
 
   //primary vertex filter (re-run by user)
   if (firstGoodVertex() == -1) return false;
@@ -606,7 +606,9 @@ bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter){
       if (!ignoreChargedCandFilter) {
           if (!badChargedCandidateFilter()) return false;
       }
-      if (!filt_noBadMuons()) return false;
+      if (!ignoreBadMuonFilter) {
+          if (!filt_noBadMuons()) return false;
+      }
   }
 
   //Otherwise good

@@ -17,6 +17,7 @@
 class GlobalConfig {
     public:
         unsigned int year = 0;
+        unsigned int cmssw_ver = 0; // 74, 80, 94, 101, ...
         std::string analysis = ""; 
         float btag_disc_wp = -1;
         int ea_version = -1;

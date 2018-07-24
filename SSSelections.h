@@ -163,7 +163,11 @@ struct Jet {
         // because of its successor (deepflavour) (hence 2017 line)
         // and now that deepflavour will be available in 2018, guess we're going to use deepflavour?
         if (gconf.year == 2016) {
-            return tas::getbtagvalue("deepFlavourJetTags:probb",idx_) + tas::getbtagvalue("deepFlavourJetTags:probbb",idx_);
+            if (gconf.cmssw_ver == 94) {
+                return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+            } else {
+                return tas::getbtagvalue("deepFlavourJetTags:probb",idx_) + tas::getbtagvalue("deepFlavourJetTags:probbb",idx_);
+            }
         } else if (gconf.year == 2017) {
             return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
         } else if (gconf.year == 2018) {
