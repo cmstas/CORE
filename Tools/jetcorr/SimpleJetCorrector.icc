@@ -110,16 +110,20 @@ float SimpleJetCorrector::correctionBin(unsigned fBin,const std::vector<float>& 
     } 
   float result = -1;
   const std::vector<float>& par = mParameters->record(fBin).parameters();
-  for(unsigned int i=2*N;i<par.size();i++)
+  for(unsigned int i=2*N;i<par.size();i++) {
     mFunc->SetParameter(i-2*N,par[i]);
+  }
   float x[4];
-  std::vector<float> tmp;
+  std::vector<float> tmp(N,0.);
+  bool isresponse = mParameters->definitions().isResponse();
   for(unsigned i=0;i<N;i++)
     {
       x[i] = (fY[i] < par[2*i]) ? par[2*i] : (fY[i] > par[2*i+1]) ? par[2*i+1] : fY[i];
-      tmp.push_back(x[i]);
+      if (isresponse) {
+          tmp[i] = x[i];
+      }
     }
-  if (mParameters->definitions().isResponse())
+  if (isresponse)
     result = invert(tmp);
   else
     result = mFunc->Eval(x[0],x[1],x[2],x[3]);  

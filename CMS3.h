@@ -1260,6 +1260,9 @@ protected:
   vector<float> els_miniIso_uncor_;
   TBranch *els_miniIso_uncor_branch;
   bool els_miniIso_uncor_isLoaded;
+  vector<float> els_VIDFall17NoIsoMvaValue_;
+  TBranch *els_VIDFall17NoIsoMvaValue_branch;
+  bool els_VIDFall17NoIsoMvaValue_isLoaded;
   vector<float> mus_miniRelIso_chg_;
   TBranch *mus_miniRelIso_chg_branch;
   bool mus_miniRelIso_chg_isLoaded;
@@ -4715,6 +4718,7 @@ public:
   const vector<float> &els_scSeedE3x3();
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_TrailingLeg();
   const vector<float> &els_miniIso_uncor();
+  const vector<float> &els_VIDFall17NoIsoMvaValue();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
@@ -6154,6 +6158,7 @@ namespace tas {
   const vector<float> &els_scSeedE3x3();
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_TrailingLeg();
   const vector<float> &els_miniIso_uncor();
+  const vector<float> &els_VIDFall17NoIsoMvaValue();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
