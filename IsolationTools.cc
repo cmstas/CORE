@@ -140,14 +140,18 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0363;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0119;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0064;
-  } else {
+  } else if(version==1){
     //Spring15 version
     if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0735;
     else if (fabs(mus_p4().at(muIdx).eta())<=1.300) ea = 0.0619;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0465;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0433;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0577;
+  }else{
+      // invalid value
+      cerr << "[CORE:IsolationTools:muEA03] WARNING! invalid EA version value. (Did you forget to change your gconf.ea_version?)" << endl;
   }
+
   return ea;
 }
 
@@ -298,7 +302,11 @@ float elEA03(unsigned int elIdx, int version) {
     else if (fabs(els_etaSC().at(elIdx))<=2.300) ea = 0.1051;
     else if (fabs(els_etaSC().at(elIdx))<=2.400) ea = 0.1204;
     else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.1524;
+  }else{
+      // invalid value
+      cerr << "[CORE:IsolationTools:elEA03] WARNING! invalid EA version value. (Did you forget to change your gconf.ea_version?)" << endl;
   }
+  
   return ea;
 }
 
