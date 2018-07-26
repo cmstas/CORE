@@ -7,13 +7,12 @@ using namespace tas;
   //Note: these functions are currently only for the SS analysis!
   //Be careful that IDs, etc. are OK before stealing for other analyses
 
-Lep getFourthLepton(int iHyp){
+Lep getFourthLepton(int iHyp, int lep3id, int lep3idx){
 
   std::vector<unsigned int> ele_idx;
   std::vector<unsigned int> mu_idx;
   
   Lep fourthLepton = Lep(0,0);
-  float min = 10000000;
 
   int lt_id           = tas::hyp_lt_id().at(iHyp);
   int ll_id           = tas::hyp_ll_id().at(iHyp);
@@ -22,9 +21,10 @@ Lep getFourthLepton(int iHyp){
 
   (abs(lt_id) == 11) ? ele_idx.push_back(lt_idx) : mu_idx.push_back(lt_idx);
   (abs(ll_id) == 11) ? ele_idx.push_back(ll_idx) : mu_idx.push_back(ll_idx);
+  (abs(lep3id) == 11) ? ele_idx.push_back(lep3idx) : mu_idx.push_back(lep3idx);
 
-  if (ele_idx.size() + mu_idx.size() != 2) {
-    std::cout << "ERROR: don't have 2 leptons in hypothesis!!!  Exiting..." << std::endl;
+  if (ele_idx.size() + mu_idx.size() != 3) {
+    std::cout << "ERROR: don't have 3 leptons for fourth lep!!!  Exiting..." << std::endl;
     return fourthLepton;
   }
       
@@ -36,18 +36,11 @@ Lep getFourthLepton(int iHyp){
       }
       if (is_hyp_lep) continue;
       if (fabs(tas::els_p4().at(eidx).eta()) > 2.4) continue;
-      if (tas::els_p4().at(eidx).pt() < 7.0) continue;
+      if (tas::els_p4().at(eidx).pt() < 15.0) continue;
       if (!isGoodVetoElectron(eidx)) continue;
 
-      for (unsigned int vidx = 0; vidx < ele_idx.size(); vidx++) {
-          if (tas::els_charge().at(eidx) * tas::els_charge().at(ele_idx.at(vidx)) > 0) continue;
-          LorentzVector gamma_p4 = tas::els_p4().at(eidx) + tas::els_p4().at(ele_idx.at(vidx));
-          float gammacandmass = sqrt(fabs(gamma_p4.mass2()));
-          if (gammacandmass < min){
-            min = gammacandmass; 
-            fourthLepton = Lep(-11*els_charge().at(eidx), eidx);
-          }
-      }
+      fourthLepton = Lep(-11*els_charge().at(eidx), eidx);
+
     } 
   }
 
@@ -60,18 +53,11 @@ Lep getFourthLepton(int iHyp){
 
       if (is_hyp_lep) continue;
       if (fabs(tas::mus_p4().at(midx).eta()) > 2.4) continue;
-      if (tas::mus_p4().at(midx).pt() < 5.0) continue;
+      if (tas::mus_p4().at(midx).pt() < 10.0) continue;
       if (!isGoodVetoMuon(midx)) continue;
 
-      for (unsigned int vidx = 0; vidx < mu_idx.size(); vidx++) {
-          if (tas::mus_charge().at(midx) * tas::mus_charge().at(mu_idx.at(vidx)) > 0) continue;
-          LorentzVector gamma_p4 = tas::mus_p4().at(midx) + tas::mus_p4().at(mu_idx.at(vidx));
-          float gammacandmass = sqrt(fabs(gamma_p4.mass2()));
-          if (gammacandmass < min){
-            min = gammacandmass; 
-            fourthLepton = Lep(-13*mus_charge().at(midx), midx);
-          }
-      }
+      fourthLepton = Lep(-13*mus_charge().at(midx), midx);
+
     }
   }
 
@@ -227,6 +213,8 @@ std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector*
   vector <float> result_disc;
   vector <float> result_corrpt;
 
+  int year = gconf.year;
+
   for (unsigned int i = 0; i < tas::pfjets_p4().size(); i++){
     LorentzVector jet = tas::pfjets_p4().at(i);
 
@@ -243,19 +231,25 @@ std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector*
     if (doCorr == 2) pt = jet.pt()*tas::pfjets_undoJEC().at(i);
     
     //Kinematic jet cuts
-    if (pt < 25.) continue;
+    if (pt < bjetMinPt) continue;
     if (fabs(jet.eta()) > 2.4) continue;
 
-    //Require loose jet ID
-    if (!isFastsim && !isLoosePFJet_50nsV1(i)) continue;
+    //Require jet ID
+    if (year == 2016) {
+        if (!isFastsim && !isLoosePFJet_Summer16_v1(i)) continue;
+    }
+    if (year == 2017) {
+        if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
+    }
+    if (year == 2018) {
+        if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
+    }
     
     //Get discriminator
-    float disc = tas::getbtagvalue("pfCombinedInclusiveSecondaryVertexV2BJetTags", i);
+    auto jetobj = Jet(i, JEC);
+    float disc = jetobj.disc();
 
-    // // DeepCSV requires sum of b+bb: https://twiki.cern.ch/twiki/bin/view/CMS/DeepFlavour
-    // float disc = tas::getbtagvalue("deepFlavourJetTags:probb",i)+tas::getbtagvalue("deepFlavourJetTags:probbb",i); // FIXME
-
-    result_jets.push_back(Jet(i, JEC));
+    result_jets.push_back(jetobj);
     result_disc.push_back(disc);
     result_corrpt.push_back(pt);
 
@@ -276,14 +270,14 @@ std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector*
   // Classify b-jets
   for (unsigned int i = 0; i < result_jets.size(); i++){
       float disc = result_disc.at(i);
-      if (disc < btagCut) continue;
+      if (disc < gconf.btag_disc_wp) continue;
       result_btags.push_back(result_jets.at(i));
   }
 
   // Only retain high pt jets if not saving all pts
   vector<Jet> result_jets_cut;
   for (unsigned int i = 0; i < result_jets.size(); i++){
-      if(!saveAllPt && (result_corrpt.at(i) < 40)) continue;
+      if(!saveAllPt && (result_corrpt.at(i) < jetMinPt)) continue;
       result_jets_cut.push_back(result_jets.at(i));
   }
 
@@ -367,10 +361,10 @@ bool isGoodLeptonNoIso(int id, int idx){
 
 bool isInSituFRLepton(int id, int idx){
   if (abs(id) == 11){
-    if (!electronID(idx, SS_medium_looseMVA_noip_v5) && !electronID(idx, SS_medium_v5)) return false;
+    if (!electronID(idx, SS_medium_looseMVA_noip_v6) && !electronID(idx, SS_medium_v6)) return false;
   }
   if (abs(id) == 13){
-    if (!muonID(idx, SS_fo_noiso_noip_v5) && !muonID(idx, SS_fo_noiso_v5)) return false;
+    if (!muonID(idx, SS_fo_noiso_noip_v6) && !muonID(idx, SS_fo_noiso_v6)) return false;
   }
 
   return true;
@@ -760,77 +754,6 @@ int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt
   return -1;
 }
 
-int signalRegionChargeSplit_old(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt){
-    int sr = signalRegion2016(njets, nbtags, met, ht, mt_min, id1, id2, lep1pt, lep2pt);
-    anal_type_t lep_pt = analysisCategory(id1, id2, lep1pt, lep2pt); 
-
-    // if ++ don't put into the new signal regions at the end, just return the original signal region.
-    // remember that sgn(pdgid) != sgn(charge), it's flipped. so mad.
-    if (id1 < 0) return sr;
-
-    // split regions not dominated by fakes (and don't split any of the LL)
-    // and put them consecutively right after the last SR
-    //    split HH: 5 6 7 8 12 13 14 15 16 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
-    //    split LL: 5 6 9 10 11 12 15 16 17 18 19 20 21 22 23 24 25 26 27
-    if (lep_pt == HighHigh) {
-        int off = 33;
-        if (sr ==  5) return off+1;
-        else if (sr ==  6) return off+2;
-        else if (sr ==  7) return off+3;
-        else if (sr ==  8) return off+4;
-        else if (sr == 12) return off+5;
-        else if (sr == 13) return off+6;
-        else if (sr == 14) return off+7;
-        else if (sr == 15) return off+8;
-        else if (sr == 16) return off+9;
-        else if (sr == 19) return off+10;
-        else if (sr == 20) return off+11;
-        else if (sr == 21) return off+12;
-        else if (sr == 22) return off+13;
-        else if (sr == 23) return off+14;
-        else if (sr == 24) return off+15;
-        else if (sr == 25) return off+16;
-        else if (sr == 26) return off+17;
-        else if (sr == 27) return off+18;
-        else if (sr == 28) return off+19;
-        else if (sr == 29) return off+20;
-        else if (sr == 30) return off+21;
-        else if (sr == 31) return off+22;
-        else if (sr == 32) return off+23;
-        else if (sr == 33) return off+24;
-        else return sr;
-
-    } else if (lep_pt == HighLow) {
-        int off = 27;
-        if (sr ==  5) return off+1;
-        else if (sr ==  6) return off+2;
-        else if (sr ==  9) return off+3;
-        else if (sr == 10) return off+4;
-        else if (sr == 11) return off+5;
-        else if (sr == 12) return off+6;
-        else if (sr == 15) return off+7;
-        else if (sr == 16) return off+8;
-        else if (sr == 17) return off+9;
-        else if (sr == 18) return off+10;
-        else if (sr == 19) return off+11;
-        else if (sr == 20) return off+12;
-        else if (sr == 21) return off+13;
-        else if (sr == 22) return off+14;
-        else if (sr == 23) return off+15;
-        else if (sr == 24) return off+16;
-        else if (sr == 25) return off+17;
-        else if (sr == 26) return off+18;
-        else if (sr == 27) return off+19;
-        else return sr;
-
-    } else if (lep_pt == LowLow) {
-        return sr ;
-
-    } 
-
-    return -1;
-}
-
 int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt){
   
   //Calculate lep_pt
@@ -945,192 +868,197 @@ int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int i
   return -1;
 }
 
-int signalRegionRed(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt){
-  
-  //Calculate lep_pt
-  anal_type_t lep_pt = analysisCategory(id1, id2, lep1pt, lep2pt); 
-
-  //Reject events out of kinematic acceptance
-  if (met < 50) return -1; 
-  if (njets < 2) return -1; 
-  if (lep_pt != LowLow && met > 500 && ht < 300) return -1; 
-
-  //High-high
-  if (lep_pt == HighHigh){
-    if (met >= 300) return 18;
-    if (ht >= 1125) return 19; 
-    if (ht < 300){
-      if (nbtags == 0 && mt_min < 120 && met < 200 && njets <= 4) return 1; 
-      if (nbtags == 0) return 3; 
-      if (nbtags == 1 && mt_min < 120 && met < 200 && njets <= 4) return 6; 
-      if (nbtags == 1) return 8; 
-      if (nbtags == 2 && mt_min < 120 && met < 200 && njets <= 4) return 11; 
-      if (nbtags == 2) return 13; 
-      if (nbtags >= 3 && mt_min < 120 && met < 200) return 16; 
-      if (nbtags >= 3 && mt_min < 120 && met >= 200) return 16; 
-      if (nbtags >= 3) return 16;
-    }
-    if (ht >= 300 && ht < 1125){
-      if (nbtags == 0){
-        if (mt_min < 120 && met < 200 && njets <= 4) return 2; 
-        if (mt_min < 120 && met < 200 && njets > 4) return 4; 
-        return 8;
-      } 
-      if (nbtags == 1){
-        if (mt_min < 120 && met < 200 && njets <= 4) return 7; 
-        if (mt_min < 120 && met < 200 && njets > 4) return 9; 
-        return 10;
-      } 
-      if (nbtags == 2){
-        if (mt_min < 120 && met < 200 && njets <= 4) return 12; 
-        if (mt_min < 120 && met < 200 && njets > 4) return 14; 
-        return 15;
-      } 
-      if (nbtags >= 3){
-        if (mt_min < 120 && met < 200) return 17;
-        if (mt_min < 120 && met >= 200) return 17;
-        if (mt_min >= 120) return 17;
-      }
-    }
-  }
-  
-  //High-Low
-  if (lep_pt == HighLow){
-    if (met >= 300) return 17;
-    if (ht >= 1125) return 18;
-    if (ht < 300){ 
-      if (nbtags == 0 && met < 200 && njets <= 4) return 1; 
-      if (mt_min < 120 && nbtags == 0) return 3;
-      if (mt_min < 120 && nbtags == 1 && met < 200 && njets <= 4) return 5; 
-      if (mt_min < 120 && nbtags == 1) return 7;
-      if (mt_min < 120 && nbtags == 2 && met < 200 && njets <= 4) return 9; 
-      if (mt_min < 120 && nbtags == 2) return 11;
-      if (mt_min < 120 && nbtags >= 3 && met < 200) return 13; 
-      if (mt_min < 120 && nbtags >= 3) return 13;
-      if (mt_min >= 120) return 15; 
-    }  
-    if (ht >= 300){
-      if (nbtags == 0 && mt_min < 120 && met < 200 && njets <= 4) return 2; 
-      if (nbtags == 0 && mt_min < 120 && met < 200 && njets > 4) return 4; 
-      if (nbtags == 0 && mt_min < 120 && met < 500 && njets <= 4) return 4; 
-      if (nbtags == 0 && mt_min < 120 && met < 500 && njets > 4) return 4; 
-      if (nbtags == 1 && mt_min < 120 && met < 200 && njets <= 4) return 6; 
-      if (nbtags == 1 && mt_min < 120 && met < 200 && njets > 4) return 8; 
-      if (nbtags == 1 && mt_min < 120 && met < 500 && njets <= 4) return 8; 
-      if (nbtags == 1 && mt_min < 120 && met < 500 && njets > 4) return 8; 
-      if (nbtags == 2 && mt_min < 120 && met < 200 && njets <= 4) return 10; 
-      if (nbtags == 2 && mt_min < 120 && met < 200 && njets > 4) return 12; 
-      if (nbtags == 2 && mt_min < 120 && met < 500 && njets <= 4) return 12; 
-      if (nbtags == 2 && mt_min < 120 && met < 500 && njets > 4) return 12; 
-      if (nbtags >= 3 && mt_min < 120 && met < 200) return 14; 
-      if (nbtags >= 3 && mt_min < 120 && met >= 200) return 14; 
-      if (mt_min >= 120) return 16;
-    }
-  }
-
-  //Low-Low
-  if (lep_pt == LowLow){
-    if (ht < 300) return -1; 
-    if (mt_min > 120) return 3; 
-    if (nbtags == 0 && met < 200) return 1;
-    if (nbtags == 0 && met >= 200) return 2;
-    if (nbtags == 1 && met < 200) return 1;
-    if (nbtags == 1 && met >= 200) return 2;
-    if (nbtags == 2 && met < 200) return 3;
-    if (nbtags == 2 && met >= 200) return 3;
-    if (nbtags >= 3) return 3;
-  }
-
-  //Otherwise undefined
-  cout << "WARNING: SR UNDEFINED (should never get here)" << endl;
-  cout << "  --> lepton pts are: " << lep1pt << " " << lep2pt << endl;
-  cout << "  --> ht & met are: " << ht << " " << met << endl;
-  cout << "  --> njets & nbtags: " << njets << " " << nbtags << endl;
-  return -1;
-}
-
 bool isGoodVetoElectronNoIso(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 7.) return false;
-  if (!electronID(elidx, SS_veto_noiso_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_noiso_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_noiso_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodVetoElectron(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 7.) return false;
-  if (!electronID(elidx, SS_veto_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 7.) return false;
+        if (!electronID(elidx, SS_veto_v6)) return false;
+    }
+    return true;
 }
 
 bool isFakableElectronNoIso(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_fo_looseMVA_noiso_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_noiso_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_noiso_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_noiso_v6)) return false;
+    }
+    return true;
 }
 
 bool isFakableElectron(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_fo_looseMVA_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_v6)) return false;
+    }
+    return true;
 }
 
 bool isFakableElectron_no3chg(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_fo_looseMVA_no3chg_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_no3chg_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_no3chg_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_fo_looseMVA_no3chg_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodElectronNoIso(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_medium_noiso_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_noiso_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_noiso_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_noiso_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodElectron(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_medium_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodElectron_no3chg(unsigned int elidx){
-  if (els_p4().at(elidx).pt() < 10.) return false;
-  if (!electronID(elidx, SS_medium_no3chg_v5)) return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_no3chg_v5)) return false;
+    } else if (gconf.year == 2017) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_no3chg_v6)) return false;
+    } else if (gconf.year == 2018) {
+        if (els_p4().at(elidx).pt() < 10.) return false;
+        if (!electronID(elidx, SS_medium_no3chg_v6)) return false;
+    }
+    return true;
 }
 
 bool isGoodVetoMuonNoIso(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 5.)         return false;
-  if (!muonID(muidx, SS_veto_noiso_v5))     return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_noiso_v5))     return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_noiso_v6))     return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_noiso_v6))     return false;
+    }
+    return true;
 }
 
 bool isGoodVetoMuon(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 5.)         return false;
-  if (!muonID(muidx, SS_veto_v5))           return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_v5))           return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_v6))           return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 5.)         return false;
+        if (!muonID(muidx, SS_veto_v6))           return false;
+    }
+    return true;
 }
 
 bool isFakableMuonNoIso(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_fo_noiso_v5))       return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_noiso_v5))       return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_noiso_v6))       return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_noiso_v6))       return false;
+    }
+    return true;
 }
 
 bool isFakableMuon(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_fo_v5))             return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_v5))             return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_v6))             return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_fo_v6))             return false;
+    }
+    return true;
 }
 
 bool isGoodMuonNoIso(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_tight_noiso_v5))    return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_noiso_v5))    return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_noiso_v6))    return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_noiso_v6))    return false;
+    }
+    return true;
 }
 
 bool isGoodMuon(unsigned int muidx){
-  if (mus_p4().at(muidx).pt() < 10.)        return false;
-  if (!muonID(muidx, SS_tight_v5))          return false;
-  return true;
+    if (gconf.year == 2016) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_v5))          return false;
+    } else if (gconf.year == 2017) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_v6))          return false;
+    } else if (gconf.year == 2018) {
+        if (mus_p4().at(muidx).pt() < 10.)        return false;
+        if (!muonID(muidx, SS_tight_v6))          return false;
+    }
+    return true;
 }
 
 bool isFromLight_mother(int mc_id, int mc_motherid){
@@ -1256,6 +1184,28 @@ int isGoodHyp(int iHyp, bool verbose){
     cout << "   lepton with pT " << pt_ll << " passes numer,denom id: " << passed_id_numer_ll << "," << passed_id_denom_ll << endl;
     cout << "   lepton with pT " << pt_lt << " passes numer,denom id: " << passed_id_numer_lt << "," << passed_id_denom_lt << endl;
     cout << "   lowMassVeto: " << ((tas::hyp_ll_p4().at(iHyp) + tas::hyp_lt_p4().at(iHyp)).M() < 8) << endl;
+
+    if (abs(id_ll) == 11) {
+        std::cout <<  " passMultiIso(): " << passMultiIso(11, idx_ll, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2) << std::endl;
+        std::cout <<  " (!isTriggerSafenoIso_v1(idx_ll)): " << (!isTriggerSafenoIso_v1(idx_ll)) <<  std::endl;
+        std::cout <<  " (els_conv_vtx_flag().at(idx_ll)): " << (els_conv_vtx_flag().at(idx_ll)) <<  std::endl;
+        std::cout <<  " (els_exp_innerlayers().at(idx_ll)>1): " << (els_exp_innerlayers().at(idx_ll)>1) <<  std::endl;
+        std::cout <<  " (fabs(els_dxyPV().at(idx_ll))>0.05): " << (fabs(els_dxyPV().at(idx_ll))>0.05) <<  std::endl;
+        std::cout <<  " (fabs(els_dzPV().at(idx_ll))>=0.1): " << (fabs(els_dzPV().at(idx_ll))>=0.1) <<  std::endl;
+        std::cout <<  " (fabs(els_etaSC().at(idx_ll))>2.5): " << (fabs(els_etaSC().at(idx_ll))>2.5) <<  std::endl;
+        std::cout <<  " (fabs(els_ip3d().at(idx_ll))/els_ip3derr().at(idx_ll)>=4): " << (fabs(els_ip3d().at(idx_ll))/els_ip3derr().at(idx_ll)>=4) <<  std::endl;
+    }
+    if (abs(id_lt) == 11) {
+        std::cout <<  " passMultiIso(): " << passMultiIso(11, idx_lt, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2) << std::endl;
+        std::cout <<  " (!isTriggerSafenoIso_v1(idx_lt)): " << (!isTriggerSafenoIso_v1(idx_lt)) <<  std::endl;
+        std::cout <<  " (els_conv_vtx_flag().at(idx_lt)): " << (els_conv_vtx_flag().at(idx_lt)) <<  std::endl;
+        std::cout <<  " (els_exp_innerlayers().at(idx_lt)>1): " << (els_exp_innerlayers().at(idx_lt)>1) <<  std::endl;
+        std::cout <<  " (fabs(els_dxyPV().at(idx_lt))>0.05): " << (fabs(els_dxyPV().at(idx_lt))>0.05) <<  std::endl;
+        std::cout <<  " (fabs(els_dzPV().at(idx_lt))>=0.1): " << (fabs(els_dzPV().at(idx_lt))>=0.1) <<  std::endl;
+        std::cout <<  " (fabs(els_etaSC().at(idx_lt))>2.5): " << (fabs(els_etaSC().at(idx_lt))>2.5) <<  std::endl;
+        std::cout <<  " (fabs(els_ip3d().at(idx_lt))/els_ip3derr().at(idx_lt)>=4): " << (fabs(els_ip3d().at(idx_lt))/els_ip3derr().at(idx_lt)>=4) <<  std::endl;
+    }
+
     if (abs(id_ll) == 11) cout << "   lepton with pT " << pt_ll << " passes 3chg: " << threeChargeAgree(idx_ll) << endl;
     if (abs(id_lt) == 11) cout << "   lepton with pT " << pt_lt << " passes 3chg: " << threeChargeAgree(idx_lt) << endl;
   }
@@ -1272,8 +1222,14 @@ int isGoodHyp(int iHyp, bool verbose){
   if (!passed_id_inSituFR_ll && !passed_id_denom_ll && !passed_id_numer_ll) return 0;
   if (!passed_id_inSituFR_lt && !passed_id_denom_lt && !passed_id_numer_lt) return 0;
 
-  //Other cuts
-  if ((tas::hyp_ll_p4().at(iHyp) + tas::hyp_lt_p4().at(iHyp)).M() < 8) return 0; 
+  //Other cuts - veto SS ee or any OSSF, with mll<12
+  if (isss && abs(id_ll) == 11 && abs(id_lt) == 11) {
+      if ((tas::hyp_ll_p4().at(iHyp) + tas::hyp_lt_p4().at(iHyp)).M() < 12) return 0; 
+  }
+  if (id_ll == -id_lt) {
+      if ((tas::hyp_ll_p4().at(iHyp) + tas::hyp_lt_p4().at(iHyp)).M() < 12) return 0; 
+  }
+
   if (!hypsFromFirstGoodVertex(iHyp)) return 0;
 
   //Finished for events that fail z veto
@@ -1551,7 +1507,7 @@ pair<Lep, int> getThirdLepton_RA7(int hyp){
   return pair<Lep, int>(result, quality);
 
 }
-pair<Lep, int> getThirdLepton(int hyp){
+pair<Lep, int> getThirdLepton(int hyp, int ignore_id, int ignore_idx){
 
   //If hyp_class == 6, save the lepton that triggered the Z veto (so long as it is veto or higher)
   Z_result_t Zresult = makesExtraZ(hyp);
@@ -1584,6 +1540,7 @@ pair<Lep, int> getThirdLepton(int hyp){
     //Remove electrons already selected
     if (abs(ll_id) == 11 && ll_idx == i) continue; 
     if (abs(lt_id) == 11 && lt_idx == i) continue; 
+    if (abs(ignore_id) == 11 && ignore_idx == (int)i) continue;
 
     //Remove electrons that fail kinematically
     if (tas::els_p4().at(i).pt() < 20) continue;
@@ -1610,6 +1567,7 @@ pair<Lep, int> getThirdLepton(int hyp){
     //Remove electrons already selected
     if (abs(ll_id) == 13 && ll_idx == i) continue; 
     if (abs(lt_id) == 13 && lt_idx == i) continue; 
+    if (abs(ignore_id) == 13 && ignore_idx == (int)i) continue;
    
     //Remove electrons that fail kinematically
     if (tas::mus_p4().at(i).pt() < 20) continue;
@@ -1646,13 +1604,13 @@ bool lepsort (Lep i,Lep j) {
 bool jetptsort (Jet i,Jet j) { return (i.pt()>j.pt()); }
 
 float coneCorrPt(int id, int idx){
-  float miniIso = abs(id)==11 ? elMiniRelIsoCMS3_EA(idx, ssEAversion) : muMiniRelIsoCMS3_EA(idx, ssEAversion);
+  float miniIso = abs(id)==11 ? elMiniRelIsoCMS3_EA(idx, gconf.ea_version) : muMiniRelIsoCMS3_EA(idx, gconf.ea_version);
   LorentzVector lep_p4 = abs(id)==11 ? els_p4().at(idx) : mus_p4().at(idx);
   LorentzVector jet_p4  = closestJet(lep_p4, 0.4, 3.0, ssWhichCorr);
   float ptrel = ptRel(lep_p4, jet_p4, true);
-  float A = abs(id)==11 ? 0.12 : 0.16;
-  float B = abs(id)==11 ? 0.80 : 0.76;
-  float C = abs(id)==11 ? 7.20 : 7.20;
+  float A = abs(id)==11 ? gconf.multiiso_el_minireliso : gconf.multiiso_mu_minireliso;
+  float B = abs(id)==11 ? gconf.multiiso_el_ptratio : gconf.multiiso_mu_ptratio;
+  float C = abs(id)==11 ? gconf.multiiso_el_ptrel : gconf.multiiso_mu_ptrel;
   return ((ptrel > C) ? lep_p4.pt()*(1 + std::max((float)0, miniIso - A)) : std::max(lep_p4.pt(), jet_p4.pt() * B));
 }
 

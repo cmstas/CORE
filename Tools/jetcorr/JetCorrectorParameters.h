@@ -55,13 +55,32 @@ class JetCorrectorParameters
         Record(unsigned fNvar, const std::vector<float>& fXMin, const std::vector<float>& fXMax, const std::vector<float>& fParameters) : mNvar(fNvar),mMin(fXMin),mMax(fXMax),mParameters(fParameters) {}
         Record(const std::string& fLine, unsigned fNvar);
         //-------- Member functions ----------
+        unsigned nVar()                     const {return mNvar;                      }
         float xMin(unsigned fVar)           const {return mMin[fVar];                 }
         float xMax(unsigned fVar)           const {return mMax[fVar];                 }
         float xMiddle(unsigned fVar)        const {return 0.5*(xMin(fVar)+xMax(fVar));}
         float parameter(unsigned fIndex)    const {return mParameters[fIndex];        }
         std::vector<float> parameters()     const {return mParameters;                }
         unsigned nParameters()              const {return mParameters.size();         }
-        int operator< (const Record& other) const {return xMin(0) < other.xMin(0);    }
+        bool operator< (const Record& other) const
+        {
+          if (xMin(0) < other.xMin(0)) return true;
+          if (xMin(0) > other.xMin(0)) return false;
+          if ((mNvar > 1) && (xMin(1) < other.xMin(1))) return true;
+          if ((mNvar > 1) && (xMin(1) > other.xMin(1))) return false;
+          return ((mNvar > 2) && (xMin(2) < other.xMin(2)));
+        }
+        bool operator< (const std::vector<float> fX) const
+        {
+            if (mNvar == 1) {
+                return xMin(0) < fX[0];
+            } else {
+                if ((xMin(0) < fX[0]) && (xMax(0) < fX[0])) return true;
+                if ((xMin(0) > fX[0]) && (xMax(0) > fX[0])) return false;
+                // now we must be in the correct eta bin, so just look at one pt edge
+                return (xMin(1) < fX[1]);
+            }
+        }
       private:
         //-------- Member variables ----------
         unsigned           mNvar;

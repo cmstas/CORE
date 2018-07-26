@@ -1,6 +1,7 @@
 #ifndef SSSELECTIONS_H
 #define SSSELECTIONS_H
 #include "CMS3.h"
+#include "Config.h"
 #include "ElectronSelections.h"
 #include "MuonSelections.h"
 #include "MetSelections.h"
@@ -15,9 +16,8 @@
 
 const static float ptCutHigh = 25.;
 const static int   ssWhichCorr = 2;
-const static int   ssEAversion = 1;
-const static float btagCut = 0.8484; // CSVv2M https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation80XReReco
-// const static float btagCut = 0.6324; // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation80XReReco // FIXME
+const static float jetMinPt = 40.;
+const static float bjetMinPt = 25.;
 
 float ptCutLowAG(int id);
 
@@ -32,9 +32,9 @@ enum LeptonCategories { Prompt = 0, PromptWS = 1, PromptWF = 2, PromptFSR = 2,
 			Other = 11, End = 12};
 
 //Structs
+struct Lep;
 struct hyp_result_t { int best_hyp; int hyp_class; };
 struct particle_t { int id; LorentzVector p4; int idx; };
-struct Lep;
 struct DilepHyp;
 struct Jet;
 struct Z_result_t { bool result; int id; int idx; }; 
@@ -57,9 +57,9 @@ int isGoodHyp(int iHyp, bool verbose=false);
 bool makesExtraGammaStar(int iHyp);
 Z_result_t makesExtraZ(int iHyp);
 bool hypsFromFirstGoodVertex(size_t hypIdx, float dz_cut = 1.0);
-std::pair<Lep, int> getThirdLepton(int hyp);
+std::pair<Lep, int> getThirdLepton(int hyp, int ignore_id=-1, int ignore_idx=-1);
 std::pair<Lep, int> getThirdLepton_RA7(int hyp);
-Lep getFourthLepton(int hyp);
+Lep getFourthLepton(int hyp, int lep3id=-1, int lep3idx=-1);
 std::vector<particle_t> getGenPair(bool verbose=false);
 
 //Signal region selections
@@ -68,8 +68,6 @@ int baselineRegion(int njets, int nbtags, float met, float ht, int id1, int id2,
 int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 int signalRegion2016(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
-int signalRegionChargeSplit_old(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
-int signalRegionRed(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 std::vector<int> signalRegionAggOverlap(int njets, int nbtags, float met, float ht, float mt_min, int id1, int id2, float lep1pt, float lep2pt);
 
 //More Lepton selections
@@ -158,13 +156,26 @@ struct Jet {
     float pt() {return p4().pt();}
     float eta() {return p4().eta();}
     float phi() {return p4().phi();}
-    float csv() {return tas::getbtagvalue("pfCombinedSecondaryVertexV2BJetTags",idx_);}
-    // float csv() {return tas::getbtagvalue("deepFlavourJetTags:probb",idx_)+tas::getbtagvalue("deepFlavourJetTags:probbb",idx_);} // FIXME
-    float csvivf() {return tas::getbtagvalue("pfCombinedInclusiveSecondaryVertexV2BJetTags",idx_);}
-    float csvmva() {return tas::getbtagvalue("pfCombinedMVAV2BJetTags",idx_);}
-    // float csvivf() {return cms3.pfjets_pfCombinedInclusiveSecondaryVertexV2BJetTag()[idx_];}
-    bool isBtag() {return csvivf()>btagCut;}
-    // bool isBtag() {return csv()>btagCut;} // FIXME
+    float disc() {
+        // holy hell this will be confusing...
+        // Originally deepCSV was called deepflavour (hence 2016 line)
+        // then it got renamed to deepcsv to ironically avoid confusion 
+        // because of its successor (deepflavour) (hence 2017 line)
+        // and now that deepflavour will be available in 2018, guess we're going to use deepflavour?
+        if (gconf.year == 2016) {
+            if (gconf.cmssw_ver == 94) {
+                return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+            } else {
+                return tas::getbtagvalue("deepFlavourJetTags:probb",idx_) + tas::getbtagvalue("deepFlavourJetTags:probbb",idx_);
+            }
+        } else if (gconf.year == 2017) {
+            return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+        } else if (gconf.year == 2018) {
+            return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+        }
+        return -1;
+    }
+    bool isBtag() {return disc()>gconf.btag_disc_wp;}
     int   mc3_id() {return cms3.pfjets_mc3_id()[idx_];}
     LorentzVector genjet_p4() {return cms3.pfjets_mc_p4()[idx_];}
     LorentzVector genps_p4() {return cms3.pfjets_mc_gp_p4()[idx_];}
