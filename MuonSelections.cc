@@ -311,7 +311,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     // same ID as v2 and v3, use updated EA values
     case(HAD_loose_v4):
       if (muonID(muIdx, HAD_loose_noiso_v4)==0) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,1) > 0.2) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.2) return false;
       return true;
       break;
 
@@ -806,7 +806,7 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     // same ID as v2 and v3, use updated EA values
     case(HAD_tight_v4):
       if (muonID(muIdx, HAD_tight_noiso_v4)==0) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,1) > 0.2) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.2) return false;
       return true;
       break;
 

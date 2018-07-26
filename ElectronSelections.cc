@@ -473,7 +473,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_veto_v4):
       if (electronID(elIdx, HAD_veto_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -492,7 +492,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 //      // updated EA values
 //    case(HAD_veto_v5):
 //      if (electronID(elIdx, HAD_veto_noiso_v5)==0) return false;
-//      if (elMiniRelIsoCMS3_EA(elIdx,2) > 0.1) return false; 
+//      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
 //      return true;
 //      break;
 
@@ -987,7 +987,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_loose_v4):
       if (electronID(elIdx, HAD_loose_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -1107,7 +1107,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_medium_v4):
       if (electronID(elIdx, HAD_medium_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -1539,7 +1539,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_tight_v4):
       if (electronID(elIdx, HAD_tight_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
