@@ -123,6 +123,9 @@ protected:
   vector<float> pfjets_axis1_;
   TBranch *pfjets_axis1_branch;
   bool pfjets_axis1_isLoaded;
+  vector<float> pfjets_axis2_;
+  TBranch *pfjets_axis2_branch;
+  bool pfjets_axis2_isLoaded;
   float evt_METToolboxNoHF_pfmet_raw_;
   TBranch *evt_METToolboxNoHF_pfmet_raw_branch;
   bool evt_METToolboxNoHF_pfmet_raw_isLoaded;
@@ -4903,6 +4906,7 @@ public:
   const vector<float> &pfjets_pfDeepCSVJetTagsprobbPlusprobbb();
   const vector<float> &pfjets_ptDistribution();
   const vector<float> &pfjets_axis1();
+  const vector<float> &pfjets_axis2();
   const vector<int> &pfjets_totalMultiplicity();
   const float &evt_pfmetPhi();
   const vector<int> &pfjets_METToolbox_chargedMultiplicity();
@@ -6343,6 +6347,7 @@ namespace tas {
   const vector<float> &pfjets_pfDeepCSVJetTagsprobbPlusprobbb();
   const vector<float> &pfjets_ptDistribution();
   const vector<float> &pfjets_axis1();
+  const vector<float> &pfjets_axis2();
   const vector<int> &pfjets_totalMultiplicity();
   const float &evt_pfmetPhi();
   const vector<int> &pfjets_METToolbox_chargedMultiplicity();

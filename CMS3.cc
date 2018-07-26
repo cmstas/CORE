@@ -613,6 +613,12 @@ void CMS3::Init(TTree *tree) {
     pfjets_ptDistribution_branch = tree->GetBranch(tree->GetAlias("pfjets_ptDistribution"));
     if (pfjets_ptDistribution_branch) { pfjets_ptDistribution_branch->SetAddress(&pfjets_ptDistribution_); }
   }
+
+  pfjets_axis2_branch = 0;
+  if (tree->GetAlias("pfjets_axis2") != 0) {
+    pfjets_axis2_branch = tree->GetBranch(tree->GetAlias("pfjets_axis2"));
+    if (pfjets_axis2_branch) { pfjets_axis2_branch->SetAddress(&pfjets_axis2_); }
+  }
   pfjets_axis1_branch = 0;
   if (tree->GetAlias("pfjets_axis1") != 0) {
     pfjets_axis1_branch = tree->GetBranch(tree->GetAlias("pfjets_axis1"));
@@ -7730,6 +7736,7 @@ void CMS3::GetEntry(unsigned int idx) {
   pfjets_pfDeepCSVJetTagsprobbPlusprobbb_isLoaded = false;
   pfjets_ptDistribution_isLoaded = false;
   pfjets_axis1_isLoaded = false;
+  pfjets_axis2_isLoaded = false;
   pfjets_totalMultiplicity_isLoaded = false;
   evt_pfmetPhi_isLoaded = false;
   pfjets_METToolbox_chargedMultiplicity_isLoaded = false;
@@ -9159,6 +9166,7 @@ void CMS3::LoadAllBranches() {
   if (pfjets_pfDeepCSVJetTagsprobbPlusprobbb_branch != 0) pfjets_pfDeepCSVJetTagsprobbPlusprobbb();
   if (pfjets_ptDistribution_branch != 0) pfjets_ptDistribution();
   if (pfjets_axis1_branch != 0) pfjets_axis1();
+  if (pfjets_axis2_branch != 0) pfjets_axis2();
   if (pfjets_totalMultiplicity_branch != 0) pfjets_totalMultiplicity();
   if (evt_pfmetPhi_branch != 0) evt_pfmetPhi();
   if (pfjets_METToolbox_chargedMultiplicity_branch != 0) pfjets_METToolbox_chargedMultiplicity();
@@ -17779,6 +17787,19 @@ const vector<float> &CMS3::pfjets_ptDistribution() {
     pfjets_ptDistribution_isLoaded = true;
   }
   return pfjets_ptDistribution_;
+}
+
+const vector<float> &CMS3::pfjets_axis2() {
+  if (not pfjets_axis2_isLoaded) {
+    if (pfjets_axis2_branch != 0) {
+      pfjets_axis2_branch->GetEntry(index);
+    } else {
+      printf("branch pfjets_axis2_branch does not exist!\n");
+      exit(1);
+    }
+    pfjets_axis2_isLoaded = true;
+  }
+  return pfjets_axis2_;
 }
 const vector<float> &CMS3::pfjets_axis1() {
   if (not pfjets_axis1_isLoaded) {
@@ -29308,6 +29329,7 @@ namespace tas {
   const vector<float> &pfjets_pfDeepCSVJetTagsprobbPlusprobbb() { return cms3.pfjets_pfDeepCSVJetTagsprobbPlusprobbb(); }
   const vector<float> &pfjets_ptDistribution() { return cms3.pfjets_ptDistribution(); }
   const vector<float> &pfjets_axis1() { return cms3.pfjets_axis1(); }
+  const vector<float> &pfjets_axis2() { return cms3.pfjets_axis2(); }
   const vector<int> &pfjets_totalMultiplicity() { return cms3.pfjets_totalMultiplicity(); }
   const float &evt_pfmetPhi() { return cms3.evt_pfmetPhi(); }
   const vector<int> &pfjets_METToolbox_chargedMultiplicity() { return cms3.pfjets_METToolbox_chargedMultiplicity(); }
