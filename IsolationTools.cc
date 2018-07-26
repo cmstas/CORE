@@ -5,9 +5,6 @@
 using namespace std;
 using namespace tas;
 
-FactorizedJetCorrector *jetCorrAG3 = 0;
-FactorizedJetCorrector *jetCorrAG2 = 0;
-
 bool passMultiIsoCuts(float cutMiniIso, float cutPtRatio, float cutPtRel, float miniIsoValue, float ptRatioValue, float ptRelValue){
   return (miniIsoValue < cutMiniIso && (ptRatioValue>cutPtRatio || ptRelValue > cutPtRel));
 }
@@ -62,64 +59,30 @@ int closestJetIdx(const LorentzVector& lep_p4, float dRmin, float maxAbsEta){
 }
 
 LorentzVector closestJet(const LorentzVector& lep_p4, float dRmin, float maxAbsEta, int whichCorr){
-  std::string jecEra = "";
-  // std::string jecEraMC = "Summer16_23Sep2016V3";
-  std::string jecEraMC = "Fall17_17Nov2017_V6";
-  if (tas::evt_isRealData()) {
-      if (     tas::evt_run() <= 276811) jecEra = "Summer16_23Sep2016BCDV3";
-      else if (tas::evt_run() <= 278801 && tas::evt_run() >= 276831) jecEra = "Summer16_23Sep2016EFV3";
-      else if (tas::evt_run() <= 280385 && tas::evt_run() >= 278802) jecEra = "Summer16_23Sep2016GV3";
-      else if (tas::evt_run() <= 294645 && tas::evt_run() >= 280919) jecEra = "Summer16_23Sep2016HV3";
-      else if (tas::evt_run() <= 299329 && tas::evt_run() >= 297046) jecEra = "Fall17_17Nov2017B_V6";
-      else if (tas::evt_run() <= 302029 && tas::evt_run() >= 299368) jecEra = "Fall17_17Nov2017C_V6";
-      else if (tas::evt_run() <= 303434 && tas::evt_run() >= 302030) jecEra = "Fall17_17Nov2017D_V6";
-      else if (tas::evt_run() <= 304797 && tas::evt_run() >= 303824) jecEra = "Fall17_17Nov2017E_V6";
-      else if (tas::evt_run() <= 306462 && tas::evt_run() >= 305040) jecEra = "Fall17_17Nov2017F_V6";
-      else {
-          throw std::invalid_argument("Can't classify run " + tas::evt_run());
-      }
-  }
   int closestIdx = closestJetIdx(lep_p4,dRmin,maxAbsEta);
   if (closestIdx < 0) return LorentzVector();
   LorentzVector jet = pfjets_p4().at(closestIdx);
   LorentzVector rawjet = pfjets_p4().at(closestIdx)*pfjets_undoJEC().at(closestIdx);
 
-  if (whichCorr == 0) return jet; 
+  if (whichCorr == 0) return jet;
 
   //Calculate JEC
-  if (jetCorrAG3 == 0){
-    std::vector<std::string> filenames;
-    if (tas::evt_isRealData() && whichCorr != 1) {
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L1FastJet_AK4PFchs.txt");
-    } else {
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L1FastJet_AK4PFchs.txt");
-    }
-    jetCorrAG3 = makeJetCorrector(filenames);
+  if (gconf.jet_corrector_L1 == 0){
+      throw std::runtime_error("jet corrector for L1 not initialized but needed for closestJet in IsolationTools");
   }
-  if (jetCorrAG2 == 0){
-    std::vector<std::string> filenames;
-    if (tas::evt_isRealData()) { 
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L2Relative_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L3Absolute_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEra+"_DATA/"+jecEra+"_DATA_L2L3Residual_AK4PFchs.txt");
-    } 
-    else {
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L2Relative_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L3Absolute_AK4PFchs.txt");
-      filenames.push_back("CORE/Tools/jetcorr/data/run2_25ns/"+jecEraMC+"_MC/"+jecEraMC+"_MC_L2L3Residual_AK4PFchs.txt");
-    }
-    jetCorrAG2 = makeJetCorrector(filenames);
+  if (gconf.jet_corrector_L2L3 == 0){
+      throw std::runtime_error("jet corrector for L2L3 not initialized but needed for closestJet in IsolationTools");
   }
-  jetCorrAG3->setJetEta(rawjet.eta()); 
-  jetCorrAG3->setJetPt(rawjet.pt()); 
-  jetCorrAG3->setJetA(tas::pfjets_area().at(closestIdx)); 
-  jetCorrAG3->setRho(tas::evt_fixgridfastjet_all_rho()); 
-  float JEC1 = jetCorrAG3->getCorrection(); 
-  jetCorrAG2->setJetEta(rawjet.eta()); 
-  jetCorrAG2->setJetPt(rawjet.pt()*JEC1); 
-  jetCorrAG2->setJetA(tas::pfjets_area().at(closestIdx)); 
-  jetCorrAG2->setRho(tas::evt_fixgridfastjet_all_rho()); 
-  float JEC2 = jetCorrAG2->getCorrection(); 
+  gconf.jet_corrector_L1->setJetEta(rawjet.eta());
+  gconf.jet_corrector_L1->setJetPt(rawjet.pt());
+  gconf.jet_corrector_L1->setJetA(tas::pfjets_area().at(closestIdx));
+  gconf.jet_corrector_L1->setRho(tas::evt_fixgridfastjet_all_rho());
+  float JEC1 = gconf.jet_corrector_L1->getCorrection();
+  gconf.jet_corrector_L2L3->setJetEta(rawjet.eta());
+  gconf.jet_corrector_L2L3->setJetPt(rawjet.pt()*JEC1);
+  gconf.jet_corrector_L2L3->setJetA(tas::pfjets_area().at(closestIdx));
+  gconf.jet_corrector_L2L3->setRho(tas::evt_fixgridfastjet_all_rho());
+  float JEC2 = gconf.jet_corrector_L2L3->getCorrection();
 
   if (whichCorr == 1) return rawjet*JEC1;
   return (rawjet*JEC1 - lep_p4)*JEC2 + lep_p4;
@@ -152,7 +115,7 @@ float muRelIso04DB(unsigned int muIdx){
 
 float muRelIso03(unsigned int muIdx, analysis_t analysis){
   if (analysis == WW  ) return muRelIso03EA(muIdx);
-  if (analysis == SS  ) return muRelIso03EA(muIdx,3);
+  if (analysis == SS  ) return muRelIso03EA(muIdx,gconf.ea_version);
   if (analysis == ZMET) return muRelIso03EA(muIdx);
   return muRelIso03DB(muIdx);
 }
@@ -177,14 +140,19 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0363;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0119;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0064;
-  } else {
+  } else if(version==1 || version==2){
     //Spring15 version
+    //For version 2 it is same as Spring 15. Why? I don't know. I think Dylan probably knows about this.)
     if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0735;
     else if (fabs(mus_p4().at(muIdx).eta())<=1.300) ea = 0.0619;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0465;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0433;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0577;
+  }else{
+      // invalid value
+      cerr << "[CORE:IsolationTools:muEA03] WARNING! invalid EA version value. (Did you forget to change your gconf.ea_version?)" << endl;
   }
+
   return ea;
 }
 
@@ -199,7 +167,7 @@ float muRelIso03EA(unsigned int muIdx, int eaversion, bool include_leptons){
   float absiso = chiso + std::max(float(0.0), nhiso + emiso - evt_fixgridfastjet_all_rho() * ea);
   return absiso/(mus_p4().at(muIdx).pt());
 }
- 
+
 float muRelIso03_noCorr(unsigned int muIdx){
   float chiso  = mus_isoR03_pf_ChargedHadronPt().at(muIdx);
   float nhiso  = mus_isoR03_pf_NeutralHadronEt().at(muIdx);
@@ -224,7 +192,7 @@ float muRelIsoCustomCone(unsigned int muIdx, float dr, bool useVetoCones, float 
   for (unsigned int i=0; i<pfcands_particleId().size(); ++i){
     float thisDR = fabs(ROOT::Math::VectorUtil::DeltaR(pfcands_p4().at(i),mus_p4().at(muIdx)));
     if (thisDR<mindr) continue;
-    if (thisDR>dr) continue;  
+    if (thisDR>dr) continue;
     if ( fabs(pfcands_particleId().at(i))==211 || (include_leptons && ((fabs(pfcands_particleId().at(i)) == 11) || (fabs(pfcands_particleId().at(i)) == 13 && dr > 0.0005))) ) {
       if (pfcands_fromPV().at(i) > 1 && (!useVetoCones || thisDR > deadcone_ch) ) chiso+=pfcands_p4().at(i).pt();
       else if (useDBcor && pfcands_fromPV().at(i) <= 1 && (pfcands_p4().at(i).pt() > ptthresh) && (!useVetoCones || thisDR > deadcone_pu)) deltaBeta+=pfcands_p4().at(i).pt();
@@ -281,7 +249,7 @@ float eleRelIso03(unsigned int elIdx, analysis_t analysis){
   if (analysis == HAD ) return eleRelIso03DB(elIdx);
   if (analysis == STOP) return eleRelIso03DB(elIdx);
   if (analysis == WW  ) return eleRelIso03_90ContEA(elIdx);
-  if (analysis == SS  ) return eleRelIso03EA(elIdx,3);
+  if (analysis == SS  ) return eleRelIso03EA(elIdx,gconf.ea_version);
   if (analysis == ZMET) return eleRelIso03EA(elIdx);
 
   else return eleRelIso03EA(elIdx,0);
@@ -305,7 +273,7 @@ float elEA03(unsigned int elIdx, int version) {
     else if (fabs(els_p4().at(elIdx).eta())<=2.000) ea = 0.0572;
     else if (fabs(els_p4().at(elIdx).eta())<=2.200) ea = 0.0842;
     else if (fabs(els_p4().at(elIdx).eta())<=2.500) ea = 0.1530;
-  } 
+  }
   else if (version==1){
     //Spring15 version
     if      (fabs(els_etaSC().at(elIdx))<=1.000) ea = 0.1752;
@@ -345,6 +313,10 @@ float elEA03(unsigned int elIdx, int version) {
     else if (fabs(els_etaSC().at(elIdx))<=2.300) ea = 0.1116;
     else if (fabs(els_etaSC().at(elIdx))<=2.400) ea = 0.1321;
     else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.1654;
+  }
+  else {
+      // invalid value
+      cerr << "[CORE:IsolationTools:elEA03] WARNING! invalid EA version value. (Did you forget to change your gconf.ea_version?)" << endl;
   }
   return ea;
 }
@@ -421,7 +393,7 @@ float elRelIsoCustomCone(unsigned int elIdx, float dr, bool useVetoCones, float 
   for (unsigned int i=0; i<pfcands_particleId().size(); ++i){
     float thisDR = fabs(ROOT::Math::VectorUtil::DeltaR(pfcands_p4().at(i),els_p4().at(elIdx)));
     if ( thisDR<mindr ) continue;
-    if ( thisDR>dr ) continue;  
+    if ( thisDR>dr ) continue;
     if ( fabs(pfcands_particleId().at(i))==211  || (include_leptons && ((fabs(pfcands_particleId().at(i)) == 11 && dr > 0.0005) || (fabs(pfcands_particleId().at(i)) == 13)))) {
       if (pfcands_fromPV().at(i) > 1 && (!useVetoCones || thisDR > deadcone_ch) ) chiso+=pfcands_p4().at(i).pt();
       else if (useDBcor && pfcands_fromPV().at(i) <= 1 && (pfcands_p4().at(i).pt() > ptthresh) && (!useVetoCones || thisDR > deadcone_pu)) deltaBeta+=pfcands_p4().at(i).pt();
@@ -488,7 +460,7 @@ float photon_CHEA03( int photonIdx )
 {
   float eta = cms3.photons_p4().at(photonIdx).eta();
   float EA = -999;
-  
+
   if(       abs(eta) < 1.0   ){ EA = 0.0157;
   }else if( abs(eta) < 1.479 ){ EA = 0.0143;
   }else if( abs(eta) < 2.0   ){ EA = 0.0115;
@@ -497,7 +469,7 @@ float photon_CHEA03( int photonIdx )
   }else if( abs(eta) < 2.4   ){ EA = 0.0068;
   }else if( abs(eta) > 2.4   ){ EA = 0.0053;
   }
-  
+
   return EA;
 }
 
@@ -505,7 +477,7 @@ float photon_NHEA03( int photonIdx )
 {
   float eta = cms3.photons_p4().at(photonIdx).eta();
   float EA = -999;
-  
+
   if(       abs(eta) < 1.0   ){ EA = 0.0143;
   }else if( abs(eta) < 1.479 ){ EA = 0.0210;
   }else if( abs(eta) < 2.0   ){ EA = 0.0148;
@@ -514,7 +486,7 @@ float photon_NHEA03( int photonIdx )
   }else if( abs(eta) < 2.4   ){ EA = 0.0186;
   }else if( abs(eta) > 2.4   ){ EA = 0.0320;
   }
-  
+
   return EA;
 }
 
@@ -522,7 +494,7 @@ float photon_EMEA03( int photonIdx )
 {
   float eta = cms3.photons_p4().at(photonIdx).eta();
   float EA = -999;
-  
+
   if(       abs(eta) < 1.0   ){ EA = 0.0725;
   }else if( abs(eta) < 1.479 ){ EA = 0.0604;
   }else if( abs(eta) < 2.0   ){ EA = 0.0320;
@@ -531,7 +503,7 @@ float photon_EMEA03( int photonIdx )
   }else if( abs(eta) < 2.4   ){ EA = 0.0949;
   }else if( abs(eta) > 2.4   ){ EA = 0.1160;
   }
-  
+
   return EA;
 }
 

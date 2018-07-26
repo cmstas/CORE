@@ -56,17 +56,18 @@ float SimpleJetCorrectionUncertainty::uncertaintyBin(unsigned fBin, float fY, bo
   if ((p.size() % 3) != 0)
     //throw cms::Exception ("SimpleJetCorrectionUncertainty")<<"wrong # of parameters: multiple of 3 expected, "<<p.size()<< " got";    
     handleError("SimpleJetCorrectionUncertainty"," wrong # of parameters: multiple of 3 expected"); 
-  std::vector<float> yGrid,value;
   unsigned int N = p.size()/3;
+  std::vector<float> yGrid(N,0.);
+  std::vector<float> value(N,0.);
   float result = -1.0;
   for(unsigned i=0;i<N;i++)
     {
       unsigned ind = 3*i;
-      yGrid.push_back(p[ind]);
+      yGrid[i] = p[ind];
       if (fDirection)// true = UP
-        value.push_back(p[ind+1]);
+        value[i] = p[ind+1];
       else // false = DOWN
-        value.push_back(p[ind+2]); 
+        value[i] = p[ind+2];
     }
   if (fY <= yGrid[0])
     result = value[0];  

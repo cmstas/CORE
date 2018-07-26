@@ -585,7 +585,7 @@ bool passesMETfilterv2(){
 
 }
 
-bool passesMETfilters2016(bool isData){
+bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter, bool ignoreBadMuonFilter){
 
   //primary vertex filter (re-run by user)
   if (firstGoodVertex() == -1) return false;
@@ -600,11 +600,15 @@ bool passesMETfilters2016(bool isData){
 
   if (!filt_goodVertices()) return false;
 
-  if (!badChargedCandidateFilter()) return false;
 
   // MC samples don't have algoOrig branch
   if(isData) {
-    if (!badMuonFilter()) return false;
+      if (!ignoreChargedCandFilter) {
+          if (!badChargedCandidateFilter()) return false;
+      }
+      if (!ignoreBadMuonFilter) {
+          if (!filt_noBadMuons()) return false;
+      }
   }
 
   //Otherwise good
@@ -638,7 +642,7 @@ bool passesMETfiltersMoriond17(bool isData){
 
 }
 
-bool passesMETfiltersMoriond18(bool isData){
+bool passesMETfilters2017(bool isData){
 
   //primary vertex filter (re-run by user)
   if (firstGoodVertex() == -1) return false;
@@ -657,7 +661,6 @@ bool passesMETfiltersMoriond18(bool isData){
   return true;
 
 }
-
 // takes in an already initialized FactorizedJetCorrector object
 // and returns T1 Corrected MET using the CHS jet collection
 // THIS FUNCTION IS NOT VALIDATED CURRENTLY!

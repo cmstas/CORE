@@ -292,7 +292,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_veto_v5):
       if (electronID(elIdx, SS_veto_noiso_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -319,8 +319,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (!isTriggerSafenoIso_v1(elIdx)) return false;
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      // if (els_exp_innerlayers().at(elIdx) > 1) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false; // FIXME
+      if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
       if (globalEleMVAreader==0){
@@ -332,7 +331,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_veto_v6):
       if (electronID(elIdx, SS_veto_noiso_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -474,7 +473,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_veto_v4):
       if (electronID(elIdx, HAD_veto_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -493,7 +492,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 //      // updated EA values
 //    case(HAD_veto_v5):
 //      if (electronID(elIdx, HAD_veto_noiso_v5)==0) return false;
-//      if (elMiniRelIsoCMS3_EA(elIdx,2) > 0.1) return false; 
+//      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
 //      return true;
 //      break;
 
@@ -784,8 +783,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      // if (els_exp_innerlayers().at(elIdx) > 0) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false; // FIXME
+      if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dxyPV().at(elIdx)) > 0.05) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -807,8 +805,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      // if (els_exp_innerlayers().at(elIdx) > 0) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false; // FIXME
+      if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dxyPV().at(elIdx)) > 0.05) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -1003,7 +1000,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_loose_v4):
       if (electronID(elIdx, HAD_loose_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -1129,7 +1126,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_medium_v4):
       if (electronID(elIdx, HAD_medium_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -1325,14 +1322,14 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_medium_v5):
       if (electronID(elIdx, SS_medium_noiso_v5)==0) return false; 
-      if (elIDCacheSet) return passMultiIsoCuts(0.12, 0.80, 7.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
-      else return passMultiIso(11, elIdx, 0.12, 0.80, 7.2, 1, 2);
+      if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
+      else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
     case(SS_medium_no3chg_v5):
       if (electronID(elIdx, SS_medium_noiso_no3chg_v5)==0) return false; 
-      if (elIDCacheSet) return passMultiIsoCuts(0.12, 0.80, 7.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
-      else return passMultiIso(11, elIdx, 0.12, 0.80, 7.2, 1, 2);
+      if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
+      else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
     case(SS_medium_looseMVA_noip_v5): 
@@ -1366,8 +1363,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      // if (els_exp_innerlayers().at(elIdx) > 0) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false; // FIXME
+      if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -1375,15 +1371,35 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_medium_v6):
       if (electronID(elIdx, SS_medium_noiso_v6)==0) return false; 
-      if (elIDCacheSet) return passMultiIsoCuts(0.09, 0.85, 9.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
-      else return passMultiIso(11, elIdx, 0.09, 0.85, 9.2, 3, 2);
+      if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
+      else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
     case(SS_medium_no3chg_v6):
-      if (electronID(elIdx, SS_medium_noiso_no3chg_v5)==0) return false; 
-      if (elIDCacheSet) return passMultiIsoCuts(0.09, 0.85, 9.2, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
-      else return passMultiIso(11, elIdx, 0.09, 0.85, 9.2, 3, 2);
+      if (electronID(elIdx, SS_medium_noiso_no3chg_v6)==0) return false; 
+      if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
+      else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
+
+    case(SS_medium_looseMVA_noip_v6): 
+    case(SS_medium_noip_v6):
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_noip_v6)==0) return false;//make sure it's tighter than FO
+      if (globalEleMVAreader==0){
+	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
+	    return false;
+      }
+      if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
+      if (els_conv_vtx_flag().at(elIdx)) return false;
+      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (threeChargeAgree(elIdx)==0) return false;
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
+      if( id_level != SS_medium_looseMVA_noip_v6) {
+          if (!globalEleMVAreader->passesElectronMVAid(elIdx, id_level)) return false;
+      }
+      //return passMultiIso(11, elIdx, 0.40, 0.7, 7.0);
+      return true;
+      break;
+
 
 
    ////////////////////
@@ -1548,7 +1564,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_tight_v4):
       if (electronID(elIdx, HAD_tight_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,1) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
       return true;
       break;
 
@@ -1623,7 +1639,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  // if( elMiniRelIso( elIdx, true, 0.0, false, true ) != elMiniRelIsoCMS3_EA( elIdx ) ){ // this is a check. delete me later
 	  // 	std::cout<<"pfcandiso: "<< elMiniRelIso( elIdx, true, 0.0, false, true ) << endl;
 	  // 	std::cout<<"cms3iso:   "<< elMiniRelIsoCMS3_EA( elIdx ) << endl;
-	  // }	  
+  // }	  
 	  // // if( elMiniRelIso( elIdx, true, 0.0, false, true ) > 0.1 ) return false;
 	  if( elMiniRelIsoCMS3_EA( elIdx ) > 0.1           ) return false; // minireliso < 0.1
 	  else return true;
@@ -3099,6 +3115,8 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
   use_miniaod_ = use_miniaod;
   MVAversion_ = MVAversion;
 
+  if (!use_miniaod_) {
+
   //Declare all variables
   ele_kfhits_           = 0;  
   ele_oldsigmaietaieta_ = 0;  
@@ -3294,6 +3312,8 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
     readers[i]->BookMVA("BDT", files[i]);
   }
 
+  } // if (!use_miniaod_)
+
 }
 
 float readMVA::MVA(unsigned int index){
@@ -3367,7 +3387,7 @@ float readMVA::MVA(unsigned int index){
 }
 
 bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level){
-  float disc = use_miniaod_ ?  els_VIDFall17NoIsoMvaValue().at(index) : MVA(index);
+  float disc = getMVAoutput(index, use_miniaod_);
   // careful, the MVA(index) call sets value of scl_eta_, so we must directly use the branch here in case use_miniaod_ is true
   float aeta = fabs(tas::els_etaSC().at(index));
   float pt = tas::els_p4().at(index).pt();
@@ -3470,6 +3490,7 @@ bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level){
 
   case (SS_fo_v6):
   case (SS_medium_noiso_v6):
+  case (SS_medium_noip_v6):
   case (SS_fo_noiso_v6): // Tight
     // if (aeta < 0.8) return disc > mvacut(0.77,0.52,0.77,pt);
     // if ((aeta >= 0.8 && aeta <= 1.479)) return disc > mvacut(0.56,0.11,0.56,pt);
@@ -3545,7 +3566,16 @@ float getMVAoutput(unsigned int index, bool use_miniaod){
     cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
     return -999.;
   }
-  return use_miniaod ?  els_VIDFall17NoIsoMvaValue().at(index) : globalEleMVAreader->MVA(index);
+  if (use_miniaod) {
+      if (gconf.year == 2016) return els_VIDNonTrigMvaValue().at(index);
+      else if (gconf.year == 2017) return els_VIDFall17NoIsoMvaValue().at(index);
+      else {
+          // should yell here, but return pre-added-config-object-to-CORE value instead
+          return els_VIDNonTrigMvaValue().at(index);
+      }
+  } else {
+      return globalEleMVAreader->MVA(index);
+  }
 }
 
 bool isTriggerSafenoIso_v1(unsigned int elIdx) {

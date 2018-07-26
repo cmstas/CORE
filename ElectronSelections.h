@@ -3,6 +3,7 @@
 #include "CMS3.h"
 #include "TString.h"
 #include "Base.h"
+#include "Config.h"
 #include "TMVA/Reader.h"
 #include "TMVA/Config.h"
 
