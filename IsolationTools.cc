@@ -140,8 +140,9 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0363;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0119;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0064;
-  } else if(version==1){
+  } else if(version==1 || version==2){
     //Spring15 version
+    //For version 2 it is same as Spring 15. Why? I don't know. I think Dylan probably knows about this.)
     if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0735;
     else if (fabs(mus_p4().at(muIdx).eta())<=1.300) ea = 0.0619;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0465;
