@@ -562,3 +562,5 @@ undefined         V02-00-05      100   100     100     1.0
 /DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17MiniAODv2-PU2017RECOSIMstep_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM                   test_CMS4_V09-04-13   45412958   45373020    6020.9      0.1327
 /TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM                                      test_CMS4_V09-04-13  151630941   56596937    831.76    0.014696
 /TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8/RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/MINIAODSIM                                  test_CMS4_V09-04-13    2273928     849964  0.009103   1.071e-05
+/PrivateWWW/www-cms4-Private80X-v1/MINIAODSIM                                                                                                                CMS4_V00-00-02_2017Sep27    92200      80870  0.051854  0.00023498
+/PrivateWWW/wwwext-cms4-Private80X-v1/MINIAODSIM                                                                                                             CMS4_V00-00-02_2017Sep27    159500     139804  0.051854  0.00023498
