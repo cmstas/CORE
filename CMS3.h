@@ -939,6 +939,15 @@ protected:
   vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > isotracks_p4_;
   TBranch *isotracks_p4_branch;
   bool     isotracks_p4_isLoaded;
+  vector<float> isotracks_pttrk_;
+  TBranch *isotracks_pttrk_branch;
+  bool     isotracks_pttrk_isLoaded;
+  vector<float> isotracks_etatrk_;
+  TBranch *isotracks_etatrk_branch;
+  bool     isotracks_etatrk_isLoaded;
+  vector<float> isotracks_phitrk_;
+  TBranch *isotracks_phitrk_branch;
+  bool     isotracks_phitrk_isLoaded;
   vector<float> isotracks_pterr_;
   TBranch *isotracks_pterr_branch;
   bool     isotracks_pterr_isLoaded;
@@ -4413,6 +4422,9 @@ public:
   const vector<bool> &isotracks_isTightTrack();
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &isotracks_p4();
   const vector<float> &isotracks_pterr();
+  const vector<float> &isotracks_pttrk();
+  const vector<float> &isotracks_etatrk();
+  const vector<float> &isotracks_phitrk();
   const vector<float> &isotracks_dEdxPixel();
   const vector<float> &isotracks_dEdxStrip();
   const vector<float> &isotracks_deltaEta();
@@ -5796,6 +5808,9 @@ namespace tas {
   const vector<bool> &isotracks_isTightTrack();
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &isotracks_p4();
   const vector<float> &isotracks_pterr();
+  const vector<float> &isotracks_pttrk();
+  const vector<float> &isotracks_etatrk();
+  const vector<float> &isotracks_phitrk();
   const vector<float> &isotracks_dEdxPixel();
   const vector<float> &isotracks_dEdxStrip();
   const vector<float> &isotracks_deltaEta();
