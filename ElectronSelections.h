@@ -36,7 +36,11 @@ bool isVetoElectronPOGspring16_v1(unsigned int elIdx);
 bool isLooseElectronPOGspring16_v1(unsigned int elIdx);
 bool isMediumElectronPOGspring16_v1(unsigned int elIdx);
 bool isTightElectronPOGspring16_v1(unsigned int elIdx);
-
+//25Jul18 Updated Ids with no Iso requirement for 94X (Fall17) samples
+bool isVetoElectronPOGfall17_v2(unsigned int elIdx);
+bool isLooseElectronPOGfall17_v2(unsigned int elIdx);
+bool isMediumElectronPOGfall17_v2(unsigned int elIdx);
+bool isTightElectronPOGfall17_v2(unsigned int elIdx);
 
 //POG IDs for phys14 with no Iso requirement
 bool isVetoElectronPOGphys14noIso(unsigned int elIdx);
@@ -58,6 +62,11 @@ bool isVetoElectronPOGspring16noIso_v1(unsigned int elIdx);
 bool isLooseElectronPOGspring16noIso_v1(unsigned int elIdx);
 bool isMediumElectronPOGspring16noIso_v1(unsigned int elIdx);
 bool isTightElectronPOGspring16noIso_v1(unsigned int elIdx);
+//25Jul18 Updated Ids with no Iso requirement for 94X (Fall17) samples
+bool isVetoElectronPOGfall17noIso_v2(unsigned int elIdx);
+bool isLooseElectronPOGfall17noIso_v2(unsigned int elIdx);
+bool isMediumElectronPOGfall17noIso_v2(unsigned int elIdx);
+bool isTightElectronPOGfall17noIso_v2(unsigned int elIdx);
 
 //Oct 14 Added HEEP ID
 bool isHEEPV60(unsigned int elIdx);

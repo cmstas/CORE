@@ -140,8 +140,9 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0363;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0119;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0064;
-  } else if(version==1){
+  } else if(version==1 || version==2){
     //Spring15 version
+    //For version 2 it is same as Spring 15. Why? I don't know. I think Dylan probably knows about this.)
     if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0735;
     else if (fabs(mus_p4().at(muIdx).eta())<=1.300) ea = 0.0619;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0465;
@@ -294,7 +295,7 @@ float elEA03(unsigned int elIdx, int version) {
     else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.2393;
   }
   else if (version==3) {
-    //Fall17 https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_92X.txt
+    //Fall17 92X version https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_92X.txt
     if      (fabs(els_etaSC().at(elIdx))<=1.000) ea = 0.1566;
     else if (fabs(els_etaSC().at(elIdx))<=1.479) ea = 0.1626;
     else if (fabs(els_etaSC().at(elIdx))<=2.000) ea = 0.1073;
@@ -302,11 +303,21 @@ float elEA03(unsigned int elIdx, int version) {
     else if (fabs(els_etaSC().at(elIdx))<=2.300) ea = 0.1051;
     else if (fabs(els_etaSC().at(elIdx))<=2.400) ea = 0.1204;
     else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.1524;
-  }else{
+  }
+  else if (version==4) {
+    //Fall17 94X version https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt
+    if      (fabs(els_etaSC().at(elIdx))<=1.000) ea = 0.1440;
+    else if (fabs(els_etaSC().at(elIdx))<=1.479) ea = 0.1562;
+    else if (fabs(els_etaSC().at(elIdx))<=2.000) ea = 0.1032;
+    else if (fabs(els_etaSC().at(elIdx))<=2.200) ea = 0.0859;
+    else if (fabs(els_etaSC().at(elIdx))<=2.300) ea = 0.1116;
+    else if (fabs(els_etaSC().at(elIdx))<=2.400) ea = 0.1321;
+    else if (fabs(els_etaSC().at(elIdx))<=2.500) ea = 0.1654;
+  }
+  else {
       // invalid value
       cerr << "[CORE:IsolationTools:elEA03] WARNING! invalid EA version value. (Did you forget to change your gconf.ea_version?)" << endl;
   }
-  
   return ea;
 }
 
