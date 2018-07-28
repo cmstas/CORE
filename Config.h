@@ -30,6 +30,64 @@ class GlobalConfig {
         float multiiso_mu_ptratio = -1;
         float multiiso_mu_ptrel = -1;
 
+        //-------------------
+        //
+        // WWW (VVV) Analysis
+        //
+        //-------------------
+
+        // Naming convention
+        // <lep>_<var>_<idlevel>
+
+        //_________________________________
+        // Isolation configuration
+        //
+
+        // Same-sign muons
+        float mu_reliso_veto      = -1;
+        float mu_reliso_fo        = -1;
+        float mu_reliso_tight     = -1;
+        bool  mu_addlep_veto      = false;
+        bool  mu_addlep_fo        = false;
+        bool  mu_addlep_tight     = false;
+        // Same-sign electrons
+        float el_reliso_veto      = -1;
+        float el_reliso_fo        = -1;
+        float el_reliso_tight     = -1;
+        bool  el_addlep_veto      = false;
+        bool  el_addlep_fo        = false;
+        bool  el_addlep_tight     = false;
+        // Three-lepton muons (Shares same veto as same-sign)
+        float mu_reliso_3l_fo     = -1;
+        float mu_reliso_3l_tight  = -1;
+        bool  mu_addlep_3l_fo     = false;
+        bool  mu_addlep_3l_tight  = false;
+        // Three-lepton electrons (Shares same veto as same-sign)
+        float el_reliso_3l_fo     = -1;
+        float el_reliso_3l_tight  = -1;
+        bool  el_addlep_3l_fo     = false;
+        bool  el_addlep_3l_tight  = false;
+
+        //_________________________________
+        // Electron MVA ID
+        //
+        //  ib = inner barrel (<= 0.8)
+        //  ob = outer barrel (<= 1.479)
+        //  ec = endcap       (>  1.479)
+        //
+
+        // Same-sign electrons
+        float el_mva_ib_veto = -1;
+        float el_mva_ob_veto = -1;
+        float el_mva_ec_veto = -1;
+        float el_mva_ib      = -1;
+        float el_mva_ob      = -1;
+        float el_mva_ec      = -1;
+        // Three-lepton electrons (Shares same veto as same-sign)
+        float el_mva_ib_3l   = -1;
+        float el_mva_ob_3l   = -1;
+        float el_mva_ec_3l   = -1;
+
         // JECs
         FactorizedJetCorrector * jet_corrector_L1 = 0;
         FactorizedJetCorrector * jet_corrector_L2L3 = 0;
