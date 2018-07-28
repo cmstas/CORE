@@ -2137,6 +2137,132 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     return true;
     break;
 
+
+  //
+  //
+  // gconf version
+  //
+  //
+
+  //-------------
+  // Veto Leptons
+
+  case(VVV_veto_noiso_v5):
+    if (!( fabs(cms3.els_etaSC().at(elIdx))     <  2.5   )) return false;
+    if (!( fabs(cms3.els_dxyPV().at(elIdx))     <  0.05  )) return false;
+    if (!( fabs(cms3.els_dzPV().at(elIdx))      <  0.1   )) return false;
+    if (fabs(cms3.els_etaSC()[elIdx]) <= 0.8)
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ib_veto )) return false;
+    }
+    else if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ob_veto )) return false;
+    }
+    else
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ec_veto )) return false;
+    }
+    return true;
+    break;
+
+  case(VVV_veto_v5):
+    if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_veto) < gconf.el_reliso_veto )) return false;
+    if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
+    return true;
+    break;
+
+
+  //---------------
+  //Fakable Objects
+
+  case(VVV_fo_noiso_v5):
+    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
+    if (!( threeChargeAgree(elIdx)                       )) return false;
+    if (fabs(cms3.els_etaSC()[elIdx]) <= 0.8)
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ib    )) return false;
+    }
+    else if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ob    )) return false;
+    }
+    else
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ec    )) return false;
+    }
+    if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
+    if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
+    return true;
+    break;
+
+  case(VVV_fo_v5):
+    if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_fo) < gconf.el_reliso_fo )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                     )) return false;
+    if (!( electronID(elIdx, VVV_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  //---------------
+  //Tight Selection
+
+  case(VVV_tight_noiso_v5):
+    if (!( electronID(elIdx, VVV_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  case(VVV_tight_v5):
+    if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_tight) < gconf.el_reliso_tight )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                        )) return false;
+    if (!( electronID(elIdx, VVV_tight_noiso_v5) )) return false;
+    return true;
+    break;
+
+  //--------------------
+  //Fakable Objects (3l)
+
+  case(VVV_3l_fo_noiso_v5):
+    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
+    if (!( threeChargeAgree(elIdx)                       )) return false;
+    if (fabs(cms3.els_etaSC()[elIdx]) <= 0.8)
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ib_3l    )) return false;
+    }
+    else if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ob_3l    )) return false;
+    }
+    else
+    {
+        if (!( getMVAoutput(elIdx) > gconf.el_mva_ec_3l    )) return false;
+    }
+    if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
+    if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
+    return true;
+    break;
+
+  case(VVV_3l_fo_v5):
+    if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_3l_fo) < gconf.el_reliso_3l_fo )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                     )) return false;
+    if (!( electronID(elIdx, VVV_3l_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  //--------------------
+  //Tight Selection (3l)
+
+  case(VVV_3l_tight_noiso_v5):
+    if (!( electronID(elIdx, VVV_3l_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  case(VVV_3l_tight_v5):
+    if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_3l_tight) < gconf.el_reliso_3l_tight )) return false;
+    if (!( isTriggerSafe_v1(elIdx)                        )) return false;
+    if (!( electronID(elIdx, VVV_3l_tight_noiso_v5) )) return false;
+    return true;
+    break;
+
    ///////////////
    /// Default ///
    ///////////////

@@ -243,7 +243,17 @@ enum id_level_t {
   VVV_cutbased_3l_fo_v4,
   VVV_cutbased_3l_fo_noiso_v4,
   VVV_cutbased_3l_tight_v4,
-  VVV_cutbased_3l_tight_noiso_v4
+  VVV_cutbased_3l_tight_noiso_v4,
+  VVV_veto_v5,
+  VVV_veto_noiso_v5,
+  VVV_fo_v5,
+  VVV_fo_noiso_v5,
+  VVV_tight_v5,
+  VVV_tight_noiso_v5,
+  VVV_3l_fo_v5,
+  VVV_3l_fo_noiso_v5,
+  VVV_3l_tight_v5,
+  VVV_3l_tight_noiso_v5
 
 };
 
