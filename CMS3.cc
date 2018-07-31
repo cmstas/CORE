@@ -428,6 +428,21 @@ void CMS3::Init(TTree *tree) {
       isotracks_pterr_branch = tree->GetBranch(tree->GetAlias("isotracks_pterr"));
       if (isotracks_pterr_branch) { isotracks_pterr_branch->SetAddress(&isotracks_pterr_); }
   }
+  isotracks_pttrk_branch = 0;
+  if(tree->GetAlias("isotracks_pttrk")){
+      isotracks_pttrk_branch = tree->GetBranch(tree->GetAlias("isotracks_pttrk"));
+      if (isotracks_pttrk_branch) { isotracks_pttrk_branch->SetAddress(&isotracks_pttrk_); }
+  }
+  isotracks_etatrk_branch = 0;
+  if(tree->GetAlias("isotracks_etatrk")){
+      isotracks_etatrk_branch = tree->GetBranch(tree->GetAlias("isotracks_etatrk"));
+      if (isotracks_etatrk_branch) { isotracks_etatrk_branch->SetAddress(&isotracks_etatrk_); }
+  }
+  isotracks_phitrk_branch = 0;
+  if(tree->GetAlias("isotracks_phitrk")){
+      isotracks_phitrk_branch = tree->GetBranch(tree->GetAlias("isotracks_phitrk"));
+      if (isotracks_phitrk_branch) { isotracks_phitrk_branch->SetAddress(&isotracks_phitrk_); }
+  }
   isotracks_dEdxPixel_branch = 0;
   if (tree->GetAlias("isotracks_dEdxPixel") != 0) {
     isotracks_dEdxPixel_branch = tree->GetBranch(tree->GetAlias("isotracks_dEdxPixel"));
@@ -8285,6 +8300,9 @@ void CMS3::GetEntry(unsigned int idx) {
   isotracks_isTightTrack_isLoaded = false;
   isotracks_p4_isLoaded = false;
   isotracks_pterr_isLoaded = false;
+  isotracks_pttrk_isLoaded = false;
+  isotracks_etatrk_isLoaded = false;
+  isotracks_phitrk_isLoaded = false;
   isotracks_dEdxPixel_isLoaded = false;
   isotracks_dEdxStrip_isLoaded = false;
   isotracks_deltaEta_isLoaded = false;
@@ -9749,6 +9767,9 @@ void CMS3::LoadAllBranches() {
   if (isotracks_isTightTrack_branch != 0) isotracks_isTightTrack();
   if (isotracks_p4_branch != 0) isotracks_p4();
   if (isotracks_pterr_branch != 0) isotracks_pterr();
+  if (isotracks_pttrk_branch != 0) isotracks_pttrk();
+  if (isotracks_etatrk_branch != 0) isotracks_etatrk();
+  if (isotracks_phitrk_branch != 0) isotracks_phitrk();
   if (isotracks_dEdxPixel_branch != 0) isotracks_dEdxPixel();
   if (isotracks_dEdxStrip_branch != 0) isotracks_dEdxStrip();
   if (isotracks_deltaEta_branch != 0) isotracks_deltaEta();
@@ -11056,6 +11077,45 @@ const vector<float> &CMS3::isotracks_pterr() {
     isotracks_pterr_isLoaded = true;
   }
   return isotracks_pterr_;
+}
+const vector<float> &CMS3::isotracks_pttrk() {
+  if (not isotracks_pttrk_isLoaded) {
+    if (isotracks_pttrk_branch != 0) {
+      if (isotracks_pttrk_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_pttrk_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_pttrk_isLoaded = true;
+  }
+  return isotracks_pttrk_;
+}
+const vector<float> &CMS3::isotracks_etatrk() {
+  if (not isotracks_etatrk_isLoaded) {
+    if (isotracks_etatrk_branch != 0) {
+      if (isotracks_etatrk_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_etatrk_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_etatrk_isLoaded = true;
+  }
+  return isotracks_etatrk_;
+}
+const vector<float> &CMS3::isotracks_phitrk() {
+  if (not isotracks_phitrk_isLoaded) {
+    if (isotracks_phitrk_branch != 0) {
+      if (isotracks_phitrk_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_phitrk_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_phitrk_isLoaded = true;
+  }
+  return isotracks_phitrk_;
 }
 const vector<float> &CMS3::isotracks_dEdxPixel() {
   if (not isotracks_dEdxPixel_isLoaded) {
@@ -28754,6 +28814,9 @@ namespace tas {
   const vector<bool> &isotracks_isTightTrack() { return cms3.isotracks_isTightTrack(); }
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &isotracks_p4() { return cms3.isotracks_p4(); }
   const vector<float> &isotracks_pterr() { return cms3.isotracks_pterr(); }
+  const vector<float> &isotracks_pttrk() { return cms3.isotracks_pttrk(); }
+  const vector<float> &isotracks_etatrk() { return cms3.isotracks_etatrk(); }
+  const vector<float> &isotracks_phitrk() { return cms3.isotracks_phitrk(); }
   const vector<float> &isotracks_dEdxPixel() { return cms3.isotracks_dEdxPixel(); }
   const vector<float> &isotracks_dEdxStrip() { return cms3.isotracks_dEdxStrip(); }
   const vector<float> &isotracks_deltaEta() { return cms3.isotracks_deltaEta(); }

@@ -133,7 +133,7 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0546;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0728;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.1177;
-  } else if (version==3) {
+  } else if (version==3 || version==4) {
       // Fall17 https://github.com/cms-data/PhysicsTools-NanoAOD/blob/master/effAreaMuons_cone03_pfNeuHadronsAndPhotons_94X.txt
     if      (fabs(mus_p4().at(muIdx).eta())<=0.800) ea = 0.0566;
     else if (fabs(mus_p4().at(muIdx).eta())<=1.300) ea = 0.0562;

@@ -1243,6 +1243,96 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     return true;
     break;
 
+  //
+  //
+  // gconf version
+  //
+  //
+
+  //-------------
+  // Veto Leptons
+
+  case(VVV_veto_noiso_v5):
+    if (!( fabs(cms3.mus_p4().at(muIdx).eta()) <  2.4  )) return false;
+    if (!( fabs(cms3.mus_dxyPV().at(muIdx))    <  0.05 )) return false;
+    if (!( fabs(cms3.mus_dzPV().at(muIdx))     <  0.1  )) return false;
+    if (!( isLooseMuonPOG(muIdx)                       )) return false;
+    return true;
+    break;
+
+  case(VVV_veto_v5):
+    if (!( muRelIso03EA(muIdx, gconf.ea_version, gconf.mu_addlep_veto) < gconf.mu_reliso_veto )) return false;
+    if (!( muonID(muIdx, VVV_veto_noiso_v5) )) return false;
+    return true;
+    break;
+
+
+  //---------------
+  //Fakable Objects
+
+  case(VVV_fo_noiso_v5):
+    if (!( fabs(cms3.mus_ip3d()[muIdx])                         < 0.015 )) return false;
+    if (!( fabs(mus_ip3d().at(muIdx))/mus_ip3derr().at(muIdx)   < 4     )) return false;
+    if (!( mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt()    < 0.2   )) return false;
+    if (!( isMediumMuonPOG(muIdx)                                       )) return false;
+    if (!( muonID(muIdx, VVV_veto_noiso_v5)                             )) return false;
+    return true;
+    break;
+
+  case(VVV_fo_v5):
+    if (!( muRelIso03EA(muIdx, gconf.ea_version, gconf.mu_addlep_fo) < gconf.mu_reliso_fo )) return false;
+    if (!( muonID(muIdx, VVV_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  //---------------
+  //Tight Selection
+
+  case(VVV_tight_noiso_v5):
+    if (!( muonID(muIdx, VVV_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  case(VVV_tight_v5):
+    if (!( muRelIso03EA(muIdx, gconf.ea_version, gconf.mu_addlep_tight) < gconf.mu_reliso_tight )) return false;
+    if (!( muonID(muIdx, VVV_tight_noiso_v5) )) return false;
+    return true;
+    break;
+
+
+  //---------------
+  //Fakable Objects
+
+  case(VVV_3l_fo_noiso_v5):
+    if (!( fabs(cms3.mus_ip3d()[muIdx])                         < 0.015 )) return false;
+    if (!( fabs(mus_ip3d().at(muIdx))/mus_ip3derr().at(muIdx)   < 4     )) return false;
+    if (!( mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt()    < 0.2   )) return false;
+    if (!( isMediumMuonPOG(muIdx)                                       )) return false;
+    if (!( muonID(muIdx, VVV_veto_noiso_v5)                             )) return false;
+    return true;
+    break;
+
+  case(VVV_3l_fo_v5):
+    if (!( muRelIso03EA(muIdx, gconf.ea_version, gconf.mu_addlep_3l_fo) < gconf.mu_reliso_3l_fo )) return false;
+    if (!( muonID(muIdx, VVV_3l_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  //---------------
+  //Tight Selection
+
+  case(VVV_3l_tight_noiso_v5):
+    if (!( muonID(muIdx, VVV_3l_fo_noiso_v5) )) return false;
+    return true;
+    break;
+
+  case(VVV_3l_tight_v5):
+    if (!( muRelIso03EA(muIdx, gconf.ea_version, gconf.mu_addlep_3l_tight) < gconf.mu_reliso_3l_tight )) return false;
+    if (!( muonID(muIdx, VVV_3l_tight_noiso_v5) )) return false;
+    return true;
+    break;
+
+
 
    ///////////////
    /// Default ///
