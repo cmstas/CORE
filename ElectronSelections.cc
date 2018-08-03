@@ -2362,23 +2362,22 @@ bool isMVAwp90NoIsofall17(unsigned int elIdx, bool use_miniaod)
 
 bool isMVAHZZNoIsofall17(unsigned int elIdx, bool use_miniaod)
 {
-    return isMVAfall17(elIdx, use_miniaod,
-            /*"EB1_10" : {*/
-            /*"c"      :  */0.9616542816132922,
-            /*"tau"    :  */8.757943837889817,
-            /*"A"      :  */3.1390200321591206,
-            /*},*/
-            /*"EB2_10" : {*/
-            /*"c"      :  */0.9319258011430132,
-            /*"tau"    :  */8.846057432565809,
-            /*"A"      :  */3.5985063793347787,
-            /*},*/
-            /*"EE_10"  : {*/
-            /*"c"      :  */0.8899260780999244,
-            /*"tau"    :  */10.124234115859881,
-            /*"A"      :  */4.352791250718547
-            /*}*/
-            );
+    float mva = getMVAoutput(elIdx, use_miniaod);
+    float aeta = fabs(els_etaSC().at(elIdx));
+
+    if (aeta < 0.8)
+    {
+        return mva > -0.856871961305474;
+    }
+    else if (aeta < 1.479)
+    {
+        return mva > -0.8107642141584835;
+    }
+    else
+    {
+        return mva > -0.7179265933023059;
+    }
+
 }
 
 bool isMVAfall17(unsigned int elIdx, bool use_miniaod,
