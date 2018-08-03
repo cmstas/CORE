@@ -3815,6 +3815,10 @@ void createAndInitMVA(std::string pathToCORE, bool v25ns, bool use_miniaod, int 
   globalEleMVAreader->InitMVA(pathToCORE, v25ns, use_miniaod, MVAversion); 
 }
 
+bool passesMVAforID(unsigned int index, id_level_t id_level) {
+    return globalEleMVAreader->passesElectronMVAid(index, id_level);
+}
+
 float getMVAoutput(unsigned int index, bool use_miniaod){
   if (globalEleMVAreader==0) {
     cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
