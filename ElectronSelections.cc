@@ -2176,17 +2176,20 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     if (!( fabs(cms3.els_etaSC().at(elIdx))     <  2.5   )) return false;
     if (!( fabs(cms3.els_dxyPV().at(elIdx))     <  0.05  )) return false;
     if (!( fabs(cms3.els_dzPV().at(elIdx))      <  0.1   )) return false;
-    if (fabs(cms3.els_etaSC()[elIdx]) <= 0.8)
+    if (gconf.year == 2016)
     {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ib_veto )) return false;
+        if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+        {
+            if (!( getMVAoutput(elIdx)          > 0.6   )) return false;
+        }
+        else
+        {
+            if (!( getMVAoutput(elIdx)          > 0.    )) return false;
+        }
     }
-    else if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    else if (gconf.year == 2017)
     {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ob_veto )) return false;
-    }
-    else
-    {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ec_veto )) return false;
+        if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
     }
     return true;
     break;
@@ -2204,17 +2207,20 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   case(VVV_fo_noiso_v5):
     if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
     if (!( threeChargeAgree(elIdx)                       )) return false;
-    if (fabs(cms3.els_etaSC()[elIdx]) <= 0.8)
+    if (gconf.year == 2016)
     {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ib    )) return false;
+        if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+        {
+            if (!( getMVAoutput(elIdx)           > 0.941 )) return false;
+        }
+        else
+        {
+            if (!( getMVAoutput(elIdx)           > 0.925 )) return false;
+        }
     }
-    else if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    else if (gconf.year == 2017)
     {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ob    )) return false;
-    }
-    else
-    {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ec    )) return false;
+        if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
     }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
@@ -2249,17 +2255,20 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   case(VVV_3l_fo_noiso_v5):
     if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
     if (!( threeChargeAgree(elIdx)                       )) return false;
-    if (fabs(cms3.els_etaSC()[elIdx]) <= 0.8)
+    if (gconf.year == 2016)
     {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ib_3l    )) return false;
+        if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+        {
+            if (!( getMVAoutput(elIdx)           > 0.92  )) return false;
+        }
+        else
+        {
+            if (!( getMVAoutput(elIdx)           > 0.88  )) return false;
+        }
     }
-    else if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    else if (gconf.year == 2017)
     {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ob_3l    )) return false;
-    }
-    else
-    {
-        if (!( getMVAoutput(elIdx) > gconf.el_mva_ec_3l    )) return false;
+        if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
     }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
@@ -2300,6 +2309,127 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   }//switch
   return true;
 }
+
+//========================
+// POG MVA IDs
+//========================
+
+// 94x MVA
+// https://twiki.cern.ch/twiki/bin/view/CMS/MultivariateElectronIdentificationRun2#Training_details_and_working_poi
+// https://rembserj.web.cern.ch/rembserj/notes/Electron_MVA_ID_2017_documentation/#working-points
+
+bool isMVAwp80NoIsofall17(unsigned int elIdx, bool use_miniaod)
+{
+    return isMVAfall17(elIdx, use_miniaod,
+            /*"EB1_10" : {*/
+            /*"c"      : */ 0.9825268564943458,
+            /*"tau"    : */ 8.702601455860762,
+            /*"A"      : */ 1.1974861596609097,
+            /*},*/
+            /*"EB2_10" : {*/
+            /*"c"      : */ 0.9727509457929913,
+            /*"tau"    : */ 8.179525631018565,
+            /*"A"      : */ 1.7111755094657688,
+            /*},*/
+            /*"EE_10"  : {*/
+            /*"c"      : */ 0.9562619539540145,
+            /*"tau"    : */ 8.109845366281608,
+            /*"A"      : */ 3.013927699126942
+            /*}*/
+            );
+}
+
+bool isMVAwp90NoIsofall17(unsigned int elIdx, bool use_miniaod)
+{
+    return isMVAfall17(elIdx, use_miniaod,
+            /*"EB1_10" : {*/
+            /*"c"      :  */0.9616542816132922,
+            /*"tau"    :  */8.757943837889817,
+            /*"A"      :  */3.1390200321591206,
+            /*},*/
+            /*"EB2_10" : {*/
+            /*"c"      :  */0.9319258011430132,
+            /*"tau"    :  */8.846057432565809,
+            /*"A"      :  */3.5985063793347787,
+            /*},*/
+            /*"EE_10"  : {*/
+            /*"c"      :  */0.8899260780999244,
+            /*"tau"    :  */10.124234115859881,
+            /*"A"      :  */4.352791250718547
+            /*}*/
+            );
+}
+
+bool isMVAHZZNoIsofall17(unsigned int elIdx, bool use_miniaod)
+{
+    return isMVAfall17(elIdx, use_miniaod,
+            /*"EB1_10" : {*/
+            /*"c"      :  */0.9616542816132922,
+            /*"tau"    :  */8.757943837889817,
+            /*"A"      :  */3.1390200321591206,
+            /*},*/
+            /*"EB2_10" : {*/
+            /*"c"      :  */0.9319258011430132,
+            /*"tau"    :  */8.846057432565809,
+            /*"A"      :  */3.5985063793347787,
+            /*},*/
+            /*"EE_10"  : {*/
+            /*"c"      :  */0.8899260780999244,
+            /*"tau"    :  */10.124234115859881,
+            /*"A"      :  */4.352791250718547
+            /*}*/
+            );
+}
+
+bool isMVAfall17(unsigned int elIdx, bool use_miniaod,
+        float EB1_10_c,
+        float EB1_10_tau,
+        float EB1_10_A,
+        float EB2_10_c,
+        float EB2_10_tau,
+        float EB2_10_A,
+        float EE_10_c,
+        float EE_10_tau,
+        float EE_10_A
+        )
+{
+
+    float mva = getMVAoutput(elIdx, use_miniaod);
+    float aeta = fabs(els_etaSC().at(elIdx));
+    float pt = els_p4().at(elIdx).pt();
+
+    float c;
+    float A;
+    float tau;
+
+    if (aeta < 0.8)
+    {
+        c   = EB1_10_c;
+        tau = EB1_10_tau;
+        A   = EB1_10_A;
+    }
+    else if (aeta < 1.479)
+    {
+        c   = EB2_10_c;
+        tau = EB2_10_tau;
+        A   = EB2_10_A;
+    }
+    else
+    {
+        c   = EE_10_c;
+        tau = EE_10_tau;
+        A   = EE_10_A;
+    }
+
+    float cut = c - A * TMath::Exp(-pt / tau);
+
+    if (mva > cut)
+        return true;
+    else
+        return false;
+
+}
+
 
 //========================
 // POG IDs
