@@ -4,6 +4,7 @@
 #include "TString.h"
 #include "Base.h"
 #include "Config.h"
+#include "TMath.h"
 #include "TMVA/Reader.h"
 #include "TMVA/Config.h"
 
@@ -15,6 +16,12 @@ bool isTightElectronPOG(unsigned int elIdx);
 
 //Main Electron ID function
 bool electronID(unsigned int elIdx, id_level_t id_level);
+
+// MVA POG IDs for 94x
+bool isMVAwp80NoIsofall17(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAwp90NoIsofall17(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAHZZNoIsofall17(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAfall17(unsigned int elIdx, bool use_miniaod, float, float, float, float, float, float, float, float, float);
 
 //POG IDs for phys14
 bool isVetoElectronPOGphys14(unsigned int elIdx);
@@ -139,6 +146,7 @@ class readMVA {
 void createAndInitMVA(std::string pathToCORE, bool v25ns = false, bool use_miniaod = false, int MVAversion = 74); 
 // version should be 74 or 80 (and 25ns should be true if version is 80)
 float getMVAoutput(unsigned int index = 0, bool use_miniaod = false);
+bool passesMVAforID(unsigned int index, id_level_t id_level);
 
 struct elIDcache {
 public:

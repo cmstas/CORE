@@ -1,6 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 #include <string>
+#include <map>
+
+#include "TString.h"
 
 #include "Tools/JetCorrector.h"
 
@@ -30,19 +33,23 @@ class GlobalConfig {
         float multiiso_mu_ptratio = -1;
         float multiiso_mu_ptrel = -1;
 
-        //-------------------
-        //
-        // WWW (VVV) Analysis
-        //
-        //-------------------
+        // JECs
+        FactorizedJetCorrector * jet_corrector_L1 = 0;
+        FactorizedJetCorrector * jet_corrector_L2L3 = 0;
+        FactorizedJetCorrector * jet_corrector_L1L2L3 = 0;
 
+        //-------------------
+        // WWW (VVV) Analysis
+        //-------------------
         // Naming convention
         // <lep>_<var>_<idlevel>
+
+        // general configuration
+        std::map<TString, TString> wwwcfg;
 
         //_________________________________
         // Isolation configuration
         //
-
         // Same-sign muons
         float mu_reliso_veto      = -1;
         float mu_reliso_fo        = -1;
@@ -75,23 +82,8 @@ class GlobalConfig {
         //  ob = outer barrel (<= 1.479)
         //  ec = endcap       (>  1.479)
         //
-
-        // Same-sign electrons
-        float el_mva_ib_veto = -1;
-        float el_mva_ob_veto = -1;
-        float el_mva_ec_veto = -1;
-        float el_mva_ib      = -1;
-        float el_mva_ob      = -1;
-        float el_mva_ec      = -1;
-        // Three-lepton electrons (Shares same veto as same-sign)
-        float el_mva_ib_3l   = -1;
-        float el_mva_ob_3l   = -1;
-        float el_mva_ec_3l   = -1;
-
-        // JECs
-        FactorizedJetCorrector * jet_corrector_L1 = 0;
-        FactorizedJetCorrector * jet_corrector_L2L3 = 0;
-        FactorizedJetCorrector * jet_corrector_L1L2L3 = 0;
+        // read_from_miniaod
+        bool read_from_miniaod = false;
 
         // ...
 };

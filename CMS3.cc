@@ -2348,6 +2348,24 @@ void CMS3::Init(TTree *tree) {
     els_VIDFall17NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17NoIsoMvaValue"));
     if (els_VIDFall17NoIsoMvaValue_branch) { els_VIDFall17NoIsoMvaValue_branch->SetAddress(&els_VIDFall17NoIsoMvaValue_); }
   }
+
+  mus_selectors_branch = 0;
+  if (tree->GetAlias("mus_selectors") != 0) {
+    mus_selectors_branch = tree->GetBranch(tree->GetAlias("mus_selectors"));
+    if (mus_selectors_branch) { mus_selectors_branch->SetAddress(&mus_selectors_); }
+  }
+
+  mus_simType_branch = 0;
+  if (tree->GetAlias("mus_simType") != 0) {
+    mus_simType_branch = tree->GetBranch(tree->GetAlias("mus_simType"));
+    if (mus_simType_branch) { mus_simType_branch->SetAddress(&mus_simType_); }
+  }
+
+  mus_simExtType_branch = 0;
+  if (tree->GetAlias("mus_simExtType") != 0) {
+    mus_simExtType_branch = tree->GetBranch(tree->GetAlias("mus_simExtType"));
+    if (mus_simExtType_branch) { mus_simExtType_branch->SetAddress(&mus_simExtType_); }
+  }
   els_miniIso_uncor_branch = 0;
   if (tree->GetAlias("els_miniIso_uncor") != 0) {
     els_miniIso_uncor_branch = tree->GetBranch(tree->GetAlias("els_miniIso_uncor"));
@@ -7571,6 +7589,9 @@ void CMS3::GetEntry(unsigned int idx) {
   els_scSeedE3x3_isLoaded = false;
   els_HLT_Ele20_SC4_Mass50_TrailingLeg_isLoaded = false;
   els_miniIso_uncor_isLoaded = false;
+  mus_selectors_isLoaded = false;
+  mus_simType_isLoaded = false;
+  mus_simExtType_isLoaded = false;
   els_VIDFall17NoIsoMvaValue_isLoaded = false;
   mus_miniRelIso_chg_isLoaded = false;
   mus_miniRelIso_all_isLoaded = false;
@@ -9005,6 +9026,9 @@ void CMS3::LoadAllBranches() {
   if (els_scSeedE3x3_branch != 0) els_scSeedE3x3();
   if (els_HLT_Ele20_SC4_Mass50_TrailingLeg_branch != 0) els_HLT_Ele20_SC4_Mass50_TrailingLeg();
   if (els_miniIso_uncor_branch != 0) els_miniIso_uncor();
+  if (mus_selectors_branch != 0) mus_selectors();
+  if (mus_simType_branch != 0) mus_simType();
+  if (mus_simExtType_branch != 0) mus_simExtType();
   if (els_VIDFall17NoIsoMvaValue_branch != 0) els_VIDFall17NoIsoMvaValue();
   if (mus_miniRelIso_chg_branch != 0) mus_miniRelIso_chg();
   if (mus_miniRelIso_all_branch != 0) mus_miniRelIso_all();
@@ -15631,6 +15655,45 @@ const vector<float> &CMS3::els_VIDFall17NoIsoMvaValue() {
     els_VIDFall17NoIsoMvaValue_isLoaded = true;
   }
   return els_VIDFall17NoIsoMvaValue_;
+}
+
+const vector<unsigned int> &CMS3::mus_selectors() {
+  if (not mus_selectors_isLoaded) {
+    if (mus_selectors_branch != 0) {
+      mus_selectors_branch->GetEntry(index);
+    } else {
+      printf("branch mus_selectors_branch does not exist!\n");
+      exit(1);
+    }
+    mus_selectors_isLoaded = true;
+  }
+  return mus_selectors_;
+}
+
+const vector<int> &CMS3::mus_simType() {
+  if (not mus_simType_isLoaded) {
+    if (mus_simType_branch != 0) {
+      mus_simType_branch->GetEntry(index);
+    } else {
+      printf("branch mus_simType_branch does not exist!\n");
+      exit(1);
+    }
+    mus_simType_isLoaded = true;
+  }
+  return mus_simType_;
+}
+
+const vector<int> &CMS3::mus_simExtType() {
+  if (not mus_simExtType_isLoaded) {
+    if (mus_simExtType_branch != 0) {
+      mus_simExtType_branch->GetEntry(index);
+    } else {
+      printf("branch mus_simExtType_branch does not exist!\n");
+      exit(1);
+    }
+    mus_simExtType_isLoaded = true;
+  }
+  return mus_simExtType_;
 }
 const vector<float> &CMS3::els_miniIso_uncor() {
   if (not els_miniIso_uncor_isLoaded) {
@@ -29228,6 +29291,9 @@ namespace tas {
   const vector<float> &els_scSeedE3x3() { return cms3.els_scSeedE3x3(); }
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_TrailingLeg() { return cms3.els_HLT_Ele20_SC4_Mass50_TrailingLeg(); }
   const vector<float> &els_miniIso_uncor() { return cms3.els_miniIso_uncor(); }
+  const vector<unsigned int> &mus_selectors() { return cms3.mus_selectors(); }
+  const vector<int> &mus_simType() { return cms3.mus_simType(); }
+  const vector<int> &mus_simExtType() { return cms3.mus_simExtType(); }
   const vector<float> &els_VIDFall17NoIsoMvaValue() { return cms3.els_VIDFall17NoIsoMvaValue(); }
   const vector<float> &mus_miniRelIso_chg() { return cms3.mus_miniRelIso_chg(); }
   const vector<float> &mus_miniRelIso_all() { return cms3.mus_miniRelIso_all(); }

@@ -40,7 +40,7 @@ def get_line(metadata):
 
 if __name__ == "__main__":
 
-    sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-13*/")
+    sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-17*/")
 
     alreadydone = set()
     with open("scale1fbs.txt", "r") as fhin:
