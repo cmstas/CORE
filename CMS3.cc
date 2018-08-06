@@ -473,6 +473,11 @@ void CMS3::Init(TTree *tree) {
     isotracks_dxyError_branch = tree->GetBranch(tree->GetAlias("isotracks_dxyError"));
     if (isotracks_dxyError_branch) { isotracks_dxyError_branch->SetAddress(&isotracks_dxyError_); }
   }
+  isotracks_normChi2_branch = 0;
+  if (tree->GetAlias("isotracks_normChi2") != 0) {
+    isotracks_normChi2_branch = tree->GetBranch(tree->GetAlias("isotracks_normChi2"));
+    if (isotracks_normChi2_branch) { isotracks_normChi2_branch->SetAddress(&isotracks_normChi2_); }
+  }
   isotracks_dz_branch = 0;
   if (tree->GetAlias("isotracks_dz") != 0) {
     isotracks_dz_branch = tree->GetBranch(tree->GetAlias("isotracks_dz"));
@@ -8309,6 +8314,7 @@ void CMS3::GetEntry(unsigned int idx) {
   isotracks_deltaPhi_isLoaded = false;
   isotracks_dxy_isLoaded = false;
   isotracks_dxyError_isLoaded = false;
+  isotracks_normChi2_isLoaded = false;
   isotracks_dz_isLoaded = false;
   isotracks_dzError_isLoaded = false;
   isotracks_matchedCaloJetEmEnergy_isLoaded = false;
@@ -9776,6 +9782,7 @@ void CMS3::LoadAllBranches() {
   if (isotracks_deltaPhi_branch != 0) isotracks_deltaPhi();
   if (isotracks_dxy_branch != 0) isotracks_dxy();
   if (isotracks_dxyError_branch != 0) isotracks_dxyError();
+  if (isotracks_normChi2_branch != 0) isotracks_normChi2();
   if (isotracks_dz_branch != 0) isotracks_dz();
   if (isotracks_dzError_branch != 0) isotracks_dzError();
   if (isotracks_matchedCaloJetEmEnergy_branch != 0) isotracks_matchedCaloJetEmEnergy();
@@ -11198,6 +11205,19 @@ const vector<float> &CMS3::isotracks_dxyError() {
     isotracks_dxyError_isLoaded = true;
   }
   return isotracks_dxyError_;
+}
+const vector<float> &CMS3::isotracks_normChi2() {
+  if (not isotracks_normChi2_isLoaded) {
+    if (isotracks_normChi2_branch != 0) {
+      if (isotracks_normChi2_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch isotracks_normChi2_branch does not exist!\n");
+      exit(1);
+    }
+    isotracks_normChi2_isLoaded = true;
+  }
+  return isotracks_normChi2_;
 }
 
 const vector<float> &CMS3::isotracks_dz() {
@@ -28823,6 +28843,7 @@ namespace tas {
   const vector<float> &isotracks_deltaPhi() { return cms3.isotracks_deltaPhi(); }
   const vector<float> &isotracks_dxy() { return cms3.isotracks_dxy(); }
   const vector<float> &isotracks_dxyError() { return cms3.isotracks_dxyError(); }
+  const vector<float> &isotracks_normChi2() { return cms3.isotracks_normChi2(); }
   const vector<float> &isotracks_dz() { return cms3.isotracks_dz(); }
   const vector<float> &isotracks_dzError() { return cms3.isotracks_dzError(); }
   const vector<float> &isotracks_matchedCaloJetEmEnergy() { return cms3.isotracks_matchedCaloJetEmEnergy(); }

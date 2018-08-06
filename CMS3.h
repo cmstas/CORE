@@ -972,6 +972,9 @@ protected:
   vector<float> isotracks_dxyError_;
   TBranch *isotracks_dxyError_branch;
   bool     isotracks_dxyError_isLoaded;
+  vector<float> isotracks_normChi2_;
+  TBranch *isotracks_normChi2_branch;
+  bool     isotracks_normChi2_isLoaded;
   vector<float> isotracks_dz_;
   TBranch *isotracks_dz_branch;
   bool     isotracks_dz_isLoaded;
@@ -4437,6 +4440,7 @@ public:
   const vector<float> &isotracks_deltaPhi();
   const vector<float> &isotracks_dxy();
   const vector<float> &isotracks_dxyError();
+  const vector<float> &isotracks_normChi2();
   const vector<float> &isotracks_dz();
   const vector<float> &isotracks_dzError();
   const vector<float> &isotracks_matchedCaloJetEmEnergy();
@@ -5825,6 +5829,7 @@ namespace tas {
   const vector<float> &isotracks_deltaPhi();
   const vector<float> &isotracks_dxy();
   const vector<float> &isotracks_dxyError();
+  const vector<float> &isotracks_normChi2();
   const vector<float> &isotracks_dz();
   const vector<float> &isotracks_dzError();
   const vector<float> &isotracks_matchedCaloJetEmEnergy();
