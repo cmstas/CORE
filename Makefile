@@ -3,7 +3,7 @@ include Makefile.arch
 #
 # stuff to make
 #
-SOURCES=$(wildcard *.cc) $(wildcard Tools/*.cc) $(wildcard Tools/MT2/*.cc) $(wildcard Tools/btagsf/*.cc) $(wildcard Tools/dorky/*.cc) $(wildcard Tools/datasetinfo/*.cc)
+SOURCES=$(wildcard *.cc) $(wildcard Tools/*.cc) $(wildcard Tools/MT2/*.cc) $(wildcard Tools/btagsf/*.cc) $(wildcard Tools/dorky/*.cc) $(wildcard Tools/datasetinfo/*.cc) $(wildcard Tools/prefiring/*.cc)
 OBJECTS=$(SOURCES:.cc=.o)
 LIB=CMS3_CORE.so
 
@@ -38,4 +38,7 @@ clean:
 	rm -f Tools/btagsf/*.so \
 	rm -f Tools/datasetinfo/*.o \
 	rm -f Tools/datasetinfo/*.d \
-	rm -f Tools/datasetinfo/*.so
+	rm -f Tools/datasetinfo/*.so \
+	rm -f Tools/prefiring/*.o \
+	rm -f Tools/prefiring/*.d \
+	rm -f Tools/prefiring/*.so
