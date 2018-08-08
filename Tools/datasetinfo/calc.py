@@ -46,7 +46,7 @@ if __name__ == "__main__":
     with open("scale1fbs.txt", "r") as fhin:
         for line in fhin:
             parts = line.strip().split()
-            if len(parts) != 6: continue
+            if len(parts) < 6: continue
             dsname = parts[0]
             tag = parts[1]
             alreadydone.add((dsname,tag))
