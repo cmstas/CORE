@@ -27,6 +27,7 @@ bool isMonoPFJet_Monojet(unsigned int pfJetIdx);
 
 bool loosePileupJetId(unsigned int pfJetIdx);
 bool loosePileupJetId_v2(unsigned int pfJetIdx, bool use_puppi = false);
+bool pileupJetId(unsigned int pfJetIdx, id_level_t id_level);
 
 bool JetIsElectron(LorentzVector pfJet, id_level_t id_level, float ptcut = 7., float deltaR = 0.4);
 bool JetIsMuon(LorentzVector pfJet, id_level_t id_level, float ptcut = 5., float deltaR = 0.4);
