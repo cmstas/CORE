@@ -385,6 +385,11 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
       jetp4_uncorr -= cms3.pfjets_pfcandmup4().at(iJet).at(pfcind);
     }
 
+    if (use_cleaned_met == 2) { // 2017 EE noise fix (exclude jets with raw pT < 75)
+      if (jetp4_uncorr.pt() < 75. && abs(jetp4_uncorr.eta()) >= 2.65 && abs(jetp4_uncorr.eta()) <= 3.139)
+	continue;
+    }
+
     // get L1FastL2L3 total correction
     jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
     jet_corrector->setJetA  ( cms3.pfjets_area().at(iJet) );
@@ -442,6 +447,11 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     //     jetp4_uncorr -= cms3.pfcands_p4()   .at(index);
     //   }
     // }
+
+    if (use_cleaned_met == 2) { // 2017 EE noise fix (exclude jets with raw pT < 75)
+      if (jetp4_uncorr.pt() < 75. && abs(jetp4_uncorr.eta()) >= 2.65 && abs(jetp4_uncorr.eta()) <= 3.139)
+        continue;
+    }
 
     // get L1FastL2L3 total correction
     jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
