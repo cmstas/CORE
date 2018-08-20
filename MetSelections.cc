@@ -349,6 +349,12 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     T1_met    = cms3.evt_muegclean_pfmet_raw();
     T1_metPhi = cms3.evt_muegclean_pfmetPhi_raw();
   }
+
+  if (use_cleaned_met == 0 && gconf.year == 2017) { // use nominal MET without EE noise fix
+    T1_met    = cms3.evt_old_pfmet_raw();
+    T1_metPhi = cms3.evt_old_pfmetPhi_raw();
+  }
+
   float T1_metx   = T1_met * cos(T1_metPhi);
   float T1_mety   = T1_met * sin(T1_metPhi);
   
