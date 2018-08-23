@@ -5,6 +5,8 @@
 #include "Math/VectorUtil.h"
 #include "MetSelections.h"
 
+#include "Config.h"
+
 #include "Tools/JetCorrector.h"
 #include "Tools/jetcorr/FactorizedJetCorrector.h"
 #include "Tools/jetcorr/JetCorrectionUncertainty.h"
