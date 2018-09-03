@@ -709,10 +709,14 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
       break;
 
     case(STOP_loose_v4):
-      if (!passesMuonPOG(muID::CutBasedIdLoose, muIdx)      ) return false;
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdLoose, muIdx)    ) return false;
+      } else {
+        if (!isLooseMuonPOG(muIdx)                          ) return false;
+      }
       if (fabs(mus_dxyPV()             .at(muIdx)) >  0.1   ) return false;
       if (fabs(mus_dzPV()              .at(muIdx)) >  0.5   ) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,3)             >  0.2   ) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.2 ) return false;
       return true;
       break;
 
@@ -746,10 +750,14 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
        break;
 
     case(STOP_medium_v4):
-      if (!passesMuonPOG(muID::CutBasedIdMedium, muIdx)     ) return false;
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdMedium, muIdx)   ) return false;
+      } else {
+        if (!isMediumMuonPOG(muIdx)                         ) return false;
+      }
       if (fabs(mus_dxyPV()             .at(muIdx)) >  0.02  ) return false;
       if (fabs(mus_dzPV()              .at(muIdx)) >  0.1   ) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,3)             >  0.1   ) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.1 ) return false;
       return true;
       break;
 
@@ -774,10 +782,14 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     case(STOP_tight_v3):
 
     case(STOP_tight_v4):
-      if (!passesMuonPOG(muID::CutBasedIdTight, muIdx)      ) return false;
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdTight, muIdx)    ) return false;
+      } else {
+        if (!isTightMuonPOG(muIdx)                          ) return false;
+      }
       if (fabs(mus_dxyPV()             .at(muIdx)) >  0.02  ) return false;
       if (fabs(mus_dzPV()              .at(muIdx)) >  0.1   ) return false;
-      if (muMiniRelIsoCMS3_EA(muIdx,3)             >  0.1   ) return false;
+      if (muMiniRelIsoCMS3_EA(muIdx,gconf.ea_version) > 0.1 ) return false;
       return true;
       break;
 
