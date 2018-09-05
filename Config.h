@@ -32,6 +32,7 @@ class GlobalConfig {
         float multiiso_mu_minireliso = -1;
         float multiiso_mu_ptratio = -1;
         float multiiso_mu_ptrel = -1;
+        int SS_innerlayers = -1;
 
         // JECs
         std::string jecEra;
