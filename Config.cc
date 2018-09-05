@@ -51,12 +51,6 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (year == 2016 && cmssw_ver == 80) {
     ea_version = 1;
     btag_disc_wp = 0.6324;
-    multiiso_el_minireliso = 0.12;
-    multiiso_el_ptratio = 0.80;
-    multiiso_el_ptrel = 7.2;
-    multiiso_mu_minireliso = 0.16;
-    multiiso_mu_ptratio = 0.76;
-    multiiso_mu_ptrel = 7.2;
     jecEra = "Summer16_23Sep2016BCDV3";
     jecEraMC = "Summer16_23Sep2016V3";
 
@@ -80,12 +74,6 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (year == 2016 && cmssw_ver == 94) {
     ea_version = 1;
     btag_disc_wp = 0.6324;
-    multiiso_el_minireliso = 0.12;
-    multiiso_el_ptratio = 0.80;
-    multiiso_el_ptrel = 7.2;
-    multiiso_mu_minireliso = 0.16;
-    multiiso_mu_ptratio = 0.76;
-    multiiso_mu_ptrel = 7.2;
     jecEra = "Summer16_23Sep2016BCDV3";
     jecEraMC = "Summer16_23Sep2016V3";
 
@@ -107,12 +95,6 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   else if (year == 2017) {
     ea_version = 4;
     btag_disc_wp = 0.4941;
-    multiiso_el_minireliso = 0.09;
-    multiiso_el_ptratio = 0.85;
-    multiiso_el_ptrel = 9.2;
-    multiiso_mu_minireliso = 0.12;
-    multiiso_mu_ptratio = 0.80;
-    multiiso_mu_ptrel = 7.5;
     jecEra = "Fall17_17Nov2017B_V6";
     jecEraMC = "Fall17_17Nov2017_V6";
 
@@ -137,12 +119,6 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     // everything to be updated
     ea_version = 4;
     btag_disc_wp = 0.4941;
-    multiiso_el_minireliso = 0.09;
-    multiiso_el_ptratio = 0.85;
-    multiiso_el_ptrel = 9.2;
-    multiiso_mu_minireliso = 0.12;
-    multiiso_mu_ptratio = 0.80;
-    multiiso_mu_ptrel = 7.5;
     jecEra = "Fall17_17Nov2017C_V6";
     jecEraMC = "Fall17_17Nov2017_V6";
 
