@@ -797,7 +797,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dxyPV().at(elIdx)) > 0.05) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -819,7 +819,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dxyPV().at(elIdx)) > 0.05) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -1384,7 +1384,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -1411,7 +1411,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if( id_level != SS_medium_looseMVA_noip_v6) {
@@ -3854,6 +3854,7 @@ float getMVAoutput(unsigned int index, bool use_miniaod){
   if (use_miniaod) {
       if (gconf.year == 2016) return els_VIDNonTrigMvaValue().at(index);
       else if (gconf.year == 2017) return els_VIDFall17NoIsoMvaValue().at(index);
+      else if (gconf.year == 2018) return els_VIDFall17NoIsoMvaValue().at(index);
       else {
           // should yell here, but return pre-added-config-object-to-CORE value instead
           return els_VIDNonTrigMvaValue().at(index);
