@@ -199,6 +199,37 @@ bool isTightPFJetV2(unsigned int pfJetIdx){
   return true;
 }
 
+bool isTightPFJetV3(unsigned int pfJetIdx){
+  // From: https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID13TeVRun2017
+  // For Run2017 (94X) AK4CHS jets
+  float pfjet_chf_  = pfjets_chargedHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_nhf_  = pfjets_neutralHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_nef_  = pfjets_neutralEmE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_cef_  = pfjets_chargedEmE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_aeta  = fabs(pfjets_p4()[pfJetIdx].eta());
+  int   pfjet_cm_  = pfjets_chargedMultiplicity()[pfJetIdx];
+  int   pfjet_nm_  = pfjets_neutralMultiplicity()[pfJetIdx];
+
+  if (pfjet_aeta <= 2.7) {
+    if (pfjet_nhf_ >= 0.90) return false;
+    if (pfjet_nef_ >= 0.90) return false;
+    if (pfjet_cm_ + pfjet_nm_ <= 1) return false;
+    if (pfjet_aeta <= 2.4) {
+      if (pfjet_chf_ <= 0.) return false;
+      if (pfjet_cm_ <= 0.) return false;
+    }
+  } else if (pfjet_aeta <= 3.0) {
+    if (pfjet_nef_ >= 0.99) return false;
+    if (pfjet_nef_ <= 0.02) return false;
+    if (pfjet_nm_ <= 2) return false;
+  } else {
+    if (pfjet_nef_ >= 0.90) return false;
+    if (pfjet_nhf_ <= 0.02) return false;
+    if (pfjet_cm_ + pfjet_nm_ <= 10) return false;
+  }
+
+  return true;
+}
 
 bool isLoosePFJet_50nsV1(unsigned int pfJetIdx, bool use_puppi){
 
