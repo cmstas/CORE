@@ -18,7 +18,6 @@ bool isTightPFJet(unsigned int pfJetIdx);
 
 bool isLoosePFJetV2(unsigned int pfJetIdx);
 bool isTightPFJetV2(unsigned int pfJetIdx);
-bool isTightPFJetV3(unsigned int pfJetIdx);
 
 bool isLoosePFJet_50nsV1(unsigned int pfJetIdx, bool use_puppi = false);
 bool isTightPFJet_50nsV1(unsigned int pfJetIdx);
