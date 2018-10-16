@@ -6,6 +6,7 @@
 using namespace tas;
 
 // recommended jet ID for 94x 2017 analyses
+// https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID13TeVRun2017
 bool isTightPFJet_2017_v1(unsigned int pfJetIdx){
 
   float pfjet_chf_  = pfjets_chargedHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
@@ -199,7 +200,6 @@ bool isTightPFJetV2(unsigned int pfJetIdx){
   return true;
 }
 
-
 bool isLoosePFJet_50nsV1(unsigned int pfJetIdx, bool use_puppi){
 
   float pfjet_chf_  = !use_puppi ? pfjets_chargedHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy()) : pfjets_puppi_chargedHadronE()[pfJetIdx] / (pfjets_puppi_undoJEC().at(pfJetIdx)*pfjets_puppi_p4()[pfJetIdx].energy());
@@ -301,6 +301,7 @@ bool isMonoPFJet_Monojet(unsigned int pfJetIdx){
   return true;
 }
 
+// this is very old, don't use
 bool loosePileupJetId(unsigned int pfJetIdx){
 
   float eta = fabs(pfjets_p4().at(pfJetIdx).eta());
@@ -310,6 +311,60 @@ bool loosePileupJetId(unsigned int pfJetIdx){
   if( (eta > 2.5  ) && (eta <= 2.75) && (value > -0.60) ) return true;
   if( (eta > 2.75 ) && (eta <= 3.0 ) && (value > -0.55) ) return true;
   if( (eta > 3.0  ) && (eta <= 5.2 ) && (value > -0.45) ) return true;
+    
+  return false;
+}
+
+// hard-code 81X MVA working points (used for 2016,17,18 so far)
+// if they ever update for newer releases, have to make it configurable
+bool pileupJetId(unsigned int pfJetIdx, id_level_t id_level){
+
+  float pt = pfjets_p4().at(pfJetIdx).pt();
+  float eta = fabs(pfjets_p4().at(pfJetIdx).eta());
+  float value = pfjets_pileupJetId().at(pfJetIdx);
+
+  if(id_level == PUID_loose){
+      if(0 <= pt && pt <= 30) {
+          if(0.00<=eta && eta<=2.50 && value>-0.97) return true;
+          if(2.50<=eta && eta<=2.75 && value>-0.68) return true;
+          if(2.75<=eta && eta<=3.00 && value>-0.53) return true;
+          if(3.00<=eta &&              value>-0.47) return true;
+      }
+      if(30 <= pt){
+          if(0.00<=eta && eta<=2.50 && value>-0.89) return true;
+          if(2.50<=eta && eta<=2.75 && value>-0.52) return true;
+          if(2.75<=eta && eta<=3.00 && value>-0.38) return true;
+          if(3.00<=eta              && value>-0.30) return true;
+      }
+  }
+  if(id_level == PUID_medium){
+      if(0 <= pt && pt <= 30) {
+          if(0.00<=eta && eta<=2.50 && value> 0.18) return true;
+          if(2.50<=eta && eta<=2.75 && value>-0.55) return true;
+          if(2.75<=eta && eta<=3.00 && value>-0.42) return true;
+          if(3.00<=eta &&              value>-0.36) return true;
+      }
+      if(30 <= pt){
+          if(0.00<=eta && eta<=2.50 && value> 0.61) return true;
+          if(2.50<=eta && eta<=2.75 && value>-0.35) return true;
+          if(2.75<=eta && eta<=3.00 && value>-0.23) return true;
+          if(3.00<=eta              && value>-0.17) return true;
+      }
+  }
+  if(id_level == PUID_tight){
+      if(0 <= pt && pt <= 30) {
+          if(0.00<=eta && eta<=2.50 && value> 0.69) return true;
+          if(2.50<=eta && eta<=2.75 && value>-0.35) return true;
+          if(2.75<=eta && eta<=3.00 && value>-0.26) return true;
+          if(3.00<=eta &&              value>-0.21) return true;
+      }
+      if(30 <= pt){
+          if(0.00<=eta && eta<=2.50 && value> 0.86) return true;
+          if(2.50<=eta && eta<=2.75 && value>-0.10) return true;
+          if(2.75<=eta && eta<=3.00 && value>-0.05) return true;
+          if(3.00<=eta              && value>-0.01) return true;
+      }
+  }
     
   return false;
 }
