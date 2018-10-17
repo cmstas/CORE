@@ -57,7 +57,7 @@ int isGoodHyp(int iHyp, bool verbose=false);
 bool makesExtraGammaStar(int iHyp);
 Z_result_t makesExtraZ(int iHyp);
 bool hypsFromFirstGoodVertex(size_t hypIdx, float dz_cut = 1.0);
-std::pair<Lep, int> getThirdLepton(int hyp, int ignore_id=-1, int ignore_idx=-1);
+std::pair<Lep, int> getThirdLepton(int hyp, bool lowpt=false, int ignore_id=-1, int ignore_idx=-1);
 std::pair<Lep, int> getThirdLepton_RA7(int hyp);
 Lep getFourthLepton(int hyp, int lep3id=-1, int lep3idx=-1);
 std::vector<particle_t> getGenPair(bool verbose=false);
