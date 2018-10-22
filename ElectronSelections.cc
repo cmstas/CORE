@@ -2280,8 +2280,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   //Fakable Objects (3l)
 
   case(VVV_3l_fo_noiso_v5):
-    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
-    if (!( threeChargeAgree(elIdx)                       )) return false;
+    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.015 )) return false;
     if (gconf.year == 2016)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
