@@ -25,17 +25,19 @@ def get_line(metadata):
         file_indices = map(lambda x: x.rsplit("_",1)[-1].split(".")[0], glob.glob(thedir+"/*.root"))
         nevts_total = 0
         nevts_eff_total = 0
+        good_pairs = []
         for fi in file_indices:
             try:
                 nevts, nevts_eff = ijob_to_nevents[fi]
             except:
                 print "ERROR with fi={}".format(fi)
+            good_pairs.append([fi,(nevts,nevts_eff)])
             nevts_total += nevts
             nevts_eff_total += nevts_eff
         xsec_total = kfact*xsec*efact
         scale1fb = 1000.0*xsec_total/nevts_eff_total
 
-        info = ",".join(["{}|{}|{}".format(idx,nevt,(nevt-nevteff)/2) for idx,(nevt,nevteff) in data["ijob_to_nevents"].items()])
+        info = ",".join(["{}|{}|{}".format(idx,nevt,(nevt-nevteff)/2) for idx,(nevt,nevteff) in good_pairs])
 
         return "{:155s}  {:17s}  {:9}  {:9}  {:8.5g}  {:10.5g} {}".format(dataset,tag,nevts_total,nevts_eff_total,xsec_total,scale1fb,info)
 
@@ -52,6 +54,7 @@ if __name__ == "__main__":
     # print get_line("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/tZq_ll_4f_13TeV-amcatnlo-pythia8_RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1_MINIAODSIM_CMS4_V00-00-02_2017Sep27/metadata.json")
     # print get_line("/hadoop/cms/store/group/snt/run2_mc2017//TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1_MINIAODSIM_CMS4_V09-04-19/")
     # print get_line("/hadoop/cms/store/group/snt/run2_mc2017/TTTW_TuneCP5_13TeV-madgraph-pythia8_RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1_MINIAODSIM_CMS4_V09-04-19//metadata.json")
+    # sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2018/*V10-02-00*/")
     # blah
 
     alreadydone = set()
