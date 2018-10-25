@@ -34,4 +34,8 @@ bool JetIsMuon(LorentzVector pfJet, id_level_t id_level, float ptcut = 5., float
 
 bool isBadFastsimJet(unsigned int pfJetIdx);
 
+float getPrefireInefficiency_singlejet(float pt, float eta);
+float getPrefireInefficiencyError_singlejet(float pt, float eta);
+std::tuple<float,float,int> getPrefireInfo();
+
 #endif

@@ -434,3 +434,198 @@ bool isBadFastsimJet(unsigned int pfJetIdx){
   return false;
 }
 
+float getPrefireInefficiency_singlejet(float pt, float eta) {
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.000 && fabs(eta) < 0.250) return 0.00002; // +- 57.7%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.250 && fabs(eta) < 0.500) return 0.00004; // +- 57.7%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.500 && fabs(eta) < 0.750) return 0.00001; // +- 100.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.750 && fabs(eta) < 1.000) return 0.00003; // +- 70.7%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 1.000 && fabs(eta) < 1.250) return 0.00003; // +- 70.7%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 1.250 && fabs(eta) < 1.500) return 0.00003; // +- 70.7%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00003; // +- 100.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00049; // +- 28.9%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00545; // +- 12.4%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00223; // +- 30.1%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00015; // +- 100.0%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00026; // +- 70.7%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00186; // +- 28.8%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00609; // +- 17.1%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00172; // +- 25.8%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00007; // +- 70.7%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00045; // +- 70.7%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00051; // +- 70.7%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00412; // +- 25.8%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.01360; // +- 13.9%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00194; // +- 25.8%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00009; // +- 70.7%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 0.250 && fabs(eta) < 0.500) return 0.00013; // +- 100.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00028; // +- 100.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00118; // +- 50.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.01499; // +- 13.9%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.04510; // +- 8.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.01011; // +- 13.8%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00368; // +- 18.9%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00068; // +- 100.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00521; // +- 37.7%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.03828; // +- 14.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.12047; // +- 7.1%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.04659; // +- 10.4%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.05501; // +- 9.4%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 3.000 && fabs(eta) < 3.500) return 0.04762; // +- 97.6%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00278; // +- 70.6%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00281; // +- 70.6%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.05767; // +- 15.2%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.16435; // +- 8.4%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.08566; // +- 10.5%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.19619; // +- 6.8%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 3.000 && fabs(eta) < 3.500) return 0.20000; // +- 89.4%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.01955; // +- 37.4%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.07952; // +- 16.7%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.26136; // +- 8.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.21920; // +- 8.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.36822; // +- 5.8%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 3.000 && fabs(eta) < 3.500) return 0.25000; // +- 86.6%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.01282; // +- 49.7%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.08935; // +- 18.7%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.30960; // +- 8.3%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.39231; // +- 5.5%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.53778; // +- 4.4%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00806; // +- 99.6%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00602; // +- 99.7%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.08805; // +- 25.5%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.35912; // +- 9.9%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.47566; // +- 6.4%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.68093; // +- 4.3%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.02899; // +- 69.7%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.18919; // +- 24.1%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.50000; // +- 10.8%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.63846; // +- 6.6%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.78035; // +- 4.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.01724; // +- 99.1%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.01754; // +- 99.1%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.16949; // +- 28.8%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.48276; // +- 11.1%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.71818; // +- 6.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.80488; // +- 3.8%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.17241; // +- 40.7%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.32258; // +- 26.0%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.78049; // +- 8.3%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.90741; // +- 4.3%
+  if (pt >= 300  && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.05882; // +- 97.0%
+  if (pt >= 300  && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.14286; // +- 65.5%
+  if (pt >= 300  && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.36364; // +- 39.9%
+  if (pt >= 300  && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.90476; // +- 7.1%
+  if (pt >= 300  && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.86047; // +- 6.1%
+  return 0.;
+}
+
+float getPrefireInefficiencyError_singlejet(float pt, float eta) {
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.250 && fabs(eta) < 0.500) return 0.00002; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.500 && fabs(eta) < 0.750) return 0.00001; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 0.750 && fabs(eta) < 1.000) return 0.00002; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 1.000 && fabs(eta) < 1.250) return 0.00002; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 1.250 && fabs(eta) < 1.500) return 0.00002; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00003; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00014; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00067; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00067; // +- 0.0%
+  if (pt >= 0 && pt < 10 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00015; // +- 0.0%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00018; // +- 0.0%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00054; // +- 0.0%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00104; // +- 0.0%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00044; // +- 0.0%
+  if (pt >= 10 && pt < 20 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00005; // +- 0.0%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00032; // +- 0.0%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00036; // +- 0.0%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00106; // +- 0.0%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00189; // +- 0.0%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00050; // +- 0.0%
+  if (pt >= 20 && pt < 30 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00006; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 0.250 && fabs(eta) < 0.500) return 0.00013; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00028; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00059; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00208; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00360; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00139; // +- 0.0%
+  if (pt >= 30 && pt < 50 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00069; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00068; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00196; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00536; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.00852; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00485; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.00519; // +- 0.0%
+  if (pt >= 50 && pt < 70 && fabs(eta) >= 3.000 && fabs(eta) < 3.500) return 0.04647; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00196; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00199; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.00874; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.01383; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.00899; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.01330; // +- 0.0%
+  if (pt >= 70 && pt < 90 && fabs(eta) >= 3.000 && fabs(eta) < 3.500) return 0.17889; // +- 0.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00732; // +- 0.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.01328; // +- 0.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.02095; // +- 0.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.01761; // +- 0.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.02123; // +- 0.0%
+  if (pt >= 90 && pt < 110 && fabs(eta) >= 3.000 && fabs(eta) < 3.500) return 0.21651; // +- 0.0%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00637; // +- 0.0%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.01672; // +- 0.0%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.02572; // +- 0.0%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.02141; // +- 0.0%
+  if (pt >= 110 && pt < 140 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.02350; // +- 0.0%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.00803; // +- 0.0%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.00601; // +- 0.0%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.02247; // +- 0.0%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.03566; // +- 0.0%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.03056; // +- 0.0%
+  if (pt >= 140 && pt < 170 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.02908; // +- 0.0%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.02020; // +- 0.0%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.04553; // +- 0.0%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.05392; // +- 0.0%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.04214; // +- 0.0%
+  if (pt >= 170 && pt < 200 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.03148; // +- 0.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 1.500 && fabs(eta) < 1.750) return 0.01709; // +- 0.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.01739; // +- 0.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.04884; // +- 0.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.05357; // +- 0.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.04289; // +- 0.0%
+  if (pt >= 200 && pt < 250 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.03095; // +- 0.0%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.07014; // +- 0.0%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.08396; // +- 0.0%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.06464; // +- 0.0%
+  if (pt >= 250 && pt < 300 && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.03945; // +- 0.0%
+  if (pt >= 300  && fabs(eta) >= 1.750 && fabs(eta) < 2.000) return 0.05707; // +- 0.0%
+  if (pt >= 300  && fabs(eta) >= 2.000 && fabs(eta) < 2.250) return 0.09352; // +- 0.0%
+  if (pt >= 300  && fabs(eta) >= 2.250 && fabs(eta) < 2.500) return 0.14504; // +- 0.0%
+  if (pt >= 300  && fabs(eta) >= 2.500 && fabs(eta) < 2.750) return 0.06406; // +- 0.0%
+  if (pt >= 300  && fabs(eta) >= 2.750 && fabs(eta) < 3.000) return 0.05284; // +- 0.0%
+  return 0.;
+}
+
+std::tuple<float,float,int> getPrefireInfo() {
+    // Low efficiency for high eta EG objects in data before 2018 due to prefiring issue
+    // This function looks at all jets in an event and calculates a scale factor for simulation using
+    //     https://ncsmith.web.cern.ch/ncsmith/PrefireEfficiencyMaps/Preliminary/Jet_L1IsoEG30eff_bxm1_looseJet_SingleMuon_Run2017F.pdf
+    // The scale factor, error, and count of number of "affected" jets are returned as an std::tuple
+    // Protip: `std::tie(prefire_sf, prefire_sferr, prefire_njets) = getPrefireInfo();`
+    // More details in
+    //     https://twiki.cern.ch/twiki/bin/view/CMS/SUSRecommendations18
+    //     https://github.com/nsmith-/PrefireAnalysis#jet-prefire-efficiencies
+    // Sorry for the medium/big hardcoded lookup tables. The efficiency map is TEfficiency and I'm not going to read a ROOT file out of principle
+    float sf = 1.;
+    float sf_err = 0.; // error^2 for sf=(1-x1)(1-x2)...(1-xn) is (sf^2)*( (dx1/(1-x1))^2 + ... + (dx2/(1-x2))^2 )
+    int naffected = 0;
+    for(unsigned int ijet = 0; ijet < cms3.pfjets_p4().size(); ijet++) {
+        float jeteta = pfjets_p4()[ijet].eta();
+        // skip for performance; these jets have 0 or negligible inefficiency
+        if (fabs(jeteta) < 1.5) continue;
+        // calculate raw EM jet pT
+        float jetempt = pfjets_p4()[ijet].pt()*(pfjets_chargedEmE()[ijet]+pfjets_neutralEmE()[ijet])/pfjets_p4()[ijet].E();
+        float ineff = getPrefireInefficiency_singlejet(jetempt, jeteta);
+        float ineff_err = getPrefireInefficiencyError_singlejet(jetempt, jeteta);
+        sf *= 1.-ineff;
+        sf_err += pow(ineff_err/(1-ineff),2);
+        naffected += (ineff > 1e-6);
+    }
+    sf_err = sf*pow(sf_err,0.5);
+    return {sf, sf_err, naffected};
+}
