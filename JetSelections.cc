@@ -883,7 +883,7 @@ std::tuple<float,float,int> getPrefireInfo(int year) {
         // calculate raw EM jet pT
         // float jetempt = pfjets_p4()[ijet].pt()*(pfjets_chargedEmE()[ijet]+pfjets_neutralEmE()[ijet])/pfjets_p4()[ijet].E();
         // new maps use jet pT
-        float jetpt = pfjets_p4()[ijet].pt();
+        float jetpt = pfjets_p4()[ijet].pt()*pfjets_undoJEC()[ijet];
         float ineff = year == 2016 ? getPrefireInefficiency_singlejet_2016(jetpt,jeteta) : getPrefireInefficiency_singlejet_2017(jetpt,jeteta);
         float ineff_err = year == 2016 ? getPrefireInefficiencyError_singlejet_2016(jetpt,jeteta) : getPrefireInefficiencyError_singlejet_2017(jetpt,jeteta);
         sf *= 1.-ineff;
