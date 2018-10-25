@@ -3,6 +3,7 @@
 #include "CMS3.h"
 #include "TString.h"
 #include "Base.h"
+#include "Config.h"
 
 // recommended jet id for 2017 94x analyses
 bool isTightPFJet_2017_v1(unsigned int pfJetIdx);
@@ -34,8 +35,10 @@ bool JetIsMuon(LorentzVector pfJet, id_level_t id_level, float ptcut = 5., float
 
 bool isBadFastsimJet(unsigned int pfJetIdx);
 
-float getPrefireInefficiency_singlejet(float pt, float eta);
-float getPrefireInefficiencyError_singlejet(float pt, float eta);
-std::tuple<float,float,int> getPrefireInfo();
+float getPrefireInefficiency_singlejet_2016(float pt, float eta);
+float getPrefireInefficiencyError_singlejet_2016(float pt, float eta);
+float getPrefireInefficiency_singlejet_2017(float pt, float eta);
+float getPrefireInefficiencyError_singlejet_2017(float pt, float eta);
+std::tuple<float,float,int> getPrefireInfo(int year);
 
 #endif
