@@ -886,9 +886,11 @@ std::tuple<float,float,int> getPrefireInfo(int year) {
         float jetpt = pfjets_p4()[ijet].pt()*pfjets_undoJEC()[ijet];
         float ineff = year == 2016 ? getPrefireInefficiency_singlejet_2016(jetpt,jeteta) : getPrefireInefficiency_singlejet_2017(jetpt,jeteta);
         float ineff_err = year == 2016 ? getPrefireInefficiencyError_singlejet_2016(jetpt,jeteta) : getPrefireInefficiencyError_singlejet_2017(jetpt,jeteta);
-        sf *= 1.-ineff;
-        sf_err += pow(ineff_err/(1-ineff),2);
-        naffected += (ineff > 1e-6);
+        if (ineff > 1e-6) {
+            sf *= 1.-ineff;
+            sf_err += pow(ineff_err/(1-ineff),2);
+            naffected += 1;
+        }
     }
     sf_err = sf*pow(sf_err,0.5);
     return {sf, sf_err, naffected};
