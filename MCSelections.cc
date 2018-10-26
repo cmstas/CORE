@@ -406,7 +406,8 @@ int get_nisrMatch ( const std::vector<LorentzVector>& clean_jets ) {
 
   int nisr(0);
   for (size_t ijet(0); ijet<clean_jets.size(); ijet++){
-
+    if (clean_jets.at(ijet).pt() < 30.0) continue;
+    if (fabs(clean_jets.at(ijet).eta()) > 2.4) continue;
     bool matched=false;
     for (size_t imc = 0; imc < cms3.genps_id().size(); imc++) {
       if (matched) break;
@@ -430,6 +431,38 @@ int get_nisrMatch ( const std::vector<LorentzVector>& clean_jets ) {
   } // Loop over jets
 
   return nisr;
+}
+
+//________________________________________________________________
+// returns year dependent ISR weight based on nisrMatch
+float get_isrWeight( int nisrMatch, int year ) {
+  if (year >= 2016) {
+    // Moriond 2017 values for ISR weight based on nisrMatch
+    if      (nisrMatch == 0) return 1.000;
+    else if (nisrMatch == 1) return 0.920;
+    else if (nisrMatch == 2) return 0.821;
+    else if (nisrMatch == 3) return 0.715;
+    else if (nisrMatch == 4) return 0.662;
+    else if (nisrMatch == 5) return 0.561;
+    else if (nisrMatch >= 6) return 0.511;
+  }
+  return 1.;
+}
+
+//________________________________________________________________
+// returns year dependent ISR weight uncertainty based on nisrMatch
+float get_isrUnc( int nisrMatch, int year ) {
+  if (year >= 2016) {
+    // Moriond 2017 values
+    if      (nisrMatch == 0) return 0.000;
+    else if (nisrMatch == 1) return 0.040;
+    else if (nisrMatch == 2) return 0.090;
+    else if (nisrMatch == 3) return 0.143;
+    else if (nisrMatch == 4) return 0.170;
+    else if (nisrMatch == 5) return 0.221;
+    else if (nisrMatch >= 6) return 0.258;
+  }
+  return 0.;
 }
 
 //________________________________________________________________
