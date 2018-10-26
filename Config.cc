@@ -12,6 +12,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (dsname.Contains("Run2016")
       || dsname.Contains("Moriond17")
       || dsname.Contains("RunIISummer16")
+      || dsname.Contains("RunIISpring16")
       || dsname.Contains("run2_data2016")
       || dsname.Contains("run2_moriond17")
       ) year = 2016;
