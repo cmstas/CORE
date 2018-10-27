@@ -1439,7 +1439,7 @@ int get_mus_gfit_ndof( unsigned int muIdx ) {
   TString version = evt_CMS3tag().at(0);
   // convert last two digits of version number to int
   int small_version = TString(version(version.Length()-2,version.Length())).Atoi();
-  if (version.Contains("V08-00") && small_version <= 12) gfit_ndof = mus_gfit_ndof_float().at(muIdx);
+  if (version.Contains("CMS3_V08-00") && small_version <= 12) gfit_ndof = mus_gfit_ndof_float().at(muIdx);
   else gfit_ndof = mus_gfit_ndof().at(muIdx);
   return gfit_ndof;
 }
