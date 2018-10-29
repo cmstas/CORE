@@ -39,6 +39,6 @@ float getPrefireInefficiency_singlejet_2016(float pt, float eta);
 float getPrefireInefficiencyError_singlejet_2016(float pt, float eta);
 float getPrefireInefficiency_singlejet_2017(float pt, float eta);
 float getPrefireInefficiencyError_singlejet_2017(float pt, float eta);
-std::tuple<float,float,int> getPrefireInfo(int year);
+std::tuple<float,float,int> getPrefireInfo(int year, bool dojet=true);
 
 #endif
