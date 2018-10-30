@@ -1053,5 +1053,5 @@ std::tuple<float,float,int> getPrefireInfo(int year, bool dojet) {
         }
     }
     sf_err = sf*pow(sf_err,0.5);
-    return {sf, sf_err, naffected};
+    return std::make_tuple(sf, sf_err, naffected);
 }
