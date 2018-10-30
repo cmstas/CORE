@@ -36,6 +36,8 @@ float topPtWeight_cutoff(float pt_top, float pt_tbar);
 int get_nisrMatch ( const std::vector<LorentzVector>& clean_jets );
 float get_isrWeight ( int nisrMatch );
 float get_isrUnc ( int nisrMatch );
+float get_isrWeight ( int nisrMatch, int year );
+float get_isrUnc ( int nisrMatch, int year );
 // Moriond 2017 ISR recipe for ewkino models
 float get_isrWeight_ewk ( float isr_pt );
 
