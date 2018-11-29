@@ -5,6 +5,7 @@ last_line = len(lines) - 1
 for i, line in enumerate(lines[:-1]):
     if line.startswith('#'): continue
     line = line.split()
+    if line[4] == "1": continue
     content += '  {{"{1}{0}", {{{2}, {3}, {4}, {5}}}}}'.format(line[0], line[1], line[2], line[3], line[4], line[5])
     if i < last_line: 
         content += ',\n'

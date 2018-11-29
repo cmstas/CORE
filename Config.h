@@ -35,7 +35,14 @@ class GlobalConfig {
         int SS_innerlayers = -1;
 
         // JECs
-        std::string jecEra;
+        std::string jecEraA;
+        std::string jecEraB;
+        std::string jecEraC;
+        std::string jecEraD;
+        std::string jecEraE;
+        std::string jecEraF;
+        std::string jecEraG;
+        std::string jecEraH;
         std::string jecEraMC;
         std::string jecEraFS;
         FactorizedJetCorrector * jet_corrector_L1 = 0;

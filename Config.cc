@@ -52,8 +52,12 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (year == 2016 && cmssw_ver == 80) {
     ea_version = 1;
     btag_disc_wp = 0.6324;
-    jecEra = "Summer16_23Sep2016BCDV3";
-    jecEraMC = "Summer16_23Sep2016V3";
+    jecEraB = jecEraC = jecEraD = "Summer16_23Sep2016BCDV4_DATA";
+    jecEraE = jecEraF = "Summer16_23Sep2016EFV4_DATA";
+    jecEraG = "Summer16_23Sep2016GV4_DATA";
+    jecEraH = "Summer16_23Sep2016HV4_DATA";
+    jecEraMC = "Summer16_23Sep2016V4_MC";
+    jecEraFS = "Spring16_FastSimV1";
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation80XReReco
@@ -75,12 +79,14 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (year == 2016 && cmssw_ver == 94) {
     ea_version = 1;
     btag_disc_wp = 0.6324;
-    jecEra = "Summer16_23Sep2016BCDV3";
-    jecEraMC = "Summer16_23Sep2016V3";
+    jecEraB = jecEraC = jecEraD = "Summer16_07Aug2017BCD_V18_DATA"; // to be updated
+    jecEraE = jecEraF = "Summer16_07Aug2017EF_V18_DATA";            // to be updated
+    jecEraG = jecEraH = "Summer16_07Aug2017GH_V18_DATA";            // to be updated
+    jecEraMC = "Summer16_07Aug2017_V11_MC";  // to be updated
+    jecEraFS = "Spring16_FastSimV1";      // to be updated
 
     // B-tag working points
-    // 94X WPs are not available yet, use those from 80X first
-    // TODO: update btag WPs when they are available
+    // 94X WPs shall be very close to those in 80X, if not the same
     WP_DEEPCSV_TIGHT  = 0.8958;
     WP_DEEPCSV_MEDIUM = 0.6324;
     WP_DEEPCSV_LOOSE  = 0.2219;
@@ -96,8 +102,11 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   else if (year == 2017) {
     ea_version = 4;
     btag_disc_wp = 0.4941;
-    jecEra = "Fall17_17Nov2017B_V6";
-    jecEraMC = "Fall17_17Nov2017_V6";
+    jecEraB = "Fall17_17Nov2017B_V32_DATA";
+    jecEraC = "Fall17_17Nov2017C_V32_DATA";
+    jecEraD = jecEraE = "Fall17_17Nov2017DE_V32_DATA";
+    jecEraF = "Fall17_17Nov2017F_V32_DATA";
+    jecEraMC = "Fall17_17Nov2017_V32_MC";
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation94X
@@ -120,8 +129,8 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     // everything to be updated
     ea_version = 4;
     btag_disc_wp = 0.4941;
-    jecEra = "Fall17_17Nov2017C_V6";
-    jecEraMC = "Fall17_17Nov2017_V6";
+    jecEraA = jecEraB = jecEraC = jecEraD = "Fall17_17Nov2017F_V32_DATA"; // to be updated
+    jecEraMC = "Fall17_17Nov2017_V32_MC"; // to be updated
 
     // B-tag working points
     // Use the 2017 94X values for now
