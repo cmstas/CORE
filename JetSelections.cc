@@ -497,15 +497,15 @@ float getPrefireInefficiency_singlejet_2017(float pt, float eta) {
   if (pt >= 200 && pt < 300 && eta >= 2.500 && eta < 2.750) return 0.50664; // +- 4.0%
   if (pt >= 200 && pt < 300 && eta >= 2.750 && eta < 3.000) return 0.66087; // +- 4.7%
   if (pt >= 200 && pt < 300 && eta >= 3.000 && eta < 3.100) return 0.33333; // +- 81.3%
-  if (pt >= 300  && eta >= -3.100 && eta < -3.000) return 0.33333; // +- 81.3%
-  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.81373; // +- 4.8%
-  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.61630; // +- 3.5%
-  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.27482; // +- 4.8%
-  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.06092; // +- 8.6%
-  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.13857; // +- 5.6%
-  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.43550; // +- 3.3%
-  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.74145; // +- 2.7%
-  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.85417; // +- 4.3%
+  if (pt >= 300  && eta >= -3.100 && eta < -3.000) return 0.333333; // +- 81.3%
+  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.813725; // +- 4.8%
+  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.616302; // +- 3.5%
+  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.274823; // +- 4.8%
+  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.060919; // +- 8.6%
+  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.138567; // +- 5.6%
+  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.435498; // +- 3.3%
+  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.741453; // +- 2.7%
+  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.854167; // +- 4.3%
   return 0.;
 }
 
@@ -590,16 +590,16 @@ float getPrefireInefficiencyError_singlejet_2017(float pt, float eta) {
   if (pt >= 200 && pt < 300 && eta >= 2.500 && eta < 2.750) return 0.02038; // +- 0.0%
   if (pt >= 200 && pt < 300 && eta >= 2.750 && eta < 3.000) return 0.03133; // +- 0.0%
   if (pt >= 200 && pt < 300 && eta >= 3.000 && eta < 3.100) return 0.27113; // +- 0.0%
-  if (pt >= 300  && eta >= -3.100 && eta < -3.000) return 0.27113; // +- 0.0%
-  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.03894; // +- 0.0%
-  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.02173; // +- 0.0%
-  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.01322; // +- 0.0%
-  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.00522; // +- 0.0%
-  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.00781; // +- 0.0%
-  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.01457; // +- 0.0%
-  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.02036; // +- 0.0%
-  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.03653; // +- 0.0%
-  if (pt >= 300  && eta >= 3.000 && eta < 3.100) return 0.35355; // +- 0.0%
+  if (pt >= 300  && eta >= -3.100 && eta < -3.000) return 0.271128; // +- 0.0%
+  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.038943; // +- 0.0%
+  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.021735; // +- 0.0%
+  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.013216; // +- 0.0%
+  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.005221; // +- 0.0%
+  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.007809; // +- 0.0%
+  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.014569; // +- 0.0%
+  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.020365; // +- 0.0%
+  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.036527; // +- 0.0%
+  if (pt >= 300  && eta >= 3.000 && eta < 3.100) return 0.353553; // +- 0.0%
   return 0.;
 }
 
@@ -667,14 +667,14 @@ float getPrefireInefficiency_singlephoton_2017(float pt, float eta) {
   if (pt >= 100 && pt < 200 && eta >= 2.250 && eta < 2.500) return 0.38338; // +- 6.6%
   if (pt >= 100 && pt < 200 && eta >= 2.500 && eta < 2.750) return 0.69762; // +- 3.1%
   if (pt >= 100 && pt < 200 && eta >= 2.750 && eta < 3.000) return 0.74460; // +- 3.5%
-  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.86792; // +- 3.1%
-  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.70561; // +- 4.4%
-  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.31298; // +- 9.1%
-  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.04922; // +- 21.3%
-  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.13449; // +- 11.6%
-  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.50579; // +- 6.1%
-  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.79649; // +- 3.0%
-  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.76159; // +- 4.6%
+  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.867925; // +- 3.1%
+  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.705607; // +- 4.4%
+  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.312977; // +- 9.1%
+  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.049223; // +- 21.3%
+  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.134490; // +- 11.6%
+  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.505791; // +- 6.1%
+  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.796491; // +- 3.0%
+  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.761589; // +- 4.6%
   return 0.;
 }
 
@@ -743,14 +743,14 @@ float getPrefireInefficiencyError_singlephoton_2017(float pt, float eta) {
   if (pt >= 100 && pt < 200 && eta >= 2.250 && eta < 2.500) return 0.02511; // +- 0.0%
   if (pt >= 100 && pt < 200 && eta >= 2.500 && eta < 2.750) return 0.02144; // +- 0.0%
   if (pt >= 100 && pt < 200 && eta >= 2.750 && eta < 3.000) return 0.02632; // +- 0.0%
-  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.02728; // +- 0.0%
-  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.03131; // +- 0.0%
-  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.02852; // +- 0.0%
-  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.01046; // +- 0.0%
-  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.01564; // +- 0.0%
-  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.03107; // +- 0.0%
-  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.02406; // +- 0.0%
-  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.03492; // +- 0.0%
+  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.027275; // +- 0.0%
+  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.031308; // +- 0.0%
+  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.028521; // +- 0.0%
+  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.010464; // +- 0.0%
+  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.015637; // +- 0.0%
+  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.031068; // +- 0.0%
+  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.024064; // +- 0.0%
+  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.034923; // +- 0.0%
   return 0.;
 }
 
@@ -821,14 +821,14 @@ float getPrefireInefficiency_singlejet_2016(float pt, float eta) {
   if (pt >= 200 && pt < 300 && eta >= 2.250 && eta < 2.500) return 0.20344; // +- 6.2%
   if (pt >= 200 && pt < 300 && eta >= 2.500 && eta < 2.750) return 0.28917; // +- 5.9%
   if (pt >= 200 && pt < 300 && eta >= 2.750 && eta < 3.000) return 0.34884; // +- 8.5%
-  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.53788; // +- 8.1%
-  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.48093; // +- 3.8%
-  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.13445; // +- 6.2%
-  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.02536; // +- 10.8%
-  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.05669; // +- 7.3%
-  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.26204; // +- 4.2%
-  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.44367; // +- 4.2%
-  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.51754; // +- 9.0%
+  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.537879; // +- 8.1%
+  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.480926; // +- 3.8%
+  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.134449; // +- 6.2%
+  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.025364; // +- 10.8%
+  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.056690; // +- 7.3%
+  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.262042; // +- 4.2%
+  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.443672; // +- 4.2%
+  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.517544; // +- 9.0%
   return 0.;
 }
 
@@ -913,15 +913,15 @@ float getPrefireInefficiencyError_singlejet_2016(float pt, float eta) {
   if (pt >= 200 && pt < 300 && eta >= 2.500 && eta < 2.750) return 0.01702; // +- 0.0%
   if (pt >= 200 && pt < 300 && eta >= 2.750 && eta < 3.000) return 0.02957; // +- 0.0%
   if (pt >= 200 && pt < 300 && eta >= 3.000 && eta < 3.100) return 0.21651; // +- 0.0%
-  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.04343; // +- 0.0%
-  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.01843; // +- 0.0%
-  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.00836; // +- 0.0%
-  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.00273; // +- 0.0%
-  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.00415; // +- 0.0%
-  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.01107; // +- 0.0%
-  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.01851; // +- 0.0%
-  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.04681; // +- 0.0%
-  if (pt >= 300  && eta >= 3.000 && eta < 3.100) return 0.35355; // +- 0.0%
+  if (pt >= 300  && eta >= -3.000 && eta < -2.750) return 0.043425; // +- 0.0%
+  if (pt >= 300  && eta >= -2.750 && eta < -2.500) return 0.018434; // +- 0.0%
+  if (pt >= 300  && eta >= -2.500 && eta < -2.250) return 0.008356; // +- 0.0%
+  if (pt >= 300  && eta >= -2.250 && eta < -2.000) return 0.002728; // +- 0.0%
+  if (pt >= 300  && eta >= 2.000 && eta < 2.250) return 0.004155; // +- 0.0%
+  if (pt >= 300  && eta >= 2.250 && eta < 2.500) return 0.011075; // +- 0.0%
+  if (pt >= 300  && eta >= 2.500 && eta < 2.750) return 0.018506; // +- 0.0%
+  if (pt >= 300  && eta >= 2.750 && eta < 3.000) return 0.046815; // +- 0.0%
+  if (pt >= 300  && eta >= 3.000 && eta < 3.100) return 0.353553; // +- 0.0%
   return 0.;
 }
 
@@ -986,14 +986,14 @@ float getPrefireInefficiency_singlephoton_2016(float pt, float eta) {
   if (pt >= 100 && pt < 200 && eta >= 2.250 && eta < 2.500) return 0.24800; // +- 8.9%
   if (pt >= 100 && pt < 200 && eta >= 2.500 && eta < 2.750) return 0.48969; // +- 5.2%
   if (pt >= 100 && pt < 200 && eta >= 2.750 && eta < 3.000) return 0.51485; // +- 6.8%
-  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.73494; // +- 6.6%
-  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.56863; // +- 7.1%
-  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.17447; // +- 14.0%
-  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.03879; // +- 21.6%
-  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.06485; // +- 16.7%
-  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.30739; // +- 9.3%
-  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.68394; // +- 4.9%
-  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.54667; // +- 10.5%
+  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.734940; // +- 6.6%
+  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.568627; // +- 7.1%
+  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.174468; // +- 14.0%
+  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.038793; // +- 21.6%
+  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.064854; // +- 16.7%
+  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.307393; // +- 9.3%
+  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.683938; // +- 4.9%
+  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.546667; // +- 10.5%
   return 0.;
 }
 
@@ -1062,67 +1062,17 @@ float getPrefireInefficiencyError_singlephoton_2016(float pt, float eta) {
   if (pt >= 100 && pt < 200 && eta >= 2.250 && eta < 2.500) return 0.02215; // +- 0.0%
   if (pt >= 100 && pt < 200 && eta >= 2.500 && eta < 2.750) return 0.02537; // +- 0.0%
   if (pt >= 100 && pt < 200 && eta >= 2.750 && eta < 3.000) return 0.03517; // +- 0.0%
-  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.04873; // +- 0.0%
-  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.04009; // +- 0.0%
-  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.02447; // +- 0.0%
-  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.00839; // +- 0.0%
-  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.01085; // +- 0.0%
-  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.02865; // +- 0.0%
-  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.03361; // +- 0.0%
-  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.05753; // +- 0.0%
+  if (pt >= 200  && eta >= -3.000 && eta < -2.750) return 0.048734; // +- 0.0%
+  if (pt >= 200  && eta >= -2.750 && eta < -2.500) return 0.040094; // +- 0.0%
+  if (pt >= 200  && eta >= -2.500 && eta < -2.250) return 0.024473; // +- 0.0%
+  if (pt >= 200  && eta >= -2.250 && eta < -2.000) return 0.008389; // +- 0.0%
+  if (pt >= 200  && eta >= 2.000 && eta < 2.250) return 0.010850; // +- 0.0%
+  if (pt >= 200  && eta >= 2.250 && eta < 2.500) return 0.028650; // +- 0.0%
+  if (pt >= 200  && eta >= 2.500 && eta < 2.750) return 0.033607; // +- 0.0%
+  if (pt >= 200  && eta >= 2.750 && eta < 3.000) return 0.057534; // +- 0.0%
   return 0.;
 }
 
-// std::tuple<float,float,int> getPrefireInfo(int year, bool dojet) {
-//     // Low efficiency for high eta EG objects in data before 2018 due to prefiring issue
-//     // This function looks at all jets in an event and calculates a scale factor for simulation using
-//     //     if year == 2016: https://ncsmith.web.cern.ch/ncsmith/PrefireEfficiencyMaps/Preliminary/Jet_L1FinOReff_bxm1_looseJet_SingleMuon_Run2016B-H.pdf (and .root)
-//     //     if year == 2017: Jet map 2017BtoF from https://lathomas.web.cern.ch/lathomas/TSGStuff/L1Prefiring/PrefiringMaps/
-//     // The scale factor, error, and count of number of "affected" jets are returned as an std::tuple
-//     // Protip: `std::tie(prefire_sf, prefire_sferr, prefire_njets) = getPrefireInfo(gconf.year);`
-//     // More details in
-//     //     https://twiki.cern.ch/twiki/bin/view/CMS/SUSRecommendations18
-//     //     https://github.com/nsmith-/PrefireAnalysis#jet-prefire-efficiencies
-//     // Sorry for the medium/big hardcoded lookup tables. The efficiency map is TEfficiency and I'm not going to read a ROOT file out of principle
-//     float sf = 1.;
-//     float sf_err = 0.; // error^2 for sf=(1-x1)(1-x2)...(1-xn) is (sf^2)*( (dx1/(1-x1))^2 + ... + (dx2/(1-x2))^2 )
-//     int naffected = 0;
-//     if (dojet) {
-//         for(unsigned int ijet = 0; ijet < cms3.pfjets_p4().size(); ijet++) {
-//             float jeteta = pfjets_p4()[ijet].eta();
-//             // skip for performance; these jets have 0 or negligible inefficiency
-//             if (fabs(jeteta) < 1.75) continue;
-//             // calculate raw EM jet pT
-//             // float jetempt = pfjets_p4()[ijet].pt()*(pfjets_chargedEmE()[ijet]+pfjets_neutralEmE()[ijet])/pfjets_p4()[ijet].E();
-//             // new maps use jet pT
-//             float jetpt = pfjets_p4()[ijet].pt()*pfjets_undoJEC()[ijet];
-//             float ineff = year == 2016 ? getPrefireInefficiency_singlejet_2016(jetpt,jeteta) : getPrefireInefficiency_singlejet_2017(jetpt,jeteta);
-//             float ineff_err = year == 2016 ? getPrefireInefficiencyError_singlejet_2016(jetpt,jeteta) : getPrefireInefficiencyError_singlejet_2017(jetpt,jeteta);
-//             if (ineff > 1e-6) {
-//                 sf *= 1.-ineff;
-//                 sf_err += pow(ineff_err/(1-ineff),2);
-//                 naffected += 1;
-//             }
-//         }
-//     } else {
-//         for(unsigned int iele = 0; iele < cms3.els_p4().size(); iele++) {
-//             float eta = els_p4()[iele].eta();
-//             // skip for performance; these jets have 0 or negligible inefficiency
-//             if (fabs(eta) < 1.75) continue;
-//             float pt = els_p4()[iele].pt();
-//             if (pt < 20.) continue;
-//             float ineff = getPrefireInefficiency_singlepho_2017(pt,eta);
-//             float ineff_err = getPrefireInefficiencyError_singlepho_2017(pt,eta);
-//             if (ineff > 1e-6) {
-//                 sf *= 1.-ineff;
-//                 sf_err += pow(ineff_err/(1-ineff),2);
-//                 naffected += 1;
-//             }
-//         }
-//     }
-//     sf_err = sf*pow(sf_err,0.5);
-//     return std::make_tuple(sf, sf_err, naffected);
-// }
 
 std::vector<float> getPrefiringRates(float pt, float eta, int year, bool ispho) {
     float prefiringRateSystUnc = 0.2;
@@ -1176,7 +1126,7 @@ std::tuple<float,float,float> getPrefireInfo(int year) {
         if (fabs(eta) > 3.) continue;
         auto p4 = photons_p4()[ipho];
         affectedphotons.push_back(p4);
-        float cent, up, down;
+        // float cent, up, down;
         auto centupdown = getPrefiringRates(pt,eta,year,true);
         nonprefiringprob[0] *= 1.-centupdown[0];
         nonprefiringprob[1] *= 1.-centupdown[1];
@@ -1193,6 +1143,7 @@ std::tuple<float,float,float> getPrefireInfo(int year) {
         float nonprefprob_pho_up = 1.;
         float nonprefprob_pho_down = 1.;
         auto jetp4 = pfjets_p4()[ijet];
+        int noverlap = 0;
         for (const auto &phop4 : affectedphotons) {
             float phoeta = phop4.eta();
             if (DeltaR(jeteta,phoeta,phop4.phi(),jetp4.phi()) > 0.4) continue;
@@ -1201,19 +1152,20 @@ std::tuple<float,float,float> getPrefireInfo(int year) {
             nonprefprob_pho_cent *= 1.-centupdown[0];
             nonprefprob_pho_up *= 1.-centupdown[1];
             nonprefprob_pho_down *= 1.-centupdown[2];
+            noverlap += 1;
         }
 
         auto centupdown = getPrefiringRates(jetpt,jeteta,year,false); // prefiring probability of jet
         for (int i = 0; i < 3; i++) {
-            if (nonprefprob_pho_cent == 1) {
+            if (noverlap == 0) {
                 // If no overlapping photons, just multiply by jet nonprefiring rate
-                nonprefiringprob[0] *= (1.-centupdown[0]);
-            } else if (nonprefprob_pho_cent > centupdown[0]) {
+                nonprefiringprob[i] *= (1.-centupdown[i]);
+            } else if (nonprefprob_pho_cent > 1.-centupdown[i]) {
                 // If overlapping photons have a nonprefiring rate larger than the jet, replace those weights by the jet one
-                nonprefiringprob[0] *= ((nonprefprob_pho_cent != 0.) ? (1.-centupdown[0])/nonprefprob_pho_cent : 0.);
-            } else if (nonprefprob_pho_cent < 1.-centupdown[0]) {
+                nonprefiringprob[i] *= ((nonprefprob_pho_cent != 0.) ? (1.-centupdown[i])/nonprefprob_pho_cent : 0.);
+            } else if (nonprefprob_pho_cent < 1.-centupdown[i]) {
                 // If overlapping photons have a nonprefiring rate smaller than the jet, don't consider the jet in the event weight
-                nonprefiringprob[0] *= 1.;
+                nonprefiringprob[i] *= 1.;
             }
         }
     }
