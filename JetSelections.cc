@@ -1077,10 +1077,12 @@ float getPrefireInefficiencyError_singlephoton_2016(float pt, float eta) {
 
 
 std::vector<float> getPrefiringRates(float pt, float eta, int year, bool ispho) {
-    float prefiringRateSystUnc = 0.2;
+    // Dump maps using a ROOT file and the script from
+    // /home/users/namin/2018/fourtop/all/FTAnalysis/analysis/checks/prefire/dump_scale_factors.py
     // year -- 2016 or 2017
     // ispho -- true if photon map otherwise jet map
     // returns central, up, down
+    float prefiringRateSystUnc = 0.2;
     float rate = 0.;
     float error = 0.;
     if (ispho) {
