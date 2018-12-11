@@ -45,6 +45,7 @@ if __name__ == "__main__":
 
     # sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-17*/")
     sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-19*/")
+    sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-20*/")
     sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2018/*10-02-02*/")
     sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
     # sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
