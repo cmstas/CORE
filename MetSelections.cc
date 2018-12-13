@@ -5,6 +5,8 @@
 #include "Math/VectorUtil.h"
 #include "MetSelections.h"
 
+#include "Config.h"
+
 #include "Tools/JetCorrector.h"
 #include "Tools/jetcorr/FactorizedJetCorrector.h"
 #include "Tools/jetcorr/JetCorrectionUncertainty.h"
@@ -349,6 +351,12 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     T1_met    = cms3.evt_muegclean_pfmet_raw();
     T1_metPhi = cms3.evt_muegclean_pfmetPhi_raw();
   }
+
+  if (use_cleaned_met == 0 && gconf.year == 2017) { // use nominal MET without EE noise fix
+    T1_met    = cms3.evt_old_pfmet_raw();
+    T1_metPhi = cms3.evt_old_pfmetPhi_raw();
+  }
+
   float T1_metx   = T1_met * cos(T1_metPhi);
   float T1_mety   = T1_met * sin(T1_metPhi);
   
@@ -383,6 +391,11 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
 
     for (unsigned int pfcind = 0; pfcind < cms3.pfjets_pfcandmup4().at(iJet).size(); pfcind++){
       jetp4_uncorr -= cms3.pfjets_pfcandmup4().at(iJet).at(pfcind);
+    }
+
+    if (use_cleaned_met == 2) { // 2017 EE noise fix (exclude jets with raw pT < 50)
+      if (jetp4_uncorr.pt() < 50. && abs(jetp4_uncorr.eta()) >= 2.65 && abs(jetp4_uncorr.eta()) <= 3.139)
+	continue;
     }
 
     // get L1FastL2L3 total correction
@@ -442,6 +455,11 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     //     jetp4_uncorr -= cms3.pfcands_p4()   .at(index);
     //   }
     // }
+
+    if (use_cleaned_met == 2) { // 2017 EE noise fix (exclude jets with raw pT < 50)
+      if (jetp4_uncorr.pt() < 50. && abs(jetp4_uncorr.eta()) >= 2.65 && abs(jetp4_uncorr.eta()) <= 3.139)
+        continue;
+    }
 
     // get L1FastL2L3 total correction
     jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );

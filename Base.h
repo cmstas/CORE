@@ -257,7 +257,11 @@ enum id_level_t {
   VVV_3l_fo_v5,
   VVV_3l_fo_noiso_v5,
   VVV_3l_tight_v5,
-  VVV_3l_tight_noiso_v5
+  VVV_3l_tight_noiso_v5,
+
+  PUID_loose,
+  PUID_medium,
+  PUID_tight
 
 };
 

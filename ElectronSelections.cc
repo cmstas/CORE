@@ -523,8 +523,15 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_veto_v4):
-      if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,1)   >  0.2 ) return false;
+      if (gconf.year == 2016) {
+        // Both 80X and 94X will use Spring15 recommended by SUSY 
+        if (!isVetoElectronPOGspring15noIso_v1(elIdx)) return false;
+      } else if (gconf.year == 2017) {
+        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
+      } else if (gconf.year == 2018) {
+        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false; // To be updated
+      }
+      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >  0.2 ) return false;
       return true;
       break;
 
@@ -552,8 +559,15 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_loose_v4):
-      if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,1)   >   0.2 ) return false;
+      if (gconf.year == 2016) {
+        // Both 80X and 94X will use Spring15 recommended by SUSY 
+        if (!isLooseElectronPOGspring15noIso_v1(elIdx)) return false;
+      } else if (gconf.year == 2017) {
+        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
+      } else if (gconf.year == 2018) {
+        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // To be updated
+      }
+      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >  0.2 ) return false;
       return true;
       break;
 
@@ -783,7 +797,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dxyPV().at(elIdx)) > 0.05) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -805,7 +819,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dxyPV().at(elIdx)) > 0.05) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -1057,8 +1071,15 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_medium_v4):
-      if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,1)    >   0.1 ) return false;
+      if (gconf.year == 2016) {
+        // Both 80X and 94X will use Spring15 recommended by SUSY 
+        if (!isMediumElectronPOGspring15noIso_v1(elIdx)) return false;
+      } else if (gconf.year == 2017) {
+        if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
+      } else if (gconf.year == 2018) {
+        if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false; // To be updated
+      }
+      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
       return true;
       break;
 
@@ -1363,7 +1384,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false;
@@ -1390,7 +1411,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       }
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
-      if (els_exp_innerlayers().at(elIdx) > 1) return false;
+      if (els_exp_innerlayers().at(elIdx) > gconf.SS_innerlayers) return false;
       if (threeChargeAgree(elIdx)==0) return false;
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if( id_level != SS_medium_looseMVA_noip_v6) {
@@ -1495,8 +1516,14 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_tight_v4):
-      if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,1)   >  0.1  ) return false;
+      if (gconf.year == 2016) {
+        if (!isTightElectronPOGspring15noIso_v1(elIdx)) return false;
+      } else if (gconf.year == 2017) {
+        if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
+      } else if (gconf.year == 2018) {
+        if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false; // To be updated
+      }
+      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
       return true;
       break;
 
@@ -2190,6 +2217,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     else if (gconf.year == 2017)
     {
         if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
+//        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
     }
     return true;
     break;
@@ -2221,6 +2249,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     else if (gconf.year == 2017)
     {
         if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
+//        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
     }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
@@ -2253,8 +2282,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   //Fakable Objects (3l)
 
   case(VVV_3l_fo_noiso_v5):
-    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
-    if (!( threeChargeAgree(elIdx)                       )) return false;
+    if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.015 )) return false;
     if (gconf.year == 2016)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
@@ -2269,6 +2297,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     else if (gconf.year == 2017)
     {
         if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
+//        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
     }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
@@ -3827,6 +3856,7 @@ float getMVAoutput(unsigned int index, bool use_miniaod){
   if (use_miniaod) {
       if (gconf.year == 2016) return els_VIDNonTrigMvaValue().at(index);
       else if (gconf.year == 2017) return els_VIDFall17NoIsoMvaValue().at(index);
+      else if (gconf.year == 2018) return els_VIDFall17NoIsoMvaValue().at(index);
       else {
           // should yell here, but return pre-added-config-object-to-CORE value instead
           return els_VIDNonTrigMvaValue().at(index);

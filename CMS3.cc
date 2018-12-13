@@ -2366,6 +2366,120 @@ void CMS3::Init(TTree *tree) {
     mus_simExtType_branch = tree->GetBranch(tree->GetAlias("mus_simExtType"));
     if (mus_simExtType_branch) { mus_simExtType_branch->SetAddress(&mus_simExtType_); }
   }
+
+  genHEPMCweight_branch = 0;
+  if (tree->GetAlias("genHEPMCweight") != 0) {
+    genHEPMCweight_branch = tree->GetBranch(tree->GetAlias("genHEPMCweight"));
+    if (genHEPMCweight_branch) { genHEPMCweight_branch->SetAddress(&genHEPMCweight_); }
+  }
+
+  genHEPMCweight_2016_branch = 0;
+  if (tree->GetAlias("genHEPMCweight_2016") != 0) {
+    genHEPMCweight_2016_branch = tree->GetBranch(tree->GetAlias("genHEPMCweight_2016"));
+    if (genHEPMCweight_2016_branch) { genHEPMCweight_2016_branch->SetAddress(&genHEPMCweight_2016_); }
+  }
+
+  gen_LHEweight_QCDscale_muR1_muF1_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF1") != 0) {
+    gen_LHEweight_QCDscale_muR1_muF1_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF1"));
+    if (gen_LHEweight_QCDscale_muR1_muF1_branch) { gen_LHEweight_QCDscale_muR1_muF1_branch->SetAddress(&gen_LHEweight_QCDscale_muR1_muF1_); }
+  }
+
+  gen_LHEweight_QCDscale_muR1_muF2_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF2") != 0) {
+    gen_LHEweight_QCDscale_muR1_muF2_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF2"));
+    if (gen_LHEweight_QCDscale_muR1_muF2_branch) { gen_LHEweight_QCDscale_muR1_muF2_branch->SetAddress(&gen_LHEweight_QCDscale_muR1_muF2_); }
+  }
+
+  gen_LHEweight_QCDscale_muR1_muF0p5_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF0p5") != 0) {
+    gen_LHEweight_QCDscale_muR1_muF0p5_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF0p5"));
+    if (gen_LHEweight_QCDscale_muR1_muF0p5_branch) { gen_LHEweight_QCDscale_muR1_muF0p5_branch->SetAddress(&gen_LHEweight_QCDscale_muR1_muF0p5_); }
+  }
+
+  gen_LHEweight_QCDscale_muR2_muF1_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF1") != 0) {
+    gen_LHEweight_QCDscale_muR2_muF1_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF1"));
+    if (gen_LHEweight_QCDscale_muR2_muF1_branch) { gen_LHEweight_QCDscale_muR2_muF1_branch->SetAddress(&gen_LHEweight_QCDscale_muR2_muF1_); }
+  }
+
+  gen_LHEweight_QCDscale_muR2_muF2_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF2") != 0) {
+    gen_LHEweight_QCDscale_muR2_muF2_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF2"));
+    if (gen_LHEweight_QCDscale_muR2_muF2_branch) { gen_LHEweight_QCDscale_muR2_muF2_branch->SetAddress(&gen_LHEweight_QCDscale_muR2_muF2_); }
+  }
+
+  gen_LHEweight_QCDscale_muR2_muF0p5_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF0p5") != 0) {
+    gen_LHEweight_QCDscale_muR2_muF0p5_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF0p5"));
+    if (gen_LHEweight_QCDscale_muR2_muF0p5_branch) { gen_LHEweight_QCDscale_muR2_muF0p5_branch->SetAddress(&gen_LHEweight_QCDscale_muR2_muF0p5_); }
+  }
+
+  gen_LHEweight_QCDscale_muR0p5_muF1_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF1") != 0) {
+    gen_LHEweight_QCDscale_muR0p5_muF1_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF1"));
+    if (gen_LHEweight_QCDscale_muR0p5_muF1_branch) { gen_LHEweight_QCDscale_muR0p5_muF1_branch->SetAddress(&gen_LHEweight_QCDscale_muR0p5_muF1_); }
+  }
+
+  gen_LHEweight_QCDscale_muR0p5_muF2_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF2") != 0) {
+    gen_LHEweight_QCDscale_muR0p5_muF2_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF2"));
+    if (gen_LHEweight_QCDscale_muR0p5_muF2_branch) { gen_LHEweight_QCDscale_muR0p5_muF2_branch->SetAddress(&gen_LHEweight_QCDscale_muR0p5_muF2_); }
+  }
+
+  gen_LHEweight_QCDscale_muR0p5_muF0p5_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF0p5") != 0) {
+    gen_LHEweight_QCDscale_muR0p5_muF0p5_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF0p5"));
+    if (gen_LHEweight_QCDscale_muR0p5_muF0p5_branch) { gen_LHEweight_QCDscale_muR0p5_muF0p5_branch->SetAddress(&gen_LHEweight_QCDscale_muR0p5_muF0p5_); }
+  }
+
+  gen_LHEweight_PDFVariation_Up_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Up") != 0) {
+    gen_LHEweight_PDFVariation_Up_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Up"));
+    if (gen_LHEweight_PDFVariation_Up_branch) { gen_LHEweight_PDFVariation_Up_branch->SetAddress(&gen_LHEweight_PDFVariation_Up_); }
+  }
+
+  gen_LHEweight_PDFVariation_Dn_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Dn") != 0) {
+    gen_LHEweight_PDFVariation_Dn_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Dn"));
+    if (gen_LHEweight_PDFVariation_Dn_branch) { gen_LHEweight_PDFVariation_Dn_branch->SetAddress(&gen_LHEweight_PDFVariation_Dn_); }
+  }
+
+  gen_LHEweight_AsMZ_Up_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Up") != 0) {
+    gen_LHEweight_AsMZ_Up_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Up"));
+    if (gen_LHEweight_AsMZ_Up_branch) { gen_LHEweight_AsMZ_Up_branch->SetAddress(&gen_LHEweight_AsMZ_Up_); }
+  }
+
+  gen_LHEweight_AsMZ_Dn_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Dn") != 0) {
+    gen_LHEweight_AsMZ_Dn_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Dn"));
+    if (gen_LHEweight_AsMZ_Dn_branch) { gen_LHEweight_AsMZ_Dn_branch->SetAddress(&gen_LHEweight_AsMZ_Dn_); }
+  }
+
+  gen_LHEweight_PDFVariation_Up_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Up_2016") != 0) {
+    gen_LHEweight_PDFVariation_Up_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Up_2016"));
+    if (gen_LHEweight_PDFVariation_Up_2016_branch) { gen_LHEweight_PDFVariation_Up_2016_branch->SetAddress(&gen_LHEweight_PDFVariation_Up_2016_); }
+  }
+
+  gen_LHEweight_PDFVariation_Dn_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Dn_2016") != 0) {
+    gen_LHEweight_PDFVariation_Dn_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Dn_2016"));
+    if (gen_LHEweight_PDFVariation_Dn_2016_branch) { gen_LHEweight_PDFVariation_Dn_2016_branch->SetAddress(&gen_LHEweight_PDFVariation_Dn_2016_); }
+  }
+
+  gen_LHEweight_AsMZ_Up_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Up_2016") != 0) {
+    gen_LHEweight_AsMZ_Up_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Up_2016"));
+    if (gen_LHEweight_AsMZ_Up_2016_branch) { gen_LHEweight_AsMZ_Up_2016_branch->SetAddress(&gen_LHEweight_AsMZ_Up_2016_); }
+  }
+
+  gen_LHEweight_AsMZ_Dn_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Dn_2016") != 0) {
+    gen_LHEweight_AsMZ_Dn_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Dn_2016"));
+    if (gen_LHEweight_AsMZ_Dn_2016_branch) { gen_LHEweight_AsMZ_Dn_2016_branch->SetAddress(&gen_LHEweight_AsMZ_Dn_2016_); }
+  }
   els_miniIso_uncor_branch = 0;
   if (tree->GetAlias("els_miniIso_uncor") != 0) {
     els_miniIso_uncor_branch = tree->GetBranch(tree->GetAlias("els_miniIso_uncor"));
@@ -5192,6 +5306,234 @@ void CMS3::Init(TTree *tree) {
     ak8jets_puppi_nJettinessTau1_branch = tree->GetBranch(tree->GetAlias("ak8jets_puppi_nJettinessTau1"));
     if (ak8jets_puppi_nJettinessTau1_branch) { ak8jets_puppi_nJettinessTau1_branch->SetAddress(&ak8jets_puppi_nJettinessTau1_); }
   }
+
+  evt_old_calomet_branch = 0;
+  if (tree->GetAlias("evt_old_calomet") != 0) {
+    evt_old_calomet_branch = tree->GetBranch(tree->GetAlias("evt_old_calomet"));
+    if (evt_old_calomet_branch) { evt_old_calomet_branch->SetAddress(&evt_old_calomet_); }
+  }
+
+  evt_old_calometPhi_branch = 0;
+  if (tree->GetAlias("evt_old_calometPhi") != 0) {
+    evt_old_calometPhi_branch = tree->GetBranch(tree->GetAlias("evt_old_calometPhi"));
+    if (evt_old_calometPhi_branch) { evt_old_calometPhi_branch->SetAddress(&evt_old_calometPhi_); }
+  }
+
+  evt_old_pfmet_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet") != 0) {
+    evt_old_pfmet_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet"));
+    if (evt_old_pfmet_branch) { evt_old_pfmet_branch->SetAddress(&evt_old_pfmet_); }
+  }
+
+  evt_old_pfmet_ElectronEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_ElectronEnDown") != 0) {
+    evt_old_pfmet_ElectronEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_ElectronEnDown"));
+    if (evt_old_pfmet_ElectronEnDown_branch) { evt_old_pfmet_ElectronEnDown_branch->SetAddress(&evt_old_pfmet_ElectronEnDown_); }
+  }
+
+  evt_old_pfmet_ElectronEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_ElectronEnUp") != 0) {
+    evt_old_pfmet_ElectronEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_ElectronEnUp"));
+    if (evt_old_pfmet_ElectronEnUp_branch) { evt_old_pfmet_ElectronEnUp_branch->SetAddress(&evt_old_pfmet_ElectronEnUp_); }
+  }
+
+  evt_old_pfmet_JetEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_JetEnDown") != 0) {
+    evt_old_pfmet_JetEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_JetEnDown"));
+    if (evt_old_pfmet_JetEnDown_branch) { evt_old_pfmet_JetEnDown_branch->SetAddress(&evt_old_pfmet_JetEnDown_); }
+  }
+
+  evt_old_pfmet_JetEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_JetEnUp") != 0) {
+    evt_old_pfmet_JetEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_JetEnUp"));
+    if (evt_old_pfmet_JetEnUp_branch) { evt_old_pfmet_JetEnUp_branch->SetAddress(&evt_old_pfmet_JetEnUp_); }
+  }
+
+  evt_old_pfmet_JetResDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_JetResDown") != 0) {
+    evt_old_pfmet_JetResDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_JetResDown"));
+    if (evt_old_pfmet_JetResDown_branch) { evt_old_pfmet_JetResDown_branch->SetAddress(&evt_old_pfmet_JetResDown_); }
+  }
+
+  evt_old_pfmet_JetResUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_JetResUp") != 0) {
+    evt_old_pfmet_JetResUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_JetResUp"));
+    if (evt_old_pfmet_JetResUp_branch) { evt_old_pfmet_JetResUp_branch->SetAddress(&evt_old_pfmet_JetResUp_); }
+  }
+
+  evt_old_pfmet_MuonEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_MuonEnDown") != 0) {
+    evt_old_pfmet_MuonEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_MuonEnDown"));
+    if (evt_old_pfmet_MuonEnDown_branch) { evt_old_pfmet_MuonEnDown_branch->SetAddress(&evt_old_pfmet_MuonEnDown_); }
+  }
+
+  evt_old_pfmet_MuonEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_MuonEnUp") != 0) {
+    evt_old_pfmet_MuonEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_MuonEnUp"));
+    if (evt_old_pfmet_MuonEnUp_branch) { evt_old_pfmet_MuonEnUp_branch->SetAddress(&evt_old_pfmet_MuonEnUp_); }
+  }
+
+  evt_old_pfmet_PhotonEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_PhotonEnDown") != 0) {
+    evt_old_pfmet_PhotonEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_PhotonEnDown"));
+    if (evt_old_pfmet_PhotonEnDown_branch) { evt_old_pfmet_PhotonEnDown_branch->SetAddress(&evt_old_pfmet_PhotonEnDown_); }
+  }
+
+  evt_old_pfmet_PhotonEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_PhotonEnUp") != 0) {
+    evt_old_pfmet_PhotonEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_PhotonEnUp"));
+    if (evt_old_pfmet_PhotonEnUp_branch) { evt_old_pfmet_PhotonEnUp_branch->SetAddress(&evt_old_pfmet_PhotonEnUp_); }
+  }
+
+  evt_old_pfmet_TauEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_TauEnDown") != 0) {
+    evt_old_pfmet_TauEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_TauEnDown"));
+    if (evt_old_pfmet_TauEnDown_branch) { evt_old_pfmet_TauEnDown_branch->SetAddress(&evt_old_pfmet_TauEnDown_); }
+  }
+
+  evt_old_pfmet_TauEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_TauEnUp") != 0) {
+    evt_old_pfmet_TauEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_TauEnUp"));
+    if (evt_old_pfmet_TauEnUp_branch) { evt_old_pfmet_TauEnUp_branch->SetAddress(&evt_old_pfmet_TauEnUp_); }
+  }
+
+  evt_old_pfmet_UnclusteredEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_UnclusteredEnDown") != 0) {
+    evt_old_pfmet_UnclusteredEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_UnclusteredEnDown"));
+    if (evt_old_pfmet_UnclusteredEnDown_branch) { evt_old_pfmet_UnclusteredEnDown_branch->SetAddress(&evt_old_pfmet_UnclusteredEnDown_); }
+  }
+
+  evt_old_pfmet_UnclusteredEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_UnclusteredEnUp") != 0) {
+    evt_old_pfmet_UnclusteredEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_UnclusteredEnUp"));
+    if (evt_old_pfmet_UnclusteredEnUp_branch) { evt_old_pfmet_UnclusteredEnUp_branch->SetAddress(&evt_old_pfmet_UnclusteredEnUp_); }
+  }
+
+  evt_old_pfmetPhi_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi") != 0) {
+    evt_old_pfmetPhi_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi"));
+    if (evt_old_pfmetPhi_branch) { evt_old_pfmetPhi_branch->SetAddress(&evt_old_pfmetPhi_); }
+  }
+
+  evt_old_pfmetPhi_ElectronEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_ElectronEnDown") != 0) {
+    evt_old_pfmetPhi_ElectronEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_ElectronEnDown"));
+    if (evt_old_pfmetPhi_ElectronEnDown_branch) { evt_old_pfmetPhi_ElectronEnDown_branch->SetAddress(&evt_old_pfmetPhi_ElectronEnDown_); }
+  }
+
+  evt_old_pfmetPhi_ElectronEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_ElectronEnUp") != 0) {
+    evt_old_pfmetPhi_ElectronEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_ElectronEnUp"));
+    if (evt_old_pfmetPhi_ElectronEnUp_branch) { evt_old_pfmetPhi_ElectronEnUp_branch->SetAddress(&evt_old_pfmetPhi_ElectronEnUp_); }
+  }
+
+  evt_old_pfmetPhi_JetEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_JetEnDown") != 0) {
+    evt_old_pfmetPhi_JetEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_JetEnDown"));
+    if (evt_old_pfmetPhi_JetEnDown_branch) { evt_old_pfmetPhi_JetEnDown_branch->SetAddress(&evt_old_pfmetPhi_JetEnDown_); }
+  }
+
+  evt_old_pfmetPhi_JetEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_JetEnUp") != 0) {
+    evt_old_pfmetPhi_JetEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_JetEnUp"));
+    if (evt_old_pfmetPhi_JetEnUp_branch) { evt_old_pfmetPhi_JetEnUp_branch->SetAddress(&evt_old_pfmetPhi_JetEnUp_); }
+  }
+
+  evt_old_pfmetPhi_JetResDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_JetResDown") != 0) {
+    evt_old_pfmetPhi_JetResDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_JetResDown"));
+    if (evt_old_pfmetPhi_JetResDown_branch) { evt_old_pfmetPhi_JetResDown_branch->SetAddress(&evt_old_pfmetPhi_JetResDown_); }
+  }
+
+  evt_old_pfmetPhi_JetResUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_JetResUp") != 0) {
+    evt_old_pfmetPhi_JetResUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_JetResUp"));
+    if (evt_old_pfmetPhi_JetResUp_branch) { evt_old_pfmetPhi_JetResUp_branch->SetAddress(&evt_old_pfmetPhi_JetResUp_); }
+  }
+
+  evt_old_pfmetPhi_MuonEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_MuonEnDown") != 0) {
+    evt_old_pfmetPhi_MuonEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_MuonEnDown"));
+    if (evt_old_pfmetPhi_MuonEnDown_branch) { evt_old_pfmetPhi_MuonEnDown_branch->SetAddress(&evt_old_pfmetPhi_MuonEnDown_); }
+  }
+
+  evt_old_pfmetPhi_MuonEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_MuonEnUp") != 0) {
+    evt_old_pfmetPhi_MuonEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_MuonEnUp"));
+    if (evt_old_pfmetPhi_MuonEnUp_branch) { evt_old_pfmetPhi_MuonEnUp_branch->SetAddress(&evt_old_pfmetPhi_MuonEnUp_); }
+  }
+
+  evt_old_pfmetPhi_PhotonEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_PhotonEnDown") != 0) {
+    evt_old_pfmetPhi_PhotonEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_PhotonEnDown"));
+    if (evt_old_pfmetPhi_PhotonEnDown_branch) { evt_old_pfmetPhi_PhotonEnDown_branch->SetAddress(&evt_old_pfmetPhi_PhotonEnDown_); }
+  }
+
+  evt_old_pfmetPhi_PhotonEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_PhotonEnUp") != 0) {
+    evt_old_pfmetPhi_PhotonEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_PhotonEnUp"));
+    if (evt_old_pfmetPhi_PhotonEnUp_branch) { evt_old_pfmetPhi_PhotonEnUp_branch->SetAddress(&evt_old_pfmetPhi_PhotonEnUp_); }
+  }
+
+  evt_old_pfmetPhi_TauEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_TauEnDown") != 0) {
+    evt_old_pfmetPhi_TauEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_TauEnDown"));
+    if (evt_old_pfmetPhi_TauEnDown_branch) { evt_old_pfmetPhi_TauEnDown_branch->SetAddress(&evt_old_pfmetPhi_TauEnDown_); }
+  }
+
+  evt_old_pfmetPhi_TauEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_TauEnUp") != 0) {
+    evt_old_pfmetPhi_TauEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_TauEnUp"));
+    if (evt_old_pfmetPhi_TauEnUp_branch) { evt_old_pfmetPhi_TauEnUp_branch->SetAddress(&evt_old_pfmetPhi_TauEnUp_); }
+  }
+
+  evt_old_pfmetPhi_UnclusteredEnDown_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_UnclusteredEnDown") != 0) {
+    evt_old_pfmetPhi_UnclusteredEnDown_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_UnclusteredEnDown"));
+    if (evt_old_pfmetPhi_UnclusteredEnDown_branch) { evt_old_pfmetPhi_UnclusteredEnDown_branch->SetAddress(&evt_old_pfmetPhi_UnclusteredEnDown_); }
+  }
+
+  evt_old_pfmetPhi_UnclusteredEnUp_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_UnclusteredEnUp") != 0) {
+    evt_old_pfmetPhi_UnclusteredEnUp_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_UnclusteredEnUp"));
+    if (evt_old_pfmetPhi_UnclusteredEnUp_branch) { evt_old_pfmetPhi_UnclusteredEnUp_branch->SetAddress(&evt_old_pfmetPhi_UnclusteredEnUp_); }
+  }
+
+  evt_old_pfmetSig_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetSig") != 0) {
+    evt_old_pfmetSig_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetSig"));
+    if (evt_old_pfmetSig_branch) { evt_old_pfmetSig_branch->SetAddress(&evt_old_pfmetSig_); }
+  }
+
+  evt_old_pfmetSignificance_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetSignificance") != 0) {
+    evt_old_pfmetSignificance_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetSignificance"));
+    if (evt_old_pfmetSignificance_branch) { evt_old_pfmetSignificance_branch->SetAddress(&evt_old_pfmetSignificance_); }
+  }
+
+  evt_old_pfmet_raw_branch = 0;
+  if (tree->GetAlias("evt_old_pfmet_raw") != 0) {
+    evt_old_pfmet_raw_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmet_raw"));
+    if (evt_old_pfmet_raw_branch) { evt_old_pfmet_raw_branch->SetAddress(&evt_old_pfmet_raw_); }
+  }
+
+  evt_old_pfmetPhi_raw_branch = 0;
+  if (tree->GetAlias("evt_old_pfmetPhi_raw") != 0) {
+    evt_old_pfmetPhi_raw_branch = tree->GetBranch(tree->GetAlias("evt_old_pfmetPhi_raw"));
+    if (evt_old_pfmetPhi_raw_branch) { evt_old_pfmetPhi_raw_branch->SetAddress(&evt_old_pfmetPhi_raw_); }
+  }
+
+  evt_old_pfsumet_branch = 0;
+  if (tree->GetAlias("evt_old_pfsumet") != 0) {
+    evt_old_pfsumet_branch = tree->GetBranch(tree->GetAlias("evt_old_pfsumet"));
+    if (evt_old_pfsumet_branch) { evt_old_pfsumet_branch->SetAddress(&evt_old_pfsumet_); }
+  }
+
+  evt_old_pfsumet_raw_branch = 0;
+  if (tree->GetAlias("evt_old_pfsumet_raw") != 0) {
+    evt_old_pfsumet_raw_branch = tree->GetBranch(tree->GetAlias("evt_old_pfsumet_raw"));
+    if (evt_old_pfsumet_raw_branch) { evt_old_pfsumet_raw_branch->SetAddress(&evt_old_pfsumet_raw_); }
+  }
   evt_pfmet_branch = 0;
   if (tree->GetAlias("evt_pfmet") != 0) {
     evt_pfmet_branch = tree->GetBranch(tree->GetAlias("evt_pfmet"));
@@ -7589,6 +7931,25 @@ void CMS3::GetEntry(unsigned int idx) {
   els_scSeedE3x3_isLoaded = false;
   els_HLT_Ele20_SC4_Mass50_TrailingLeg_isLoaded = false;
   els_miniIso_uncor_isLoaded = false;
+  genHEPMCweight_isLoaded = false;
+  genHEPMCweight_2016_isLoaded = false;
+  gen_LHEweight_QCDscale_muR1_muF1_isLoaded = false;
+  gen_LHEweight_QCDscale_muR1_muF2_isLoaded = false;
+  gen_LHEweight_QCDscale_muR1_muF0p5_isLoaded = false;
+  gen_LHEweight_QCDscale_muR2_muF1_isLoaded = false;
+  gen_LHEweight_QCDscale_muR2_muF2_isLoaded = false;
+  gen_LHEweight_QCDscale_muR2_muF0p5_isLoaded = false;
+  gen_LHEweight_QCDscale_muR0p5_muF1_isLoaded = false;
+  gen_LHEweight_QCDscale_muR0p5_muF2_isLoaded = false;
+  gen_LHEweight_QCDscale_muR0p5_muF0p5_isLoaded = false;
+  gen_LHEweight_PDFVariation_Up_isLoaded = false;
+  gen_LHEweight_PDFVariation_Dn_isLoaded = false;
+  gen_LHEweight_AsMZ_Up_isLoaded = false;
+  gen_LHEweight_AsMZ_Dn_isLoaded = false;
+  gen_LHEweight_PDFVariation_Up_2016_isLoaded = false;
+  gen_LHEweight_PDFVariation_Dn_2016_isLoaded = false;
+  gen_LHEweight_AsMZ_Up_2016_isLoaded = false;
+  gen_LHEweight_AsMZ_Dn_2016_isLoaded = false;
   mus_selectors_isLoaded = false;
   mus_simType_isLoaded = false;
   mus_simExtType_isLoaded = false;
@@ -8193,6 +8554,44 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_sta_algo_isLoaded = false;
   ak8jets_puppi_nJettinessTau1_isLoaded = false;
   evt_pfmet_isLoaded = false;
+  evt_old_calomet_isLoaded = false;
+  evt_old_calometPhi_isLoaded = false;
+  evt_old_pfmet_isLoaded = false;
+  evt_old_pfmet_ElectronEnDown_isLoaded = false;
+  evt_old_pfmet_ElectronEnUp_isLoaded = false;
+  evt_old_pfmet_JetEnDown_isLoaded = false;
+  evt_old_pfmet_JetEnUp_isLoaded = false;
+  evt_old_pfmet_JetResDown_isLoaded = false;
+  evt_old_pfmet_JetResUp_isLoaded = false;
+  evt_old_pfmet_MuonEnDown_isLoaded = false;
+  evt_old_pfmet_MuonEnUp_isLoaded = false;
+  evt_old_pfmet_PhotonEnDown_isLoaded = false;
+  evt_old_pfmet_PhotonEnUp_isLoaded = false;
+  evt_old_pfmet_TauEnDown_isLoaded = false;
+  evt_old_pfmet_TauEnUp_isLoaded = false;
+  evt_old_pfmet_UnclusteredEnDown_isLoaded = false;
+  evt_old_pfmet_UnclusteredEnUp_isLoaded = false;
+  evt_old_pfmetPhi_isLoaded = false;
+  evt_old_pfmetPhi_ElectronEnDown_isLoaded = false;
+  evt_old_pfmetPhi_ElectronEnUp_isLoaded = false;
+  evt_old_pfmetPhi_JetEnDown_isLoaded = false;
+  evt_old_pfmetPhi_JetEnUp_isLoaded = false;
+  evt_old_pfmetPhi_JetResDown_isLoaded = false;
+  evt_old_pfmetPhi_JetResUp_isLoaded = false;
+  evt_old_pfmetPhi_MuonEnDown_isLoaded = false;
+  evt_old_pfmetPhi_MuonEnUp_isLoaded = false;
+  evt_old_pfmetPhi_PhotonEnDown_isLoaded = false;
+  evt_old_pfmetPhi_PhotonEnUp_isLoaded = false;
+  evt_old_pfmetPhi_TauEnDown_isLoaded = false;
+  evt_old_pfmetPhi_TauEnUp_isLoaded = false;
+  evt_old_pfmetPhi_UnclusteredEnDown_isLoaded = false;
+  evt_old_pfmetPhi_UnclusteredEnUp_isLoaded = false;
+  evt_old_pfmetSig_isLoaded = false;
+  evt_old_pfmetSignificance_isLoaded = false;
+  evt_old_pfmet_raw_isLoaded = false;
+  evt_old_pfmetPhi_raw_isLoaded = false;
+  evt_old_pfsumet_isLoaded = false;
+  evt_old_pfsumet_raw_isLoaded = false;
   pfjets_hfEmE_isLoaded = false;
   genps_isMostlyLikePythia6Status3_isLoaded = false;
   mus_pfcharge_isLoaded = false;
@@ -9026,6 +9425,25 @@ void CMS3::LoadAllBranches() {
   if (els_scSeedE3x3_branch != 0) els_scSeedE3x3();
   if (els_HLT_Ele20_SC4_Mass50_TrailingLeg_branch != 0) els_HLT_Ele20_SC4_Mass50_TrailingLeg();
   if (els_miniIso_uncor_branch != 0) els_miniIso_uncor();
+  if (genHEPMCweight_branch != 0) genHEPMCweight();
+  if (genHEPMCweight_2016_branch != 0) genHEPMCweight_2016();
+  if (gen_LHEweight_QCDscale_muR1_muF1_branch != 0) gen_LHEweight_QCDscale_muR1_muF1();
+  if (gen_LHEweight_QCDscale_muR1_muF2_branch != 0) gen_LHEweight_QCDscale_muR1_muF2();
+  if (gen_LHEweight_QCDscale_muR1_muF0p5_branch != 0) gen_LHEweight_QCDscale_muR1_muF0p5();
+  if (gen_LHEweight_QCDscale_muR2_muF1_branch != 0) gen_LHEweight_QCDscale_muR2_muF1();
+  if (gen_LHEweight_QCDscale_muR2_muF2_branch != 0) gen_LHEweight_QCDscale_muR2_muF2();
+  if (gen_LHEweight_QCDscale_muR2_muF0p5_branch != 0) gen_LHEweight_QCDscale_muR2_muF0p5();
+  if (gen_LHEweight_QCDscale_muR0p5_muF1_branch != 0) gen_LHEweight_QCDscale_muR0p5_muF1();
+  if (gen_LHEweight_QCDscale_muR0p5_muF2_branch != 0) gen_LHEweight_QCDscale_muR0p5_muF2();
+  if (gen_LHEweight_QCDscale_muR0p5_muF0p5_branch != 0) gen_LHEweight_QCDscale_muR0p5_muF0p5();
+  if (gen_LHEweight_PDFVariation_Up_branch != 0) gen_LHEweight_PDFVariation_Up();
+  if (gen_LHEweight_PDFVariation_Dn_branch != 0) gen_LHEweight_PDFVariation_Dn();
+  if (gen_LHEweight_AsMZ_Up_branch != 0) gen_LHEweight_AsMZ_Up();
+  if (gen_LHEweight_AsMZ_Dn_branch != 0) gen_LHEweight_AsMZ_Dn();
+  if (gen_LHEweight_PDFVariation_Up_2016_branch != 0) gen_LHEweight_PDFVariation_Up_2016();
+  if (gen_LHEweight_PDFVariation_Dn_2016_branch != 0) gen_LHEweight_PDFVariation_Dn_2016();
+  if (gen_LHEweight_AsMZ_Up_2016_branch != 0) gen_LHEweight_AsMZ_Up_2016();
+  if (gen_LHEweight_AsMZ_Dn_2016_branch != 0) gen_LHEweight_AsMZ_Dn_2016();
   if (mus_selectors_branch != 0) mus_selectors();
   if (mus_simType_branch != 0) mus_simType();
   if (mus_simExtType_branch != 0) mus_simExtType();
@@ -9630,6 +10048,44 @@ void CMS3::LoadAllBranches() {
   if (mus_sta_algo_branch != 0) mus_sta_algo();
   if (ak8jets_puppi_nJettinessTau1_branch != 0) ak8jets_puppi_nJettinessTau1();
   if (evt_pfmet_branch != 0) evt_pfmet();
+  if (evt_old_calomet_branch != 0) evt_old_calomet();
+  if (evt_old_calometPhi_branch != 0) evt_old_calometPhi();
+  if (evt_old_pfmet_branch != 0) evt_old_pfmet();
+  if (evt_old_pfmet_ElectronEnDown_branch != 0) evt_old_pfmet_ElectronEnDown();
+  if (evt_old_pfmet_ElectronEnUp_branch != 0) evt_old_pfmet_ElectronEnUp();
+  if (evt_old_pfmet_JetEnDown_branch != 0) evt_old_pfmet_JetEnDown();
+  if (evt_old_pfmet_JetEnUp_branch != 0) evt_old_pfmet_JetEnUp();
+  if (evt_old_pfmet_JetResDown_branch != 0) evt_old_pfmet_JetResDown();
+  if (evt_old_pfmet_JetResUp_branch != 0) evt_old_pfmet_JetResUp();
+  if (evt_old_pfmet_MuonEnDown_branch != 0) evt_old_pfmet_MuonEnDown();
+  if (evt_old_pfmet_MuonEnUp_branch != 0) evt_old_pfmet_MuonEnUp();
+  if (evt_old_pfmet_PhotonEnDown_branch != 0) evt_old_pfmet_PhotonEnDown();
+  if (evt_old_pfmet_PhotonEnUp_branch != 0) evt_old_pfmet_PhotonEnUp();
+  if (evt_old_pfmet_TauEnDown_branch != 0) evt_old_pfmet_TauEnDown();
+  if (evt_old_pfmet_TauEnUp_branch != 0) evt_old_pfmet_TauEnUp();
+  if (evt_old_pfmet_UnclusteredEnDown_branch != 0) evt_old_pfmet_UnclusteredEnDown();
+  if (evt_old_pfmet_UnclusteredEnUp_branch != 0) evt_old_pfmet_UnclusteredEnUp();
+  if (evt_old_pfmetPhi_branch != 0) evt_old_pfmetPhi();
+  if (evt_old_pfmetPhi_ElectronEnDown_branch != 0) evt_old_pfmetPhi_ElectronEnDown();
+  if (evt_old_pfmetPhi_ElectronEnUp_branch != 0) evt_old_pfmetPhi_ElectronEnUp();
+  if (evt_old_pfmetPhi_JetEnDown_branch != 0) evt_old_pfmetPhi_JetEnDown();
+  if (evt_old_pfmetPhi_JetEnUp_branch != 0) evt_old_pfmetPhi_JetEnUp();
+  if (evt_old_pfmetPhi_JetResDown_branch != 0) evt_old_pfmetPhi_JetResDown();
+  if (evt_old_pfmetPhi_JetResUp_branch != 0) evt_old_pfmetPhi_JetResUp();
+  if (evt_old_pfmetPhi_MuonEnDown_branch != 0) evt_old_pfmetPhi_MuonEnDown();
+  if (evt_old_pfmetPhi_MuonEnUp_branch != 0) evt_old_pfmetPhi_MuonEnUp();
+  if (evt_old_pfmetPhi_PhotonEnDown_branch != 0) evt_old_pfmetPhi_PhotonEnDown();
+  if (evt_old_pfmetPhi_PhotonEnUp_branch != 0) evt_old_pfmetPhi_PhotonEnUp();
+  if (evt_old_pfmetPhi_TauEnDown_branch != 0) evt_old_pfmetPhi_TauEnDown();
+  if (evt_old_pfmetPhi_TauEnUp_branch != 0) evt_old_pfmetPhi_TauEnUp();
+  if (evt_old_pfmetPhi_UnclusteredEnDown_branch != 0) evt_old_pfmetPhi_UnclusteredEnDown();
+  if (evt_old_pfmetPhi_UnclusteredEnUp_branch != 0) evt_old_pfmetPhi_UnclusteredEnUp();
+  if (evt_old_pfmetSig_branch != 0) evt_old_pfmetSig();
+  if (evt_old_pfmetSignificance_branch != 0) evt_old_pfmetSignificance();
+  if (evt_old_pfmet_raw_branch != 0) evt_old_pfmet_raw();
+  if (evt_old_pfmetPhi_raw_branch != 0) evt_old_pfmetPhi_raw();
+  if (evt_old_pfsumet_branch != 0) evt_old_pfsumet();
+  if (evt_old_pfsumet_raw_branch != 0) evt_old_pfsumet_raw();
   if (pfjets_hfEmE_branch != 0) pfjets_hfEmE();
   if (genps_isMostlyLikePythia6Status3_branch != 0) genps_isMostlyLikePythia6Status3();
   if (mus_pfcharge_branch != 0) mus_pfcharge();
@@ -15694,6 +16150,253 @@ const vector<int> &CMS3::mus_simExtType() {
     mus_simExtType_isLoaded = true;
   }
   return mus_simExtType_;
+}
+
+const float &CMS3::genHEPMCweight() {
+  if (not genHEPMCweight_isLoaded) {
+    if (genHEPMCweight_branch != 0) {
+      genHEPMCweight_branch->GetEntry(index);
+    } else {
+      printf("branch genHEPMCweight_branch does not exist!\n");
+      exit(1);
+    }
+    genHEPMCweight_isLoaded = true;
+  }
+  return genHEPMCweight_;
+}
+
+const float &CMS3::genHEPMCweight_2016() {
+  if (not genHEPMCweight_2016_isLoaded) {
+    if (genHEPMCweight_2016_branch != 0) {
+      genHEPMCweight_2016_branch->GetEntry(index);
+    } else {
+      printf("branch genHEPMCweight_2016_branch does not exist!\n");
+      exit(1);
+    }
+    genHEPMCweight_2016_isLoaded = true;
+  }
+  return genHEPMCweight_2016_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR1_muF1() {
+  if (not gen_LHEweight_QCDscale_muR1_muF1_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR1_muF1_branch != 0) {
+      gen_LHEweight_QCDscale_muR1_muF1_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR1_muF1_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR1_muF1_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR1_muF1_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR1_muF2() {
+  if (not gen_LHEweight_QCDscale_muR1_muF2_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR1_muF2_branch != 0) {
+      gen_LHEweight_QCDscale_muR1_muF2_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR1_muF2_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR1_muF2_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR1_muF2_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR1_muF0p5() {
+  if (not gen_LHEweight_QCDscale_muR1_muF0p5_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR1_muF0p5_branch != 0) {
+      gen_LHEweight_QCDscale_muR1_muF0p5_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR1_muF0p5_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR1_muF0p5_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR1_muF0p5_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR2_muF1() {
+  if (not gen_LHEweight_QCDscale_muR2_muF1_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR2_muF1_branch != 0) {
+      gen_LHEweight_QCDscale_muR2_muF1_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR2_muF1_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR2_muF1_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR2_muF1_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR2_muF2() {
+  if (not gen_LHEweight_QCDscale_muR2_muF2_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR2_muF2_branch != 0) {
+      gen_LHEweight_QCDscale_muR2_muF2_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR2_muF2_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR2_muF2_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR2_muF2_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR2_muF0p5() {
+  if (not gen_LHEweight_QCDscale_muR2_muF0p5_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR2_muF0p5_branch != 0) {
+      gen_LHEweight_QCDscale_muR2_muF0p5_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR2_muF0p5_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR2_muF0p5_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR2_muF0p5_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR0p5_muF1() {
+  if (not gen_LHEweight_QCDscale_muR0p5_muF1_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR0p5_muF1_branch != 0) {
+      gen_LHEweight_QCDscale_muR0p5_muF1_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR0p5_muF1_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR0p5_muF1_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR0p5_muF1_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR0p5_muF2() {
+  if (not gen_LHEweight_QCDscale_muR0p5_muF2_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR0p5_muF2_branch != 0) {
+      gen_LHEweight_QCDscale_muR0p5_muF2_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR0p5_muF2_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR0p5_muF2_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR0p5_muF2_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR0p5_muF0p5() {
+  if (not gen_LHEweight_QCDscale_muR0p5_muF0p5_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR0p5_muF0p5_branch != 0) {
+      gen_LHEweight_QCDscale_muR0p5_muF0p5_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR0p5_muF0p5_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR0p5_muF0p5_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR0p5_muF0p5_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Up() {
+  if (not gen_LHEweight_PDFVariation_Up_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Up_branch != 0) {
+      gen_LHEweight_PDFVariation_Up_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Up_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Up_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Up_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Dn() {
+  if (not gen_LHEweight_PDFVariation_Dn_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Dn_branch != 0) {
+      gen_LHEweight_PDFVariation_Dn_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Dn_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Dn_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Dn_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Up() {
+  if (not gen_LHEweight_AsMZ_Up_isLoaded) {
+    if (gen_LHEweight_AsMZ_Up_branch != 0) {
+      gen_LHEweight_AsMZ_Up_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Up_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Up_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Up_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Dn() {
+  if (not gen_LHEweight_AsMZ_Dn_isLoaded) {
+    if (gen_LHEweight_AsMZ_Dn_branch != 0) {
+      gen_LHEweight_AsMZ_Dn_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Dn_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Dn_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Dn_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Up_2016() {
+  if (not gen_LHEweight_PDFVariation_Up_2016_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Up_2016_branch != 0) {
+      gen_LHEweight_PDFVariation_Up_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Up_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Up_2016_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Up_2016_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Dn_2016() {
+  if (not gen_LHEweight_PDFVariation_Dn_2016_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Dn_2016_branch != 0) {
+      gen_LHEweight_PDFVariation_Dn_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Dn_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Dn_2016_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Dn_2016_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Up_2016() {
+  if (not gen_LHEweight_AsMZ_Up_2016_isLoaded) {
+    if (gen_LHEweight_AsMZ_Up_2016_branch != 0) {
+      gen_LHEweight_AsMZ_Up_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Up_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Up_2016_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Up_2016_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Dn_2016() {
+  if (not gen_LHEweight_AsMZ_Dn_2016_isLoaded) {
+    if (gen_LHEweight_AsMZ_Dn_2016_branch != 0) {
+      gen_LHEweight_AsMZ_Dn_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Dn_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Dn_2016_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Dn_2016_;
 }
 const vector<float> &CMS3::els_miniIso_uncor() {
   if (not els_miniIso_uncor_isLoaded) {
@@ -23339,6 +24042,500 @@ const vector<float> &CMS3::ak8jets_puppi_nJettinessTau1() {
   }
   return ak8jets_puppi_nJettinessTau1_;
 }
+
+const float &CMS3::evt_old_calomet() {
+  if (not evt_old_calomet_isLoaded) {
+    if (evt_old_calomet_branch != 0) {
+      evt_old_calomet_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_calomet_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_calomet_isLoaded = true;
+  }
+  return evt_old_calomet_;
+}
+
+const float &CMS3::evt_old_calometPhi() {
+  if (not evt_old_calometPhi_isLoaded) {
+    if (evt_old_calometPhi_branch != 0) {
+      evt_old_calometPhi_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_calometPhi_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_calometPhi_isLoaded = true;
+  }
+  return evt_old_calometPhi_;
+}
+
+const float &CMS3::evt_old_pfmet() {
+  if (not evt_old_pfmet_isLoaded) {
+    if (evt_old_pfmet_branch != 0) {
+      evt_old_pfmet_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_isLoaded = true;
+  }
+  return evt_old_pfmet_;
+}
+
+const float &CMS3::evt_old_pfmet_ElectronEnDown() {
+  if (not evt_old_pfmet_ElectronEnDown_isLoaded) {
+    if (evt_old_pfmet_ElectronEnDown_branch != 0) {
+      evt_old_pfmet_ElectronEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_ElectronEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_ElectronEnDown_isLoaded = true;
+  }
+  return evt_old_pfmet_ElectronEnDown_;
+}
+
+const float &CMS3::evt_old_pfmet_ElectronEnUp() {
+  if (not evt_old_pfmet_ElectronEnUp_isLoaded) {
+    if (evt_old_pfmet_ElectronEnUp_branch != 0) {
+      evt_old_pfmet_ElectronEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_ElectronEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_ElectronEnUp_isLoaded = true;
+  }
+  return evt_old_pfmet_ElectronEnUp_;
+}
+
+const float &CMS3::evt_old_pfmet_JetEnDown() {
+  if (not evt_old_pfmet_JetEnDown_isLoaded) {
+    if (evt_old_pfmet_JetEnDown_branch != 0) {
+      evt_old_pfmet_JetEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_JetEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_JetEnDown_isLoaded = true;
+  }
+  return evt_old_pfmet_JetEnDown_;
+}
+
+const float &CMS3::evt_old_pfmet_JetEnUp() {
+  if (not evt_old_pfmet_JetEnUp_isLoaded) {
+    if (evt_old_pfmet_JetEnUp_branch != 0) {
+      evt_old_pfmet_JetEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_JetEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_JetEnUp_isLoaded = true;
+  }
+  return evt_old_pfmet_JetEnUp_;
+}
+
+const float &CMS3::evt_old_pfmet_JetResDown() {
+  if (not evt_old_pfmet_JetResDown_isLoaded) {
+    if (evt_old_pfmet_JetResDown_branch != 0) {
+      evt_old_pfmet_JetResDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_JetResDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_JetResDown_isLoaded = true;
+  }
+  return evt_old_pfmet_JetResDown_;
+}
+
+const float &CMS3::evt_old_pfmet_JetResUp() {
+  if (not evt_old_pfmet_JetResUp_isLoaded) {
+    if (evt_old_pfmet_JetResUp_branch != 0) {
+      evt_old_pfmet_JetResUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_JetResUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_JetResUp_isLoaded = true;
+  }
+  return evt_old_pfmet_JetResUp_;
+}
+
+const float &CMS3::evt_old_pfmet_MuonEnDown() {
+  if (not evt_old_pfmet_MuonEnDown_isLoaded) {
+    if (evt_old_pfmet_MuonEnDown_branch != 0) {
+      evt_old_pfmet_MuonEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_MuonEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_MuonEnDown_isLoaded = true;
+  }
+  return evt_old_pfmet_MuonEnDown_;
+}
+
+const float &CMS3::evt_old_pfmet_MuonEnUp() {
+  if (not evt_old_pfmet_MuonEnUp_isLoaded) {
+    if (evt_old_pfmet_MuonEnUp_branch != 0) {
+      evt_old_pfmet_MuonEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_MuonEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_MuonEnUp_isLoaded = true;
+  }
+  return evt_old_pfmet_MuonEnUp_;
+}
+
+const float &CMS3::evt_old_pfmet_PhotonEnDown() {
+  if (not evt_old_pfmet_PhotonEnDown_isLoaded) {
+    if (evt_old_pfmet_PhotonEnDown_branch != 0) {
+      evt_old_pfmet_PhotonEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_PhotonEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_PhotonEnDown_isLoaded = true;
+  }
+  return evt_old_pfmet_PhotonEnDown_;
+}
+
+const float &CMS3::evt_old_pfmet_PhotonEnUp() {
+  if (not evt_old_pfmet_PhotonEnUp_isLoaded) {
+    if (evt_old_pfmet_PhotonEnUp_branch != 0) {
+      evt_old_pfmet_PhotonEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_PhotonEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_PhotonEnUp_isLoaded = true;
+  }
+  return evt_old_pfmet_PhotonEnUp_;
+}
+
+const float &CMS3::evt_old_pfmet_TauEnDown() {
+  if (not evt_old_pfmet_TauEnDown_isLoaded) {
+    if (evt_old_pfmet_TauEnDown_branch != 0) {
+      evt_old_pfmet_TauEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_TauEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_TauEnDown_isLoaded = true;
+  }
+  return evt_old_pfmet_TauEnDown_;
+}
+
+const float &CMS3::evt_old_pfmet_TauEnUp() {
+  if (not evt_old_pfmet_TauEnUp_isLoaded) {
+    if (evt_old_pfmet_TauEnUp_branch != 0) {
+      evt_old_pfmet_TauEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_TauEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_TauEnUp_isLoaded = true;
+  }
+  return evt_old_pfmet_TauEnUp_;
+}
+
+const float &CMS3::evt_old_pfmet_UnclusteredEnDown() {
+  if (not evt_old_pfmet_UnclusteredEnDown_isLoaded) {
+    if (evt_old_pfmet_UnclusteredEnDown_branch != 0) {
+      evt_old_pfmet_UnclusteredEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_UnclusteredEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_UnclusteredEnDown_isLoaded = true;
+  }
+  return evt_old_pfmet_UnclusteredEnDown_;
+}
+
+const float &CMS3::evt_old_pfmet_UnclusteredEnUp() {
+  if (not evt_old_pfmet_UnclusteredEnUp_isLoaded) {
+    if (evt_old_pfmet_UnclusteredEnUp_branch != 0) {
+      evt_old_pfmet_UnclusteredEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_UnclusteredEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_UnclusteredEnUp_isLoaded = true;
+  }
+  return evt_old_pfmet_UnclusteredEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi() {
+  if (not evt_old_pfmetPhi_isLoaded) {
+    if (evt_old_pfmetPhi_branch != 0) {
+      evt_old_pfmetPhi_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_ElectronEnDown() {
+  if (not evt_old_pfmetPhi_ElectronEnDown_isLoaded) {
+    if (evt_old_pfmetPhi_ElectronEnDown_branch != 0) {
+      evt_old_pfmetPhi_ElectronEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_ElectronEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_ElectronEnDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_ElectronEnDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_ElectronEnUp() {
+  if (not evt_old_pfmetPhi_ElectronEnUp_isLoaded) {
+    if (evt_old_pfmetPhi_ElectronEnUp_branch != 0) {
+      evt_old_pfmetPhi_ElectronEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_ElectronEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_ElectronEnUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_ElectronEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_JetEnDown() {
+  if (not evt_old_pfmetPhi_JetEnDown_isLoaded) {
+    if (evt_old_pfmetPhi_JetEnDown_branch != 0) {
+      evt_old_pfmetPhi_JetEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_JetEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_JetEnDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_JetEnDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_JetEnUp() {
+  if (not evt_old_pfmetPhi_JetEnUp_isLoaded) {
+    if (evt_old_pfmetPhi_JetEnUp_branch != 0) {
+      evt_old_pfmetPhi_JetEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_JetEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_JetEnUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_JetEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_JetResDown() {
+  if (not evt_old_pfmetPhi_JetResDown_isLoaded) {
+    if (evt_old_pfmetPhi_JetResDown_branch != 0) {
+      evt_old_pfmetPhi_JetResDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_JetResDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_JetResDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_JetResDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_JetResUp() {
+  if (not evt_old_pfmetPhi_JetResUp_isLoaded) {
+    if (evt_old_pfmetPhi_JetResUp_branch != 0) {
+      evt_old_pfmetPhi_JetResUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_JetResUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_JetResUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_JetResUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_MuonEnDown() {
+  if (not evt_old_pfmetPhi_MuonEnDown_isLoaded) {
+    if (evt_old_pfmetPhi_MuonEnDown_branch != 0) {
+      evt_old_pfmetPhi_MuonEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_MuonEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_MuonEnDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_MuonEnDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_MuonEnUp() {
+  if (not evt_old_pfmetPhi_MuonEnUp_isLoaded) {
+    if (evt_old_pfmetPhi_MuonEnUp_branch != 0) {
+      evt_old_pfmetPhi_MuonEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_MuonEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_MuonEnUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_MuonEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_PhotonEnDown() {
+  if (not evt_old_pfmetPhi_PhotonEnDown_isLoaded) {
+    if (evt_old_pfmetPhi_PhotonEnDown_branch != 0) {
+      evt_old_pfmetPhi_PhotonEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_PhotonEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_PhotonEnDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_PhotonEnDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_PhotonEnUp() {
+  if (not evt_old_pfmetPhi_PhotonEnUp_isLoaded) {
+    if (evt_old_pfmetPhi_PhotonEnUp_branch != 0) {
+      evt_old_pfmetPhi_PhotonEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_PhotonEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_PhotonEnUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_PhotonEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_TauEnDown() {
+  if (not evt_old_pfmetPhi_TauEnDown_isLoaded) {
+    if (evt_old_pfmetPhi_TauEnDown_branch != 0) {
+      evt_old_pfmetPhi_TauEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_TauEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_TauEnDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_TauEnDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_TauEnUp() {
+  if (not evt_old_pfmetPhi_TauEnUp_isLoaded) {
+    if (evt_old_pfmetPhi_TauEnUp_branch != 0) {
+      evt_old_pfmetPhi_TauEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_TauEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_TauEnUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_TauEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_UnclusteredEnDown() {
+  if (not evt_old_pfmetPhi_UnclusteredEnDown_isLoaded) {
+    if (evt_old_pfmetPhi_UnclusteredEnDown_branch != 0) {
+      evt_old_pfmetPhi_UnclusteredEnDown_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_UnclusteredEnDown_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_UnclusteredEnDown_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_UnclusteredEnDown_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_UnclusteredEnUp() {
+  if (not evt_old_pfmetPhi_UnclusteredEnUp_isLoaded) {
+    if (evt_old_pfmetPhi_UnclusteredEnUp_branch != 0) {
+      evt_old_pfmetPhi_UnclusteredEnUp_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_UnclusteredEnUp_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_UnclusteredEnUp_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_UnclusteredEnUp_;
+}
+
+const float &CMS3::evt_old_pfmetSig() {
+  if (not evt_old_pfmetSig_isLoaded) {
+    if (evt_old_pfmetSig_branch != 0) {
+      evt_old_pfmetSig_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetSig_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetSig_isLoaded = true;
+  }
+  return evt_old_pfmetSig_;
+}
+
+const float &CMS3::evt_old_pfmetSignificance() {
+  if (not evt_old_pfmetSignificance_isLoaded) {
+    if (evt_old_pfmetSignificance_branch != 0) {
+      evt_old_pfmetSignificance_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetSignificance_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetSignificance_isLoaded = true;
+  }
+  return evt_old_pfmetSignificance_;
+}
+
+const float &CMS3::evt_old_pfmet_raw() {
+  if (not evt_old_pfmet_raw_isLoaded) {
+    if (evt_old_pfmet_raw_branch != 0) {
+      evt_old_pfmet_raw_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmet_raw_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmet_raw_isLoaded = true;
+  }
+  return evt_old_pfmet_raw_;
+}
+
+const float &CMS3::evt_old_pfmetPhi_raw() {
+  if (not evt_old_pfmetPhi_raw_isLoaded) {
+    if (evt_old_pfmetPhi_raw_branch != 0) {
+      evt_old_pfmetPhi_raw_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfmetPhi_raw_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfmetPhi_raw_isLoaded = true;
+  }
+  return evt_old_pfmetPhi_raw_;
+}
+
+const float &CMS3::evt_old_pfsumet() {
+  if (not evt_old_pfsumet_isLoaded) {
+    if (evt_old_pfsumet_branch != 0) {
+      evt_old_pfsumet_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfsumet_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfsumet_isLoaded = true;
+  }
+  return evt_old_pfsumet_;
+}
+
+const float &CMS3::evt_old_pfsumet_raw() {
+  if (not evt_old_pfsumet_raw_isLoaded) {
+    if (evt_old_pfsumet_raw_branch != 0) {
+      evt_old_pfsumet_raw_branch->GetEntry(index);
+    } else {
+      printf("branch evt_old_pfsumet_raw_branch does not exist!\n");
+      exit(1);
+    }
+    evt_old_pfsumet_raw_isLoaded = true;
+  }
+  return evt_old_pfsumet_raw_;
+}
 const float &CMS3::evt_pfmet() {
   if (not evt_pfmet_isLoaded) {
     if (evt_pfmet_branch != 0) {
@@ -29291,6 +30488,25 @@ namespace tas {
   const vector<float> &els_scSeedE3x3() { return cms3.els_scSeedE3x3(); }
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_TrailingLeg() { return cms3.els_HLT_Ele20_SC4_Mass50_TrailingLeg(); }
   const vector<float> &els_miniIso_uncor() { return cms3.els_miniIso_uncor(); }
+  const float &genHEPMCweight() { return cms3.genHEPMCweight(); }
+  const float &genHEPMCweight_2016() { return cms3.genHEPMCweight_2016(); }
+  const float &gen_LHEweight_QCDscale_muR1_muF1() { return cms3.gen_LHEweight_QCDscale_muR1_muF1(); }
+  const float &gen_LHEweight_QCDscale_muR1_muF2() { return cms3.gen_LHEweight_QCDscale_muR1_muF2(); }
+  const float &gen_LHEweight_QCDscale_muR1_muF0p5() { return cms3.gen_LHEweight_QCDscale_muR1_muF0p5(); }
+  const float &gen_LHEweight_QCDscale_muR2_muF1() { return cms3.gen_LHEweight_QCDscale_muR2_muF1(); }
+  const float &gen_LHEweight_QCDscale_muR2_muF2() { return cms3.gen_LHEweight_QCDscale_muR2_muF2(); }
+  const float &gen_LHEweight_QCDscale_muR2_muF0p5() { return cms3.gen_LHEweight_QCDscale_muR2_muF0p5(); }
+  const float &gen_LHEweight_QCDscale_muR0p5_muF1() { return cms3.gen_LHEweight_QCDscale_muR0p5_muF1(); }
+  const float &gen_LHEweight_QCDscale_muR0p5_muF2() { return cms3.gen_LHEweight_QCDscale_muR0p5_muF2(); }
+  const float &gen_LHEweight_QCDscale_muR0p5_muF0p5() { return cms3.gen_LHEweight_QCDscale_muR0p5_muF0p5(); }
+  const float &gen_LHEweight_PDFVariation_Up() { return cms3.gen_LHEweight_PDFVariation_Up(); }
+  const float &gen_LHEweight_PDFVariation_Dn() { return cms3.gen_LHEweight_PDFVariation_Dn(); }
+  const float &gen_LHEweight_AsMZ_Up() { return cms3.gen_LHEweight_AsMZ_Up(); }
+  const float &gen_LHEweight_AsMZ_Dn() { return cms3.gen_LHEweight_AsMZ_Dn(); }
+  const float &gen_LHEweight_PDFVariation_Up_2016() { return cms3.gen_LHEweight_PDFVariation_Up_2016(); }
+  const float &gen_LHEweight_PDFVariation_Dn_2016() { return cms3.gen_LHEweight_PDFVariation_Dn_2016(); }
+  const float &gen_LHEweight_AsMZ_Up_2016() { return cms3.gen_LHEweight_AsMZ_Up_2016(); }
+  const float &gen_LHEweight_AsMZ_Dn_2016() { return cms3.gen_LHEweight_AsMZ_Dn_2016(); }
   const vector<unsigned int> &mus_selectors() { return cms3.mus_selectors(); }
   const vector<int> &mus_simType() { return cms3.mus_simType(); }
   const vector<int> &mus_simExtType() { return cms3.mus_simExtType(); }
@@ -29895,6 +31111,44 @@ namespace tas {
   const vector<int> &mus_sta_algo() { return cms3.mus_sta_algo(); }
   const vector<float> &ak8jets_puppi_nJettinessTau1() { return cms3.ak8jets_puppi_nJettinessTau1(); }
   const float &evt_pfmet() { return cms3.evt_pfmet(); }
+  const float &evt_old_calomet() { return cms3.evt_old_calomet(); }
+  const float &evt_old_calometPhi() { return cms3.evt_old_calometPhi(); }
+  const float &evt_old_pfmet() { return cms3.evt_old_pfmet(); }
+  const float &evt_old_pfmet_ElectronEnDown() { return cms3.evt_old_pfmet_ElectronEnDown(); }
+  const float &evt_old_pfmet_ElectronEnUp() { return cms3.evt_old_pfmet_ElectronEnUp(); }
+  const float &evt_old_pfmet_JetEnDown() { return cms3.evt_old_pfmet_JetEnDown(); }
+  const float &evt_old_pfmet_JetEnUp() { return cms3.evt_old_pfmet_JetEnUp(); }
+  const float &evt_old_pfmet_JetResDown() { return cms3.evt_old_pfmet_JetResDown(); }
+  const float &evt_old_pfmet_JetResUp() { return cms3.evt_old_pfmet_JetResUp(); }
+  const float &evt_old_pfmet_MuonEnDown() { return cms3.evt_old_pfmet_MuonEnDown(); }
+  const float &evt_old_pfmet_MuonEnUp() { return cms3.evt_old_pfmet_MuonEnUp(); }
+  const float &evt_old_pfmet_PhotonEnDown() { return cms3.evt_old_pfmet_PhotonEnDown(); }
+  const float &evt_old_pfmet_PhotonEnUp() { return cms3.evt_old_pfmet_PhotonEnUp(); }
+  const float &evt_old_pfmet_TauEnDown() { return cms3.evt_old_pfmet_TauEnDown(); }
+  const float &evt_old_pfmet_TauEnUp() { return cms3.evt_old_pfmet_TauEnUp(); }
+  const float &evt_old_pfmet_UnclusteredEnDown() { return cms3.evt_old_pfmet_UnclusteredEnDown(); }
+  const float &evt_old_pfmet_UnclusteredEnUp() { return cms3.evt_old_pfmet_UnclusteredEnUp(); }
+  const float &evt_old_pfmetPhi() { return cms3.evt_old_pfmetPhi(); }
+  const float &evt_old_pfmetPhi_ElectronEnDown() { return cms3.evt_old_pfmetPhi_ElectronEnDown(); }
+  const float &evt_old_pfmetPhi_ElectronEnUp() { return cms3.evt_old_pfmetPhi_ElectronEnUp(); }
+  const float &evt_old_pfmetPhi_JetEnDown() { return cms3.evt_old_pfmetPhi_JetEnDown(); }
+  const float &evt_old_pfmetPhi_JetEnUp() { return cms3.evt_old_pfmetPhi_JetEnUp(); }
+  const float &evt_old_pfmetPhi_JetResDown() { return cms3.evt_old_pfmetPhi_JetResDown(); }
+  const float &evt_old_pfmetPhi_JetResUp() { return cms3.evt_old_pfmetPhi_JetResUp(); }
+  const float &evt_old_pfmetPhi_MuonEnDown() { return cms3.evt_old_pfmetPhi_MuonEnDown(); }
+  const float &evt_old_pfmetPhi_MuonEnUp() { return cms3.evt_old_pfmetPhi_MuonEnUp(); }
+  const float &evt_old_pfmetPhi_PhotonEnDown() { return cms3.evt_old_pfmetPhi_PhotonEnDown(); }
+  const float &evt_old_pfmetPhi_PhotonEnUp() { return cms3.evt_old_pfmetPhi_PhotonEnUp(); }
+  const float &evt_old_pfmetPhi_TauEnDown() { return cms3.evt_old_pfmetPhi_TauEnDown(); }
+  const float &evt_old_pfmetPhi_TauEnUp() { return cms3.evt_old_pfmetPhi_TauEnUp(); }
+  const float &evt_old_pfmetPhi_UnclusteredEnDown() { return cms3.evt_old_pfmetPhi_UnclusteredEnDown(); }
+  const float &evt_old_pfmetPhi_UnclusteredEnUp() { return cms3.evt_old_pfmetPhi_UnclusteredEnUp(); }
+  const float &evt_old_pfmetSig() { return cms3.evt_old_pfmetSig(); }
+  const float &evt_old_pfmetSignificance() { return cms3.evt_old_pfmetSignificance(); }
+  const float &evt_old_pfmet_raw() { return cms3.evt_old_pfmet_raw(); }
+  const float &evt_old_pfmetPhi_raw() { return cms3.evt_old_pfmetPhi_raw(); }
+  const float &evt_old_pfsumet() { return cms3.evt_old_pfsumet(); }
+  const float &evt_old_pfsumet_raw() { return cms3.evt_old_pfsumet_raw(); }
   const vector<float> &pfjets_hfEmE() { return cms3.pfjets_hfEmE(); }
   const vector<bool> &genps_isMostlyLikePythia6Status3() { return cms3.genps_isMostlyLikePythia6Status3(); }
   const vector<int> &mus_pfcharge() { return cms3.mus_pfcharge(); }

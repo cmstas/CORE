@@ -26,7 +26,7 @@ float MT(float pt1, float phi1, float pt2, float phi2){
   return sqrt( 2 * pt1 * pt2 * ( 1 - cos( phi1 - phi2 ) ) );
 }
 
-bool utils::isCloseObject(const LorentzVector p1, const LorentzVector p2, const float conesize) {
+bool utils::isCloseObject(const LorentzVector p1, const LorentzVector p2, const float conesize, float* deltaR) {
   float deltaEta = fabs(p1.eta() - p2.eta());
   if (deltaEta > conesize) return false;
   float deltaPhi = fabs(p1.phi() - p2.phi());
@@ -34,6 +34,7 @@ bool utils::isCloseObject(const LorentzVector p1, const LorentzVector p2, const 
   if (deltaPhi > conesize) return false;
   float deltaR2 = deltaEta*deltaEta + deltaPhi*deltaPhi;
   if (deltaR2 > conesize*conesize) return false;
+  if (deltaR) *deltaR = sqrt(deltaR2);
 
   return true;
 }

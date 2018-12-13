@@ -19,9 +19,9 @@
 
 class GlobalConfig {
     public:
-        unsigned int year = 0;
-        unsigned int cmssw_ver = 0; // 74, 80, 94, 101, ...
-        std::string analysis = ""; 
+        int year = 0;
+        int cmssw_ver = 0; // 74, 80, 94, 101, ...
+        std::string analysis = "";
         float btag_disc_wp = -1;
         int ea_version = -1;
 
@@ -32,11 +32,38 @@ class GlobalConfig {
         float multiiso_mu_minireliso = -1;
         float multiiso_mu_ptratio = -1;
         float multiiso_mu_ptrel = -1;
+        int SS_innerlayers = -1;
 
         // JECs
+        std::string jecEraA;
+        std::string jecEraB;
+        std::string jecEraC;
+        std::string jecEraD;
+        std::string jecEraE;
+        std::string jecEraF;
+        std::string jecEraG;
+        std::string jecEraH;
+        std::string jecEraMC;
+        std::string jecEraFS;
         FactorizedJetCorrector * jet_corrector_L1 = 0;
         FactorizedJetCorrector * jet_corrector_L2L3 = 0;
         FactorizedJetCorrector * jet_corrector_L1L2L3 = 0;
+
+        //_________________________________
+        // B-tag working points
+        float WP_DEEPCSV_TIGHT  = -1;
+        float WP_DEEPCSV_MEDIUM = -1;
+        float WP_DEEPCSV_LOOSE  = -1;
+
+        float WP_CSVv2_TIGHT  = -1;
+        float WP_CSVv2_MEDIUM = -1;
+        float WP_CSVv2_LOOSE  = -1;
+
+        // btagSF version (filename)
+        std::string fn_btagSF_DeepCSV;
+        std::string fn_btagSF_CSVv2;
+        std::string fn_btagSF_FS_DeepCSV;
+        std::string fn_btagSF_FS_CSVv2;
 
         //-------------------
         // WWW (VVV) Analysis
@@ -86,6 +113,10 @@ class GlobalConfig {
         bool read_from_miniaod = false;
 
         // ...
+
+    public:
+        // Centrally maintained function
+        void GetConfigsFromDatasetName(TString dsname);  // pass in the datasetname or filename (that contains the dataset info)
 };
 
 #ifndef __CINT__

@@ -57,7 +57,7 @@ int isGoodHyp(int iHyp, bool verbose=false);
 bool makesExtraGammaStar(int iHyp);
 Z_result_t makesExtraZ(int iHyp);
 bool hypsFromFirstGoodVertex(size_t hypIdx, float dz_cut = 1.0);
-std::pair<Lep, int> getThirdLepton(int hyp, int ignore_id=-1, int ignore_idx=-1);
+std::pair<Lep, int> getThirdLepton(int hyp, bool lowpt=false, int ignore_id=-1, int ignore_idx=-1);
 std::pair<Lep, int> getThirdLepton_RA7(int hyp);
 Lep getFourthLepton(int hyp, int lep3id=-1, int lep3idx=-1);
 std::vector<particle_t> getGenPair(bool verbose=false);
@@ -161,7 +161,6 @@ struct Jet {
         // Originally deepCSV was called deepflavour (hence 2016 line)
         // then it got renamed to deepcsv to ironically avoid confusion 
         // because of its successor (deepflavour) (hence 2017 line)
-        // and now that deepflavour will be available in 2018, guess we're going to use deepflavour?
         if (gconf.year == 2016) {
             if (gconf.cmssw_ver == 94) {
                 return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
@@ -170,6 +169,7 @@ struct Jet {
             }
         } else if (gconf.year == 2017) {
             return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+            // return tas::getbtagvalue("pfDeepFlavourJetTags:probb",idx_) + tas::getbtagvalue("pfDeepFlavourJetTags:probbb",idx_) + tas::getbtagvalue("pfDeepFlavourJetTags:problepb",idx_);
         } else if (gconf.year == 2018) {
             return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
         }
