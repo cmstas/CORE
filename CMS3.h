@@ -2850,6 +2850,9 @@ protected:
   float evt_pfmetPhi_TauEnDown_;
   TBranch *evt_pfmetPhi_TauEnDown_branch;
   bool evt_pfmetPhi_TauEnDown_isLoaded;
+  vector<int> ak8jets_npfcands_;
+  TBranch *ak8jets_npfcands_branch;
+  bool ak8jets_npfcands_isLoaded;
   vector<int> ak8jets_partonFlavour_;
   TBranch *ak8jets_partonFlavour_branch;
   bool ak8jets_partonFlavour_isLoaded;
@@ -5445,6 +5448,7 @@ public:
   const vector<TString> &evt_CMS3tag();
   const vector<unsigned int> &mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg();
   const float &evt_pfmetPhi_TauEnDown();
+  const vector<int> &ak8jets_npfcands();
   const vector<int> &ak8jets_partonFlavour();
   const vector<float> &els_ndof();
   const int &hcalnoise_GetRecHitCount15();
@@ -6950,6 +6954,7 @@ namespace tas {
   const vector<TString> &evt_CMS3tag();
   const vector<unsigned int> &mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg();
   const float &evt_pfmetPhi_TauEnDown();
+  const vector<int> &ak8jets_npfcands();
   const vector<int> &ak8jets_partonFlavour();
   const vector<float> &els_ndof();
   const int &hcalnoise_GetRecHitCount15();
