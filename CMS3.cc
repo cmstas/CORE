@@ -4861,6 +4861,11 @@ void CMS3::Init(TTree *tree) {
     evt_pfmetPhi_TauEnDown_branch = tree->GetBranch(tree->GetAlias("evt_pfmetPhi_TauEnDown"));
     if (evt_pfmetPhi_TauEnDown_branch) { evt_pfmetPhi_TauEnDown_branch->SetAddress(&evt_pfmetPhi_TauEnDown_); }
   }
+  ak8jets_npfcands_branch = 0;
+  if (tree->GetAlias("ak8jets_npfcands") != 0) {
+    ak8jets_npfcands_branch = tree->GetBranch(tree->GetAlias("ak8jets_npfcands"));
+    if (ak8jets_npfcands_branch) { ak8jets_npfcands_branch->SetAddress(&ak8jets_npfcands_); }
+  }
   ak8jets_partonFlavour_branch = 0;
   if (tree->GetAlias("ak8jets_partonFlavour") != 0) {
     ak8jets_partonFlavour_branch = tree->GetBranch(tree->GetAlias("ak8jets_partonFlavour"));
@@ -8460,6 +8465,7 @@ void CMS3::GetEntry(unsigned int idx) {
   evt_CMS3tag_isLoaded = false;
   mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg_isLoaded = false;
   evt_pfmetPhi_TauEnDown_isLoaded = false;
+  ak8jets_npfcands_isLoaded = false;
   ak8jets_partonFlavour_isLoaded = false;
   els_ndof_isLoaded = false;
   hcalnoise_GetRecHitCount15_isLoaded = false;
@@ -9953,6 +9959,7 @@ void CMS3::LoadAllBranches() {
   if (evt_CMS3tag_branch != 0) evt_CMS3tag();
   if (mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg_branch != 0) mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg();
   if (evt_pfmetPhi_TauEnDown_branch != 0) evt_pfmetPhi_TauEnDown();
+  if (ak8jets_npfcands_branch != 0) ak8jets_npfcands();
   if (ak8jets_partonFlavour_branch != 0) ak8jets_partonFlavour();
   if (els_ndof_branch != 0) els_ndof();
   if (hcalnoise_GetRecHitCount15_branch != 0) hcalnoise_GetRecHitCount15();
@@ -22820,6 +22827,19 @@ const float &CMS3::evt_pfmetPhi_TauEnDown() {
   }
   return evt_pfmetPhi_TauEnDown_;
 }
+const vector<int> &CMS3::ak8jets_npfcands() {
+  if (not ak8jets_npfcands_isLoaded) {
+    if (ak8jets_npfcands_branch != 0) {
+      if (ak8jets_npfcands_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch ak8jets_npfcands_branch does not exist!\n");
+      exit(1);
+    }
+    ak8jets_npfcands_isLoaded = true;
+  }
+  return ak8jets_npfcands_;
+}
 const vector<int> &CMS3::ak8jets_partonFlavour() {
   if (not ak8jets_partonFlavour_isLoaded) {
     if (ak8jets_partonFlavour_branch != 0) {
@@ -31016,6 +31036,7 @@ namespace tas {
   const vector<TString> &evt_CMS3tag() { return cms3.evt_CMS3tag(); }
   const vector<unsigned int> &mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg() { return cms3.mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg(); }
   const float &evt_pfmetPhi_TauEnDown() { return cms3.evt_pfmetPhi_TauEnDown(); }
+  const vector<int> &ak8jets_npfcands() { return cms3.ak8jets_npfcands(); }
   const vector<int> &ak8jets_partonFlavour() { return cms3.ak8jets_partonFlavour(); }
   const vector<float> &els_ndof() { return cms3.els_ndof(); }
   const int &hcalnoise_GetRecHitCount15() { return cms3.hcalnoise_GetRecHitCount15(); }

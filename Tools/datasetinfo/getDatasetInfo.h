@@ -19,6 +19,7 @@ class DatasetInfoFromFile {
   DatasetInfoFromFile(const string filename) { loadFromFile(filename); }
   void loadFromFile(const string filename, bool verbose=false);
   void checkEntryExist(const string datasetname, const string cmstag);
+  bool doesEntryExist(const string datasetname, const string cmstag);
   float getScale1fbFromFile(const string datasetname, const string cmstag);
   float getXsecFromFile(const string datasetname, const string cmstag);
   unsigned int getnEventsTotalFromFile(const string datasetname, const string cmstag);

@@ -78,6 +78,13 @@ void DatasetInfoFromFile::checkEntryExist(const string dsname, const string cmst
     throw std::invalid_argument("The dataset " + dsname + " with cmstag: " + cmstag + " cannot be found in the list. Please update the dataset info file.");
 }
 
+bool DatasetInfoFromFile::doesEntryExist(const string dsname, const string cmstag) {
+  if (dslist_.find(cmstag+dsname) != dslist_.end())
+      return true;
+  else
+      return false;
+}
+
 float DatasetInfoFromFile::getScale1fbFromFile(const string dsname, const string cmstag) {
   checkEntryExist(dsname, cmstag);
   return dslist_[cmstag+dsname].scale1fb;
