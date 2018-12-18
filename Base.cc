@@ -124,6 +124,8 @@ analysis_t whichAnalysis(id_level_t id_level){
     case (HAD_medium_v4):
     case (HAD_tight_noiso_v4):
     case (HAD_tight_v4):
+    case (HAD_veto_noiso_v5):
+    case (HAD_veto_v5):
       return HAD;
       break;
     case (STOP_veto_v1):
