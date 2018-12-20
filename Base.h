@@ -152,13 +152,16 @@ enum id_level_t {
   STOP_tight_v4,
 
   //Z+MET
+  ZMET_mediumMu_v4,
   ZMET_mediumMu_v3, 
   ZMET_mediumMu_veto_v3, 
   ZMET_mediumMu_v2, 
   ZMET_mediumMu_veto_v2, 
   ZMET_mediumMu_v1, 
   ZMET_mediumMu_noiso_v1, 
-  ZMET_tightMVA_v2, 
+  ZMET_tightMVA_v2,
+  ZMET_tightMVA_v3,
+  ZMET_tightMVA_noiso_v3,
   ZMET_tightMVA_noiso_v2, 
   ZMET_tightMVA_v1, 
   ZMET_tightMVA_noiso_v1, 

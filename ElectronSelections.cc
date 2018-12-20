@@ -1625,6 +1625,29 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  else return true;
 	  break;
 
+    case(ZMET_tightMVA_v3):
+      if(electronID(elIdx,ZMET_tightMVA_noiso_v3) == 0)
+          return false;
+      if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.1)
+          return false;
+      else return true;
+      break;
+
+    case(ZMET_tightMVA_noiso_v3):
+    if (globalEleMVAreader==0) {
+		cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
+		return false;
+	  }
+	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
+	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
+	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
+	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
+	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v6)) return false; //tight MVA working point 
+	  else return true;
+
+      break;
+    
     case(ZMET_tightMVA_noiso_v2):
 	  if (globalEleMVAreader==0) {
 		cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;

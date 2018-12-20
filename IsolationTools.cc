@@ -148,7 +148,8 @@ float muEA03(unsigned int muIdx, int version){
     else if (fabs(mus_p4().at(muIdx).eta())<=2.000) ea = 0.0465;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.200) ea = 0.0433;
     else if (fabs(mus_p4().at(muIdx).eta())<=2.500) ea = 0.0577;
-  }else{
+  }
+  else{
       // invalid value
       cerr << "[CORE:IsolationTools:muEA03] WARNING! invalid EA version value. (Did you forget to change your gconf.ea_version?)" << endl;
   }
