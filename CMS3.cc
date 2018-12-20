@@ -2366,6 +2366,120 @@ void CMS3::Init(TTree *tree) {
     mus_simExtType_branch = tree->GetBranch(tree->GetAlias("mus_simExtType"));
     if (mus_simExtType_branch) { mus_simExtType_branch->SetAddress(&mus_simExtType_); }
   }
+
+  genHEPMCweight_branch = 0;
+  if (tree->GetAlias("genHEPMCweight") != 0) {
+    genHEPMCweight_branch = tree->GetBranch(tree->GetAlias("genHEPMCweight"));
+    if (genHEPMCweight_branch) { genHEPMCweight_branch->SetAddress(&genHEPMCweight_); }
+  }
+
+  genHEPMCweight_2016_branch = 0;
+  if (tree->GetAlias("genHEPMCweight_2016") != 0) {
+    genHEPMCweight_2016_branch = tree->GetBranch(tree->GetAlias("genHEPMCweight_2016"));
+    if (genHEPMCweight_2016_branch) { genHEPMCweight_2016_branch->SetAddress(&genHEPMCweight_2016_); }
+  }
+
+  gen_LHEweight_QCDscale_muR1_muF1_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF1") != 0) {
+    gen_LHEweight_QCDscale_muR1_muF1_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF1"));
+    if (gen_LHEweight_QCDscale_muR1_muF1_branch) { gen_LHEweight_QCDscale_muR1_muF1_branch->SetAddress(&gen_LHEweight_QCDscale_muR1_muF1_); }
+  }
+
+  gen_LHEweight_QCDscale_muR1_muF2_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF2") != 0) {
+    gen_LHEweight_QCDscale_muR1_muF2_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF2"));
+    if (gen_LHEweight_QCDscale_muR1_muF2_branch) { gen_LHEweight_QCDscale_muR1_muF2_branch->SetAddress(&gen_LHEweight_QCDscale_muR1_muF2_); }
+  }
+
+  gen_LHEweight_QCDscale_muR1_muF0p5_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF0p5") != 0) {
+    gen_LHEweight_QCDscale_muR1_muF0p5_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR1_muF0p5"));
+    if (gen_LHEweight_QCDscale_muR1_muF0p5_branch) { gen_LHEweight_QCDscale_muR1_muF0p5_branch->SetAddress(&gen_LHEweight_QCDscale_muR1_muF0p5_); }
+  }
+
+  gen_LHEweight_QCDscale_muR2_muF1_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF1") != 0) {
+    gen_LHEweight_QCDscale_muR2_muF1_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF1"));
+    if (gen_LHEweight_QCDscale_muR2_muF1_branch) { gen_LHEweight_QCDscale_muR2_muF1_branch->SetAddress(&gen_LHEweight_QCDscale_muR2_muF1_); }
+  }
+
+  gen_LHEweight_QCDscale_muR2_muF2_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF2") != 0) {
+    gen_LHEweight_QCDscale_muR2_muF2_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF2"));
+    if (gen_LHEweight_QCDscale_muR2_muF2_branch) { gen_LHEweight_QCDscale_muR2_muF2_branch->SetAddress(&gen_LHEweight_QCDscale_muR2_muF2_); }
+  }
+
+  gen_LHEweight_QCDscale_muR2_muF0p5_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF0p5") != 0) {
+    gen_LHEweight_QCDscale_muR2_muF0p5_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR2_muF0p5"));
+    if (gen_LHEweight_QCDscale_muR2_muF0p5_branch) { gen_LHEweight_QCDscale_muR2_muF0p5_branch->SetAddress(&gen_LHEweight_QCDscale_muR2_muF0p5_); }
+  }
+
+  gen_LHEweight_QCDscale_muR0p5_muF1_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF1") != 0) {
+    gen_LHEweight_QCDscale_muR0p5_muF1_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF1"));
+    if (gen_LHEweight_QCDscale_muR0p5_muF1_branch) { gen_LHEweight_QCDscale_muR0p5_muF1_branch->SetAddress(&gen_LHEweight_QCDscale_muR0p5_muF1_); }
+  }
+
+  gen_LHEweight_QCDscale_muR0p5_muF2_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF2") != 0) {
+    gen_LHEweight_QCDscale_muR0p5_muF2_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF2"));
+    if (gen_LHEweight_QCDscale_muR0p5_muF2_branch) { gen_LHEweight_QCDscale_muR0p5_muF2_branch->SetAddress(&gen_LHEweight_QCDscale_muR0p5_muF2_); }
+  }
+
+  gen_LHEweight_QCDscale_muR0p5_muF0p5_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF0p5") != 0) {
+    gen_LHEweight_QCDscale_muR0p5_muF0p5_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_QCDscale_muR0p5_muF0p5"));
+    if (gen_LHEweight_QCDscale_muR0p5_muF0p5_branch) { gen_LHEweight_QCDscale_muR0p5_muF0p5_branch->SetAddress(&gen_LHEweight_QCDscale_muR0p5_muF0p5_); }
+  }
+
+  gen_LHEweight_PDFVariation_Up_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Up") != 0) {
+    gen_LHEweight_PDFVariation_Up_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Up"));
+    if (gen_LHEweight_PDFVariation_Up_branch) { gen_LHEweight_PDFVariation_Up_branch->SetAddress(&gen_LHEweight_PDFVariation_Up_); }
+  }
+
+  gen_LHEweight_PDFVariation_Dn_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Dn") != 0) {
+    gen_LHEweight_PDFVariation_Dn_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Dn"));
+    if (gen_LHEweight_PDFVariation_Dn_branch) { gen_LHEweight_PDFVariation_Dn_branch->SetAddress(&gen_LHEweight_PDFVariation_Dn_); }
+  }
+
+  gen_LHEweight_AsMZ_Up_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Up") != 0) {
+    gen_LHEweight_AsMZ_Up_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Up"));
+    if (gen_LHEweight_AsMZ_Up_branch) { gen_LHEweight_AsMZ_Up_branch->SetAddress(&gen_LHEweight_AsMZ_Up_); }
+  }
+
+  gen_LHEweight_AsMZ_Dn_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Dn") != 0) {
+    gen_LHEweight_AsMZ_Dn_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Dn"));
+    if (gen_LHEweight_AsMZ_Dn_branch) { gen_LHEweight_AsMZ_Dn_branch->SetAddress(&gen_LHEweight_AsMZ_Dn_); }
+  }
+
+  gen_LHEweight_PDFVariation_Up_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Up_2016") != 0) {
+    gen_LHEweight_PDFVariation_Up_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Up_2016"));
+    if (gen_LHEweight_PDFVariation_Up_2016_branch) { gen_LHEweight_PDFVariation_Up_2016_branch->SetAddress(&gen_LHEweight_PDFVariation_Up_2016_); }
+  }
+
+  gen_LHEweight_PDFVariation_Dn_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_PDFVariation_Dn_2016") != 0) {
+    gen_LHEweight_PDFVariation_Dn_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_PDFVariation_Dn_2016"));
+    if (gen_LHEweight_PDFVariation_Dn_2016_branch) { gen_LHEweight_PDFVariation_Dn_2016_branch->SetAddress(&gen_LHEweight_PDFVariation_Dn_2016_); }
+  }
+
+  gen_LHEweight_AsMZ_Up_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Up_2016") != 0) {
+    gen_LHEweight_AsMZ_Up_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Up_2016"));
+    if (gen_LHEweight_AsMZ_Up_2016_branch) { gen_LHEweight_AsMZ_Up_2016_branch->SetAddress(&gen_LHEweight_AsMZ_Up_2016_); }
+  }
+
+  gen_LHEweight_AsMZ_Dn_2016_branch = 0;
+  if (tree->GetAlias("gen_LHEweight_AsMZ_Dn_2016") != 0) {
+    gen_LHEweight_AsMZ_Dn_2016_branch = tree->GetBranch(tree->GetAlias("gen_LHEweight_AsMZ_Dn_2016"));
+    if (gen_LHEweight_AsMZ_Dn_2016_branch) { gen_LHEweight_AsMZ_Dn_2016_branch->SetAddress(&gen_LHEweight_AsMZ_Dn_2016_); }
+  }
   els_miniIso_uncor_branch = 0;
   if (tree->GetAlias("els_miniIso_uncor") != 0) {
     els_miniIso_uncor_branch = tree->GetBranch(tree->GetAlias("els_miniIso_uncor"));
@@ -4746,6 +4860,11 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("evt_pfmetPhi_TauEnDown") != 0) {
     evt_pfmetPhi_TauEnDown_branch = tree->GetBranch(tree->GetAlias("evt_pfmetPhi_TauEnDown"));
     if (evt_pfmetPhi_TauEnDown_branch) { evt_pfmetPhi_TauEnDown_branch->SetAddress(&evt_pfmetPhi_TauEnDown_); }
+  }
+  ak8jets_npfcands_branch = 0;
+  if (tree->GetAlias("ak8jets_npfcands") != 0) {
+    ak8jets_npfcands_branch = tree->GetBranch(tree->GetAlias("ak8jets_npfcands"));
+    if (ak8jets_npfcands_branch) { ak8jets_npfcands_branch->SetAddress(&ak8jets_npfcands_); }
   }
   ak8jets_partonFlavour_branch = 0;
   if (tree->GetAlias("ak8jets_partonFlavour") != 0) {
@@ -7817,6 +7936,25 @@ void CMS3::GetEntry(unsigned int idx) {
   els_scSeedE3x3_isLoaded = false;
   els_HLT_Ele20_SC4_Mass50_TrailingLeg_isLoaded = false;
   els_miniIso_uncor_isLoaded = false;
+  genHEPMCweight_isLoaded = false;
+  genHEPMCweight_2016_isLoaded = false;
+  gen_LHEweight_QCDscale_muR1_muF1_isLoaded = false;
+  gen_LHEweight_QCDscale_muR1_muF2_isLoaded = false;
+  gen_LHEweight_QCDscale_muR1_muF0p5_isLoaded = false;
+  gen_LHEweight_QCDscale_muR2_muF1_isLoaded = false;
+  gen_LHEweight_QCDscale_muR2_muF2_isLoaded = false;
+  gen_LHEweight_QCDscale_muR2_muF0p5_isLoaded = false;
+  gen_LHEweight_QCDscale_muR0p5_muF1_isLoaded = false;
+  gen_LHEweight_QCDscale_muR0p5_muF2_isLoaded = false;
+  gen_LHEweight_QCDscale_muR0p5_muF0p5_isLoaded = false;
+  gen_LHEweight_PDFVariation_Up_isLoaded = false;
+  gen_LHEweight_PDFVariation_Dn_isLoaded = false;
+  gen_LHEweight_AsMZ_Up_isLoaded = false;
+  gen_LHEweight_AsMZ_Dn_isLoaded = false;
+  gen_LHEweight_PDFVariation_Up_2016_isLoaded = false;
+  gen_LHEweight_PDFVariation_Dn_2016_isLoaded = false;
+  gen_LHEweight_AsMZ_Up_2016_isLoaded = false;
+  gen_LHEweight_AsMZ_Dn_2016_isLoaded = false;
   mus_selectors_isLoaded = false;
   mus_simType_isLoaded = false;
   mus_simExtType_isLoaded = false;
@@ -8327,6 +8465,7 @@ void CMS3::GetEntry(unsigned int idx) {
   evt_CMS3tag_isLoaded = false;
   mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg_isLoaded = false;
   evt_pfmetPhi_TauEnDown_isLoaded = false;
+  ak8jets_npfcands_isLoaded = false;
   ak8jets_partonFlavour_isLoaded = false;
   els_ndof_isLoaded = false;
   hcalnoise_GetRecHitCount15_isLoaded = false;
@@ -9292,6 +9431,25 @@ void CMS3::LoadAllBranches() {
   if (els_scSeedE3x3_branch != 0) els_scSeedE3x3();
   if (els_HLT_Ele20_SC4_Mass50_TrailingLeg_branch != 0) els_HLT_Ele20_SC4_Mass50_TrailingLeg();
   if (els_miniIso_uncor_branch != 0) els_miniIso_uncor();
+  if (genHEPMCweight_branch != 0) genHEPMCweight();
+  if (genHEPMCweight_2016_branch != 0) genHEPMCweight_2016();
+  if (gen_LHEweight_QCDscale_muR1_muF1_branch != 0) gen_LHEweight_QCDscale_muR1_muF1();
+  if (gen_LHEweight_QCDscale_muR1_muF2_branch != 0) gen_LHEweight_QCDscale_muR1_muF2();
+  if (gen_LHEweight_QCDscale_muR1_muF0p5_branch != 0) gen_LHEweight_QCDscale_muR1_muF0p5();
+  if (gen_LHEweight_QCDscale_muR2_muF1_branch != 0) gen_LHEweight_QCDscale_muR2_muF1();
+  if (gen_LHEweight_QCDscale_muR2_muF2_branch != 0) gen_LHEweight_QCDscale_muR2_muF2();
+  if (gen_LHEweight_QCDscale_muR2_muF0p5_branch != 0) gen_LHEweight_QCDscale_muR2_muF0p5();
+  if (gen_LHEweight_QCDscale_muR0p5_muF1_branch != 0) gen_LHEweight_QCDscale_muR0p5_muF1();
+  if (gen_LHEweight_QCDscale_muR0p5_muF2_branch != 0) gen_LHEweight_QCDscale_muR0p5_muF2();
+  if (gen_LHEweight_QCDscale_muR0p5_muF0p5_branch != 0) gen_LHEweight_QCDscale_muR0p5_muF0p5();
+  if (gen_LHEweight_PDFVariation_Up_branch != 0) gen_LHEweight_PDFVariation_Up();
+  if (gen_LHEweight_PDFVariation_Dn_branch != 0) gen_LHEweight_PDFVariation_Dn();
+  if (gen_LHEweight_AsMZ_Up_branch != 0) gen_LHEweight_AsMZ_Up();
+  if (gen_LHEweight_AsMZ_Dn_branch != 0) gen_LHEweight_AsMZ_Dn();
+  if (gen_LHEweight_PDFVariation_Up_2016_branch != 0) gen_LHEweight_PDFVariation_Up_2016();
+  if (gen_LHEweight_PDFVariation_Dn_2016_branch != 0) gen_LHEweight_PDFVariation_Dn_2016();
+  if (gen_LHEweight_AsMZ_Up_2016_branch != 0) gen_LHEweight_AsMZ_Up_2016();
+  if (gen_LHEweight_AsMZ_Dn_2016_branch != 0) gen_LHEweight_AsMZ_Dn_2016();
   if (mus_selectors_branch != 0) mus_selectors();
   if (mus_simType_branch != 0) mus_simType();
   if (mus_simExtType_branch != 0) mus_simExtType();
@@ -9801,6 +9959,7 @@ void CMS3::LoadAllBranches() {
   if (evt_CMS3tag_branch != 0) evt_CMS3tag();
   if (mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg_branch != 0) mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg();
   if (evt_pfmetPhi_TauEnDown_branch != 0) evt_pfmetPhi_TauEnDown();
+  if (ak8jets_npfcands_branch != 0) ak8jets_npfcands();
   if (ak8jets_partonFlavour_branch != 0) ak8jets_partonFlavour();
   if (els_ndof_branch != 0) els_ndof();
   if (hcalnoise_GetRecHitCount15_branch != 0) hcalnoise_GetRecHitCount15();
@@ -15998,6 +16157,253 @@ const vector<int> &CMS3::mus_simExtType() {
     mus_simExtType_isLoaded = true;
   }
   return mus_simExtType_;
+}
+
+const float &CMS3::genHEPMCweight() {
+  if (not genHEPMCweight_isLoaded) {
+    if (genHEPMCweight_branch != 0) {
+      genHEPMCweight_branch->GetEntry(index);
+    } else {
+      printf("branch genHEPMCweight_branch does not exist!\n");
+      exit(1);
+    }
+    genHEPMCweight_isLoaded = true;
+  }
+  return genHEPMCweight_;
+}
+
+const float &CMS3::genHEPMCweight_2016() {
+  if (not genHEPMCweight_2016_isLoaded) {
+    if (genHEPMCweight_2016_branch != 0) {
+      genHEPMCweight_2016_branch->GetEntry(index);
+    } else {
+      printf("branch genHEPMCweight_2016_branch does not exist!\n");
+      exit(1);
+    }
+    genHEPMCweight_2016_isLoaded = true;
+  }
+  return genHEPMCweight_2016_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR1_muF1() {
+  if (not gen_LHEweight_QCDscale_muR1_muF1_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR1_muF1_branch != 0) {
+      gen_LHEweight_QCDscale_muR1_muF1_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR1_muF1_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR1_muF1_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR1_muF1_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR1_muF2() {
+  if (not gen_LHEweight_QCDscale_muR1_muF2_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR1_muF2_branch != 0) {
+      gen_LHEweight_QCDscale_muR1_muF2_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR1_muF2_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR1_muF2_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR1_muF2_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR1_muF0p5() {
+  if (not gen_LHEweight_QCDscale_muR1_muF0p5_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR1_muF0p5_branch != 0) {
+      gen_LHEweight_QCDscale_muR1_muF0p5_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR1_muF0p5_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR1_muF0p5_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR1_muF0p5_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR2_muF1() {
+  if (not gen_LHEweight_QCDscale_muR2_muF1_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR2_muF1_branch != 0) {
+      gen_LHEweight_QCDscale_muR2_muF1_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR2_muF1_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR2_muF1_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR2_muF1_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR2_muF2() {
+  if (not gen_LHEweight_QCDscale_muR2_muF2_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR2_muF2_branch != 0) {
+      gen_LHEweight_QCDscale_muR2_muF2_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR2_muF2_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR2_muF2_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR2_muF2_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR2_muF0p5() {
+  if (not gen_LHEweight_QCDscale_muR2_muF0p5_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR2_muF0p5_branch != 0) {
+      gen_LHEweight_QCDscale_muR2_muF0p5_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR2_muF0p5_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR2_muF0p5_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR2_muF0p5_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR0p5_muF1() {
+  if (not gen_LHEweight_QCDscale_muR0p5_muF1_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR0p5_muF1_branch != 0) {
+      gen_LHEweight_QCDscale_muR0p5_muF1_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR0p5_muF1_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR0p5_muF1_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR0p5_muF1_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR0p5_muF2() {
+  if (not gen_LHEweight_QCDscale_muR0p5_muF2_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR0p5_muF2_branch != 0) {
+      gen_LHEweight_QCDscale_muR0p5_muF2_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR0p5_muF2_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR0p5_muF2_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR0p5_muF2_;
+}
+
+const float &CMS3::gen_LHEweight_QCDscale_muR0p5_muF0p5() {
+  if (not gen_LHEweight_QCDscale_muR0p5_muF0p5_isLoaded) {
+    if (gen_LHEweight_QCDscale_muR0p5_muF0p5_branch != 0) {
+      gen_LHEweight_QCDscale_muR0p5_muF0p5_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_QCDscale_muR0p5_muF0p5_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_QCDscale_muR0p5_muF0p5_isLoaded = true;
+  }
+  return gen_LHEweight_QCDscale_muR0p5_muF0p5_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Up() {
+  if (not gen_LHEweight_PDFVariation_Up_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Up_branch != 0) {
+      gen_LHEweight_PDFVariation_Up_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Up_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Up_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Up_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Dn() {
+  if (not gen_LHEweight_PDFVariation_Dn_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Dn_branch != 0) {
+      gen_LHEweight_PDFVariation_Dn_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Dn_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Dn_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Dn_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Up() {
+  if (not gen_LHEweight_AsMZ_Up_isLoaded) {
+    if (gen_LHEweight_AsMZ_Up_branch != 0) {
+      gen_LHEweight_AsMZ_Up_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Up_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Up_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Up_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Dn() {
+  if (not gen_LHEweight_AsMZ_Dn_isLoaded) {
+    if (gen_LHEweight_AsMZ_Dn_branch != 0) {
+      gen_LHEweight_AsMZ_Dn_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Dn_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Dn_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Dn_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Up_2016() {
+  if (not gen_LHEweight_PDFVariation_Up_2016_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Up_2016_branch != 0) {
+      gen_LHEweight_PDFVariation_Up_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Up_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Up_2016_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Up_2016_;
+}
+
+const float &CMS3::gen_LHEweight_PDFVariation_Dn_2016() {
+  if (not gen_LHEweight_PDFVariation_Dn_2016_isLoaded) {
+    if (gen_LHEweight_PDFVariation_Dn_2016_branch != 0) {
+      gen_LHEweight_PDFVariation_Dn_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_PDFVariation_Dn_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_PDFVariation_Dn_2016_isLoaded = true;
+  }
+  return gen_LHEweight_PDFVariation_Dn_2016_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Up_2016() {
+  if (not gen_LHEweight_AsMZ_Up_2016_isLoaded) {
+    if (gen_LHEweight_AsMZ_Up_2016_branch != 0) {
+      gen_LHEweight_AsMZ_Up_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Up_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Up_2016_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Up_2016_;
+}
+
+const float &CMS3::gen_LHEweight_AsMZ_Dn_2016() {
+  if (not gen_LHEweight_AsMZ_Dn_2016_isLoaded) {
+    if (gen_LHEweight_AsMZ_Dn_2016_branch != 0) {
+      gen_LHEweight_AsMZ_Dn_2016_branch->GetEntry(index);
+    } else {
+      printf("branch gen_LHEweight_AsMZ_Dn_2016_branch does not exist!\n");
+      exit(1);
+    }
+    gen_LHEweight_AsMZ_Dn_2016_isLoaded = true;
+  }
+  return gen_LHEweight_AsMZ_Dn_2016_;
 }
 const vector<float> &CMS3::els_miniIso_uncor() {
   if (not els_miniIso_uncor_isLoaded) {
@@ -22420,6 +22826,19 @@ const float &CMS3::evt_pfmetPhi_TauEnDown() {
     evt_pfmetPhi_TauEnDown_isLoaded = true;
   }
   return evt_pfmetPhi_TauEnDown_;
+}
+const vector<int> &CMS3::ak8jets_npfcands() {
+  if (not ak8jets_npfcands_isLoaded) {
+    if (ak8jets_npfcands_branch != 0) {
+      if (ak8jets_npfcands_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch ak8jets_npfcands_branch does not exist!\n");
+      exit(1);
+    }
+    ak8jets_npfcands_isLoaded = true;
+  }
+  return ak8jets_npfcands_;
 }
 const vector<int> &CMS3::ak8jets_partonFlavour() {
   if (not ak8jets_partonFlavour_isLoaded) {
@@ -30089,6 +30508,25 @@ namespace tas {
   const vector<float> &els_scSeedE3x3() { return cms3.els_scSeedE3x3(); }
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_TrailingLeg() { return cms3.els_HLT_Ele20_SC4_Mass50_TrailingLeg(); }
   const vector<float> &els_miniIso_uncor() { return cms3.els_miniIso_uncor(); }
+  const float &genHEPMCweight() { return cms3.genHEPMCweight(); }
+  const float &genHEPMCweight_2016() { return cms3.genHEPMCweight_2016(); }
+  const float &gen_LHEweight_QCDscale_muR1_muF1() { return cms3.gen_LHEweight_QCDscale_muR1_muF1(); }
+  const float &gen_LHEweight_QCDscale_muR1_muF2() { return cms3.gen_LHEweight_QCDscale_muR1_muF2(); }
+  const float &gen_LHEweight_QCDscale_muR1_muF0p5() { return cms3.gen_LHEweight_QCDscale_muR1_muF0p5(); }
+  const float &gen_LHEweight_QCDscale_muR2_muF1() { return cms3.gen_LHEweight_QCDscale_muR2_muF1(); }
+  const float &gen_LHEweight_QCDscale_muR2_muF2() { return cms3.gen_LHEweight_QCDscale_muR2_muF2(); }
+  const float &gen_LHEweight_QCDscale_muR2_muF0p5() { return cms3.gen_LHEweight_QCDscale_muR2_muF0p5(); }
+  const float &gen_LHEweight_QCDscale_muR0p5_muF1() { return cms3.gen_LHEweight_QCDscale_muR0p5_muF1(); }
+  const float &gen_LHEweight_QCDscale_muR0p5_muF2() { return cms3.gen_LHEweight_QCDscale_muR0p5_muF2(); }
+  const float &gen_LHEweight_QCDscale_muR0p5_muF0p5() { return cms3.gen_LHEweight_QCDscale_muR0p5_muF0p5(); }
+  const float &gen_LHEweight_PDFVariation_Up() { return cms3.gen_LHEweight_PDFVariation_Up(); }
+  const float &gen_LHEweight_PDFVariation_Dn() { return cms3.gen_LHEweight_PDFVariation_Dn(); }
+  const float &gen_LHEweight_AsMZ_Up() { return cms3.gen_LHEweight_AsMZ_Up(); }
+  const float &gen_LHEweight_AsMZ_Dn() { return cms3.gen_LHEweight_AsMZ_Dn(); }
+  const float &gen_LHEweight_PDFVariation_Up_2016() { return cms3.gen_LHEweight_PDFVariation_Up_2016(); }
+  const float &gen_LHEweight_PDFVariation_Dn_2016() { return cms3.gen_LHEweight_PDFVariation_Dn_2016(); }
+  const float &gen_LHEweight_AsMZ_Up_2016() { return cms3.gen_LHEweight_AsMZ_Up_2016(); }
+  const float &gen_LHEweight_AsMZ_Dn_2016() { return cms3.gen_LHEweight_AsMZ_Dn_2016(); }
   const vector<unsigned int> &mus_selectors() { return cms3.mus_selectors(); }
   const vector<int> &mus_simType() { return cms3.mus_simType(); }
   const vector<int> &mus_simExtType() { return cms3.mus_simExtType(); }
@@ -30598,6 +31036,7 @@ namespace tas {
   const vector<TString> &evt_CMS3tag() { return cms3.evt_CMS3tag(); }
   const vector<unsigned int> &mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg() { return cms3.mus_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_LeadingLeg(); }
   const float &evt_pfmetPhi_TauEnDown() { return cms3.evt_pfmetPhi_TauEnDown(); }
+  const vector<int> &ak8jets_npfcands() { return cms3.ak8jets_npfcands(); }
   const vector<int> &ak8jets_partonFlavour() { return cms3.ak8jets_partonFlavour(); }
   const vector<float> &els_ndof() { return cms3.els_ndof(); }
   const int &hcalnoise_GetRecHitCount15() { return cms3.hcalnoise_GetRecHitCount15(); }

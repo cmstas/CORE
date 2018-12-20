@@ -131,6 +131,8 @@ enum id_level_t {
   HAD_medium_v4, 
   HAD_tight_noiso_v4, 
   HAD_tight_v4,
+  HAD_veto_noiso_v5,
+  HAD_veto_v5, 
 
   //Stop
   STOP_veto_v1, 
