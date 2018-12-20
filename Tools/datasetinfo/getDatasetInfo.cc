@@ -8,7 +8,7 @@ using namespace std;
 
 DatasetInfoFromFile::DatasetInfoFromFile() : dslist_(default_dslist) {}
 
-void DatasetInfoFromFile::update(DatasetInfoFromFile::datasetInfo* df, string info, string dsname, string tag, bool verbose) {
+void DatasetInfoFromFile::update(DatasetInfoFromFile::datasetInfo* df, std::string info, std::string dsname, std::string tag, bool verbose) {
     istringstream iss(info);
     string token;
     int nevents_total = 0;
@@ -44,7 +44,7 @@ void DatasetInfoFromFile::update(DatasetInfoFromFile::datasetInfo* df, string in
     df->scale1fb = new_scale1fb;
 }
 
-void DatasetInfoFromFile::loadFromFile(const string filename, bool verbose) {
+void DatasetInfoFromFile::loadFromFile(const std::string filename, bool verbose) {
   ifstream ifile(filename);
   if (!ifile) throw std::invalid_argument("Dataset info file " + filename + " does not exist!");
   string dsname, cmstag;
@@ -71,36 +71,36 @@ void DatasetInfoFromFile::loadFromFile(const string filename, bool verbose) {
   }
 }
 
-void DatasetInfoFromFile::checkEntryExist(const string dsname, const string cmstag) {
+void DatasetInfoFromFile::checkEntryExist(const std::string dsname, const std::string cmstag) {
   if (isEmpty())
     throw std::invalid_argument("The dataset list is empty. Please check if the dataset info file is properly loaded.");
   if (dslist_.find(cmstag+dsname) == dslist_.end())
     throw std::invalid_argument("The dataset " + dsname + " with cmstag: " + cmstag + " cannot be found in the list. Please update the dataset info file.");
 }
 
-bool DatasetInfoFromFile::doesEntryExist(const string dsname, const string cmstag) {
+bool DatasetInfoFromFile::doesEntryExist(const std::string dsname, const std::string cmstag) {
   if (dslist_.find(cmstag+dsname) != dslist_.end())
       return true;
   else
       return false;
 }
 
-float DatasetInfoFromFile::getScale1fbFromFile(const string dsname, const string cmstag) {
+float DatasetInfoFromFile::getScale1fbFromFile(const std::string dsname, const std::string cmstag) {
   checkEntryExist(dsname, cmstag);
   return dslist_[cmstag+dsname].scale1fb;
 }
 
-float DatasetInfoFromFile::getXsecFromFile(const string dsname, const string cmstag) {
+float DatasetInfoFromFile::getXsecFromFile(const std::string dsname, const std::string cmstag) {
   checkEntryExist(dsname, cmstag);
   return dslist_[cmstag+dsname].xsec;
 }
 
-unsigned DatasetInfoFromFile::getnEventsTotalFromFile(const string dsname, const string cmstag) {
+unsigned DatasetInfoFromFile::getnEventsTotalFromFile(const std::string dsname, const std::string cmstag) {
   checkEntryExist(dsname, cmstag);
   return dslist_[cmstag+dsname].nevts_tot;
 }
 
-unsigned DatasetInfoFromFile::getnEventsEffectiveFromFile(const string dsname, const string cmstag) {
+unsigned DatasetInfoFromFile::getnEventsEffectiveFromFile(const std::string dsname, const std::string cmstag) {
   checkEntryExist(dsname, cmstag);
   return dslist_[cmstag+dsname].nevts_eff;
 }
