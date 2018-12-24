@@ -43,13 +43,16 @@ def get_line(metadata):
 
 if __name__ == "__main__":
 
-    # sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-17*/")
-    sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-19*/")
-    sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-20*/")
-    sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2018/*10-02-02*/")
-    sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
-    # sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
-    # sampledirs = glob.glob("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/*CMS4_V00-00-02_2017Sep27*/")
+    sampledirs = []
+
+    # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-17*/")
+    # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-19*/")
+    # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2017/*09-04-20*/")
+    # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2018/*10-02-02*/")
+    # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
+    # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
+    # sampledirs += glob.glob("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/*CMS4_V00-00-02_2017Sep27*/")
+    sampledirs = glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-04*/")
 
     # print get_line("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2_MINIAODSIM_CMS4_V00-00-02_2017Sep27/metadata.json")
     # print get_line("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/TTGamma_Dilept_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8_RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v2_MINIAODSIM_CMS4_V00-00-02_2017Sep27/metadata.json")
