@@ -52,6 +52,7 @@ bool passElectronSelection_ZMET(int index,int year ){
       return passElectronSelection_ZMET_v7(index, true, true);
   else if(year == 2018)
       return passElectronSelection_ZMET_v8(index, true, true);
+  return false;
 }
 
 bool passElectronSelection_ZMET_veto(int index ){
@@ -236,6 +237,7 @@ bool passMuonSelection_ZMET(int index, int year){
       return passMuonSelection_ZMET_v8(index,true,true);
   else if(year==2018)
       return passMuonSelection_ZMET_v9(index,true,true);
+  return false;
 }
 
 

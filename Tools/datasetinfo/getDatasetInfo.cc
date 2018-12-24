@@ -71,36 +71,37 @@ void DatasetInfoFromFile::loadFromFile(const std::string filename, bool verbose)
   }
 }
 
-void DatasetInfoFromFile::checkEntryExist(const std::string dsname, const std::string cmstag) {
+std::unordered_map<std::string, DatasetInfoFromFile::datasetInfo>::const_iterator DatasetInfoFromFile::checkEntryExist(const std::string dsname, const std::string cmstag) const{
   if (isEmpty())
     throw std::invalid_argument("The dataset list is empty. Please check if the dataset info file is properly loaded.");
-  if (dslist_.find(cmstag+dsname) == dslist_.end())
+
+  std::unordered_map<std::string, datasetInfo>::const_iterator res = dslist_.find(cmstag+dsname);
+  if (res == dslist_.end())
     throw std::invalid_argument("The dataset " + dsname + " with cmstag: " + cmstag + " cannot be found in the list. Please update the dataset info file.");
+
+  return res;
 }
 
-bool DatasetInfoFromFile::doesEntryExist(const std::string dsname, const std::string cmstag) {
-  if (dslist_.find(cmstag+dsname) != dslist_.end())
-      return true;
-  else
-      return false;
+bool DatasetInfoFromFile::doesEntryExist(const std::string dsname, const std::string cmstag) const{
+  return (dslist_.find(cmstag+dsname) != dslist_.end());
 }
 
-float DatasetInfoFromFile::getScale1fbFromFile(const std::string dsname, const std::string cmstag) {
-  checkEntryExist(dsname, cmstag);
-  return dslist_[cmstag+dsname].scale1fb;
+float DatasetInfoFromFile::getScale1fbFromFile(const std::string dsname, const std::string cmstag) const{
+  std::unordered_map<std::string, datasetInfo>::const_iterator ref = checkEntryExist(dsname, cmstag);
+  return ref->second.scale1fb;
 }
 
-float DatasetInfoFromFile::getXsecFromFile(const std::string dsname, const std::string cmstag) {
-  checkEntryExist(dsname, cmstag);
-  return dslist_[cmstag+dsname].xsec;
+float DatasetInfoFromFile::getXsecFromFile(const std::string dsname, const std::string cmstag) const{
+  std::unordered_map<std::string, datasetInfo>::const_iterator ref = checkEntryExist(dsname, cmstag);
+  return ref->second.xsec;
 }
 
-unsigned DatasetInfoFromFile::getnEventsTotalFromFile(const std::string dsname, const std::string cmstag) {
-  checkEntryExist(dsname, cmstag);
-  return dslist_[cmstag+dsname].nevts_tot;
+unsigned DatasetInfoFromFile::getnEventsTotalFromFile(const std::string dsname, const std::string cmstag) const{
+  std::unordered_map<std::string, datasetInfo>::const_iterator ref = checkEntryExist(dsname, cmstag);
+  return ref->second.nevts_tot;
 }
 
-unsigned DatasetInfoFromFile::getnEventsEffectiveFromFile(const std::string dsname, const std::string cmstag) {
-  checkEntryExist(dsname, cmstag);
-  return dslist_[cmstag+dsname].nevts_eff;
+unsigned DatasetInfoFromFile::getnEventsEffectiveFromFile(const std::string dsname, const std::string cmstag) const{
+  std::unordered_map<std::string, datasetInfo>::const_iterator ref = checkEntryExist(dsname, cmstag);
+  return ref->second.nevts_eff;
 }
