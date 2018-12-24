@@ -90,6 +90,7 @@ bool isGoodMuon(unsigned int muidx);
 bool isIsolatedLepton(int id, int idx);
 bool isLooseIsolatedLepton(int id, int idx);
 bool isInSituFRLepton(int lep_id, int lep_idx);
+bool pass_SS_jetID(int ijet, bool isFastsim);
 
 //MC truth functions
 int lepMotherID(Lep lep);
@@ -170,8 +171,24 @@ struct Jet {
         } else if (gconf.year == 2017) {
             return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
             // return tas::getbtagvalue("pfDeepFlavourJetTags:probb",idx_) + tas::getbtagvalue("pfDeepFlavourJetTags:probbb",idx_) + tas::getbtagvalue("pfDeepFlavourJetTags:problepb",idx_);
+            // return tas::getbtagvalue("newpfDeepFlavourJetTags:probb",idx_) + tas::getbtagvalue("newpfDeepFlavourJetTags:probbb",idx_) + tas::getbtagvalue("newpfDeepFlavourJetTags:problepb",idx_);
         } else if (gconf.year == 2018) {
             return tas::getbtagvalue("pfDeepCSVJetTags:probb",idx_) + tas::getbtagvalue("pfDeepCSVJetTags:probbb",idx_);
+            // return tas::getbtagvalue("pfDeepFlavourJetTags:probb",idx_) + tas::getbtagvalue("pfDeepFlavourJetTags:probbb",idx_) + tas::getbtagvalue("pfDeepFlavourJetTags:problepb",idx_);
+        }
+        return -1;
+    }
+    float cdisc() {
+        if (gconf.year == 2016) {
+            if (gconf.cmssw_ver == 94) {
+                return tas::getbtagvalue("pfDeepCSVJetTags:probc",idx_);
+            } else {
+                return tas::getbtagvalue("deepFlavourJetTags:probc",idx_);
+            }
+        } else if (gconf.year == 2017) {
+            return tas::getbtagvalue("pfDeepCSVJetTags:probc",idx_);
+        } else if (gconf.year == 2018) {
+            return tas::getbtagvalue("pfDeepCSVJetTags:probc",idx_);
         }
         return -1;
     }

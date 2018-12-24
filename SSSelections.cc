@@ -206,14 +206,26 @@ Z_result_t makesExtraZ(int iHyp){
   return result;
 }
 
+bool pass_SS_jetID(int ijet, bool isFastsim) {
+    //Require jet ID
+    if (gconf.year == 2016) {
+        if (!isFastsim && !isLoosePFJet_Summer16_v1(ijet)) return false;
+    }
+    else if (gconf.year == 2017) {
+        if (!isFastsim && !isTightPFJet_2017_v1(ijet)) return false;
+    }
+    else if (gconf.year == 2018) {
+        if (!isFastsim && !isTightPFJet_2017_v1(ijet)) return false;
+    }
+    return true;
+}
+
 //doCorr: 0-built-in, 1-corrected, 2-raw
 std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector* jetCorr, int doCorr, bool isFastsim, bool saveAllPt){
   vector <Jet> result_jets;
   vector <Jet> result_btags;
   vector <float> result_disc;
   vector <float> result_corrpt;
-
-  int year = gconf.year;
 
   for (unsigned int i = 0; i < tas::pfjets_p4().size(); i++){
     LorentzVector jet = tas::pfjets_p4().at(i);
@@ -235,16 +247,8 @@ std::pair <vector <Jet>, vector <Jet> > SSJetsCalculator(FactorizedJetCorrector*
     if (fabs(jet.eta()) > 2.4) continue;
 
     //Require jet ID
-    if (year == 2016) {
-        if (!isFastsim && !isLoosePFJet_Summer16_v1(i)) continue;
-    }
-    if (year == 2017) {
-        if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
-    }
-    if (year == 2018) {
-        if (!isFastsim && !isTightPFJet_2017_v1(i)) continue;
-    }
-    
+    if (!pass_SS_jetID(i,isFastsim)) continue;
+
     //Get discriminator
     auto jetobj = Jet(i, JEC);
     float disc = jetobj.disc();
