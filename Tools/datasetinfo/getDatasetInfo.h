@@ -25,7 +25,8 @@ class DatasetInfoFromFile {
   bool isEmpty() const{ return dslist_.empty(); }
   size_t numberOfEntries() const{ return dslist_.size(); }
   void update(DatasetInfoFromFile::datasetInfo* df, std::string info, std::string dsname, std::string tag, bool verbose);
-  std::unordered_map<std::string, datasetInfo> const& get_dslist(){ return dslist_; }
+  std::unordered_map<std::string, datasetInfo>& get_dslist(){ return dslist_; }
+  std::unordered_map<std::string, datasetInfo> const& get_dslist() const{ return dslist_; }
 
  private:
   std::unordered_map<std::string, datasetInfo> dslist_;
