@@ -54,12 +54,12 @@ float elRelIsoAn04(unsigned int idx, bool useDBcor= true);
 float elPtRatio(unsigned int idx);
 
 //Photon
-float photon_CHEA03(   int photonIdx );
-float photon_NHEA03(   int photonIdx );
-float photon_EMEA03(   int photonIdx );
-float photonCHIso03EA( int photonIdx );
-float photonNHIso03EA( int photonIdx );
-float photonEMIso03EA( int photonIdx );
+float photon_CHEA03(   int photonIdx, int eaversion = 0 );
+float photon_NHEA03(   int photonIdx, int eaversion = 0 );
+float photon_EMEA03(   int photonIdx, int eaversion = 0 );
+float photonCHIso03EA( int photonIdx, int eaversion = 0 );
+float photonNHIso03EA( int photonIdx, int eaversion = 0 );
+float photonEMIso03EA( int photonIdx, int eaversion = 0 );
 float photonEcalpfClusterIso03EA( int photonIdx );
 float photonHcalpfClusterIso03EA( int photonIdx );
 
