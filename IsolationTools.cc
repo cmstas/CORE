@@ -456,78 +456,144 @@ float elPtRatio(unsigned int idx)
 // Photon Isolation //
 //////////////////////
 
-// from https://indico.cern.ch/event/369239/contribution/2/attachments/1134693/1623149/spring15_pcb.pdf
-float photon_CHEA03( int photonIdx )
+float photon_CHEA03( int photonIdx, int version )
 {
-  float eta = cms3.photons_p4().at(photonIdx).eta();
+  float aeta = fabs(cms3.photons_p4().at(photonIdx).eta());
   float EA = -999;
 
-  if(       abs(eta) < 1.0   ){ EA = 0.0157;
-  }else if( abs(eta) < 1.479 ){ EA = 0.0143;
-  }else if( abs(eta) < 2.0   ){ EA = 0.0115;
-  }else if( abs(eta) < 2.2   ){ EA = 0.0094;
-  }else if( abs(eta) < 2.3   ){ EA = 0.0095;
-  }else if( abs(eta) < 2.4   ){ EA = 0.0068;
-  }else if( abs(eta) > 2.4   ){ EA = 0.0053;
+  if(      version == 0 ){
+    // from https://indico.cern.ch/event/369239/contribution/2/attachments/1134693/1623149/spring15_pcb.pdf
+    // see also: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2Archive#Selection_implementation_details
+    if(      aeta < 1.0   ) EA = 0.0157;
+    else if( aeta < 1.479 ) EA = 0.0143;
+    else if( aeta < 2.0   ) EA = 0.0115;
+    else if( aeta < 2.2   ) EA = 0.0094;
+    else if( aeta < 2.3   ) EA = 0.0095;
+    else if( aeta < 2.4   ) EA = 0.0068;
+    else if( aeta > 2.4   ) EA = 0.0053;
+  }
+  else if( version == 2 ){
+    // Spring16: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Selection_implementation_details
+    if(      aeta < 1.0   ) EA = 0.0360;
+    else if( aeta < 1.479 ) EA = 0.0377;
+    else if( aeta < 2.0   ) EA = 0.0306;
+    else if( aeta < 2.2   ) EA = 0.0283;
+    else if( aeta < 2.3   ) EA = 0.0254;
+    else if( aeta < 2.4   ) EA = 0.0217;
+    else if( aeta > 2.4   ) EA = 0.0167;
+  }
+  else if( version == 4 ){
+    // Fall17 V2: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_94X_and_later
+    if(      aeta < 1.0   ) EA = 0.0112;
+    else if( aeta < 1.479 ) EA = 0.0108;
+    else if( aeta < 2.0   ) EA = 0.0106;
+    else if( aeta < 2.2   ) EA = 0.01002;
+    else if( aeta < 2.3   ) EA = 0.0098;
+    else if( aeta < 2.4   ) EA = 0.0089;
+    else if( aeta > 2.4   ) EA = 0.0087;
   }
 
   return EA;
 }
 
-float photon_NHEA03( int photonIdx )
+float photon_NHEA03( int photonIdx, int version )
 {
-  float eta = cms3.photons_p4().at(photonIdx).eta();
+  float aeta = fabs(cms3.photons_p4().at(photonIdx).eta());
   float EA = -999;
 
-  if(       abs(eta) < 1.0   ){ EA = 0.0143;
-  }else if( abs(eta) < 1.479 ){ EA = 0.0210;
-  }else if( abs(eta) < 2.0   ){ EA = 0.0148;
-  }else if( abs(eta) < 2.2   ){ EA = 0.0082;
-  }else if( abs(eta) < 2.3   ){ EA = 0.0124;
-  }else if( abs(eta) < 2.4   ){ EA = 0.0186;
-  }else if( abs(eta) > 2.4   ){ EA = 0.0320;
+  if(      version == 0 ){
+    // https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2Archive#Selection_implementation_details
+    if(      aeta < 1.0   ) EA = 0.0143;
+    else if( aeta < 1.479 ) EA = 0.0210;
+    else if( aeta < 2.0   ) EA = 0.0148;
+    else if( aeta < 2.2   ) EA = 0.0082;
+    else if( aeta < 2.3   ) EA = 0.0124;
+    else if( aeta < 2.4   ) EA = 0.0186;
+    else if( aeta > 2.4   ) EA = 0.0320;
+  }
+  else if( version == 2 ){
+    // Spring16: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Selection_implementation_details
+    if(      aeta < 1.0   ) EA = 0.0597;
+    else if( aeta < 1.479 ) EA = 0.0807;
+    else if( aeta < 2.0   ) EA = 0.0629;
+    else if( aeta < 2.2   ) EA = 0.0197;
+    else if( aeta < 2.3   ) EA = 0.0184;
+    else if( aeta < 2.4   ) EA = 0.0284;
+    else if( aeta > 2.4   ) EA = 0.0591;
+  }
+  else if( version == 4 ){
+    // Fall17 V2: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_94X_and_later
+    if(      aeta < 1.0   ) EA = 0.0668;
+    else if( aeta < 1.479 ) EA = 0.1054;
+    else if( aeta < 2.0   ) EA = 0.0786;
+    else if( aeta < 2.2   ) EA = 0.0233;
+    else if( aeta < 2.3   ) EA = 0.0078;
+    else if( aeta < 2.4   ) EA = 0.0028;
+    else if( aeta > 2.4   ) EA = 0.0137;
   }
 
   return EA;
 }
 
-float photon_EMEA03( int photonIdx )
+float photon_EMEA03( int photonIdx, int version )
 {
-  float eta = cms3.photons_p4().at(photonIdx).eta();
+  float aeta = fabs(cms3.photons_p4().at(photonIdx).eta());
   float EA = -999;
 
-  if(       abs(eta) < 1.0   ){ EA = 0.0725;
-  }else if( abs(eta) < 1.479 ){ EA = 0.0604;
-  }else if( abs(eta) < 2.0   ){ EA = 0.0320;
-  }else if( abs(eta) < 2.2   ){ EA = 0.0512;
-  }else if( abs(eta) < 2.3   ){ EA = 0.0766;
-  }else if( abs(eta) < 2.4   ){ EA = 0.0949;
-  }else if( abs(eta) > 2.4   ){ EA = 0.1160;
+  if(      version <= 1 ){
+    // https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2Archive#Selection_implementation_details
+    if(      aeta < 1.0   ) EA = 0.0725;
+    else if( aeta < 1.479 ) EA = 0.0604;
+    else if( aeta < 2.0   ) EA = 0.0320;
+    else if( aeta < 2.2   ) EA = 0.0512;
+    else if( aeta < 2.3   ) EA = 0.0766;
+    else if( aeta < 2.4   ) EA = 0.0949;
+    else if( aeta > 2.4   ) EA = 0.1160;
+  }
+  else if( version == 2 ){
+    // Spring16: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Selection_implementation_details
+    if(      aeta < 1.0   ) EA = 0.1210;
+    else if( aeta < 1.479 ) EA = 0.1107;
+    else if( aeta < 2.0   ) EA = 0.0699;
+    else if( aeta < 2.2   ) EA = 0.1056;
+    else if( aeta < 2.3   ) EA = 0.1457;
+    else if( aeta < 2.4   ) EA = 0.1719;
+    else if( aeta > 2.4   ) EA = 0.1998;
+  }
+  else if( version == 4 ){
+    // Fall17 V2: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_94X_and_later
+    if(      aeta < 1.0   ) EA = 0.1113;
+    else if( aeta < 1.479 ) EA = 0.0953;
+    else if( aeta < 2.0   ) EA = 0.0619;
+    else if( aeta < 2.2   ) EA = 0.0837;
+    else if( aeta < 2.3   ) EA = 0.1070;
+    else if( aeta < 2.4   ) EA = 0.1212;
+    else if( aeta > 2.4   ) EA = 0.1466;
   }
 
   return EA;
 }
 
-float photonCHIso03EA( int photonIdx )
+float photonCHIso03EA( int photonIdx, int eaversion )
 {
   float chiso = photons_recoChargedHadronIso().at(photonIdx);
-  float ea    = photon_CHEA03(photonIdx);
+  float ea    = photon_CHEA03(photonIdx, eaversion);
   float CHIso = std::max(float(0.0), chiso - evt_fixgridfastjet_all_rho() * ea);
   return CHIso;
 }
 
-float photonNHIso03EA( int photonIdx )
+float photonNHIso03EA( int photonIdx, int eaversion )
 {
   float nhiso = photons_recoNeutralHadronIso().at(photonIdx);
-  float ea    = photon_NHEA03(photonIdx);
+  float ea    = photon_NHEA03(photonIdx, eaversion);
   float NHIso = std::max(float(0.0), nhiso - evt_fixgridfastjet_all_rho() * ea);
   return NHIso;
 }
 
-float photonEMIso03EA( int photonIdx )
+float photonEMIso03EA( int photonIdx, int eaversion )
 {
   float emiso = photons_recoPhotonIso().at(photonIdx);
-  float ea    = photon_EMEA03(photonIdx);
+  float ea    = photon_EMEA03(photonIdx, eaversion);
   float EMIso = std::max(float(0.0), emiso - evt_fixgridfastjet_all_rho() * ea);
   return EMIso;
 }
