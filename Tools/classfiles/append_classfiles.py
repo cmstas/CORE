@@ -1,7 +1,7 @@
 # edit the base class file name
 cf_basename = "../../CMS3" # .cc, .h
 # copy the pattern for the following branch (make sure the type is correct)
-branch_to_copy = "els_miniIso_uncor"
+branch_to_copy = "els_VIDFall17NoIsoMvaValue"
 branch_to_copy_type = "vector<float>"
 # and use this pattern to squeeze in the following branches (and associated types)
 branches_to_add = [
@@ -18,25 +18,7 @@ branches_to_add = [
         # ("els_jetNDauChargedMVASel", "vector<int>"),
         # ("mus_jetNDauChargedMVASel", "vector<int>"),
 
-        ("genHEPMCweight", "float"),
-        ("genHEPMCweight_2016", "float"),
-        ("gen_LHEweight_QCDscale_muR1_muF1", "float"),
-        ("gen_LHEweight_QCDscale_muR1_muF2", "float"),
-        ("gen_LHEweight_QCDscale_muR1_muF0p5", "float"),
-        ("gen_LHEweight_QCDscale_muR2_muF1", "float"),
-        ("gen_LHEweight_QCDscale_muR2_muF2", "float"),
-        ("gen_LHEweight_QCDscale_muR2_muF0p5", "float"),
-        ("gen_LHEweight_QCDscale_muR0p5_muF1", "float"),
-        ("gen_LHEweight_QCDscale_muR0p5_muF2", "float"),
-        ("gen_LHEweight_QCDscale_muR0p5_muF0p5", "float"),
-        ("gen_LHEweight_PDFVariation_Up", "float"),
-        ("gen_LHEweight_PDFVariation_Dn", "float"),
-        ("gen_LHEweight_AsMZ_Up", "float"),
-        ("gen_LHEweight_AsMZ_Dn", "float"),
-        ("gen_LHEweight_PDFVariation_Up_2016", "float"),
-        ("gen_LHEweight_PDFVariation_Dn_2016", "float"),
-        ("gen_LHEweight_AsMZ_Up_2016", "float"),
-        ("gen_LHEweight_AsMZ_Dn_2016", "float"),
+        ("els_VIDFall17V2NoIsoMvaValue", "vector<float>"),
 
         ]
 
