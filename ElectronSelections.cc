@@ -4094,7 +4094,6 @@ float getMVAoutput(unsigned int index, bool use_miniaod){
       if (gconf.year == 2016) return els_VIDNonTrigMvaValue().at(index);
       else if (gconf.year == 2017) return els_VIDFall17NoIsoMvaValue().at(index);
       else if (gconf.year == 2018) {
-          if (false) { // Pending validation
           // Fun reverse-engineering-because-of-lack-of-documentation-or-announcement...
           // WPs for Fall17V2 MVA are for a *RAW* BDT output (hence cut values >1)
           // Default ValueMaps for VID give the scaled value (forced to [-1,1]), so we
@@ -4106,8 +4105,6 @@ float getMVAoutput(unsigned int index, bool use_miniaod){
           if (notraw >  1.0-1.e-6) notraw =  1.0-1.e-6; // protect against inf, -inf due to FP rounding issues
           if (notraw < -1.0+1.e-6) notraw = -1.0+1.e-6;
           return -0.5*log((2.0/(notraw+1))-1.0);
-          }
-          return els_VIDFall17NoIsoMvaValue().at(index);
       }
       else {
           // should yell here, but return pre-added-config-object-to-CORE value instead
