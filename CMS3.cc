@@ -6300,6 +6300,11 @@ void CMS3::Init(TTree *tree) {
     filt_ecalBadCalibFilter_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilter"));
     if (filt_ecalBadCalibFilter_branch) { filt_ecalBadCalibFilter_branch->SetAddress(&filt_ecalBadCalibFilter_); }
   }
+  filt_ecalBadCalibFilterUpdate_branch = 0;
+  if (tree->GetAlias("filt_ecalBadCalibFilterUpdate") != 0) {
+    filt_ecalBadCalibFilterUpdate_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilterUpdate"));
+    if (filt_ecalBadCalibFilterUpdate_branch) { filt_ecalBadCalibFilterUpdate_branch->SetAddress(&filt_ecalBadCalibFilterUpdate_); }
+  }
   evt_filt_eff_branch = 0;
   if (tree->GetAlias("evt_filt_eff") != 0) {
     evt_filt_eff_branch = tree->GetBranch(tree->GetAlias("evt_filt_eff"));
@@ -8804,6 +8809,7 @@ void CMS3::GetEntry(unsigned int idx) {
   filt_trkPOG_toomanystripclus53X_isLoaded = false;
   filt_eeBadSc_isLoaded = false;
   filt_ecalBadCalibFilter_isLoaded = false;
+  filt_ecalBadCalibFilterUpdate_isLoaded = false;
   evt_filt_eff_isLoaded = false;
   convs_nHitsBeforeVtx_isLoaded = false;
   evt_pfmet_TauEnUp_isLoaded = false;
@@ -10255,6 +10261,7 @@ void CMS3::LoadAllBranches() {
   if (filt_trkPOG_toomanystripclus53X_branch != 0) filt_trkPOG_toomanystripclus53X();
   if (filt_eeBadSc_branch != 0) filt_eeBadSc();
   if (filt_ecalBadCalibFilter_branch != 0) filt_ecalBadCalibFilter();
+  if (filt_ecalBadCalibFilterUpdate_branch != 0) filt_ecalBadCalibFilterUpdate();
   if (evt_filt_eff_branch != 0) evt_filt_eff();
   if (convs_nHitsBeforeVtx_branch != 0) convs_nHitsBeforeVtx();
   if (evt_pfmet_TauEnUp_branch != 0) evt_pfmet_TauEnUp();
@@ -26592,6 +26599,19 @@ const bool &CMS3::filt_ecalBadCalibFilter() {
   }
   return filt_ecalBadCalibFilter_;
 }
+const bool &CMS3::filt_ecalBadCalibFilterUpdate() {
+  if (not filt_ecalBadCalibFilterUpdate_isLoaded) {
+    if (filt_ecalBadCalibFilterUpdate_branch != 0) {
+      if (filt_ecalBadCalibFilterUpdate_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch filt_ecalBadCalibFilterUpdate_branch does not exist!\n");
+      exit(1);
+    }
+    filt_ecalBadCalibFilterUpdate_isLoaded = true;
+  }
+  return filt_ecalBadCalibFilterUpdate_;
+}
 const float &CMS3::evt_filt_eff() {
   if (not evt_filt_eff_isLoaded) {
     if (evt_filt_eff_branch != 0) {
@@ -31346,6 +31366,7 @@ namespace tas {
   const bool &filt_trkPOG_toomanystripclus53X() { return cms3.filt_trkPOG_toomanystripclus53X(); }
   const bool &filt_eeBadSc() { return cms3.filt_eeBadSc(); }
   const bool &filt_ecalBadCalibFilter() { return cms3.filt_ecalBadCalibFilter(); }
+  const bool &filt_ecalBadCalibFilterUpdate() { return cms3.filt_ecalBadCalibFilterUpdate(); }
   const float &evt_filt_eff() { return cms3.evt_filt_eff(); }
   const vector<vector<int> > &convs_nHitsBeforeVtx() { return cms3.convs_nHitsBeforeVtx(); }
   const float &evt_pfmet_TauEnUp() { return cms3.evt_pfmet_TauEnUp(); }

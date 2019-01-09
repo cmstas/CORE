@@ -679,6 +679,40 @@ bool passesMETfilters2017(bool isData){
   return true;
 
 }
+
+bool passesMETfiltersRun2(bool isData) {
+    // https://twiki.cern.ch/twiki/bin/view/CMS/MissingETOptionalFiltersRun2
+    // make sure `gconf.year` and `gconf.cmssw_ver` are set properly
+
+    if (!filt_goodVertices()) return false;
+    if (!filt_globalSuperTightHalo2016()) return false;
+    if (!filt_hbheNoise()) return false;
+    if (!filt_hbheNoiseIso()) return false;
+    if (!filt_ecalTP()) return false;
+
+    // Not recommended for MC
+    if (isData) {
+        if (!filt_eeBadSc()) return false;
+    }
+
+    // Either compute or pull from miniaod depending on 80X or 94X/102X
+    if (gconf.cmssw_ver == 80) {
+        if (!badChargedCandidateFilterV2()) return false;
+        if (!badMuonFilterV2()) return false;
+    } else {
+        if (!filt_BadChargedCandidateFilter()) return false;
+        if (!filt_BadPFMuonFilter()) return false;
+    }
+
+    // Updated list of bad cells for 2017, 2018
+    if (gconf.year == 2017 or gconf.year == 2018) {
+        if (!filt_ecalBadCalibFilterUpdate()) return false;
+    }
+
+    //Otherwise good
+    return true;
+}
+
 // takes in an already initialized FactorizedJetCorrector object
 // and returns T1 Corrected MET using the CHS jet collection
 // THIS FUNCTION IS NOT VALIDATED CURRENTLY!
