@@ -595,7 +595,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(STOP_veto_v4):
       // Use Fall17V2 for full Run2 analysis
       if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.2 ) return false;
+      if ( elMiniRelIsoCMS3_EA(elIdx, 4)   > 0.2 ) return false;
       return true;
       break;
 
@@ -625,7 +625,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(STOP_loose_v4):
       if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >  0.2 ) return false;
+      if ( elMiniRelIsoCMS3_EA(elIdx, 4)   >  0.2 ) return false;
       return true;
       break;
 
@@ -1200,7 +1200,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(STOP_medium_v4):
       if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
+      if ( elMiniRelIsoCMS3_EA(elIdx, 4)   >   0.1 ) return false;
       return true;
       break;
 
@@ -1688,7 +1688,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(STOP_tight_v4):
       if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
+      if ( elMiniRelIsoCMS3_EA(elIdx, 4)   >  0.1 ) return false;
       return true;
       break;
 
