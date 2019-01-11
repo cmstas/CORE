@@ -593,19 +593,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_veto_v4):
-      if (gconf.year == 2016) {
-        // Both 80X and 94X will use Spring15 recommended by SUSY 
-        if (!isVetoElectronPOGspring15noIso_v1(elIdx)) return false;
-      } else if (gconf.year == 2017) {
-        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
-      } else if (gconf.year == 2018) {
-        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
-      }
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >  0.2 ) return false;
-      return true;
-      break;
-
-    case(STOP_veto_v5):
       // Use Fall17V2 for full Run2 analysis
       if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
       if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.2 ) return false;
@@ -637,19 +624,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_loose_v4):
-      if (gconf.year == 2016) {
-        // Both 80X and 94X will use Spring15 recommended by SUSY 
-        if (!isLooseElectronPOGspring15noIso_v1(elIdx)) return false;
-      } else if (gconf.year == 2017) {
-        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
-      } else if (gconf.year == 2018) {
-        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
-      }
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >  0.2 ) return false;
-      return true;
-      break;
-
-    case(STOP_loose_v5):
       if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
       if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >  0.2 ) return false;
       return true;
@@ -1225,19 +1199,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_medium_v4):
-      if (gconf.year == 2016) {
-        // Both 80X and 94X will use Spring15 recommended by SUSY 
-        if (!isMediumElectronPOGspring15noIso_v1(elIdx)) return false;
-      } else if (gconf.year == 2017) {
-        if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
-      } else if (gconf.year == 2018) {
-        if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
-      }
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
-      return true;
-      break;
-
-    case(STOP_medium_v5):
       if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
       if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
       return true;
@@ -1726,18 +1687,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(STOP_tight_v4):
-      if (gconf.year == 2016) {
-        if (!isTightElectronPOGspring15noIso_v1(elIdx)) return false;
-      } else if (gconf.year == 2017) {
-        if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
-      } else if (gconf.year == 2018) {
-        if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
-      }
-      if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
-      return true;
-      break;
-
-    case(STOP_tight_v5):
       if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
       if ( elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1 ) return false;
       return true;
