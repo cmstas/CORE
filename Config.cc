@@ -79,10 +79,10 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (year == 2016 && cmssw_ver == 94) {
     ea_version = 1;
     btag_disc_wp = 0.6324;
-    jecEraB = jecEraC = jecEraD = "Summer16_07Aug2017BCD_V18_DATA"; // to be updated
-    jecEraE = jecEraF = "Summer16_07Aug2017EF_V18_DATA";            // to be updated
-    jecEraG = jecEraH = "Summer16_07Aug2017GH_V18_DATA";            // to be updated
-    jecEraMC = "Summer16_07Aug2017_V11_MC";  // to be updated
+    jecEraB = jecEraC = jecEraD = "Summer16_07Aug2017BCD_V11_DATA";
+    jecEraE = jecEraF = "Summer16_07Aug2017EF_V11_DATA";
+    jecEraG = jecEraH = "Summer16_07Aug2017GH_V11_DATA";
+    jecEraMC = "Summer16_07Aug2017_V11_MC";
     jecEraFS = "Spring16_FastSimV1";      // to be updated
 
     // B-tag working points
