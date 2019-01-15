@@ -4686,6 +4686,11 @@ void CMS3::Init(TTree *tree) {
     pfcands_dz_branch = tree->GetBranch(tree->GetAlias("pfcands_dz"));
     if (pfcands_dz_branch) { pfcands_dz_branch->SetAddress(&pfcands_dz_); }
   }
+  pfcands_dxy_branch = 0;
+  if (tree->GetAlias("pfcands_dxy") != 0) {
+    pfcands_dxy_branch = tree->GetBranch(tree->GetAlias("pfcands_dxy"));
+    if (pfcands_dxy_branch) { pfcands_dxy_branch->SetAddress(&pfcands_dxy_); }
+  }
   mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_branch = 0;
   if (tree->GetAlias("mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version") != 0) {
     mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_branch = tree->GetBranch(tree->GetAlias("mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version"));
@@ -8429,6 +8434,7 @@ void CMS3::GetEntry(unsigned int idx) {
   evt_puppi_pfsumet_isLoaded = false;
   evt_pfmetPhi_MuonEnUp_isLoaded = false;
   pfcands_dz_isLoaded = false;
+  pfcands_dxy_isLoaded = false;
   mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_isLoaded = false;
   els_HLT_Ele20_SC4_Mass50_LeadingLeg_isLoaded = false;
   pfjets_mc_id_isLoaded = false;
@@ -9923,6 +9929,7 @@ void CMS3::LoadAllBranches() {
   if (evt_puppi_pfsumet_branch != 0) evt_puppi_pfsumet();
   if (evt_pfmetPhi_MuonEnUp_branch != 0) evt_pfmetPhi_MuonEnUp();
   if (pfcands_dz_branch != 0) pfcands_dz();
+  if (pfcands_dxy_branch != 0) pfcands_dxy();
   if (mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_branch != 0) mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version();
   if (els_HLT_Ele20_SC4_Mass50_LeadingLeg_branch != 0) els_HLT_Ele20_SC4_Mass50_LeadingLeg();
   if (pfjets_mc_id_branch != 0) pfjets_mc_id();
@@ -22359,6 +22366,19 @@ const vector<float> &CMS3::pfcands_dz() {
   }
   return pfcands_dz_;
 }
+const vector<float> &CMS3::pfcands_dxy() {
+  if (not pfcands_dxy_isLoaded) {
+    if (pfcands_dxy_branch != 0) {
+      if (pfcands_dxy_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch pfcands_dxy_branch does not exist!\n");
+      exit(1);
+    }
+    pfcands_dxy_isLoaded = true;
+  }
+  return pfcands_dxy_;
+}
 const unsigned int &CMS3::mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version() {
   if (not mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_isLoaded) {
     if (mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_branch != 0) {
@@ -31000,6 +31020,7 @@ namespace tas {
   const float &evt_puppi_pfsumet() { return cms3.evt_puppi_pfsumet(); }
   const float &evt_pfmetPhi_MuonEnUp() { return cms3.evt_pfmetPhi_MuonEnUp(); }
   const vector<float> &pfcands_dz() { return cms3.pfcands_dz(); }
+  const vector<float> &pfcands_dxy() { return cms3.pfcands_dxy(); }
   const unsigned int &mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version() { return cms3.mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version(); }
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_LeadingLeg() { return cms3.els_HLT_Ele20_SC4_Mass50_LeadingLeg(); }
   const vector<int> &pfjets_mc_id() { return cms3.pfjets_mc_id(); }

@@ -2742,7 +2742,10 @@ protected:
   vector<float> pfcands_dz_;
   TBranch *pfcands_dz_branch;
   bool pfcands_dz_isLoaded;
-  unsigned int mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_;
+  vector<float> pfcands_dxy_;
+  TBranch *pfcands_dxy_branch;
+  bool pfcands_dxy_isLoaded;
+ unsigned int mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_;
   TBranch *mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_branch;
   bool mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version_isLoaded;
   vector<unsigned int> els_HLT_Ele20_SC4_Mass50_LeadingLeg_;
@@ -5412,6 +5415,7 @@ public:
   const float &evt_puppi_pfsumet();
   const float &evt_pfmetPhi_MuonEnUp();
   const vector<float> &pfcands_dz();
+  const vector<float> &pfcands_dxy();
   const unsigned int &mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version();
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_LeadingLeg();
   const vector<int> &pfjets_mc_id();
@@ -6918,6 +6922,7 @@ namespace tas {
   const float &evt_puppi_pfsumet();
   const float &evt_pfmetPhi_MuonEnUp();
   const vector<float> &pfcands_dz();
+  const vector<float> &pfcands_dxy();
   const unsigned int &mus_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_MuonLeg_version();
   const vector<unsigned int> &els_HLT_Ele20_SC4_Mass50_LeadingLeg();
   const vector<int> &pfjets_mc_id();
