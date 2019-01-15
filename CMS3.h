@@ -1344,6 +1344,9 @@ protected:
   vector<float> els_VIDFall17NoIsoMvaValue_;
   TBranch *els_VIDFall17NoIsoMvaValue_branch;
   bool els_VIDFall17NoIsoMvaValue_isLoaded;
+  vector<float> els_VIDFall17V2NoIsoMvaValue_;
+  TBranch *els_VIDFall17V2NoIsoMvaValue_branch;
+  bool els_VIDFall17V2NoIsoMvaValue_isLoaded;
   vector<float> mus_miniRelIso_chg_;
   TBranch *mus_miniRelIso_chg_branch;
   bool mus_miniRelIso_chg_isLoaded;
@@ -3714,6 +3717,9 @@ protected:
   bool filt_ecalBadCalibFilter_;
   TBranch *filt_ecalBadCalibFilter_branch;
   bool filt_ecalBadCalibFilter_isLoaded;
+  bool filt_ecalBadCalibFilterUpdate_;
+  TBranch *filt_ecalBadCalibFilterUpdate_branch;
+  bool filt_ecalBadCalibFilterUpdate_isLoaded;
   float evt_filt_eff_;
   TBranch *evt_filt_eff_branch;
   bool evt_filt_eff_isLoaded;
@@ -4946,6 +4952,7 @@ public:
   const vector<int> &mus_simType();
   const vector<int> &mus_simExtType();
   const vector<float> &els_VIDFall17NoIsoMvaValue();
+  const vector<float> &els_VIDFall17V2NoIsoMvaValue();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
@@ -5740,6 +5747,7 @@ public:
   const bool &filt_trkPOG_toomanystripclus53X();
   const bool &filt_eeBadSc();
   const bool &filt_ecalBadCalibFilter();
+  const bool &filt_ecalBadCalibFilterUpdate();
   const float &evt_filt_eff();
   const vector<vector<int> > &convs_nHitsBeforeVtx();
   const float &evt_pfmet_TauEnUp();
@@ -6453,6 +6461,7 @@ namespace tas {
   const vector<int> &mus_simType();
   const vector<int> &mus_simExtType();
   const vector<float> &els_VIDFall17NoIsoMvaValue();
+  const vector<float> &els_VIDFall17V2NoIsoMvaValue();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
@@ -7247,6 +7256,7 @@ namespace tas {
   const bool &filt_trkPOG_toomanystripclus53X();
   const bool &filt_eeBadSc();
   const bool &filt_ecalBadCalibFilter();
+  const bool &filt_ecalBadCalibFilterUpdate();
   const float &evt_filt_eff();
   const vector<vector<int> > &convs_nHitsBeforeVtx();
   const float &evt_pfmet_TauEnUp();

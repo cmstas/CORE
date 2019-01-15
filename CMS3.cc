@@ -2343,6 +2343,12 @@ void CMS3::Init(TTree *tree) {
     if (mus_jetNDauChargedMVASel_branch) { mus_jetNDauChargedMVASel_branch->SetAddress(&mus_jetNDauChargedMVASel_); }
   }
 
+
+  els_VIDFall17V2NoIsoMvaValue_branch = 0;
+  if (tree->GetAlias("els_VIDFall17V2NoIsoMvaValue") != 0) {
+    els_VIDFall17V2NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2NoIsoMvaValue"));
+    if (els_VIDFall17V2NoIsoMvaValue_branch) { els_VIDFall17V2NoIsoMvaValue_branch->SetAddress(&els_VIDFall17V2NoIsoMvaValue_); }
+  }
   els_VIDFall17NoIsoMvaValue_branch = 0;
   if (tree->GetAlias("els_VIDFall17NoIsoMvaValue") != 0) {
     els_VIDFall17NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17NoIsoMvaValue"));
@@ -6299,6 +6305,11 @@ void CMS3::Init(TTree *tree) {
     filt_ecalBadCalibFilter_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilter"));
     if (filt_ecalBadCalibFilter_branch) { filt_ecalBadCalibFilter_branch->SetAddress(&filt_ecalBadCalibFilter_); }
   }
+  filt_ecalBadCalibFilterUpdate_branch = 0;
+  if (tree->GetAlias("filt_ecalBadCalibFilterUpdate") != 0) {
+    filt_ecalBadCalibFilterUpdate_branch = tree->GetBranch(tree->GetAlias("filt_ecalBadCalibFilterUpdate"));
+    if (filt_ecalBadCalibFilterUpdate_branch) { filt_ecalBadCalibFilterUpdate_branch->SetAddress(&filt_ecalBadCalibFilterUpdate_); }
+  }
   evt_filt_eff_branch = 0;
   if (tree->GetAlias("evt_filt_eff") != 0) {
     evt_filt_eff_branch = tree->GetBranch(tree->GetAlias("evt_filt_eff"));
@@ -7964,6 +7975,7 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_simType_isLoaded = false;
   mus_simExtType_isLoaded = false;
   els_VIDFall17NoIsoMvaValue_isLoaded = false;
+  els_VIDFall17V2NoIsoMvaValue_isLoaded = false;
   mus_miniRelIso_chg_isLoaded = false;
   mus_miniRelIso_all_isLoaded = false;
   els_miniRelIso_chg_isLoaded = false;
@@ -8803,6 +8815,7 @@ void CMS3::GetEntry(unsigned int idx) {
   filt_trkPOG_toomanystripclus53X_isLoaded = false;
   filt_eeBadSc_isLoaded = false;
   filt_ecalBadCalibFilter_isLoaded = false;
+  filt_ecalBadCalibFilterUpdate_isLoaded = false;
   evt_filt_eff_isLoaded = false;
   convs_nHitsBeforeVtx_isLoaded = false;
   evt_pfmet_TauEnUp_isLoaded = false;
@@ -9460,6 +9473,7 @@ void CMS3::LoadAllBranches() {
   if (mus_simType_branch != 0) mus_simType();
   if (mus_simExtType_branch != 0) mus_simExtType();
   if (els_VIDFall17NoIsoMvaValue_branch != 0) els_VIDFall17NoIsoMvaValue();
+  if (els_VIDFall17V2NoIsoMvaValue_branch != 0) els_VIDFall17V2NoIsoMvaValue();
   if (mus_miniRelIso_chg_branch != 0) mus_miniRelIso_chg();
   if (mus_miniRelIso_all_branch != 0) mus_miniRelIso_all();
   if (els_miniRelIso_chg_branch != 0) els_miniRelIso_chg();
@@ -10254,6 +10268,7 @@ void CMS3::LoadAllBranches() {
   if (filt_trkPOG_toomanystripclus53X_branch != 0) filt_trkPOG_toomanystripclus53X();
   if (filt_eeBadSc_branch != 0) filt_eeBadSc();
   if (filt_ecalBadCalibFilter_branch != 0) filt_ecalBadCalibFilter();
+  if (filt_ecalBadCalibFilterUpdate_branch != 0) filt_ecalBadCalibFilterUpdate();
   if (evt_filt_eff_branch != 0) evt_filt_eff();
   if (convs_nHitsBeforeVtx_branch != 0) convs_nHitsBeforeVtx();
   if (evt_pfmet_TauEnUp_branch != 0) evt_pfmet_TauEnUp();
@@ -16114,6 +16129,19 @@ const vector<int> &CMS3::mus_jetNDauChargedMVASel() {
   return mus_jetNDauChargedMVASel_;
 }
 
+
+const vector<float> &CMS3::els_VIDFall17V2NoIsoMvaValue() {
+  if (not els_VIDFall17V2NoIsoMvaValue_isLoaded) {
+    if (els_VIDFall17V2NoIsoMvaValue_branch != 0) {
+      els_VIDFall17V2NoIsoMvaValue_branch->GetEntry(index);
+    } else {
+      printf("branch els_VIDFall17V2NoIsoMvaValue_branch does not exist!\n");
+      exit(1);
+    }
+    els_VIDFall17V2NoIsoMvaValue_isLoaded = true;
+  }
+  return els_VIDFall17V2NoIsoMvaValue_;
+}
 const vector<float> &CMS3::els_VIDFall17NoIsoMvaValue() {
   if (not els_VIDFall17NoIsoMvaValue_isLoaded) {
     if (els_VIDFall17NoIsoMvaValue_branch != 0) {
@@ -26591,6 +26619,19 @@ const bool &CMS3::filt_ecalBadCalibFilter() {
   }
   return filt_ecalBadCalibFilter_;
 }
+const bool &CMS3::filt_ecalBadCalibFilterUpdate() {
+  if (not filt_ecalBadCalibFilterUpdate_isLoaded) {
+    if (filt_ecalBadCalibFilterUpdate_branch != 0) {
+      if (filt_ecalBadCalibFilterUpdate_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch filt_ecalBadCalibFilterUpdate_branch does not exist!\n");
+      exit(1);
+    }
+    filt_ecalBadCalibFilterUpdate_isLoaded = true;
+  }
+  return filt_ecalBadCalibFilterUpdate_;
+}
 const float &CMS3::evt_filt_eff() {
   if (not evt_filt_eff_isLoaded) {
     if (evt_filt_eff_branch != 0) {
@@ -30551,6 +30592,7 @@ namespace tas {
   const vector<int> &mus_simType() { return cms3.mus_simType(); }
   const vector<int> &mus_simExtType() { return cms3.mus_simExtType(); }
   const vector<float> &els_VIDFall17NoIsoMvaValue() { return cms3.els_VIDFall17NoIsoMvaValue(); }
+  const vector<float> &els_VIDFall17V2NoIsoMvaValue() { return cms3.els_VIDFall17V2NoIsoMvaValue(); }
   const vector<float> &mus_miniRelIso_chg() { return cms3.mus_miniRelIso_chg(); }
   const vector<float> &mus_miniRelIso_all() { return cms3.mus_miniRelIso_all(); }
   const vector<float> &els_miniRelIso_chg() { return cms3.els_miniRelIso_chg(); }
@@ -31345,6 +31387,7 @@ namespace tas {
   const bool &filt_trkPOG_toomanystripclus53X() { return cms3.filt_trkPOG_toomanystripclus53X(); }
   const bool &filt_eeBadSc() { return cms3.filt_eeBadSc(); }
   const bool &filt_ecalBadCalibFilter() { return cms3.filt_ecalBadCalibFilter(); }
+  const bool &filt_ecalBadCalibFilterUpdate() { return cms3.filt_ecalBadCalibFilterUpdate(); }
   const float &evt_filt_eff() { return cms3.evt_filt_eff(); }
   const vector<vector<int> > &convs_nHitsBeforeVtx() { return cms3.convs_nHitsBeforeVtx(); }
   const float &evt_pfmet_TauEnUp() { return cms3.evt_pfmet_TauEnUp(); }

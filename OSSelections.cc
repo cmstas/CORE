@@ -48,7 +48,6 @@ bool overlapElectron_ZMET_v1( int index , float ptcut ){
 bool passElectronSelection_ZMET(int index){
 
   int year = gconf.year;
-  cout<<"year = "<<year<<endl;
   if(year == 2016)
     return passElectronSelection_ZMET_v6( index, true, true );
   else if(year == 2017)
@@ -235,7 +234,7 @@ bool passElectronSelection_ZMET_thirdlepton_v2(int index, bool vetoTransition, b
 //~-~-~-~-~-~-~-~//
 bool passMuonSelection_ZMET(int index){
 
-    int year = gconf.year;
+  int year = gconf.year;
   if(year == 2016)
     return passMuonSelection_ZMET_v5( index, true, true );
   else if(year == 2017)

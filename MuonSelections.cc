@@ -207,7 +207,11 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
       if (fabs(mus_p4().at(muIdx).eta()) > 2.4) return false;
       if (fabs(mus_dxyPV().at(muIdx)) > 0.05) return false;
       if (fabs(mus_dzPV().at(muIdx)) > 0.1) return false;
-      return isLooseMuonPOG(muIdx);
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdLoose, muIdx)    ) return false;
+      } else {
+        if (!isLooseMuonPOG(muIdx)                          ) return false;
+      }
       break;
 
     case(SS_veto_v6):
@@ -219,7 +223,11 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
     case(SS_veto_noiso_noip_v6):
       if (fabs(mus_p4().at(muIdx).eta()) > 2.4) return false;
       //if (fabs(mus_dzPV().at(muIdx)) > 0.1) return false;
-      return isLooseMuonPOG(muIdx);
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdLoose, muIdx)    ) return false;
+      } else {
+        if (!isLooseMuonPOG(muIdx)                          ) return false;
+      }
       break;
 
    ///////////////////
@@ -450,14 +458,22 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
       if (fabs(mus_ip3d().at(muIdx))/mus_ip3derr().at(muIdx) >= 4) return false;
       if (fabs(mus_dzPV().at(muIdx)) > 0.1) return false;
       if (mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt() >= 0.2) return false;
-      return isMediumMuonPOG(muIdx);
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdMedium, muIdx)   ) return false;
+      } else {
+        if (!isMediumMuonPOG(muIdx)                         ) return false;
+      }
       break;
 
     case(SS_fo_noiso_noip_v6):
       if (!muonID(muIdx, SS_veto_noiso_noip_v6)) return false;
       if (fabs(mus_dzPV().at(muIdx)) > 0.1) return false;
       if (mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt() >= 0.2) return false;
-      return isMediumMuonPOG(muIdx);
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdMedium, muIdx)   ) return false;
+      } else {
+        if (!isMediumMuonPOG(muIdx)                         ) return false;
+      }
       break;
 
    case(SS_fo_v6):
@@ -629,7 +645,11 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
       if (fabs(mus_ip3d().at(muIdx))/mus_ip3derr().at(muIdx) >= 4) return false;
       if (fabs(mus_dzPV().at(muIdx)) > 0.1) return false;
       if (mus_ptErr().at(muIdx)/mus_trk_p4().at(muIdx).pt() >= 0.2) return false;
-      return isMediumMuonPOG(muIdx);
+      if (gconf.cmssw_ver >= 94) {
+        if (!passesMuonPOG(muID::CutBasedIdMedium, muIdx)   ) return false;
+      } else {
+        if (!isMediumMuonPOG(muIdx)                         ) return false;
+      }
       break;
 
    case(SS_tight_v6):

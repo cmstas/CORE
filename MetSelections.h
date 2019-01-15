@@ -38,6 +38,7 @@ bool passesMETfilterv2();
 bool passesMETfilters2016(bool isData, bool ignoreChargedCandFilter=false, bool ignoreBadMuonFilter=false);
 bool passesMETfilters2017(bool isData);
 bool passesMETfiltersMoriond17(bool isData);
+bool passesMETfiltersRun2(bool isData);
 pair <float, float> getT1CHSMET3p0( FactorizedJetCorrector * jet_corrector );
 
 [[deprecated("This function may not be correct in cms4 (needs all PFCands)!")]]

@@ -169,6 +169,36 @@ bool photonID(unsigned int phIdx, id_level_t id_level){
 	else return true;
 	break;
 
+  case(STOP_loose_v4):
+    if( gconf.year == 2016 ){
+      if( !isLoosePhotonPOG_Spring16( phIdx ) ) return false;
+    }
+    else if( gconf.year >= 2017 ){
+      if( !isLoosePhotonPOG_Fall17V2( phIdx ) ) return false;
+    }
+    return true;
+    break;
+
+  case(STOP_medium_v4):
+    if( gconf.year == 2016 ){
+      if( !isMediumPhotonPOG_Spring16( phIdx ) ) return false;
+    }
+    else if( gconf.year >= 2017 ){
+      if( !isMediumPhotonPOG_Fall17V2( phIdx ) ) return false;
+    }
+    return true;
+    break;
+
+  case(STOP_tight_v4):
+    if( gconf.year == 2016 ){
+      if( !isTightPhotonPOG_Spring16( phIdx ) ) return false;
+    }
+    else if( gconf.year >= 2017 ){
+      if( !isTightPhotonPOG_Fall17V2( phIdx ) ) return false;
+    }
+    return true;
+    break;
+
 	///////////////
 	/// Default ///
 	///////////////
@@ -180,6 +210,187 @@ bool photonID(unsigned int phIdx, id_level_t id_level){
 	}
 
   }//switch
+  return true;
+}
+
+// Spring 16 ID for 2016 data/MC
+// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_2016_data_for
+// https://indico.cern.ch/event/491548/contributions/2384977/attachments/1377936/2117789/CutBasedPhotonID_25-11-2016.pdf
+bool isLoosePhotonPOG_Spring16( int photonIdx )
+{
+  float pt  = cms3.photons_p4().at(photonIdx).pt();
+  float eta = cms3.photons_p4().at(photonIdx).eta();
+
+  float hovere = cms3.photons_full5x5_hOverE()       .at(photonIdx);
+  float sieie  = cms3.photons_full5x5_sigmaIEtaIEta().at(photonIdx);
+  
+  float chiso = photonCHIso03EA(photonIdx, 3);
+  float nhiso = photonNHIso03EA(photonIdx, 3);
+  float emiso = photonEMIso03EA(photonIdx, 3);
+
+  if(       fabs(eta) < 1.479 ){
+    if( hovere > 0.0597                              ) return false;
+    if( sieie  > 0.01031                             ) return false;
+    if( chiso  > 1.295                               ) return false;
+    if( nhiso  > 10.910 + 0.0148*pt + 0.000017*pt*pt ) return false;
+    if( emiso  > 3.630 + 0.0047*pt                   ) return false;
+  }else if( fabs(eta) > 1.479 ){
+    if( hovere > 0.0481                              ) return false;
+    if( sieie  > 0.03013                             ) return false;
+    if( chiso  > 1.011                               ) return false;
+    if( nhiso  > 5.931 + 0.0163*pt + 0.000014*pt*pt  ) return false;
+    if( emiso  > 6.641 + 0.0034*pt                   ) return false;
+  }
+  
+  return true;
+}
+
+bool isMediumPhotonPOG_Spring16( int photonIdx )
+{
+  float pt  = cms3.photons_p4().at(photonIdx).pt();
+  float eta = cms3.photons_p4().at(photonIdx).eta();
+
+  float hovere = cms3.photons_full5x5_hOverE()       .at(photonIdx);
+  float sieie  = cms3.photons_full5x5_sigmaIEtaIEta().at(photonIdx);
+  
+  float chiso = photonCHIso03EA(photonIdx, 3);
+  float nhiso = photonNHIso03EA(photonIdx, 3);
+  float emiso = photonEMIso03EA(photonIdx, 3);
+
+  if(       fabs(eta) < 1.479 ){
+    if( hovere > 0.0396                              ) return false;
+    if( sieie  > 0.01022                             ) return false;
+    if( chiso  > 0.441                               ) return false;
+    if( nhiso  > 2.725 + 0.0148*pt + 0.000017*pt*pt  ) return false;
+    if( emiso  > 2.571 + 0.0047*pt                   ) return false;
+  }else if( fabs(eta) > 1.479 ){
+    if( hovere > 0.0219                              ) return false;
+    if( sieie  > 0.03001                             ) return false;
+    if( chiso  > 0.442                               ) return false;
+    if( nhiso  > 1.715 + 0.0163*pt + 0.000014*pt*pt  ) return false;
+    if( emiso  > 3.863 + 0.0034*pt                   ) return false;
+  }
+  
+  return true;
+}
+
+bool isTightPhotonPOG_Spring16( int photonIdx )
+{
+  float pt  = cms3.photons_p4().at(photonIdx).pt();
+  float eta = cms3.photons_p4().at(photonIdx).eta();
+
+  float hovere = cms3.photons_full5x5_hOverE()       .at(photonIdx);
+  float sieie  = cms3.photons_full5x5_sigmaIEtaIEta().at(photonIdx);
+  
+  float chiso = photonCHIso03EA(photonIdx, 3);
+  float nhiso = photonNHIso03EA(photonIdx, 3);
+  float emiso = photonEMIso03EA(photonIdx, 3);
+
+  if(       fabs(eta) < 1.479 ){
+    if( hovere > 0.0269                              ) return false;
+    if( sieie  > 0.00994                             ) return false;
+    if( chiso  > 0.202                               ) return false;
+    if( nhiso  > 0.264 + 0.0148*pt + 0.000017*pt*pt  ) return false;
+    if( emiso  > 2.362 + 0.0047*pt                   ) return false;
+  }else if( fabs(eta) > 1.479 ){
+    if( hovere > 0.0213                              ) return false;
+    if( sieie  > 0.03000                             ) return false;
+    if( chiso  > 0.034                               ) return false;
+    if( nhiso  > 0.586 + 0.0163*pt + 0.000014*pt*pt  ) return false;
+    if( emiso  > 2.617 + 0.0034*pt                   ) return false;
+  }
+  
+  return true;
+}
+
+// Fall17 V2 ID for 2017+2018 data/MC
+// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_94X_and_later
+bool isLoosePhotonPOG_Fall17V2( int photonIdx )
+{
+  float pt  = cms3.photons_p4().at(photonIdx).pt();
+  float eta = cms3.photons_p4().at(photonIdx).eta();
+
+  float hovere = cms3.photons_full5x5_hOverE()       .at(photonIdx);
+  float sieie  = cms3.photons_full5x5_sigmaIEtaIEta().at(photonIdx);
+  
+  float chiso = photonCHIso03EA(photonIdx, 4);
+  float nhiso = photonNHIso03EA(photonIdx, 4);
+  float emiso = photonEMIso03EA(photonIdx, 4);
+
+  if(       fabs(eta) < 1.479 ){
+    if( hovere > 0.04596                               ) return false;
+    if( sieie  > 0.0106                                ) return false;
+    if( chiso  > 1.694                                 ) return false;
+    if( nhiso  > 24.032 + 0.01512*pt + 2.259e-05*pt*pt ) return false;
+    if( emiso  > 2.876 + 0.004017*pt                   ) return false;
+  }else if( fabs(eta) > 1.479 ){
+    if( hovere > 0.0590                                ) return false;
+    if( sieie  > 0.0272                                ) return false;
+    if( chiso  > 2.089                                 ) return false;
+    if( nhiso  > 19.722 + 0.0117*pt + 2.3e-05*pt*pt    ) return false;
+    if( emiso  > 4.162 + 0.0037*pt                     ) return false;
+  }
+  
+  return true;
+}
+
+// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_94X_and_later
+bool isMediumPhotonPOG_Fall17V2( int photonIdx )
+{
+  float pt  = cms3.photons_p4().at(photonIdx).pt();
+  float eta = cms3.photons_p4().at(photonIdx).eta();
+
+  float hovere = cms3.photons_full5x5_hOverE()       .at(photonIdx);
+  float sieie  = cms3.photons_full5x5_sigmaIEtaIEta().at(photonIdx);
+  
+  float chiso = photonCHIso03EA(photonIdx, 4);
+  float nhiso = photonNHIso03EA(photonIdx, 4);
+  float emiso = photonEMIso03EA(photonIdx, 4);
+
+  if(       fabs(eta) < 1.479 ){
+    if( hovere > 0.02197                               ) return false;
+    if( sieie  > 0.01015                               ) return false;
+    if( chiso  > 1.141                                 ) return false;
+    if( nhiso  > 1.189 + 0.01512*pt + 2.259e-05*pt*pt  ) return false;
+    if( emiso  > 2.08 + 0.004017*pt                    ) return false;
+  }else if( fabs(eta) > 1.479 ){
+    if( hovere > 0.0326                                ) return false;
+    if( sieie  > 0.0272                                ) return false;
+    if( chiso  > 1.051                                 ) return false;
+    if( nhiso  > 2.718 + 0.0117*pt + 2.3e-05*pt*pt     ) return false;
+    if( emiso  > 3.867 + 0.0037*pt                     ) return false;
+  }
+  
+  return true;
+}
+
+// https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentificationRun2#Working_points_for_94X_and_later
+bool isTightPhotonPOG_Fall17V2( int photonIdx )
+{
+  float pt  = cms3.photons_p4().at(photonIdx).pt();
+  float eta = cms3.photons_p4().at(photonIdx).eta();
+
+  float hovere = cms3.photons_full5x5_hOverE()       .at(photonIdx);
+  float sieie  = cms3.photons_full5x5_sigmaIEtaIEta().at(photonIdx);
+  
+  float chiso = photonCHIso03EA(photonIdx, 4);
+  float nhiso = photonNHIso03EA(photonIdx, 4);
+  float emiso = photonEMIso03EA(photonIdx, 4);
+
+  if(       fabs(eta) < 1.479 ){
+    if( hovere > 0.02148                               ) return false;
+    if( sieie  > 0.00996                               ) return false;
+    if( chiso  > 0.65                                  ) return false;
+    if( nhiso  > 0.317 + 0.01512*pt + 2.259e-05*pt*pt  ) return false;
+    if( emiso  > 2.044 + 0.004017*pt                   ) return false;
+  }else if( fabs(eta) > 1.479 ){
+    if( hovere > 0.0321                                ) return false;
+    if( sieie  > 0.0271                                ) return false;
+    if( chiso  > 0.517                                 ) return false;
+    if( nhiso  > 2.716 + 0.0117*pt + 2.3e-05*pt*pt     ) return false;
+    if( emiso  > 3.032 + 0.0037*pt                     ) return false;
+  }
+  
   return true;
 }
 
