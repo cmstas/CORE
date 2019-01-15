@@ -483,14 +483,14 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
    ////////////////////
 
     case(HAD_veto_noiso_v5):
-        if (gconf.year == 2016){
+        if (gconf.year == 2015){
             if (!isVetoElectronPOGspring15noIso_v1(elIdx)) return false;
             // if (!isVetoElectronPOGspring16noIso_v1(elIdx)) return false;
             // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.05) return false;
             // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.10) return false;
             // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.10) return false;
             // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.20) return false;
-        }else if(gconf.year == 2017 || gconf.year == 2018){
+        }else if(gconf.year == 2016 || gconf.year == 2017 || gconf.year == 2018){
             if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false;
             if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
             if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
