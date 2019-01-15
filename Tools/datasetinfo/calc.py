@@ -54,6 +54,7 @@ if __name__ == "__main__":
     # sampledirs += glob.glob("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/*CMS4_V00-00-02_2017Sep27*/")
     # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_cms4/*/")
     sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-05/")
+    sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-04/")
     # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-04/")
 
     # print get_line("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2_MINIAODSIM_CMS4_V00-00-02_2017Sep27/metadata.json")
