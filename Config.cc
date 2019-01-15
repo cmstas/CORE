@@ -128,19 +128,19 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   else if (year == 2018) {
     // everything to be updated
     ea_version = 4;
-    btag_disc_wp = 0.4941;
+    btag_disc_wp = 0.4184;
     jecEraA = jecEraB = jecEraC = jecEraD = "Fall17_17Nov2017F_V32_DATA"; // to be updated
     jecEraMC = "Fall17_17Nov2017_V32_MC"; // to be updated
 
     // B-tag working points
-    // Use the 2017 94X values for now
-    WP_DEEPCSV_TIGHT  = 0.8001;
-    WP_DEEPCSV_MEDIUM = 0.4941;
-    WP_DEEPCSV_LOOSE  = 0.1522;
+    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
+    WP_DEEPCSV_TIGHT  = 0.7527;
+    WP_DEEPCSV_MEDIUM = 0.4184;
+    WP_DEEPCSV_LOOSE  = 0.1241;
     fn_btagSF_DeepCSV = "DeepCSV_94XSF_V3_B_F.csv";
     fn_btagSF_FS_DeepCSV = "fastsim_deepcsv_ttbar_26_1_2017.csv"; // to be updated
 
-    WP_CSVv2_TIGHT  = 0.9693;
+    WP_CSVv2_TIGHT  = 0.9693; // FIXME I believe CSVv2 is no longer supported for 2018
     WP_CSVv2_MEDIUM = 0.8838;
     WP_CSVv2_LOOSE  = 0.5803;
     fn_btagSF_CSVv2 = "CSVv2_94XSF_V2_B_F.csv";
