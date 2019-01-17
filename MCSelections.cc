@@ -376,25 +376,25 @@ bool terminateMotherId(int motherId){
 //________________________________________________________________
 // top pt reweighting from the TOP PAG
 //  https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopPtReweighting
-//  using the 8 TeV "All Combined" weights
+//  using the 13 TeV "All Combined" weights
 float topPtWeight(float pt_top, float pt_tbar) {
   if (pt_top < 0. || pt_tbar < 0.) return 1.;
-  float weight_top = exp(0.156 - 0.00137 * pt_top);
-  float weight_tbar = exp(0.156 - 0.00137 * pt_tbar);
+  float weight_top  = exp(0.0615 - 0.0005 * pt_top );
+  float weight_tbar = exp(0.0615 - 0.0005 * pt_tbar);
   return sqrt( weight_top * weight_tbar );
 }
 
 //________________________________________________________________
 // top pt reweighting from the TOP PAG
 //  https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopPtReweighting
-//  using the 8 TeV "All Combined" weights
+//  using the 13 TeV "All Combined" weights
 //  adding the recommendation to cutoff the reweighting at pt of 400
 float topPtWeight_cutoff(float pt_top, float pt_tbar) {
   if (pt_top < 0. || pt_tbar < 0.) return 1.;
-  float pt_top_cutoff = std::min(pt_top, float(400.));
+  float pt_top_cutoff  = std::min(pt_top,  float(400.));
   float pt_tbar_cutoff = std::min(pt_tbar, float(400.));
-  float weight_top = exp(0.156 - 0.00137 * pt_top_cutoff);
-  float weight_tbar = exp(0.156 - 0.00137 * pt_tbar_cutoff);
+  float weight_top  = exp(0.0615 - 0.0005 * pt_top_cutoff);
+  float weight_tbar = exp(0.0615 - 0.0005 * pt_tbar_cutoff);
   return sqrt( weight_top * weight_tbar );
 }
 
