@@ -22,7 +22,7 @@ const static float bjetMinPt = 25.;
 float ptCutLowAG(int id);
 
 //Enums
-enum anal_type_t { HighHigh = 0, HighLow = 1, LowLow = 2, Undefined = -1 };
+enum anal_type_t { cHighHigh = 0, cHighLow = 1, cLowLow = 2, cUndefined = -1 };
 enum hyp_type_t { EE, MM, EM, UNASSIGNED }; 
 enum est_type_t { MCSS, FLIPMC, SFAKEMC, DFAKEMC, FLIPDD, SFAKEDD, DFAKEDD, ALLMC }; 
 //fixme: put WF and FSR in different categories
