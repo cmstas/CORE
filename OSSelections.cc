@@ -520,3 +520,53 @@ float mbb_highest_csv(vector <LorentzVector> jets_p4, vector<float> jets_csv){
   }
   return mbb;
 }
+
+
+//JET SELECTIONS
+bool passJetSelection_ZMET(int iJet)
+{
+    if(gconf.year == 2016)
+        return isLoosePFJet_Summer16_v1(iJet);
+    else if(gconf.year == 2017)
+        return isTightPFJet2017_v1(iJet);
+    else if(gconf.year == 2018)
+        return false; //Not out yet!
+}
+
+//B-TAG SELECTIONS
+bool passBTagWP_ZMET(int iJet, int bTagIndex, int WP)
+{
+    /*
+    * bTagIndex - 1 for DeepCSV, more will be added later if required
+    * WP - 0 for loose, 1 for medium, 2 for tight
+    */    
+
+    float looseWP = 0.0, mediumWP = 0.0, tightWP = 0.0;
+    
+    if(gconf.year == 2016)
+    {
+        if(bTagIndex == 1)
+        {
+               
+        }
+        else if(bTagIndex == 2)
+        {
+
+        }
+    }
+    else if(gconf.year == 2017)
+    {
+        if(bTagIndex == 1)
+        {
+            looseWP = 0.1522;
+            mediumWP = 0.4941;
+            tightWP = 0.8001;
+        }
+    }
+    else if(gconf.year == 2018)
+    {
+        //not released yet
+    }
+    
+}
+
