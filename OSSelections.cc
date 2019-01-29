@@ -4,6 +4,7 @@
 #include "MuonSelections.h"
 #include "ElectronSelections.h"
 #include "PhotonSelections.h"
+#include "JetSelections.h"
 
 #include "Math/VectorUtil.h"
 
@@ -528,9 +529,10 @@ bool passJetSelection_ZMET(int iJet)
     if(gconf.year == 2016)
         return isLoosePFJet_Summer16_v1(iJet);
     else if(gconf.year == 2017)
-        return isTightPFJet2017_v1(iJet);
+        return isTightPFJet_2017_v1(iJet);
     else if(gconf.year == 2018)
         return false; //Not out yet!
+    return false;
 }
 
 //B-TAG SELECTIONS
@@ -567,6 +569,9 @@ bool passBTagWP_ZMET(int iJet, int bTagIndex, int WP)
     {
         //not released yet
     }
+
+
+    return false;
     
 }
 
