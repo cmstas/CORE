@@ -215,7 +215,7 @@ bool pass_SS_jetID(int ijet, bool isFastsim) {
         if (!isFastsim && !isTightPFJet_2017_v1(ijet)) return false;
     }
     else if (gconf.year == 2018) {
-        if (!isFastsim && !isTightPFJet_2017_v1(ijet)) return false;
+        if (!isFastsim && !isTightPFJet_2018_v1(ijet)) return false;
     }
     return true;
 }

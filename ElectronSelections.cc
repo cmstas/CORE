@@ -827,19 +827,19 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_fo_v5):
       if (electronID(elIdx, SS_fo_noiso_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_v5):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v5):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -866,7 +866,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       
     case(SS_fo_v6):
       if (electronID(elIdx, SS_fo_noiso_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -888,13 +888,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_fo_looseMVA_v6):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v6):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -956,13 +956,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_fo_looseMVA_v7):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_v7)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v7):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v7)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
