@@ -827,19 +827,19 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_fo_v5):
       if (electronID(elIdx, SS_fo_noiso_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_v5):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v5):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v5)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -866,7 +866,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       
     case(SS_fo_v6):
       if (electronID(elIdx, SS_fo_noiso_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -888,13 +888,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_fo_looseMVA_v6):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v6):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v6)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -956,13 +956,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_fo_looseMVA_v7):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_v7)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v7):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v7)==0) return false; 
-      if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
@@ -1146,24 +1146,32 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return true;
       break;
 
-//   ////////////////////
-//   /// HAD loose v5 (80X cut-based ID: never actually adopted)////
-//   ////////////////////
-//      
-//      // use Spring15 POG loose ID
-//    case(HAD_loose_noiso_v5):
-//      if (!isLooseElectronPOGspring16noIso_v1(elIdx)) return false;
-//      if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.05) return false;// abs(d0)       //TightIP2D                          
-//      if (fabs(els_dzPV()             .at(elIdx))                       >= 0.10) return false;// abs(dz)  
-//      return true;
-//      break;
-//      
-//      // updated EA values
-//    case(HAD_loose_v5):
-//      if (electronID(elIdx, HAD_loose_noiso_v5)==0) return false;
-//      if (elMiniRelIsoCMS3_EA(elIdx,2) > 0.1) return false; 
-//      return true;
-//      break;
+
+    // use Fall17v2 POG loose ID
+    case(HAD_loose_noiso_v5):
+        if (gconf.year == 2015){
+            if (!isLooseElectronPOGspring15noIso_v1(elIdx)) return false;
+            // if (!isVetoElectronPOGspring16noIso_v1(elIdx)) return false;
+            // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.05) return false;
+            // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.10) return false;
+            // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.10) return false;
+            // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.20) return false;
+        }else if(gconf.year == 2016 || gconf.year == 2017 || gconf.year == 2018){
+            if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false;
+            if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
+            if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
+            if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.50) return false;
+            if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.50) return false;
+        }
+        return true;
+        break;
+
+    // updated EA values
+    case(HAD_loose_v5):
+        if (electronID(elIdx, HAD_loose_noiso_v5)==0) return false;
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        return true;
+      break;
 
 
    //////////////////////
@@ -1272,25 +1280,33 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return true;
       break;
 
-//   ////////////////////
-//   /// HAD medium v5 (80X cut-based ID: never actually adopted)////
-//   ////////////////////
-//      
-//      // use Spring15 POG medium ID
-//    case(HAD_medium_noiso_v5):
-//      if (!isMediumElectronPOGspring16noIso_v1(elIdx)) return false;
-//      if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.05) return false;// abs(d0)       //TightIP2D                          
-//      if (fabs(els_dzPV()             .at(elIdx))                       >= 0.10) return false;// abs(dz)  
-//      if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false; // Tight IP3D
-//      return true;
-//      break;
-//      
-//      // updated EA values
-//    case(HAD_medium_v5):
-//      if (electronID(elIdx, HAD_medium_noiso_v5)==0) return false;
-//      if (elMiniRelIsoCMS3_EA(elIdx,2) > 0.1) return false; 
-//      return true;
-//      break;
+
+    // use Fall17v2 POG medium ID
+    case(HAD_medium_noiso_v5):
+        if (gconf.year == 2015){
+            if (!isMediumElectronPOGspring15noIso_v1(elIdx)) return false;
+            // if (!isMediumElectronPOGspring16noIso_v1(elIdx)) return false;
+            // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.05) return false;
+            // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.10) return false;
+            // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.10) return false;
+            // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.20) return false;
+        }else if(gconf.year == 2016 || gconf.year == 2017 || gconf.year == 2018){
+            if (!isMediumElectronPOGfall17noIso_v2(elIdx)) return false;
+            if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
+            if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
+            if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.50) return false;
+            if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.50) return false;
+        }
+        return true;
+        break;
+
+    // updated EA values
+    case(HAD_medium_v5):
+        if (electronID(elIdx, HAD_medium_noiso_v5)==0) return false;
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        return true;
+      break;
+
 
    ////////////////////
    /// SS medium v1 ///
@@ -1760,25 +1776,32 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return true;
       break;
 
-//   ////////////////////
-//   /// HAD tight v5 (80X cut-based ID: never actually adopted)////
-//   ////////////////////
-//      
-//      // use Spring15 POG tight ID
-//    case(HAD_tight_noiso_v5):
-//      if (!isTightElectronPOGspring16noIso_v1(elIdx)) return false;
-//      if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.05) return false;// abs(d0)       //TightIP2D                          
-//      if (fabs(els_dzPV()             .at(elIdx))                       >= 0.10) return false;// abs(dz)  
-//      if (fabs(els_ip3d().at(elIdx))/els_ip3derr().at(elIdx) >= 4) return false; // Tight IP3D
-//      return true;
-//      break;
-//      
-//      // updated EA values
-//    case(HAD_tight_v5):
-//      if (electronID(elIdx, HAD_tight_noiso_v5)==0) return false;
-//      if (elMiniRelIsoCMS3_EA(elIdx,2) > 0.1) return false; 
-//      return true;
-//      break;
+    // use Fall17v2 POG tight ID
+    case(HAD_tight_noiso_v5):
+        if (gconf.year == 2015){
+            if (!isTightElectronPOGspring15noIso_v1(elIdx)) return false;
+            // if (!isTightElectronPOGspring16noIso_v1(elIdx)) return false;
+            // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.05) return false;
+            // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.10) return false;
+            // if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.10) return false;
+            // if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.20) return false;
+        }else if(gconf.year == 2016 || gconf.year == 2017 || gconf.year == 2018){
+            if (!isTightElectronPOGfall17noIso_v2(elIdx)) return false;
+            if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
+            if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dxyPV().at(elIdx) >= 0.20) return false;
+            if (fabs(els_etaSC().at(elIdx))<=1.479 && els_dzPV().at(elIdx) >= 0.50) return false;
+            if (fabs(els_etaSC().at(elIdx))> 1.479 && els_dzPV().at(elIdx) >= 0.50) return false;
+        }
+        return true;
+        break;
+
+    // updated EA values
+    case(HAD_tight_v5):
+        if (electronID(elIdx, HAD_tight_noiso_v5)==0) return false;
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        return true;
+      break;
+
 
 	//////////////////////
 	/// ZMET MVA id v1 ///
@@ -3524,6 +3547,12 @@ int eleTightID(unsigned int elIdx, analysis_t analysis, int version){
         if (electronID(elIdx, HAD_medium_v4)) return 2;
         if (electronID(elIdx, HAD_loose_v4)) return 1;
         if (electronID(elIdx, HAD_veto_v4)) return 0;
+      }
+      if (version == 5){
+        if (electronID(elIdx, HAD_tight_v5)) return 3;
+        if (electronID(elIdx, HAD_medium_v5)) return 2;
+        if (electronID(elIdx, HAD_loose_v5)) return 1;
+        if (electronID(elIdx, HAD_veto_v5)) return 0;
       }
       break;
     case (STOP):

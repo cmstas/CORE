@@ -215,7 +215,7 @@ bool pass_SS_jetID(int ijet, bool isFastsim) {
         if (!isFastsim && !isTightPFJet_2017_v1(ijet)) return false;
     }
     else if (gconf.year == 2018) {
-        if (!isFastsim && !isTightPFJet_2017_v1(ijet)) return false;
+        if (!isFastsim && !isTightPFJet_2018_v1(ijet)) return false;
     }
     return true;
 }
@@ -418,11 +418,11 @@ bool hypsFromFirstGoodVertex(size_t hypIdx, float dz_cut){
 }
 
 anal_type_t analysisCategory(int id1, int id2, float lep1pt, float lep2pt){
-  if      (lep1pt > ptCutHigh     && lep2pt > ptCutHigh)      return HighHigh;
-  else if (lep1pt > ptCutHigh     && lep2pt > ptCutLowAG(id2))  return HighLow;
-  else if (lep2pt > ptCutHigh     && lep1pt > ptCutLowAG(id1))  return HighLow;
-  else if (lep1pt > ptCutLowAG(id1) && lep2pt > ptCutLowAG(id2))  return LowLow;
-  return Undefined;
+  if      (lep1pt > ptCutHigh     && lep2pt > ptCutHigh)      return cHighHigh;
+  else if (lep1pt > ptCutHigh     && lep2pt > ptCutLowAG(id2))  return cHighLow;
+  else if (lep2pt > ptCutHigh     && lep1pt > ptCutLowAG(id1))  return cHighLow;
+  else if (lep1pt > ptCutLowAG(id1) && lep2pt > ptCutLowAG(id2))  return cLowLow;
+  return cUndefined;
 }
 
 int baselineRegion(int njets, int nbtags, float met, float ht, int id1, int id2, float lep1_pt, float lep2_pt, bool useNewBaseline){
@@ -463,11 +463,11 @@ int signalRegion2016(int njets, int nbtags, float met, float ht, float mt_min, i
   //Reject events out of kinematic acceptance
   if (met < 50) return -1; 
   if (njets < 2) return -1; 
-  if (lep_pt != LowLow && met > 500 && ht < 300) return -1; 
-  if (lep_pt != LowLow && njets>=2 && met>300 && ht<300) return -1;
+  if (lep_pt != cLowLow && met > 500 && ht < 300) return -1; 
+  if (lep_pt != cLowLow && njets>=2 && met>300 && ht<300) return -1;
 
   //High-high
-  if (lep_pt == HighHigh){
+  if (lep_pt == cHighHigh){
     if (met >= 300 && ht >= 300) {
         if(met < 500) return 31-off;
         else return 33-off;
@@ -521,7 +521,7 @@ int signalRegion2016(int njets, int nbtags, float met, float ht, float mt_min, i
   }
   
   //High-Low
-  if (lep_pt == HighLow){
+  if (lep_pt == cHighLow){
     if (met >= 300 && ht >= 300) {
         if(met < 500) return 25-off;
         else return 27-off;
@@ -561,7 +561,7 @@ int signalRegion2016(int njets, int nbtags, float met, float ht, float mt_min, i
   }
 
   //Low-Low
-  if (lep_pt == LowLow){
+  if (lep_pt == cLowLow){
     if (ht < 300) return -1; 
     if (mt_min > 120) return 8; 
     if (nbtags == 0 && met < 200) return 1;
@@ -592,13 +592,13 @@ std::vector<int> signalRegionAggOverlap(int njets, int nbtags, float met, float 
   //Reject events out of kinematic acceptance
   if (met < 50) return srs;
   if (njets < 2) return srs;
-  if (lep_pt != LowLow && met > 500 && ht < 300) return srs;
-  if (lep_pt != LowLow && njets>=2 && met>300 && ht<300) return srs;
+  if (lep_pt != cLowLow && met > 500 && ht < 300) return srs;
+  if (lep_pt != cLowLow && njets>=2 && met>300 && ht<300) return srs;
 
   // based on http://www.t2.ucsd.edu/tastwiki/pub/CMS/20161116AgendaMinutesSnTSS/aggregate_regions_v1.pdf, slide 10
 
   //High-high
-  if (lep_pt == HighHigh){
+  if (lep_pt == cHighHigh){
       if (nbtags == 0 && ht > 1200) srs.push_back(1);
       if (nbtags >= 2 && ht > 1100) srs.push_back(2);
       if (nbtags == 0 && met > 450) srs.push_back(3);
@@ -613,12 +613,12 @@ std::vector<int> signalRegionAggOverlap(int njets, int nbtags, float met, float 
   }
   
   //High-Low
-  if (lep_pt == HighLow){
+  if (lep_pt == cHighLow){
       // do nothing with HL
   }
 
   //Low-Low
-  if (lep_pt == LowLow){
+  if (lep_pt == cLowLow){
       if (ht > 700) srs.push_back(12);
       if (met > 200) srs.push_back(13);
       if (njets >= 5) srs.push_back(14);
@@ -639,11 +639,11 @@ int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt
   //Reject events out of kinematic acceptance
   if (met < 50) return -1; 
   if (njets < 2) return -1; 
-  if (lep_pt != LowLow && met > 500 && ht < 300) return -1; 
-  if (lep_pt != LowLow && njets>=2 && met>300 && ht<300) return -1;
+  if (lep_pt != cLowLow && met > 500 && ht < 300) return -1; 
+  if (lep_pt != cLowLow && njets>=2 && met>300 && ht<300) return -1;
 
   //High-high
-  if (lep_pt == HighHigh){
+  if (lep_pt == cHighHigh){
     if (met >= 300 && ht >= 300) {
         if(met < 500) return 42+mm;
         else return 44+mm;
@@ -698,7 +698,7 @@ int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt
   }
   
   //High-Low
-  if (lep_pt == HighLow){
+  if (lep_pt == cHighLow){
     if (met >= 300 && ht >= 300) {
         if(met < 500) return 34+mm;
         else return 36+mm;
@@ -738,7 +738,7 @@ int signalRegionChargeSplit(int njets, int nbtags, float met, float ht, float mt
   }
 
   //Low-Low
-  if (lep_pt == LowLow){
+  if (lep_pt == cLowLow){
     if (ht < 300) return -1; 
     if (mt_min > 120) return 8; 
     if (nbtags == 0 && met < 200) return 1;
@@ -766,11 +766,11 @@ int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int i
   //Reject events out of kinematic acceptance
   if (met < 50) return -1; 
   if (njets < 2) return -1; 
-  if (lep_pt != LowLow && met > 500 && ht < 300) return -1; 
-  if (lep_pt != LowLow && njets>=2 && met>300 && ht<300) return -1;
+  if (lep_pt != cLowLow && met > 500 && ht < 300) return -1; 
+  if (lep_pt != cLowLow && njets>=2 && met>300 && ht<300) return -1;
 
   //High-high
-  if (lep_pt == HighHigh){
+  if (lep_pt == cHighHigh){
     if (met >= 300 && ht >= 300) return 31;
     if (ht >= 1125) return 32; 
     if (ht < 300){
@@ -818,7 +818,7 @@ int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int i
   }
   
   //High-Low
-  if (lep_pt == HighLow){
+  if (lep_pt == cHighLow){
     if (met >= 300 && ht >= 300) return 25;
     if (ht >= 1125) return 26;
     if (ht < 300){ 
@@ -852,7 +852,7 @@ int signalRegion(int njets, int nbtags, float met, float ht, float mt_min, int i
   }
 
   //Low-Low
-  if (lep_pt == LowLow){
+  if (lep_pt == cLowLow){
     if (ht < 300) return -1; 
     if (mt_min > 120) return 8; 
     if (nbtags == 0 && met < 200) return 1;
