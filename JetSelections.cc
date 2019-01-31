@@ -6,6 +6,40 @@
 
 using namespace tas;
 
+// NOTE Preliminary! This is the JetID version (not JetIDLepVeto)
+// https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2018
+bool isTightPFJet_2018_v1(unsigned int pfJetIdx){
+
+  float pfjet_chf_  = pfjets_chargedHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_nhf_  = pfjets_neutralHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_nef_  = pfjets_neutralEmE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_eta  = fabs(pfjets_p4()[pfJetIdx].eta());
+
+  if (pfjet_eta <= 2.6) {
+      if (pfjet_nhf_ >= 0.90) return false;
+      if (pfjet_nef_ >= 0.90) return false;
+      if (pfjets_npfcands()[pfJetIdx] <= 1) return false;
+      if (pfjet_chf_ <= 1e-6) return false;
+      if (pfjets_chargedMultiplicity()[pfJetIdx] == 0) return false;
+  }
+  else if (pfjet_eta > 2.6 && pfjet_eta <= 2.7){
+      if (pfjet_nhf_ >= 0.90) return false;
+      if (pfjet_nef_ >= 0.99) return false;
+      if (pfjets_chargedMultiplicity()[pfJetIdx] == 0) return false;
+  }
+  else if (pfjet_eta > 2.7 && pfjet_eta <= 3.0){
+      if (pfjet_nef_ <= 0.02 || pfjet_nef_ >= 0.99) return false;
+      if (pfjets_neutralMultiplicity()[pfJetIdx] <=2) return false;
+  }
+  else if (pfjet_eta > 3.0){
+      if (pfjet_nhf_ <= 0.02) return false;
+      if (pfjet_nef_ >= 0.90) return false;
+      if (pfjets_neutralMultiplicity()[pfJetIdx] <= 10) return false;
+  }
+
+  return true;
+}
+
 // recommended jet ID for 94x 2017 analyses
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID13TeVRun2017
 bool isTightPFJet_2017_v1(unsigned int pfJetIdx){

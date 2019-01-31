@@ -49,4 +49,7 @@ bool electronPassesHLTEmulator(int index);
 
 float mbb_highest_csv(std::vector <LorentzVector> jets_p4, std::vector<float> jets_csv);
 
+bool passJetSelection_ZMET(int iJet);
+bool passBTagWP_ZMET(int iJet, int bTagIndex, int WP);
+
 #endif
