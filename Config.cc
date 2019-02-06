@@ -107,6 +107,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     jecEraD = jecEraE = "Fall17_17Nov2017DE_V32_DATA";
     jecEraF = "Fall17_17Nov2017F_V32_DATA";
     jecEraMC = "Fall17_17Nov2017_V32_MC";
+    jecEraFS = jecEraMC;      // to be updated
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation94X
@@ -131,6 +132,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     btag_disc_wp = 0.4184;
     jecEraA = jecEraB = jecEraC = jecEraD = "Fall17_17Nov2017F_V32_DATA"; // to be updated
     jecEraMC = "Fall17_17Nov2017_V32_MC"; // to be updated
+    jecEraFS = jecEraMC;      // to be updated
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
