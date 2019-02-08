@@ -6,6 +6,46 @@
 
 using namespace tas;
 
+// NOTE This is the JetIDLepVeto version for 2018 (See later JetID version that was proposed as an intermediate solution)
+// More info: https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2018
+bool isTightPFJet_2018_v2(unsigned int pfJetIdx){
+
+  float pfjet_chf_  = pfjets_chargedHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_nhf_  = pfjets_neutralHadronE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_nef_  = pfjets_neutralEmE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_cef_  = pfjets_chargedEmE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+  float pfjet_eta  = fabs(pfjets_p4()[pfJetIdx].eta());
+  float pfjet_mf_ = pfjets_muonE()[pfJetIdx] / (pfjets_undoJEC().at(pfJetIdx)*pfjets_p4()[pfJetIdx].energy());
+
+  if (pfjet_eta <= 2.6) {
+      if (pfjet_nhf_ >= 0.90) return false;
+      if (pfjet_nef_ >= 0.90) return false;
+      if (pfjets_npfcands()[pfJetIdx] <= 1) return false;
+      if (pfjet_mf_ >= 0.8) return false;
+      if (pfjet_chf_ <= 1e-6) return false;
+      if (pfjets_chargedMultiplicity()[pfJetIdx] == 0) return false;
+      if (pfjet_cef_ >= 0.8) return false;
+  }
+  else if (pfjet_eta > 2.6 && pfjet_eta <= 2.7){
+      if (pfjet_nhf_ >= 0.90) return false;
+      if (pfjet_nef_ >= 0.99) return false;
+      if (pfjet_mf_ >= 0.8) return false;
+      if (pfjets_chargedMultiplicity()[pfJetIdx] == 0) return false;
+      if (pfjet_cef_ >= 0.8) return false;
+  }
+  else if (pfjet_eta > 2.7 && pfjet_eta <= 3.0){
+      if (pfjet_nef_ <= 0.02 || pfjet_nef_ >= 0.99) return false;
+      if (pfjets_neutralMultiplicity()[pfJetIdx] <=2) return false;
+  }
+  else if (pfjet_eta > 3.0){
+      if (pfjet_nhf_ <= 0.02) return false;
+      if (pfjet_nef_ >= 0.90) return false;
+      if (pfjets_neutralMultiplicity()[pfJetIdx] <= 10) return false;
+  }
+
+  return true;
+}
+
 // NOTE Preliminary! This is the JetID version (not JetIDLepVeto)
 // https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2018
 bool isTightPFJet_2018_v1(unsigned int pfJetIdx){

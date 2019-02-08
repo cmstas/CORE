@@ -6,6 +6,7 @@
 #include "Config.h"
 
 // recommended jet id for 2018 102x analyses
+bool isTightPFJet_2018_v2(unsigned int pfJetIdx);
 bool isTightPFJet_2018_v1(unsigned int pfJetIdx);
 
 // recommended jet id for 2017 94x analyses
