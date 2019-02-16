@@ -106,6 +106,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     jecEraC = "Fall17_17Nov2017C_V32_DATA";
     jecEraD = jecEraE = "Fall17_17Nov2017DE_V32_DATA";
     jecEraF = "Fall17_17Nov2017F_V32_DATA";
+    if (dsname.Contains("09May2018")) jecEraF = "Fall17_09May2018F_V3_DATA";
     jecEraMC = "Fall17_17Nov2017_V32_MC";
     jecEraFS = jecEraMC;      // to be updated
 
@@ -130,8 +131,8 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     // everything to be updated
     ea_version = 4;
     btag_disc_wp = 0.4184;
-    jecEraA = jecEraB = jecEraC = jecEraD = "Fall17_17Nov2017F_V32_DATA"; // to be updated
-    jecEraMC = "Fall17_17Nov2017_V32_MC"; // to be updated
+    jecEraA = jecEraB = jecEraC = jecEraD = "Autumn18_V3_DATA";
+    jecEraMC = "Autumn18_V3_MC";
     jecEraFS = jecEraMC;      // to be updated
 
     // B-tag working points
