@@ -352,7 +352,8 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
     T1_metPhi = cms3.evt_muegclean_pfmetPhi_raw();
   }
 
-  if (use_cleaned_met == 0 && gconf.year == 2017) { // use nominal MET without EE noise fix
+  // use nominal MET without EE noise fix, except the 09May2018 rereco of 2017F
+  if (use_cleaned_met == 0 && gconf.year == 2017 && gconf.jecEraF.find("09May2018") == string::npos) {
     T1_met    = cms3.evt_old_pfmet_raw();
     T1_metPhi = cms3.evt_old_pfmetPhi_raw();
   }
