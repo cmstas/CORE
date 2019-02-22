@@ -53,6 +53,7 @@ if __name__ == "__main__":
     # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_94x/*09-04-17*/")
     # sampledirs += glob.glob("/hadoop/cms/store/user/namin/run2_moriond17_cms4/ProjectMetis/*CMS4_V00-00-02_2017Sep27*/")
     # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc2016_cms4/*/")
+    sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-06/")
     sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-05/")
     sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-04/")
     # sampledirs += glob.glob("/hadoop/cms/store/group/snt/run2_mc*/*10-02-04/")
@@ -84,6 +85,7 @@ if __name__ == "__main__":
         if not os.path.exists(metadata): continue
         try:
             if get_datasettag(metadata) in alreadydone: continue
+            if "/SMS" in get_datasettag(metadata)[0] and "Fast" in get_datasettag(metadata)[0]: continue
             print get_line(metadata)
         except:
             sys.stderr.write("[!] Error with {}\n".format(metadata))
