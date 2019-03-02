@@ -87,17 +87,17 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
 
     // B-tag working points
     // 94X WPs shall be very close to those in 80X, if not the same
-    WP_DEEPCSV_TIGHT  = 0.8958;
-    WP_DEEPCSV_MEDIUM = 0.6324;
-    WP_DEEPCSV_LOOSE  = 0.2219;
-    fn_btagSF_DeepCSV = "DeepCSV_Moriond17_B_H.csv";              // to be updated
+    WP_DEEPCSV_TIGHT  = 0.8953;
+    WP_DEEPCSV_MEDIUM = 0.6321;
+    WP_DEEPCSV_LOOSE  = 0.2217;
+    fn_btagSF_DeepCSV = "DeepCSV_2016LegacySF_V1.csv";
     fn_btagSF_FS_DeepCSV = "fastsim_deepcsv_ttbar_26_1_2017.csv"; // to be updated
 
     WP_CSVv2_TIGHT  = 0.9535;
     WP_CSVv2_MEDIUM = 0.8484;
     WP_CSVv2_LOOSE  = 0.5426;
-    fn_btagSF_CSVv2 = "CSVv2_Moriond17_B_H.csv";               // to be updated
-    fn_btagSF_FS_CSVv2 = "fastsim_csvv2_ttbar_26_1_2017.csv";  // to be updated
+    fn_btagSF_CSVv2 = "CSVv2_Moriond17_B_H.csv";               // not supported
+    fn_btagSF_FS_CSVv2 = "fastsim_csvv2_ttbar_26_1_2017.csv";  // not supported
   }
   else if (year == 2017) {
     ea_version = 4;
@@ -140,14 +140,14 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_TIGHT  = 0.7527;
     WP_DEEPCSV_MEDIUM = 0.4184;
     WP_DEEPCSV_LOOSE  = 0.1241;
-    fn_btagSF_DeepCSV = "DeepCSV_94XSF_V3_B_F.csv";
+    fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
     fn_btagSF_FS_DeepCSV = "fastsim_deepcsv_ttbar_26_1_2017.csv"; // to be updated
 
-    WP_CSVv2_TIGHT  = 0.9693; // FIXME I believe CSVv2 is no longer supported for 2018
+    WP_CSVv2_TIGHT  = 0.9693; // CSVv2 is no longer supported for 2018
     WP_CSVv2_MEDIUM = 0.8838;
     WP_CSVv2_LOOSE  = 0.5803;
-    fn_btagSF_CSVv2 = "CSVv2_94XSF_V2_B_F.csv";
-    fn_btagSF_FS_CSVv2 = "fastsim_csvv2_ttbar_26_1_2017.csv"; // to be updated
+    fn_btagSF_CSVv2 = "CSVv2_94XSF_V2_B_F.csv";               // not supported
+    fn_btagSF_FS_CSVv2 = "fastsim_csvv2_ttbar_26_1_2017.csv"; // not supported
   }
 
 }
