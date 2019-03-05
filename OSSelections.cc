@@ -78,6 +78,7 @@ bool passElectronSelection_ZMET_veto(int index ){
       return passElectronSelection_ZMET_thirdlepton_v3(index, false, false);
   else if(gconf.year == 2018)
       return passElectronSelection_ZMET_thirdlepton_v4(index, false, false);
+  return false;
 }
 
 bool passElectronSelection_ZMET_v6(int index, bool vetoTransition, bool eta24 ){
@@ -470,6 +471,7 @@ bool passPhotonSelection_ZMET(int index ){
         return passPhotonSelection_ZMET_v5(index, true, true);
     else if(gconf.year == 2018)
         return passPhotonSelection_ZMET_v6(index, true, true);
+    return false;
 }
 
 bool passPhotonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24)
@@ -487,6 +489,8 @@ bool passPhotonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24)
   if( eta24
 	  && fabs(cms3.photons_p4().at(index).eta()) > 2.4    ) return false; // eta < 2.4
   if( overlapElectron_ZMET_v2( index, 10.0 )              ) return false; // remove electrons from W
+  if(!photonID(index,ZMET_photon_v5)) return false;
+  return true;
  
 }
 
