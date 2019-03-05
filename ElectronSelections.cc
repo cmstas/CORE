@@ -1853,7 +1853,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  // loose MVA used to veto on electrons to stay synced with edge/multilepton
 
     case(ZMET_looseMVA_v2):
-      if(electronID(elIdx, ZMET_looseMVA_nosio_v2) == 0) return false;
+      if(electronID(elIdx, ZMET_looseMVA_noiso_v2) == 0) return false;
       if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.4) return false;
       break;
 
