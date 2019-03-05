@@ -186,7 +186,9 @@ analysis_t whichAnalysis(id_level_t id_level){
     case (ZMET_tightMVA_v1):
     case (ZMET_tightMVA_noiso_v1):
     case (ZMET_looseMVA_v1):
+    case (ZMET_looseMVA_v2):
     case (ZMET_looseMVA_noiso_v1):
+    case (ZMET_looseMVA_noiso_v2):
     case (ZMET_loose_v2):
     case (ZMET_loose_noiso_v2):
     case (ZMET_loose_v1):
