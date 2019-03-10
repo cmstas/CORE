@@ -131,8 +131,11 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     // everything to be updated
     ea_version = 4;
     btag_disc_wp = 0.4184;
-    jecEraA = jecEraB = jecEraC = jecEraD = "Autumn18_V3_DATA";
-    jecEraMC = "Autumn18_V3_MC";
+    jecEraA = "Autumn18_RunA_V8_DATA";
+    jecEraB = "Autumn18_RunB_V8_DATA";
+    jecEraC = "Autumn18_RunC_V8_DATA";
+    jecEraD = "Autumn18_RunD_V8_DATA";
+    jecEraMC = "Autumn18_V8_MC";
     jecEraFS = jecEraMC;      // to be updated
 
     // B-tag working points
