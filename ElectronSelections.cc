@@ -2554,7 +2554,78 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 // POG MVA IDs
 //========================
 
-// 94x MVA
+// NOTE: Following are the recommendation for 2018. (the naming is a bit confusing... but it's a problem with AOD naming. don't blame me!)
+
+// 94x MVA V2 (xgboost based training with 94X DY sample. originally, 94x MVA V1 was thought to be fine. but they wanted to use more realisitc pileup with 94X.)
+// And it has a stupid complication of having "raw" output vs. "non-raw" output and cutting on "raw" output
+// https://rembserj.web.cern.ch/rembserj/slides/180321_egamma.pdf (explaining raw vs. non-raw in slide 11)
+// https://github.com/cms-sw/cmssw/blob/master/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L31 (raw cut points)
+
+bool isMVAwp80NoIsofall17_v2(unsigned int elIdx, bool use_miniaod)
+{
+    // https://github.com/cms-sw/cmssw/blob/2c3617720bfbf036cdaf102ef377e3050f074cc1/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L36-L38
+    return isMVAfall17(elIdx, use_miniaod,
+            /*"EB1_10" : {*/
+            /*"c"      : */ 7.35752275071,
+            /*"tau"    : */ 15.87907864,
+            /*"A"      : */ 7.61288809226,
+            /*},*/
+            /*"EB2_10" : {*/
+            /*"c"      : */ 6.41811074032,
+            /*"tau"    : */ 14.730562874,
+            /*"A"      : */ 6.96387331587,
+            /*},*/
+            /*"EE_10"  : {*/
+            /*"c"      : */ 5.64936312428,
+            /*"tau"    : */ 16.3664949747,
+            /*"A"      : */ 7.19607610311
+            /*}*/
+            );
+}
+
+bool isMVAwp90NoIsofall17_v2(unsigned int elIdx, bool use_miniaod)
+{
+    // https://github.com/cms-sw/cmssw/blob/2c3617720bfbf036cdaf102ef377e3050f074cc1/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L56-L58
+    return isMVAfall17(elIdx, use_miniaod,
+            /*"EB1_10" : {*/
+            /*"c"      :  */ 6.12931925263,
+            /*"tau"    :  */ 13.281753835,
+            /*"A"      :  */ 8.71138432196,
+            /*},*/
+            /*"EB2_10" : {*/
+            /*"c"      :  */ 5.26289004857,
+            /*"tau"    :  */ 13.2154971491,
+            /*"A"      :  */ 8.0997882835,
+            /*},*/
+            /*"EE_10"  : {*/
+            /*"c"      :  */ 4.37338792902,
+            /*"tau"    :  */ 14.0776094696,
+            /*"A"      :  */ 8.48513324496
+            /*}*/
+            );
+}
+
+bool isMVAHZZNoIsofall17_v2(unsigned int elIdx, bool use_miniaod)
+{
+    float mva = getMVAoutput(elIdx, use_miniaod);
+    float aeta = fabs(els_etaSC().at(elIdx));
+
+    if (aeta < 0.8)
+    {
+        return mva > 2.36464785939;
+    }
+    else if (aeta < 1.479)
+    {
+        return mva > 2.07880614597;
+    }
+    else
+    {
+        return mva > 1.08080644615;
+    }
+
+}
+
+// 94x MVA V1 (TMVA based training that was trained on 92X DY sample)
 // https://twiki.cern.ch/twiki/bin/view/CMS/MultivariateElectronIdentificationRun2#Training_details_and_working_poi
 // https://rembserj.web.cern.ch/rembserj/notes/Electron_MVA_ID_2017_documentation/#working-points
 
