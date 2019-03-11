@@ -2444,7 +2444,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
             if (!( getMVAoutput(elIdx)          > 0.    )) return false;
         }
     }
-    else if (gconf.year == 2017)
+    else if (gconf.year == 2017 or gconf.year == 2018)
     {
         if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
 //        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
@@ -2476,7 +2476,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
             if (!( getMVAoutput(elIdx)           > 0.925 )) return false;
         }
     }
-    else if (gconf.year == 2017)
+    else if (gconf.year == 2017 or gconf.year == 2018)
     {
         if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
 //        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
@@ -2524,7 +2524,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
             if (!( getMVAoutput(elIdx)           > 0.88  )) return false;
         }
     }
-    else if (gconf.year == 2017)
+    else if (gconf.year == 2017 or gconf.year == 2018)
     {
         if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
 //        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
