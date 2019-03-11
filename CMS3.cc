@@ -3241,6 +3241,11 @@ void CMS3::Init(TTree *tree) {
     genps_status_branch = tree->GetBranch(tree->GetAlias("genps_status"));
     if (genps_status_branch) { genps_status_branch->SetAddress(&genps_status_); }
   }
+  genps_decayXY_branch = 0;
+  if (tree->GetAlias("genps_decayXY") != 0) {
+    genps_decayXY_branch = tree->GetBranch(tree->GetAlias("genps_decayXY"));
+    if (genps_decayXY_branch) { genps_decayXY_branch->SetAddress(&genps_decayXY_); }
+  }
   mus_gfit_trk_charge_branch = 0;
   if (tree->GetAlias("mus_gfit_trk_charge") != 0) {
     mus_gfit_trk_charge_branch = tree->GetBranch(tree->GetAlias("mus_gfit_trk_charge"));
@@ -8145,6 +8150,7 @@ void CMS3::GetEntry(unsigned int idx) {
   svs_distXYsig_isLoaded = false;
   mus_lostHits_isLoaded = false;
   genps_status_isLoaded = false;
+  genps_decayXY_isLoaded = false;
   mus_gfit_trk_charge_isLoaded = false;
   pfjets_mc_gp_p4_isLoaded = false;
   els_clusterMaxDR_isLoaded = false;
@@ -9643,6 +9649,7 @@ void CMS3::LoadAllBranches() {
   if (svs_distXYsig_branch != 0) svs_distXYsig();
   if (mus_lostHits_branch != 0) mus_lostHits();
   if (genps_status_branch != 0) genps_status();
+  if (genps_decayXY_branch != 0) genps_decayXY();
   if (mus_gfit_trk_charge_branch != 0) mus_gfit_trk_charge();
   if (pfjets_mc_gp_p4_branch != 0) pfjets_mc_gp_p4();
   if (els_clusterMaxDR_branch != 0) els_clusterMaxDR();
@@ -18493,6 +18500,19 @@ const vector<int> &CMS3::genps_status() {
     genps_status_isLoaded = true;
   }
   return genps_status_;
+}
+const vector<float> &CMS3::genps_decayXY() {
+  if (not genps_decayXY_isLoaded) {
+    if (genps_decayXY_branch != 0) {
+      if (genps_decayXY_branch->GetEntry(index) < 0)
+          throw std::ios_base::failure(Form("I/O failure reading %s", __FUNCTION__));
+    } else {
+      printf("branch genps_decayXY_branch does not exist!\n");
+      exit(1);
+    }
+    genps_decayXY_isLoaded = true;
+  }
+  return genps_decayXY_;
 }
 const vector<int> &CMS3::mus_gfit_trk_charge() {
   if (not mus_gfit_trk_charge_isLoaded) {
@@ -30762,6 +30782,7 @@ namespace tas {
   const vector<float> &svs_distXYsig() { return cms3.svs_distXYsig(); }
   const vector<int> &mus_lostHits() { return cms3.mus_lostHits(); }
   const vector<int> &genps_status() { return cms3.genps_status(); }
+  const vector<float> &genps_decayXY() { return cms3.genps_decayXY(); }
   const vector<int> &mus_gfit_trk_charge() { return cms3.mus_gfit_trk_charge(); }
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &pfjets_mc_gp_p4() { return cms3.pfjets_mc_gp_p4(); }
   const vector<float> &els_clusterMaxDR() { return cms3.els_clusterMaxDR(); }

@@ -21,6 +21,19 @@ bool overlapMuon_ZMET_v1( int index , float ptcut ){
   return false;
 }
 
+bool overlapElectron_ZMET_v3(int index, float ptcut)
+{
+    for( unsigned int elind = 0; elind < cms3.els_p4().size(); elind++ ){
+    float dr = ROOT::Math::VectorUtil::DeltaR( cms3.photons_p4().at(index) , cms3.els_p4().at(elind) );    
+    if( dr > 0.2                                          ) continue;
+    if( cms3.els_p4().at(elind).pt() < ptcut              ) continue;
+    if( !passElectronSelection_ZMET_veto(elind) ) continue;
+    return true;
+  }
+  return false;
+
+}
+
 bool overlapElectron_ZMET_v2( int index , float ptcut ){
   for( unsigned int elind = 0; elind < cms3.els_p4().size(); elind++ ){
     float dr = ROOT::Math::VectorUtil::DeltaR( cms3.photons_p4().at(index) , cms3.els_p4().at(elind) );    
@@ -59,7 +72,13 @@ bool passElectronSelection_ZMET(int index){
 }
 
 bool passElectronSelection_ZMET_veto(int index ){
-  return passElectronSelection_ZMET_thirdlepton_v2( index, false, false );
+  if(gconf.year == 2016)
+    return passElectronSelection_ZMET_thirdlepton_v2( index, false, false );
+  else if(gconf.year == 2017)
+      return passElectronSelection_ZMET_thirdlepton_v3(index, false, false);
+  else if(gconf.year == 2018)
+      return passElectronSelection_ZMET_thirdlepton_v4(index, false, false);
+  return false;
 }
 
 bool passElectronSelection_ZMET_v6(int index, bool vetoTransition, bool eta24 ){
@@ -210,6 +229,30 @@ bool passElectronSelection_ZMET_thirdlepton_v1(int index, bool vetoTransition, b
   if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
   if( !electronPassesHLTEmulator(index)                        ) return false;// emulate trigger cuts
   return true;
+}
+
+
+bool passElectronSelection_ZMET_thirdlepton_v4(int index, bool vetoTransition, bool eta24)
+{
+    return false;
+}
+
+bool passElectronSelection_ZMET_thirdlepton_v3(int index, bool vetoTransition, bool eta24)
+{
+  if( fabs(cms3.els_p4().at(index).pt()) < 10.0    ) return false; // pT > 10 GeV - Minimum pT cut
+  if( vetoTransition
+	  && fabs(cms3.els_p4().at(index).eta()) > 1.4
+	  && fabs(cms3.els_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
+  if( eta24
+	  && fabs(cms3.els_p4()[index].eta()) > 2.5    ) return false; // eta < 2.5
+  if( !electronID( index, ZMET_looseMVA_v2 )       ) return false; // Electron ID  
+
+  //IP & trigger cuts to be compatible with multilepton baseline cuts
+  if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
+  if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+  if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
+  return true;
+
 }
 
 //This is the 3rd lepton veto ID to be in sync with the edge/multilepton group, trigger emulation removed
@@ -422,7 +465,33 @@ bool passMuonSelection_ZMET_veto_v1(int index, bool vetoTransition, bool eta24 )
 }
 
 bool passPhotonSelection_ZMET(int index ){
-  return passPhotonSelection_ZMET_v4(index, true, true);
+    if(gconf.year == 2016)
+        return passPhotonSelection_ZMET_v4(index, true, true);
+    else if(gconf.year == 2017)
+        return passPhotonSelection_ZMET_v5(index, true, true);
+    else if(gconf.year == 2018)
+        return passPhotonSelection_ZMET_v6(index, true, true);
+    return false;
+}
+
+bool passPhotonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24)
+{
+    //2018 not yet here
+    return false;
+}
+
+bool passPhotonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24)
+{
+   if( fabs(cms3.photons_p4().at(index).pt()) < 50.0       ) return false; // pT > 50 GeV - Minimum pT cut based on 2017 triggers
+  if( vetoTransition
+	  && fabs(cms3.photons_p4().at(index).eta()) > 1.4442
+	  && fabs(cms3.photons_p4().at(index).eta()) < 1.566  ) return false; // veto x-ition region
+  if( eta24
+	  && fabs(cms3.photons_p4().at(index).eta()) > 2.4    ) return false; // eta < 2.4
+  if( overlapElectron_ZMET_v2( index, 10.0 )              ) return false; // remove electrons from W
+  if(!photonID(index,ZMET_photon_v5)) return false;
+  return true;
+ 
 }
 
 // move trigger emulation cuts on pfcluster iso etc into PhotonSelections in CORE

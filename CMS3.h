@@ -1854,6 +1854,9 @@ protected:
   vector<int> genps_status_;
   TBranch *genps_status_branch;
   bool genps_status_isLoaded;
+  vector<float> genps_decayXY_;
+  TBranch *genps_decayXY_branch;
+  bool genps_decayXY_isLoaded;
   vector<int> mus_gfit_trk_charge_;
   TBranch *mus_gfit_trk_charge_branch;
   bool mus_gfit_trk_charge_isLoaded;
@@ -5122,6 +5125,7 @@ public:
   const vector<float> &svs_distXYsig();
   const vector<int> &mus_lostHits();
   const vector<int> &genps_status();
+  const vector<float> &genps_decayXY();
   const vector<int> &mus_gfit_trk_charge();
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &pfjets_mc_gp_p4();
   const vector<float> &els_clusterMaxDR();
@@ -6631,6 +6635,7 @@ namespace tas {
   const vector<float> &svs_distXYsig();
   const vector<int> &mus_lostHits();
   const vector<int> &genps_status();
+  const vector<float> &genps_decayXY();
   const vector<int> &mus_gfit_trk_charge();
   const vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > > &pfjets_mc_gp_p4();
   const vector<float> &els_clusterMaxDR();

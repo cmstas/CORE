@@ -1852,6 +1852,25 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
 	  // loose MVA used to veto on electrons to stay synced with edge/multilepton
 
+    case(ZMET_looseMVA_v2):
+      if(electronID(elIdx, ZMET_looseMVA_noiso_v2) == 0) return false;
+      if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.4) return false;
+      break;
+
+    case(ZMET_looseMVA_noiso_v2):
+        if (globalEleMVAreader==0) {
+		cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
+		return false;
+	  }
+	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
+	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
+	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
+	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
+	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v6)) return false; //loose MVA working point 
+	  else return true;
+      break;
+
     case(ZMET_looseMVA_v1): // updated EA values
 	  if( electronID(elIdx, ZMET_looseMVA_noiso_v1)==0 ) return false; // loose MVA id no iso
 	  if( elMiniRelIsoCMS3_EA( elIdx, 1 ) > 0.4        ) return false; // minireliso < 0.4

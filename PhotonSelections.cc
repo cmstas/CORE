@@ -124,6 +124,18 @@ bool photonID(unsigned int phIdx, id_level_t id_level){
 	// MET Templates //
 	///////////////////
 
+  case(ZMET_photon_v5):
+    if( !isTemplatePhoton( phIdx ) ) return false;
+	if( !isLoosePhotonPOG_Fall17V2( phIdx ) ) return false;
+        // add trigger emulation cuts here, compared to v3
+	if( !passTriggerEmu( phIdx ) ) return false;
+	// Following cuts done in analysis code.
+	// match to pfjet w/ neutral EM fraction > 70%
+	// reject photons within electron with pT > 10 within cone of dR < 0.2
+	// Reject photons aligned to MET within 0.14 radians in phi
+	else return true;
+
+      break;
   case(ZMET_photon_v4):
 
 	if( !isTemplatePhoton( phIdx ) ) return false;
