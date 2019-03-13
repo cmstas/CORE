@@ -46,8 +46,11 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
       || dsname.Contains("31Mar2018")  // 2017 data ReReco
       || dsname.Contains("17Jul2018")  // 2016 data ReReco
       ) cmssw_ver = 94;
-  if (dsname.Contains("101X")
-      ) cmssw_ver = 101;
+  if (dsname.Contains("101X")) cmssw_ver = 101;
+  if (dsname.Contains("102X")
+      || dsname.Contains("17Sep2018")    // 2018 data ReReco
+      || dsname.Contains("D-PromptReco") // PromptReco for Era D
+      ) cmssw_ver = 102;
 
   if (year == 2016 && cmssw_ver == 80) {
     ea_version = 1;
@@ -91,7 +94,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.6321;
     WP_DEEPCSV_LOOSE  = 0.2217;
     fn_btagSF_DeepCSV = "DeepCSV_2016LegacySF_V1.csv";
-    fn_btagSF_FS_DeepCSV = "fastsim_deepcsv_ttbar_26_1_2017.csv"; // to be updated
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_16_6_3_2019.csv";
 
     WP_CSVv2_TIGHT  = 0.9535;
     WP_CSVv2_MEDIUM = 0.8484;
@@ -108,7 +111,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     jecEraF = "Fall17_17Nov2017F_V32_DATA";
     if (dsname.Contains("09May2018")) jecEraF = "Fall17_09May2018F_V3_DATA";
     jecEraMC = "Fall17_17Nov2017_V32_MC";
-    jecEraFS = jecEraMC;      // to be updated
+    jecEraFS = "Fall17_FastsimV1";
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation94X
@@ -119,13 +122,17 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.4941;
     WP_DEEPCSV_LOOSE  = 0.1522;
     fn_btagSF_DeepCSV = "DeepCSV_94XSF_V3_B_F.csv";
-    fn_btagSF_FS_DeepCSV = "fastsim_deepcsv_ttbar_26_1_2017.csv"; // to be updated
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_17_6_3_2019.csv";
+    if (dsname.Contains("Fall17Fast") && dsname.Contains("_ext1-v1")) {
+      fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
+      fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718Diff_10_3_2019ExUnc.csv"; // to be used until 2018 fastsim come out
+    }
 
     WP_CSVv2_TIGHT  = 0.9693;
     WP_CSVv2_MEDIUM = 0.8838;
     WP_CSVv2_LOOSE  = 0.5803;
     fn_btagSF_CSVv2 = "CSVv2_94XSF_V2_B_F.csv";
-    fn_btagSF_FS_CSVv2 = "fastsim_csvv2_ttbar_26_1_2017.csv"; // to be updated
+    fn_btagSF_FS_CSVv2 = "fastsim_csvv2_ttbar_26_1_2017.csv"; // not supported
   }
   else if (year == 2018) {
     // everything to be updated
@@ -136,7 +143,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     jecEraC = "Autumn18_RunC_V8_DATA";
     jecEraD = "Autumn18_RunD_V8_DATA";
     jecEraMC = "Autumn18_V8_MC";
-    jecEraFS = jecEraMC;      // to be updated
+    jecEraFS = jecEraMC;      // doesn't matter until 2018 fastsim exist
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
@@ -144,7 +151,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.4184;
     WP_DEEPCSV_LOOSE  = 0.1241;
     fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
-    fn_btagSF_FS_DeepCSV = "fastsim_deepcsv_ttbar_26_1_2017.csv"; // to be updated
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718Same_10_3_2019ExUnc.csv"; // won't be used until 2018 fastsim exist
 
     WP_CSVv2_TIGHT  = 0.9693; // CSVv2 is no longer supported for 2018
     WP_CSVv2_MEDIUM = 0.8838;
