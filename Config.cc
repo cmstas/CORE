@@ -121,7 +121,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_TIGHT  = 0.8001;
     WP_DEEPCSV_MEDIUM = 0.4941;
     WP_DEEPCSV_LOOSE  = 0.1522;
-    fn_btagSF_DeepCSV = "DeepCSV_94XSF_V3_B_F.csv";
+    fn_btagSF_DeepCSV = "DeepCSV_94XSF_V4_B_F.csv";
     fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_17SL_18_3_2019.csv";
     if (dsname.Contains("Fall17Fast") && dsname.Contains("_ext1-v1")) {
       fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
