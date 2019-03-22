@@ -94,7 +94,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.6321;
     WP_DEEPCSV_LOOSE  = 0.2217;
     fn_btagSF_DeepCSV = "DeepCSV_2016LegacySF_V1.csv";
-    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_16_6_3_2019.csv";
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_16SL_18_3_2019.csv";
 
     WP_CSVv2_TIGHT  = 0.9535;
     WP_CSVv2_MEDIUM = 0.8484;
@@ -122,10 +122,10 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.4941;
     WP_DEEPCSV_LOOSE  = 0.1522;
     fn_btagSF_DeepCSV = "DeepCSV_94XSF_V3_B_F.csv";
-    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_17_6_3_2019.csv";
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_17SL_18_3_2019.csv";
     if (dsname.Contains("Fall17Fast") && dsname.Contains("_ext1-v1")) {
       fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
-      fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718Diff_10_3_2019ExUnc.csv"; // to be used until 2018 fastsim come out
+      fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718SLDiff_18_3_2019ExUnc.csv"; // to be used until 2018 fastsim come out
     }
 
     WP_CSVv2_TIGHT  = 0.9693;
@@ -151,7 +151,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.4184;
     WP_DEEPCSV_LOOSE  = 0.1241;
     fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
-    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718Same_10_3_2019ExUnc.csv"; // won't be used until 2018 fastsim exist
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718SLSame_18_3_2019ExUnc.csv"; // won't be used until 2018 fastsim exist
 
     WP_CSVv2_TIGHT  = 0.9693; // CSVv2 is no longer supported for 2018
     WP_CSVv2_MEDIUM = 0.8838;
