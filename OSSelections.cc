@@ -482,7 +482,7 @@ bool passPhotonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24)
 
 bool passPhotonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24)
 {
-   if( fabs(cms3.photons_p4().at(index).pt()) < 50.0       ) return false; // pT > 50 GeV - Minimum pT cut based on 2017 triggers
+   if( fabs(cms3.photons_p4().at(index).pt()) < 22.0       ) return false; // pT > 50 GeV - Minimum pT cut based on 2017 triggers
   if( vetoTransition
 	  && fabs(cms3.photons_p4().at(index).eta()) > 1.4442
 	  && fabs(cms3.photons_p4().at(index).eta()) < 1.566  ) return false; // veto x-ition region
