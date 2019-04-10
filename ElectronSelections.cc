@@ -4207,7 +4207,9 @@ float getMVAoutput(unsigned int index, bool use_miniaod){
     return -999.;
   }
   if (use_miniaod) {
-      if (gconf.year == 2016) return els_VIDNonTrigMvaValue().at(index);
+      if (gconf.year == 2016) {
+          return (gconf.cmssw_ver == 94 ? els_VIDSpring16GPMvaValue().at(index) : els_VIDNonTrigMvaValue().at(index));
+      }
       else if (gconf.year == 2017) return els_VIDFall17NoIsoMvaValue().at(index);
       else if (gconf.year == 2018) {
           // Fun reverse-engineering-because-of-lack-of-documentation-or-announcement...
