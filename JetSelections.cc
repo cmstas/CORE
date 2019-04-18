@@ -354,7 +354,14 @@ bool isMonoPFJet_MT2(unsigned int pfJetIdx){
   if (pfjet_nhf_ >= 0.70) return false;
   if (pfjet_nef_ >= 0.80) return false;
 
-  if (!isTightPFJet_50nsV1(pfJetIdx)) return false;
+  if(gconf.year == 2017){
+      if(!isTightPFJet_2017_v1(pfJetIdx)) return false;
+  }else if(gconf.year == 2018){
+      if(!isTightPFJet_2018_v1(pfJetIdx)) return false;      
+  }else{
+      // use 2016 jet ID by default
+      if (!isTightPFJet_50nsV1(pfJetIdx)) return false;
+  }
 
   return true;
 }
