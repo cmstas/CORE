@@ -492,6 +492,46 @@ pair <float, float> getT1CHSMET_fromMINIAOD( FactorizedJetCorrector * jet_correc
   return make_pair(T1_met, T1_metPhi);
 }
 
+//DO NOT REMOVE - NEED FOR MET STUDIES
+vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float>>> getCorrectedJets( FactorizedJetCorrector * jet_corrector ) {
+  vector<ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float>>> vCorrJets;
+  for(unsigned int iJet = 0; iJet < cms3.pfjets_p4().size(); iJet++){
+    LorentzVector jetp4_uncorr = cms3.pfjets_p4().at(iJet)*cms3.pfjets_undoJEC().at(iJet);
+    float emfrac = (cms3.pfjets_chargedEmE().at(iJet) + cms3.pfjets_neutralEmE().at(iJet)) / jetp4_uncorr.E();
+
+    bool correct = true;
+
+    if (emfrac > 0.9                  ) { correct = false; } // veto events with EM fraction > 0.9
+    if( abs(jetp4_uncorr.eta()) > 9.9 ) { correct = false; } // veto jets with eta > 9.9
+
+    //  
+    // remove SA or global muons from jets before correcting
+    //
+
+    for (unsigned int pfcind = 0; pfcind < cms3.pfjets_pfcandmup4().at(iJet).size(); pfcind++){
+      jetp4_uncorr -= cms3.pfjets_pfcandmup4().at(iJet).at(pfcind);
+    }
+
+    // get L1FastL2L3 total correction
+    jet_corrector->setRho   ( cms3.evt_fixgridfastjet_all_rho()      );
+    jet_corrector->setJetA  ( cms3.pfjets_area().at(iJet) );
+    jet_corrector->setJetPt ( jetp4_uncorr.pt()                      );
+    jet_corrector->setJetEta( jetp4_uncorr.eta()                     );
+
+    //Note the subcorrections are stored with corr_vals(N) = corr(N)*corr(N-1)*...*corr(1)
+    vector<float> corr_vals = jet_corrector->getSubCorrections();
+
+    double corr             = corr_vals.at(corr_vals.size()-1); // All corrections
+
+    if (corr * jetp4_uncorr.pt() > 15. && correct)
+      jetp4_uncorr*=corr;
+
+    vCorrJets.push_back(jetp4_uncorr);
+  }
+  return vCorrJets;
+}
+
+
 pair <float, float> getT1PUPPIMET_fromMINIAOD( FactorizedJetCorrector * jet_corrector ){
   float T1_met    = cms3.evt_puppi_pfmet_raw();
   float T1_metPhi = cms3.evt_puppi_pfmetPhi_raw();
