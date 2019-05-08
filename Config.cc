@@ -151,7 +151,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     WP_DEEPCSV_MEDIUM = 0.4184;
     WP_DEEPCSV_LOOSE  = 0.1241;
     fn_btagSF_DeepCSV = "DeepCSV_102XSF_V1.csv";
-    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_1718SLDiff_18_3_2019ExUnc.csv"; // place holder until the 2018 version exist
+    fn_btagSF_FS_DeepCSV = "deepcsv_13TEV_18SL_7_5_2019.csv";
 
     WP_CSVv2_TIGHT  = 0.9693; // CSVv2 is no longer supported for 2018
     WP_CSVv2_MEDIUM = 0.8838;
