@@ -111,7 +111,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     jecEraF = "Fall17_17Nov2017F_V32_DATA";
     if (dsname.Contains("09May2018")) jecEraF = "Fall17_09May2018F_V3_DATA";
     jecEraMC = "Fall17_17Nov2017_V32_MC";
-    jecEraFS = "Fall17_FastsimV1";
+    jecEraFS = "Fall17_FastSimV1_MC";
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation94X
@@ -143,7 +143,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
     jecEraC = "Autumn18_RunC_V8_DATA";
     jecEraD = "Autumn18_RunD_V8_DATA";
     jecEraMC = "Autumn18_V8_MC";
-    jecEraFS = "Autumn18_FastsimV1";
+    jecEraFS = "Autumn18_FastSimV1_MC";
 
     // B-tag working points
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X
