@@ -120,7 +120,20 @@ bool passElectronSelection_ZMET_v7(int index, bool vetoTransition, bool eta24)
 bool passElectronSelection_ZMET_v8(int index, bool vetoTransition, bool eta24)
 {
     //2018 stuff when it comes out
-    return false;
+    if( fabs(cms3.els_p4().at(index).pt()) < 10.0    ) return false; // pT > 10 GeV - Minimum pT cut
+    if( vetoTransition
+	  && fabs(cms3.els_p4().at(index).eta()) > 1.4
+	  && fabs(cms3.els_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
+    if( eta24
+	  && fabs(cms3.els_p4()[index].eta()) > 2.4    ) return false; // eta < 2.4
+    if( !electronID( index, ZMET_tightMVA_v4 )       ) return false; // Electron ID  
+
+    //IP & trigger cuts to be compatible with multilepton baseline cuts
+    if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
+    if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+    if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
+    return true;
+
 }
 
 bool passElectronSelection_ZMET_v5(int index, bool vetoTransition, bool eta24 ){
@@ -234,7 +247,15 @@ bool passElectronSelection_ZMET_thirdlepton_v1(int index, bool vetoTransition, b
 
 bool passElectronSelection_ZMET_thirdlepton_v4(int index, bool vetoTransition, bool eta24)
 {
-    return false;
+    if( fabs(cms3.els_p4().at(index).pt()) < 10.0    ) return false; // pT > 10 GeV - Minimum pT cut
+  if( vetoTransition
+	  && fabs(cms3.els_p4().at(index).eta()) > 1.4
+	  && fabs(cms3.els_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
+  if( eta24
+	  && fabs(cms3.els_p4()[index].eta()) > 2.5    ) return false; // eta < 2.5
+  if( !electronID( index, ZMET_looseMVA_v2 )       ) return false; // Electron ID  
+
+    return true;
 }
 
 bool passElectronSelection_ZMET_thirdlepton_v3(int index, bool vetoTransition, bool eta24)
@@ -292,7 +313,18 @@ bool passMuonSelection_ZMET(int index){
 bool passMuonSelection_ZMET_v9(int index, bool vetoTransition, bool eta24)
 {
     //2018 data - update when it comes
-    return false;
+    if( fabs(cms3.mus_p4().at(index).pt()) < 10.0       ) return false; // pT > 10 GeV - Minimum pT cut
+    if( vetoTransition
+	  && fabs(cms3.mus_p4().at(index).eta()) > 1.4
+	  && fabs(cms3.mus_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
+    if( eta24
+	  && fabs(cms3.mus_p4().at(index).eta()) > 2.4    ) return false; // eta < 2.4
+    if( !muonID( index, ZMET_mediumMu_v4 )              ) return false; // medium Muon ID  
+
+    //IP cuts to be compatible with multilepton baseline cuts
+    if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
+    return true;
+
 }
 
 bool passMuonSelection_ZMET_v8(int index, bool vetoTransition, bool eta24)
@@ -470,19 +502,18 @@ bool passPhotonSelection_ZMET(int index ){
     else if(gconf.year == 2017)
         return passPhotonSelection_ZMET_v5(index, true, true);
     else if(gconf.year == 2018)
-        return passPhotonSelection_ZMET_v6(index, true, true);
+        return passPhotonSelection_ZMET_v5(index, true, true); //2017 and 2018 same ID 
     return false;
 }
 
 bool passPhotonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24)
 {
     //2018 not yet here
-    return false;
 }
 
 bool passPhotonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24)
 {
-   if( fabs(cms3.photons_p4().at(index).pt()) < 22.0       ) return false; // pT > 50 GeV - Minimum pT cut based on 2017 triggers
+  if( fabs(cms3.photons_p4().at(index).pt()) < 22.0       ) return false; // pT > 50 GeV - Minimum pT cut based on 2017 triggers
   if( vetoTransition
 	  && fabs(cms3.photons_p4().at(index).eta()) > 1.4442
 	  && fabs(cms3.photons_p4().at(index).eta()) < 1.566  ) return false; // veto x-ition region
