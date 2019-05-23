@@ -509,6 +509,7 @@ bool passPhotonSelection_ZMET(int index ){
 bool passPhotonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24)
 {
     //2018 not yet here
+    return false;
 }
 
 bool passPhotonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24)
