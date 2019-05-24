@@ -38,6 +38,9 @@ bool passMuonSelection_ZMET_v2(       int index, bool vetoTransition, bool eta24
 bool passMuonSelection_ZMET_NoIso_v2( int index, bool vetoTransition, bool eta24 );
 bool passMuonSelection_ZMET_v1_NoIso( int index, bool vetoTransition, bool eta24 );
 bool passMuonSelection_ZMET_v1(       int index, bool vetoTransition, bool eta24 );
+
+bool passMuonSelection_ZMET_veto_v4(int index, bool vetoTransition, bool eta24);
+
 bool passMuonSelection_ZMET_veto_v3(  int index, bool vetoTransition, bool eta24 );
 bool passMuonSelection_ZMET_veto_v2(  int index, bool vetoTransition, bool eta24 );
 bool passMuonSelection_ZMET_veto_v1(  int index, bool vetoTransition, bool eta24 );

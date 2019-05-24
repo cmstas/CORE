@@ -453,6 +453,21 @@ bool passMuonSelection_ZMET_v1(int index, bool vetoTransition, bool eta24 ){
   return true;
 }
 
+bool passMuonSelection_ZMET_veto_v4(int index, bool vetoTransition, bool eta24)
+{
+    if( fabs(cms3.mus_p4().at(index).pt()) < 10.0       ) return false; // pT > 10 GeV - Minimum pT cut
+  if( vetoTransition
+	  && fabs(cms3.mus_p4().at(index).eta()) > 1.4
+	  && fabs(cms3.mus_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
+  if( eta24
+	  && fabs(cms3.mus_p4().at(index).eta()) > 2.4    ) return false; // eta < 2.4
+  if( !muonID( index, ZMET_mediumMu_veto_v4 )         ) return false; // medium Muon ID with looser iso
+
+  //IP cuts to be compatible with multilepton baseline cuts
+  if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
+  return true;
+
+}
 //278820 start or 2016G
 bool passMuonSelection_ZMET_veto_v3(int index, bool vetoTransition, bool eta24 ){
   if( cms3.evt_isRealData() ){
