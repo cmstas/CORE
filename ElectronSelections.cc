@@ -2891,7 +2891,7 @@ bool isMVAfall17(unsigned int elIdx, bool use_miniaod,
 
 bool isMVAwp90NoIsofall17V2(unsigned int elIdx, bool use_miniaod)
 {
-    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L51-L59
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
     return isMVANoIsofall17V2(elIdx, use_miniaod,
            /*"EB1_10" : {*/
            /*"c"      :  */ 5.9175992258,
@@ -2913,7 +2913,7 @@ bool isMVAwp90NoIsofall17V2(unsigned int elIdx, bool use_miniaod)
 
 bool isMVAwp80NoIsofall17V2(unsigned int elIdx, bool use_miniaod)
 {
-    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L36-38
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
     return isMVANoIsofall17V2(elIdx, use_miniaod,
            /*"EB1_10" : {*/
            /*"c"      :  */ 7.1336238874,
@@ -2935,7 +2935,7 @@ bool isMVAwp80NoIsofall17V2(unsigned int elIdx, bool use_miniaod)
 
 bool isMVAwpLooseNoIsofall17V2(unsigned int elIdx, bool use_miniaod) // allegedly has 98% efficiency
 {
-    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L36-38
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
     return isMVANoIsofall17V2(elIdx, use_miniaod,
            /*"EB1_10" : {*/
            /*"c"      :  */ -0.293962958665,
