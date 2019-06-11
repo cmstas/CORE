@@ -3061,7 +3061,10 @@ bool isMVANoIsofall17V2(unsigned int elIdx, bool use_miniaod,
         )
 {
 
-    float mva = els_VIDFall17V2NoIsoMvaValue().at(elIdx);
+    float notraw = els_VIDFall17V2NoIsoMvaValue().at(index);
+    if (notraw >  1.0-1.e-7) notraw =  1.0-1.e-7; // protect against inf, -inf due to FP rounding issues
+    if (notraw < -1.0+1.e-7) notraw = -1.0+1.e-7;
+    float mva = -0.5*log((2.0/(notraw+1))-1.0);
     float aeta = fabs(els_etaSC().at(elIdx));
     float pt = els_p4().at(elIdx).pt();
 
@@ -3110,7 +3113,13 @@ bool isMVAIsofall17V2(unsigned int elIdx, bool use_miniaod,
         )
 {
 
-    float mva = els_VIDFall17V2IsoMvaValue().at(elIdx);
+    float notraw = els_VIDFall17V2IsoMvaValue().at(index);
+    if (notraw >  1.0-1.e-7) notraw =  1.0-1.e-7; // protect against inf, -inf due to FP rounding issues
+    if (notraw < -1.0+1.e-7) notraw = -1.0+1.e-7;
+    float mva = -0.5*log((2.0/(notraw+1))-1.0);
+    float aeta = fabs(els_etaSC().at(elIdx));
+    float pt = els_p4().at(elIdx).pt();
+
     float aeta = fabs(els_etaSC().at(elIdx));
     float pt = els_p4().at(elIdx).pt();
 
