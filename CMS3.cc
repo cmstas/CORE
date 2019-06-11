@@ -2343,16 +2343,28 @@ void CMS3::Init(TTree *tree) {
     if (mus_jetNDauChargedMVASel_branch) { mus_jetNDauChargedMVASel_branch->SetAddress(&mus_jetNDauChargedMVASel_); }
   }
 
-
   els_VIDFall17V2NoIsoMvaValue_branch = 0;
   if (tree->GetAlias("els_VIDFall17V2NoIsoMvaValue") != 0) {
     els_VIDFall17V2NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2NoIsoMvaValue"));
     if (els_VIDFall17V2NoIsoMvaValue_branch) { els_VIDFall17V2NoIsoMvaValue_branch->SetAddress(&els_VIDFall17V2NoIsoMvaValue_); }
   }
+
   els_VIDFall17NoIsoMvaValue_branch = 0;
   if (tree->GetAlias("els_VIDFall17NoIsoMvaValue") != 0) {
     els_VIDFall17NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17NoIsoMvaValue"));
     if (els_VIDFall17NoIsoMvaValue_branch) { els_VIDFall17NoIsoMvaValue_branch->SetAddress(&els_VIDFall17NoIsoMvaValue_); }
+  }
+
+  els_VIDFall17V2IsoMvaValue_branch = 0;
+  if (tree->GetAlias("els_VIDFall17V2IsoMvaValue") != 0) {
+    els_VIDFall17V2IsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2IsoMvaValue"));
+    if (els_VIDFall17V2IsoMvaValue_branch) { els_VIDFall17V2IsoMvaValue_branch->SetAddress(&els_VIDFall17V2IsoMvaValue_); }
+  }
+
+  els_VIDFall17V2IsoMvaCat_branch = 0;
+  if (tree->GetAlias("els_VIDFall17V2IsoMvaCat") != 0) {
+    els_VIDFall17V2IsoMvaCat_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2IsoMvaCat"));
+    if (els_VIDFall17V2IsoMvaCat_branch) { els_VIDFall17V2IsoMvaCat_branch->SetAddress(&els_VIDFall17V2IsoMvaCat_); }
   }
 
   mus_selectors_branch = 0;
@@ -7986,6 +7998,8 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_simExtType_isLoaded = false;
   els_VIDFall17NoIsoMvaValue_isLoaded = false;
   els_VIDFall17V2NoIsoMvaValue_isLoaded = false;
+  els_VIDFall17V2IsoMvaValue_isLoaded = false;
+  els_VIDFall17V2IsoMvaCat_isLoaded = false;
   mus_miniRelIso_chg_isLoaded = false;
   mus_miniRelIso_all_isLoaded = false;
   els_miniRelIso_chg_isLoaded = false;
@@ -9486,6 +9500,8 @@ void CMS3::LoadAllBranches() {
   if (mus_simExtType_branch != 0) mus_simExtType();
   if (els_VIDFall17NoIsoMvaValue_branch != 0) els_VIDFall17NoIsoMvaValue();
   if (els_VIDFall17V2NoIsoMvaValue_branch != 0) els_VIDFall17V2NoIsoMvaValue();
+  if (els_VIDFall17V2IsoMvaValue_branch != 0) els_VIDFall17V2IsoMvaValue();
+  if (els_VIDFall17V2IsoMvaCat_branch != 0) els_VIDFall17V2IsoMvaCat();
   if (mus_miniRelIso_chg_branch != 0) mus_miniRelIso_chg();
   if (mus_miniRelIso_all_branch != 0) mus_miniRelIso_all();
   if (els_miniRelIso_chg_branch != 0) els_miniRelIso_chg();
@@ -16143,7 +16159,6 @@ const vector<int> &CMS3::mus_jetNDauChargedMVASel() {
   return mus_jetNDauChargedMVASel_;
 }
 
-
 const vector<float> &CMS3::els_VIDFall17V2NoIsoMvaValue() {
   if (not els_VIDFall17V2NoIsoMvaValue_isLoaded) {
     if (els_VIDFall17V2NoIsoMvaValue_branch != 0) {
@@ -16156,6 +16171,7 @@ const vector<float> &CMS3::els_VIDFall17V2NoIsoMvaValue() {
   }
   return els_VIDFall17V2NoIsoMvaValue_;
 }
+
 const vector<float> &CMS3::els_VIDFall17NoIsoMvaValue() {
   if (not els_VIDFall17NoIsoMvaValue_isLoaded) {
     if (els_VIDFall17NoIsoMvaValue_branch != 0) {
@@ -16167,6 +16183,32 @@ const vector<float> &CMS3::els_VIDFall17NoIsoMvaValue() {
     els_VIDFall17NoIsoMvaValue_isLoaded = true;
   }
   return els_VIDFall17NoIsoMvaValue_;
+}
+
+const vector<float> &CMS3::els_VIDFall17V2IsoMvaValue() {
+  if (not els_VIDFall17V2IsoMvaValue_isLoaded) {
+    if (els_VIDFall17V2IsoMvaValue_branch != 0) {
+      els_VIDFall17V2IsoMvaValue_branch->GetEntry(index);
+    } else {
+      printf("branch els_VIDFall17V2IsoMvaValue_branch does not exist!\n");
+      exit(1);
+    }
+    els_VIDFall17V2IsoMvaValue_isLoaded = true;
+  }
+  return els_VIDFall17V2IsoMvaValue_;
+}
+
+const vector<int> &CMS3::els_VIDFall17V2IsoMvaCat() {
+  if (not els_VIDFall17V2IsoMvaCat_isLoaded) {
+    if (els_VIDFall17V2IsoMvaCat_branch != 0) {
+      els_VIDFall17V2IsoMvaCat_branch->GetEntry(index);
+    } else {
+      printf("branch els_VIDFall17V2IsoMvaCat_branch does not exist!\n");
+      exit(1);
+    }
+    els_VIDFall17V2IsoMvaCat_isLoaded = true;
+  }
+  return els_VIDFall17V2IsoMvaCat_;
 }
 
 const vector<unsigned int> &CMS3::mus_selectors() {
@@ -30633,6 +30675,8 @@ namespace tas {
   const vector<int> &mus_simExtType() { return cms3.mus_simExtType(); }
   const vector<float> &els_VIDFall17NoIsoMvaValue() { return cms3.els_VIDFall17NoIsoMvaValue(); }
   const vector<float> &els_VIDFall17V2NoIsoMvaValue() { return cms3.els_VIDFall17V2NoIsoMvaValue(); }
+  const vector<float> &els_VIDFall17V2IsoMvaValue() { return cms3.els_VIDFall17V2IsoMvaValue(); }
+  const vector<int> &els_VIDFall17V2IsoMvaCat() { return cms3.els_VIDFall17V2IsoMvaCat(); }
   const vector<float> &mus_miniRelIso_chg() { return cms3.mus_miniRelIso_chg(); }
   const vector<float> &mus_miniRelIso_all() { return cms3.mus_miniRelIso_all(); }
   const vector<float> &els_miniRelIso_chg() { return cms3.els_miniRelIso_chg(); }

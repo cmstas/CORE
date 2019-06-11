@@ -1347,6 +1347,12 @@ protected:
   vector<float> els_VIDFall17V2NoIsoMvaValue_;
   TBranch *els_VIDFall17V2NoIsoMvaValue_branch;
   bool els_VIDFall17V2NoIsoMvaValue_isLoaded;
+  vector<float> els_VIDFall17V2IsoMvaValue_;
+  TBranch *els_VIDFall17V2IsoMvaValue_branch;
+  bool els_VIDFall17V2IsoMvaValue_isLoaded;
+  vector<int> els_VIDFall17V2IsoMvaCat_;
+  TBranch *els_VIDFall17V2IsoMvaCat_branch;
+  bool els_VIDFall17V2IsoMvaCat_isLoaded;
   vector<float> mus_miniRelIso_chg_;
   TBranch *mus_miniRelIso_chg_branch;
   bool mus_miniRelIso_chg_isLoaded;
@@ -4959,6 +4965,8 @@ public:
   const vector<int> &mus_simExtType();
   const vector<float> &els_VIDFall17NoIsoMvaValue();
   const vector<float> &els_VIDFall17V2NoIsoMvaValue();
+  const vector<float> &els_VIDFall17V2IsoMvaValue();
+  const vector<int> &els_VIDFall17V2IsoMvaCat();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
@@ -6470,6 +6478,8 @@ namespace tas {
   const vector<int> &mus_simExtType();
   const vector<float> &els_VIDFall17NoIsoMvaValue();
   const vector<float> &els_VIDFall17V2NoIsoMvaValue();
+  const vector<float> &els_VIDFall17V2IsoMvaValue();
+  const vector<int> &els_VIDFall17V2IsoMvaCat();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
