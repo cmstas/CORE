@@ -3120,9 +3120,6 @@ bool isMVAIsofall17V2(unsigned int elIdx, bool use_miniaod,
     float aeta = fabs(els_etaSC().at(elIdx));
     float pt = els_p4().at(elIdx).pt();
 
-    float aeta = fabs(els_etaSC().at(elIdx));
-    float pt = els_p4().at(elIdx).pt();
-
     float c;
     float A;
     float tau;
