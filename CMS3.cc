@@ -3833,6 +3833,12 @@ void CMS3::Init(TTree *tree) {
     els_sccharge_branch = tree->GetBranch(tree->GetAlias("els_sccharge"));
     if (els_sccharge_branch) { els_sccharge_branch->SetAddress(&els_sccharge_); }
   }
+
+  genps_fromHardProcess_branch = 0;
+  if (tree->GetAlias("genps_fromHardProcess") != 0) {
+    genps_fromHardProcess_branch = tree->GetBranch(tree->GetAlias("genps_fromHardProcess"));
+    if (genps_fromHardProcess_branch) { genps_fromHardProcess_branch->SetAddress(&genps_fromHardProcess_); }
+  }
   genps_isHardProcess_branch = 0;
   if (tree->GetAlias("genps_isHardProcess") != 0) {
     genps_isHardProcess_branch = tree->GetBranch(tree->GetAlias("genps_isHardProcess"));
@@ -8293,6 +8299,7 @@ void CMS3::GetEntry(unsigned int idx) {
   evt_bs_yErr_isLoaded = false;
   els_sccharge_isLoaded = false;
   genps_isHardProcess_isLoaded = false;
+  genps_fromHardProcess_isLoaded = false;
   mus_segmCompatibility_isLoaded = false;
   hyp_ll_index_isLoaded = false;
   genweights_isLoaded = false;
@@ -9795,6 +9802,7 @@ void CMS3::LoadAllBranches() {
   if (evt_bs_yErr_branch != 0) evt_bs_yErr();
   if (els_sccharge_branch != 0) els_sccharge();
   if (genps_isHardProcess_branch != 0) genps_isHardProcess();
+  if (genps_fromHardProcess_branch != 0) genps_fromHardProcess();
   if (mus_segmCompatibility_branch != 0) mus_segmCompatibility();
   if (hyp_ll_index_branch != 0) hyp_ll_index();
   if (genweights_branch != 0) genweights();
@@ -20148,6 +20156,19 @@ const vector<int> &CMS3::els_sccharge() {
     els_sccharge_isLoaded = true;
   }
   return els_sccharge_;
+}
+
+const vector<bool> &CMS3::genps_fromHardProcess() {
+  if (not genps_fromHardProcess_isLoaded) {
+    if (genps_fromHardProcess_branch != 0) {
+      genps_fromHardProcess_branch->GetEntry(index);
+    } else {
+      printf("branch genps_fromHardProcess_branch does not exist!\n");
+      exit(1);
+    }
+    genps_fromHardProcess_isLoaded = true;
+  }
+  return genps_fromHardProcess_;
 }
 const vector<bool> &CMS3::genps_isHardProcess() {
   if (not genps_isHardProcess_isLoaded) {
@@ -30970,6 +30991,7 @@ namespace tas {
   const float &evt_bs_yErr() { return cms3.evt_bs_yErr(); }
   const vector<int> &els_sccharge() { return cms3.els_sccharge(); }
   const vector<bool> &genps_isHardProcess() { return cms3.genps_isHardProcess(); }
+  const vector<bool> &genps_fromHardProcess() { return cms3.genps_fromHardProcess(); }
   const vector<float> &mus_segmCompatibility() { return cms3.mus_segmCompatibility(); }
   const vector<int> &hyp_ll_index() { return cms3.hyp_ll_index(); }
   const vector<float> &genweights() { return cms3.genweights(); }

@@ -2220,6 +2220,9 @@ protected:
   vector<bool> genps_isHardProcess_;
   TBranch *genps_isHardProcess_branch;
   bool genps_isHardProcess_isLoaded;
+  vector<bool> genps_fromHardProcess_;
+  TBranch *genps_fromHardProcess_branch;
+  bool genps_fromHardProcess_isLoaded;
   vector<float> mus_segmCompatibility_;
   TBranch *mus_segmCompatibility_branch;
   bool mus_segmCompatibility_isLoaded;
@@ -5260,6 +5263,7 @@ public:
   const float &evt_bs_yErr();
   const vector<int> &els_sccharge();
   const vector<bool> &genps_isHardProcess();
+  const vector<bool> &genps_fromHardProcess();
   const vector<float> &mus_segmCompatibility();
   const vector<int> &hyp_ll_index();
   const vector<float> &genweights();
@@ -6773,6 +6777,7 @@ namespace tas {
   const float &evt_bs_yErr();
   const vector<int> &els_sccharge();
   const vector<bool> &genps_isHardProcess();
+  const vector<bool> &genps_fromHardProcess();
   const vector<float> &mus_segmCompatibility();
   const vector<int> &hyp_ll_index();
   const vector<float> &genweights();

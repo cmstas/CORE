@@ -15,6 +15,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
       || dsname.Contains("RunIISpring16")
       || dsname.Contains("run2_data2016")
       || dsname.Contains("run2_moriond17")
+      || dsname.Contains("run2_mc2016")
       ) year = 2016;
   if (dsname.Contains("Run2017")
       || dsname.Contains("RunIIFall17")
@@ -24,6 +25,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (dsname.Contains("Run2018")
       || dsname.Contains("RunIISpring18")
       || dsname.Contains("RunIISummer18")
+      || dsname.Contains("RunIIAutumn18")
       || dsname.Contains("run2_mc2018")
       ) year = 2018;
 
