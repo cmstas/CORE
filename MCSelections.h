@@ -21,6 +21,7 @@ bool isFromLight(int id, int idx);
 bool isFromLightFake(int id, int idx);
 bool idIsCharm(int id);
 bool idIsBeauty(int id);
+bool isFromTau(int id, int idx);
 
 // sourceId to match CERN/ETH
 int getSourceId(int genpIdx);

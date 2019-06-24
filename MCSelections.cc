@@ -167,6 +167,23 @@ bool isFromLightFake(int id, int idx){
   return false;
 }
 
+bool isFromTau(int id, int idx){
+  int mc_id         = abs(id) == 11          ? els_mc_id().at(idx)         : mus_mc_id().at(idx);
+  int mc_motherid   = abs(id) == 11          ? els_mc_motherid().at(idx)   : mus_mc_motherid().at(idx);
+  int mc3_motheridx = abs(id) == 11          ? els_mc3_motheridx().at(idx) : mus_mc3_motheridx().at(idx);
+  int mc_grandmaid  = mc3_motheridx == -9999 ? -9999                       : genps_id_mother().at(mc3_motheridx);
+ 
+  //For Leptons
+  if ((abs(mc_id)==11 || abs(mc_id)==13)){
+    if (abs(mc_motherid)==15 && abs(mc_grandmaid)==24) return true;
+    if (abs(mc_motherid)==15 && abs(mc_grandmaid)==23) return true;
+    return false;
+  }
+
+  //everything else
+  return false;
+}
+
 bool idIsCharm(int id) {
   id = abs(id);
   if (id == 4      ) return true;
