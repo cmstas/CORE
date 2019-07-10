@@ -9,6 +9,8 @@
 #include "TH1F.h"
 #include "TFile.h"
 #include "TBits.h"
+#include "TString.h"
+#include "TTree.h"
 #include <vector>
 #include <unistd.h>
 #include <chrono>
@@ -22,6 +24,8 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > LorentzVector;
 using namespace std;
 class CMS3 {
 private:
+  TFile* ntuple_file_;
+  TTree* ntuple_tree_;
 protected:
   unsigned int index;
   float hcalnoise_isolatedNoiseSumEt_;
@@ -4528,6 +4532,11 @@ protected:
   TBranch *mus_nStationHits_branch;
   bool mus_nStationHits_isLoaded;
 public:
+  CMS3();
+  void Init(TString filepath);
+  TFile* getTFile();
+  TTree* getTTree();
+  void GetEntry(TString filepath, unsigned int idx);
   void Init(TTree *tree);
   void GetEntry(unsigned int idx);
   void LoadAllBranches();

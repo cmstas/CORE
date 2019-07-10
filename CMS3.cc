@@ -1,6 +1,48 @@
 #include "CMS3.h"
 CMS3 cms3;
 
+CMS3::CMS3() : ntuple_file_(0), ntuple_tree_(0)
+{
+}
+
+void CMS3::Init(TString filepath)
+{
+    // If a file is already opened then check whether it's the same file
+    // If it is the same file then do nothing
+    // If it is not the same file close the previous one and open a new one
+    if (ntuple_file_)
+    {
+        if (not TString(ntuple_file_->GetName()).EqualTo(filepath))
+        {
+            delete ntuple_file_;
+            ntuple_file_ = 0;
+            ntuple_file_ = TFile::Open(filepath);
+        }
+    }
+    else
+    {
+        ntuple_file_ = TFile::Open(filepath);
+    }
+    ntuple_tree_ = (TTree*) ntuple_file_->Get("Events");
+    Init(ntuple_tree_);
+}
+
+TFile* CMS3::getTFile()
+{
+    return ntuple_file_;
+}
+
+TTree* CMS3::getTTree()
+{
+    return ntuple_tree_;
+}
+
+void CMS3::GetEntry(TString filepath, unsigned int idx)
+{
+    Init(filepath);
+    GetEntry(idx);
+}
+
 void CMS3::Init(TTree *tree) {
   mus_gfit_p4_branch = 0;
   if (tree->GetAlias("mus_gfit_p4") != 0) {
