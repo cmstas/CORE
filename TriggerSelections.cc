@@ -95,7 +95,7 @@ TString triggerName(TString triggerPattern){
   TString exact_hltname = "";
 
   for( unsigned int itrig = 0 ; itrig < hlt_trigNames().size() ; ++itrig ){
-    if( TString( hlt_trigNames().at(itrig) ).Contains( triggerPattern ) ){
+    if( hlt_trigNames().at(itrig).Contains( triggerPattern ) ){
       foundTrigger  = true;
       exact_hltname = hlt_trigNames().at(itrig);
       break;
