@@ -1,6 +1,48 @@
 #include "CMS3.h"
 CMS3 cms3;
 
+CMS3::CMS3() : ntuple_file_(0), ntuple_tree_(0)
+{
+}
+
+void CMS3::Init(TString filepath)
+{
+    // If a file is already opened then check whether it's the same file
+    // If it is the same file then do nothing
+    // If it is not the same file close the previous one and open a new one
+    if (ntuple_file_)
+    {
+        if (not TString(ntuple_file_->GetName()).EqualTo(filepath))
+        {
+            delete ntuple_file_;
+            ntuple_file_ = 0;
+            ntuple_file_ = TFile::Open(filepath);
+        }
+    }
+    else
+    {
+        ntuple_file_ = TFile::Open(filepath);
+    }
+    ntuple_tree_ = (TTree*) ntuple_file_->Get("Events");
+    Init(ntuple_tree_);
+}
+
+TFile* CMS3::getTFile()
+{
+    return ntuple_file_;
+}
+
+TTree* CMS3::getTTree()
+{
+    return ntuple_tree_;
+}
+
+void CMS3::GetEntry(TString filepath, unsigned int idx)
+{
+    Init(filepath);
+    GetEntry(idx);
+}
+
 void CMS3::Init(TTree *tree) {
   mus_gfit_p4_branch = 0;
   if (tree->GetAlias("mus_gfit_p4") != 0) {
@@ -2343,16 +2385,28 @@ void CMS3::Init(TTree *tree) {
     if (mus_jetNDauChargedMVASel_branch) { mus_jetNDauChargedMVASel_branch->SetAddress(&mus_jetNDauChargedMVASel_); }
   }
 
-
   els_VIDFall17V2NoIsoMvaValue_branch = 0;
   if (tree->GetAlias("els_VIDFall17V2NoIsoMvaValue") != 0) {
     els_VIDFall17V2NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2NoIsoMvaValue"));
     if (els_VIDFall17V2NoIsoMvaValue_branch) { els_VIDFall17V2NoIsoMvaValue_branch->SetAddress(&els_VIDFall17V2NoIsoMvaValue_); }
   }
+
   els_VIDFall17NoIsoMvaValue_branch = 0;
   if (tree->GetAlias("els_VIDFall17NoIsoMvaValue") != 0) {
     els_VIDFall17NoIsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17NoIsoMvaValue"));
     if (els_VIDFall17NoIsoMvaValue_branch) { els_VIDFall17NoIsoMvaValue_branch->SetAddress(&els_VIDFall17NoIsoMvaValue_); }
+  }
+
+  els_VIDFall17V2IsoMvaValue_branch = 0;
+  if (tree->GetAlias("els_VIDFall17V2IsoMvaValue") != 0) {
+    els_VIDFall17V2IsoMvaValue_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2IsoMvaValue"));
+    if (els_VIDFall17V2IsoMvaValue_branch) { els_VIDFall17V2IsoMvaValue_branch->SetAddress(&els_VIDFall17V2IsoMvaValue_); }
+  }
+
+  els_VIDFall17V2IsoMvaCat_branch = 0;
+  if (tree->GetAlias("els_VIDFall17V2IsoMvaCat") != 0) {
+    els_VIDFall17V2IsoMvaCat_branch = tree->GetBranch(tree->GetAlias("els_VIDFall17V2IsoMvaCat"));
+    if (els_VIDFall17V2IsoMvaCat_branch) { els_VIDFall17V2IsoMvaCat_branch->SetAddress(&els_VIDFall17V2IsoMvaCat_); }
   }
 
   mus_selectors_branch = 0;
@@ -3820,6 +3874,12 @@ void CMS3::Init(TTree *tree) {
   if (tree->GetAlias("els_sccharge") != 0) {
     els_sccharge_branch = tree->GetBranch(tree->GetAlias("els_sccharge"));
     if (els_sccharge_branch) { els_sccharge_branch->SetAddress(&els_sccharge_); }
+  }
+
+  genps_fromHardProcess_branch = 0;
+  if (tree->GetAlias("genps_fromHardProcess") != 0) {
+    genps_fromHardProcess_branch = tree->GetBranch(tree->GetAlias("genps_fromHardProcess"));
+    if (genps_fromHardProcess_branch) { genps_fromHardProcess_branch->SetAddress(&genps_fromHardProcess_); }
   }
   genps_isHardProcess_branch = 0;
   if (tree->GetAlias("genps_isHardProcess") != 0) {
@@ -7986,6 +8046,8 @@ void CMS3::GetEntry(unsigned int idx) {
   mus_simExtType_isLoaded = false;
   els_VIDFall17NoIsoMvaValue_isLoaded = false;
   els_VIDFall17V2NoIsoMvaValue_isLoaded = false;
+  els_VIDFall17V2IsoMvaValue_isLoaded = false;
+  els_VIDFall17V2IsoMvaCat_isLoaded = false;
   mus_miniRelIso_chg_isLoaded = false;
   mus_miniRelIso_all_isLoaded = false;
   els_miniRelIso_chg_isLoaded = false;
@@ -8279,6 +8341,7 @@ void CMS3::GetEntry(unsigned int idx) {
   evt_bs_yErr_isLoaded = false;
   els_sccharge_isLoaded = false;
   genps_isHardProcess_isLoaded = false;
+  genps_fromHardProcess_isLoaded = false;
   mus_segmCompatibility_isLoaded = false;
   hyp_ll_index_isLoaded = false;
   genweights_isLoaded = false;
@@ -9486,6 +9549,8 @@ void CMS3::LoadAllBranches() {
   if (mus_simExtType_branch != 0) mus_simExtType();
   if (els_VIDFall17NoIsoMvaValue_branch != 0) els_VIDFall17NoIsoMvaValue();
   if (els_VIDFall17V2NoIsoMvaValue_branch != 0) els_VIDFall17V2NoIsoMvaValue();
+  if (els_VIDFall17V2IsoMvaValue_branch != 0) els_VIDFall17V2IsoMvaValue();
+  if (els_VIDFall17V2IsoMvaCat_branch != 0) els_VIDFall17V2IsoMvaCat();
   if (mus_miniRelIso_chg_branch != 0) mus_miniRelIso_chg();
   if (mus_miniRelIso_all_branch != 0) mus_miniRelIso_all();
   if (els_miniRelIso_chg_branch != 0) els_miniRelIso_chg();
@@ -9779,6 +9844,7 @@ void CMS3::LoadAllBranches() {
   if (evt_bs_yErr_branch != 0) evt_bs_yErr();
   if (els_sccharge_branch != 0) els_sccharge();
   if (genps_isHardProcess_branch != 0) genps_isHardProcess();
+  if (genps_fromHardProcess_branch != 0) genps_fromHardProcess();
   if (mus_segmCompatibility_branch != 0) mus_segmCompatibility();
   if (hyp_ll_index_branch != 0) hyp_ll_index();
   if (genweights_branch != 0) genweights();
@@ -16143,7 +16209,6 @@ const vector<int> &CMS3::mus_jetNDauChargedMVASel() {
   return mus_jetNDauChargedMVASel_;
 }
 
-
 const vector<float> &CMS3::els_VIDFall17V2NoIsoMvaValue() {
   if (not els_VIDFall17V2NoIsoMvaValue_isLoaded) {
     if (els_VIDFall17V2NoIsoMvaValue_branch != 0) {
@@ -16156,6 +16221,7 @@ const vector<float> &CMS3::els_VIDFall17V2NoIsoMvaValue() {
   }
   return els_VIDFall17V2NoIsoMvaValue_;
 }
+
 const vector<float> &CMS3::els_VIDFall17NoIsoMvaValue() {
   if (not els_VIDFall17NoIsoMvaValue_isLoaded) {
     if (els_VIDFall17NoIsoMvaValue_branch != 0) {
@@ -16167,6 +16233,32 @@ const vector<float> &CMS3::els_VIDFall17NoIsoMvaValue() {
     els_VIDFall17NoIsoMvaValue_isLoaded = true;
   }
   return els_VIDFall17NoIsoMvaValue_;
+}
+
+const vector<float> &CMS3::els_VIDFall17V2IsoMvaValue() {
+  if (not els_VIDFall17V2IsoMvaValue_isLoaded) {
+    if (els_VIDFall17V2IsoMvaValue_branch != 0) {
+      els_VIDFall17V2IsoMvaValue_branch->GetEntry(index);
+    } else {
+      printf("branch els_VIDFall17V2IsoMvaValue_branch does not exist!\n");
+      exit(1);
+    }
+    els_VIDFall17V2IsoMvaValue_isLoaded = true;
+  }
+  return els_VIDFall17V2IsoMvaValue_;
+}
+
+const vector<int> &CMS3::els_VIDFall17V2IsoMvaCat() {
+  if (not els_VIDFall17V2IsoMvaCat_isLoaded) {
+    if (els_VIDFall17V2IsoMvaCat_branch != 0) {
+      els_VIDFall17V2IsoMvaCat_branch->GetEntry(index);
+    } else {
+      printf("branch els_VIDFall17V2IsoMvaCat_branch does not exist!\n");
+      exit(1);
+    }
+    els_VIDFall17V2IsoMvaCat_isLoaded = true;
+  }
+  return els_VIDFall17V2IsoMvaCat_;
 }
 
 const vector<unsigned int> &CMS3::mus_selectors() {
@@ -20106,6 +20198,19 @@ const vector<int> &CMS3::els_sccharge() {
     els_sccharge_isLoaded = true;
   }
   return els_sccharge_;
+}
+
+const vector<bool> &CMS3::genps_fromHardProcess() {
+  if (not genps_fromHardProcess_isLoaded) {
+    if (genps_fromHardProcess_branch != 0) {
+      genps_fromHardProcess_branch->GetEntry(index);
+    } else {
+      printf("branch genps_fromHardProcess_branch does not exist!\n");
+      exit(1);
+    }
+    genps_fromHardProcess_isLoaded = true;
+  }
+  return genps_fromHardProcess_;
 }
 const vector<bool> &CMS3::genps_isHardProcess() {
   if (not genps_isHardProcess_isLoaded) {
@@ -30633,6 +30738,8 @@ namespace tas {
   const vector<int> &mus_simExtType() { return cms3.mus_simExtType(); }
   const vector<float> &els_VIDFall17NoIsoMvaValue() { return cms3.els_VIDFall17NoIsoMvaValue(); }
   const vector<float> &els_VIDFall17V2NoIsoMvaValue() { return cms3.els_VIDFall17V2NoIsoMvaValue(); }
+  const vector<float> &els_VIDFall17V2IsoMvaValue() { return cms3.els_VIDFall17V2IsoMvaValue(); }
+  const vector<int> &els_VIDFall17V2IsoMvaCat() { return cms3.els_VIDFall17V2IsoMvaCat(); }
   const vector<float> &mus_miniRelIso_chg() { return cms3.mus_miniRelIso_chg(); }
   const vector<float> &mus_miniRelIso_all() { return cms3.mus_miniRelIso_all(); }
   const vector<float> &els_miniRelIso_chg() { return cms3.els_miniRelIso_chg(); }
@@ -30926,6 +31033,7 @@ namespace tas {
   const float &evt_bs_yErr() { return cms3.evt_bs_yErr(); }
   const vector<int> &els_sccharge() { return cms3.els_sccharge(); }
   const vector<bool> &genps_isHardProcess() { return cms3.genps_isHardProcess(); }
+  const vector<bool> &genps_fromHardProcess() { return cms3.genps_fromHardProcess(); }
   const vector<float> &mus_segmCompatibility() { return cms3.mus_segmCompatibility(); }
   const vector<int> &hyp_ll_index() { return cms3.hyp_ll_index(); }
   const vector<float> &genweights() { return cms3.genweights(); }

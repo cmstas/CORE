@@ -22,6 +22,15 @@ bool isMVAwp80NoIsofall17(unsigned int elIdx, bool use_miniaod = true);
 bool isMVAwp90NoIsofall17(unsigned int elIdx, bool use_miniaod = true);
 bool isMVAHZZNoIsofall17(unsigned int elIdx, bool use_miniaod = true);
 bool isMVAfall17(unsigned int elIdx, bool use_miniaod, float, float, float, float, float, float, float, float, float);
+bool isMVAIsofall17V2(unsigned int elIdx, bool use_miniaod, float, float, float, float, float, float, float, float, float);
+bool isMVAwp80Isofall17V2(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAwp90Isofall17V2(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAwpLooseIsofall17V2(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAHZZIsofall17V2(unsigned int elIdx, bool use_miniaod = true);
+bool isMVANoIsofall17V2(unsigned int elIdx, bool use_miniaod, float, float, float, float, float, float, float, float, float);
+bool isMVAwp80NoIsofall17V2(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAwp90NoIsofall17V2(unsigned int elIdx, bool use_miniaod = true);
+bool isMVAwpLooseNoIsofall17V2(unsigned int elIdx, bool use_miniaod = true);
 
 //POG IDs for phys14
 bool isVetoElectronPOGphys14(unsigned int elIdx);

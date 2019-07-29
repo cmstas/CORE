@@ -2480,7 +2480,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     if (!( fabs(cms3.els_etaSC().at(elIdx))     <  2.5   )) return false;
     if (!( fabs(cms3.els_dxyPV().at(elIdx))     <  0.05  )) return false;
     if (!( fabs(cms3.els_dzPV().at(elIdx))      <  0.1   )) return false;
-    if (gconf.year == 2016)
+    if (gconf.cmssw_ver != 94)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
         {
@@ -2491,11 +2491,30 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
             if (!( getMVAoutput(elIdx)          > 0.    )) return false;
         }
     }
-    else if (gconf.year == 2017 or gconf.year == 2018)
+    else
     {
-        if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
-//        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
+        if (!( isMVAwpLooseNoIsofall17V2(elIdx, true)   )) return false;
     }
+    // if (gconf.year == 2016 and gconf.cmssw_ver != 94)
+    // {
+    //     if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    //     {
+    //         if (!( getMVAoutput(elIdx)          > 0.6   )) return false;
+    //     }
+    //     else
+    //     {
+    //         if (!( getMVAoutput(elIdx)          > 0.    )) return false;
+    //     }
+    // }
+    // else if (gconf.year == 2016 and gconf.cmssw_ver == 94)
+    // {
+    //     if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
+    // }
+    // else if (gconf.year == 2017 or gconf.year == 2018)
+    // {
+    //     if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
+// //        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
+    // }
     return true;
     break;
 
@@ -2512,7 +2531,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   case(VVV_fo_noiso_v5):
     if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
     if (!( threeChargeAgree(elIdx)                       )) return false;
-    if (gconf.year == 2016)
+    if (gconf.cmssw_ver != 94)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
         {
@@ -2523,11 +2542,30 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
             if (!( getMVAoutput(elIdx)           > 0.925 )) return false;
         }
     }
-    else if (gconf.year == 2017 or gconf.year == 2018)
+    else
     {
-        if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
-//        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
+        if (!( isMVAwp80NoIsofall17V2(elIdx, true)       )) return false;
     }
+    // if (gconf.year == 2016 and gconf.cmssw_ver != 94)
+    // {
+    //     if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    //     {
+    //         if (!( getMVAoutput(elIdx)           > 0.941 )) return false;
+    //     }
+    //     else
+    //     {
+    //         if (!( getMVAoutput(elIdx)           > 0.925 )) return false;
+    //     }
+    // }
+    // else if (gconf.year == 2016 and gconf.cmssw_ver == 94)
+    // {
+    //     if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
+    // }
+    // else if (gconf.year == 2017 or gconf.year == 2018)
+    // {
+    //     if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
+// //        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
+    // }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
     return true;
@@ -2560,7 +2598,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
   case(VVV_3l_fo_noiso_v5):
     if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.015 )) return false;
-    if (gconf.year == 2016)
+    if (gconf.cmssw_ver != 94)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
         {
@@ -2571,11 +2609,30 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
             if (!( getMVAoutput(elIdx)           > 0.88  )) return false;
         }
     }
-    else if (gconf.year == 2017 or gconf.year == 2018)
+    else
     {
-        if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
-//        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
+        if (!( isMVAwp90NoIsofall17V2(elIdx, true)       )) return false;
     }
+    // if (gconf.year == 2016 and gconf.cmssw_ver != 94)
+    // {
+    //     if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
+    //     {
+    //         if (!( getMVAoutput(elIdx)           > 0.92  )) return false;
+    //     }
+    //     else
+    //     {
+    //         if (!( getMVAoutput(elIdx)           > 0.88  )) return false;
+    //     }
+    // }
+    // else if (gconf.year == 2016 and gconf.cmssw_ver == 94)
+    // {
+    //     if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
+    // }
+    // else if (gconf.year == 2017 or gconf.year == 2018)
+    // {
+    //     if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
+// //        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
+    // }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
     return true;
@@ -2792,6 +2849,274 @@ bool isMVAfall17(unsigned int elIdx, bool use_miniaod,
 {
 
     float mva = getMVAoutput(elIdx, use_miniaod);
+    float aeta = fabs(els_etaSC().at(elIdx));
+    float pt = els_p4().at(elIdx).pt();
+
+    float c;
+    float A;
+    float tau;
+
+    if (aeta < 0.8)
+    {
+        c   = EB1_10_c;
+        tau = EB1_10_tau;
+        A   = EB1_10_A;
+    }
+    else if (aeta < 1.479)
+    {
+        c   = EB2_10_c;
+        tau = EB2_10_tau;
+        A   = EB2_10_A;
+    }
+    else
+    {
+        c   = EE_10_c;
+        tau = EE_10_tau;
+        A   = EE_10_A;
+    }
+
+    float cut = c - A * TMath::Exp(-pt / tau);
+
+    if (mva > cut)
+        return true;
+    else
+        return false;
+
+}
+
+//________________________________________________________________________________________________________
+// https://indico.cern.ch/event/732971/contributions/3022864/attachments/1658765/2656595/180530_egamma.pdf
+// Fall 17 V2 ID
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
+
+bool isMVAwp90NoIsofall17V2(unsigned int elIdx, bool use_miniaod)
+{
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
+    return isMVANoIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ 5.9175992258,
+           /*"tau"    :  */ 13.4807294538,
+           /*"A"      :  */ 9.31966232685,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ 5.01598837255,
+           /*"tau"    :  */ 13.1280451502,
+           /*"A"      :  */ 9.00720913211,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ 4.16921343208,
+           /*"tau"    :  */ 13.2017224621,
+           /*"A"      :  */ 9.00720913211
+           /*}*/
+           );
+}
+
+bool isMVAwp80NoIsofall17V2(unsigned int elIdx, bool use_miniaod)
+{
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
+    return isMVANoIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ 7.1336238874,
+           /*"tau"    :  */ 16.5605268797,
+           /*"A"      :  */ 8.22531222391,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ 6.18638275782,
+           /*"tau"    :  */ 15.2694634284,
+           /*"A"      :  */ 7.49764565324,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ 7.49764565324,
+           /*"tau"    :  */ 15.4290075949,
+           /*"A"      :  */ 7.56899692285
+           /*}*/
+           );
+}
+
+bool isMVAwpLooseNoIsofall17V2(unsigned int elIdx, bool use_miniaod) // allegedly has 98% efficiency
+{
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_noIso_V2_cff.py
+    return isMVANoIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ -0.293962958665,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ -0.250424758584,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ -0.130985179031,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0
+           /*}*/
+           );
+}
+//________________________________________________________________________________________________________
+// https://indico.cern.ch/event/732971/contributions/3022864/attachments/1658765/2656595/180530_egamma.pdf
+// Fall 17 V2 ID
+// https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py
+
+bool isMVAHZZIsofall17V2(unsigned int elIdx, bool use_miniaod)
+{
+    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L21-L29
+    return isMVAIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ 2.36464785939,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ 2.07880614597,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ 1.08080644615,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0
+           /*}*/
+           );
+
+}
+
+bool isMVAwp90Isofall17V2(unsigned int elIdx, bool use_miniaod)
+{
+    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L51-L59
+    return isMVAIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ 6.12931925263,
+           /*"tau"    :  */ 13.281753835,
+           /*"A"      :  */ 8.71138432196,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ 5.26289004857,
+           /*"tau"    :  */ 13.2154971491,
+           /*"A"      :  */ 8.0997882835,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ 4.37338792902,
+           /*"tau"    :  */ 14.0776094696,
+           /*"A"      :  */ 8.48513324496
+           /*}*/
+           );
+}
+
+bool isMVAwp80Isofall17V2(unsigned int elIdx, bool use_miniaod)
+{
+    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L36-38
+    return isMVAIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ 7.35752275071,
+           /*"tau"    :  */ 15.87907864,
+           /*"A"      :  */ 7.61288809226,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ 6.41811074032,
+           /*"tau"    :  */ 14.730562874,
+           /*"A"      :  */ 6.96387331587,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ 5.64936312428,
+           /*"tau"    :  */ 16.3664949747,
+           /*"A"      :  */ 7.19607610311
+           /*}*/
+           );
+}
+
+bool isMVAwpLooseIsofall17V2(unsigned int elIdx, bool use_miniaod) // allegedly has 98% efficiency
+{
+    // https://github.com/cms-sw/cmssw/blob/2f98747bb564e8730e4f34d7828e1f85cf7e5156/RecoEgamma/ElectronIdentification/python/Identification/mvaElectronID_Fall17_iso_V2_cff.py#L36-38
+    return isMVAIsofall17V2(elIdx, use_miniaod,
+           /*"EB1_10" : {*/
+           /*"c"      :  */ -0.146270871164,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0,
+           /*},*/
+           /*"EB2_10" : {*/
+           /*"c"      :  */ -0.0315850882679,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0,
+           /*},*/
+           /*"EE_10"  : {*/
+           /*"c"      :  */ -0.0321841194737,
+           /*"tau"    :  */ 1.0,
+           /*"A"      :  */ 0.0
+           /*}*/
+           );
+}
+
+bool isMVANoIsofall17V2(unsigned int elIdx, bool use_miniaod,
+        float EB1_10_c,
+        float EB1_10_tau,
+        float EB1_10_A,
+        float EB2_10_c,
+        float EB2_10_tau,
+        float EB2_10_A,
+        float EE_10_c,
+        float EE_10_tau,
+        float EE_10_A
+        )
+{
+
+    float notraw = els_VIDFall17V2NoIsoMvaValue().at(elIdx);
+    if (notraw >  1.0-1.e-7) notraw =  1.0-1.e-7; // protect against inf, -inf due to FP rounding issues
+    if (notraw < -1.0+1.e-7) notraw = -1.0+1.e-7;
+    float mva = -0.5*log((2.0/(notraw+1))-1.0);
+    float aeta = fabs(els_etaSC().at(elIdx));
+    float pt = els_p4().at(elIdx).pt();
+
+    float c;
+    float A;
+    float tau;
+
+    if (aeta < 0.8)
+    {
+        c   = EB1_10_c;
+        tau = EB1_10_tau;
+        A   = EB1_10_A;
+    }
+    else if (aeta < 1.479)
+    {
+        c   = EB2_10_c;
+        tau = EB2_10_tau;
+        A   = EB2_10_A;
+    }
+    else
+    {
+        c   = EE_10_c;
+        tau = EE_10_tau;
+        A   = EE_10_A;
+    }
+
+    float cut = c - A * TMath::Exp(-pt / tau);
+
+    if (mva > cut)
+        return true;
+    else
+        return false;
+
+}
+
+bool isMVAIsofall17V2(unsigned int elIdx, bool use_miniaod,
+        float EB1_10_c,
+        float EB1_10_tau,
+        float EB1_10_A,
+        float EB2_10_c,
+        float EB2_10_tau,
+        float EB2_10_A,
+        float EE_10_c,
+        float EE_10_tau,
+        float EE_10_A
+        )
+{
+
+    float notraw = els_VIDFall17V2IsoMvaValue().at(elIdx);
+    if (notraw >  1.0-1.e-7) notraw =  1.0-1.e-7; // protect against inf, -inf due to FP rounding issues
+    if (notraw < -1.0+1.e-7) notraw = -1.0+1.e-7;
+    float mva = -0.5*log((2.0/(notraw+1))-1.0);
     float aeta = fabs(els_etaSC().at(elIdx));
     float pt = els_p4().at(elIdx).pt();
 

@@ -9,6 +9,8 @@
 #include "TH1F.h"
 #include "TFile.h"
 #include "TBits.h"
+#include "TString.h"
+#include "TTree.h"
 #include <vector>
 #include <unistd.h>
 #include <chrono>
@@ -22,6 +24,8 @@ typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > LorentzVector;
 using namespace std;
 class CMS3 {
 private:
+  TFile* ntuple_file_;
+  TTree* ntuple_tree_;
 protected:
   unsigned int index;
   float hcalnoise_isolatedNoiseSumEt_;
@@ -1347,6 +1351,12 @@ protected:
   vector<float> els_VIDFall17V2NoIsoMvaValue_;
   TBranch *els_VIDFall17V2NoIsoMvaValue_branch;
   bool els_VIDFall17V2NoIsoMvaValue_isLoaded;
+  vector<float> els_VIDFall17V2IsoMvaValue_;
+  TBranch *els_VIDFall17V2IsoMvaValue_branch;
+  bool els_VIDFall17V2IsoMvaValue_isLoaded;
+  vector<int> els_VIDFall17V2IsoMvaCat_;
+  TBranch *els_VIDFall17V2IsoMvaCat_branch;
+  bool els_VIDFall17V2IsoMvaCat_isLoaded;
   vector<float> mus_miniRelIso_chg_;
   TBranch *mus_miniRelIso_chg_branch;
   bool mus_miniRelIso_chg_isLoaded;
@@ -2214,6 +2224,9 @@ protected:
   vector<bool> genps_isHardProcess_;
   TBranch *genps_isHardProcess_branch;
   bool genps_isHardProcess_isLoaded;
+  vector<bool> genps_fromHardProcess_;
+  TBranch *genps_fromHardProcess_branch;
+  bool genps_fromHardProcess_isLoaded;
   vector<float> mus_segmCompatibility_;
   TBranch *mus_segmCompatibility_branch;
   bool mus_segmCompatibility_isLoaded;
@@ -4519,6 +4532,11 @@ protected:
   TBranch *mus_nStationHits_branch;
   bool mus_nStationHits_isLoaded;
 public:
+  CMS3();
+  void Init(TString filepath);
+  TFile* getTFile();
+  TTree* getTTree();
+  void GetEntry(TString filepath, unsigned int idx);
   void Init(TTree *tree);
   void GetEntry(unsigned int idx);
   void LoadAllBranches();
@@ -4959,6 +4977,8 @@ public:
   const vector<int> &mus_simExtType();
   const vector<float> &els_VIDFall17NoIsoMvaValue();
   const vector<float> &els_VIDFall17V2NoIsoMvaValue();
+  const vector<float> &els_VIDFall17V2IsoMvaValue();
+  const vector<int> &els_VIDFall17V2IsoMvaCat();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
@@ -5252,6 +5272,7 @@ public:
   const float &evt_bs_yErr();
   const vector<int> &els_sccharge();
   const vector<bool> &genps_isHardProcess();
+  const vector<bool> &genps_fromHardProcess();
   const vector<float> &mus_segmCompatibility();
   const vector<int> &hyp_ll_index();
   const vector<float> &genweights();
@@ -6470,6 +6491,8 @@ namespace tas {
   const vector<int> &mus_simExtType();
   const vector<float> &els_VIDFall17NoIsoMvaValue();
   const vector<float> &els_VIDFall17V2NoIsoMvaValue();
+  const vector<float> &els_VIDFall17V2IsoMvaValue();
+  const vector<int> &els_VIDFall17V2IsoMvaCat();
   const vector<float> &mus_miniRelIso_chg();
   const vector<float> &mus_miniRelIso_all();
   const vector<float> &els_miniRelIso_chg();
@@ -6763,6 +6786,7 @@ namespace tas {
   const float &evt_bs_yErr();
   const vector<int> &els_sccharge();
   const vector<bool> &genps_isHardProcess();
+  const vector<bool> &genps_fromHardProcess();
   const vector<float> &mus_segmCompatibility();
   const vector<int> &hyp_ll_index();
   const vector<float> &genweights();
