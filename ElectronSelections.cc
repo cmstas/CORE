@@ -2480,7 +2480,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     if (!( fabs(cms3.els_etaSC().at(elIdx))     <  2.5   )) return false;
     if (!( fabs(cms3.els_dxyPV().at(elIdx))     <  0.05  )) return false;
     if (!( fabs(cms3.els_dzPV().at(elIdx))      <  0.1   )) return false;
-    if (gconf.cmssw_ver != 94)
+    if (gconf.year == 2016 and gconf.cmssw_ver == 80)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
         {
@@ -2493,28 +2493,8 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     }
     else
     {
-        if (!( isMVAwpLooseNoIsofall17V2(elIdx, true)   )) return false;
+        if (!( isMVAwpLooseIsofall17V2(elIdx, true)         )) return false;
     }
-    // if (gconf.year == 2016 and gconf.cmssw_ver != 94)
-    // {
-    //     if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
-    //     {
-    //         if (!( getMVAoutput(elIdx)          > 0.6   )) return false;
-    //     }
-    //     else
-    //     {
-    //         if (!( getMVAoutput(elIdx)          > 0.    )) return false;
-    //     }
-    // }
-    // else if (gconf.year == 2016 and gconf.cmssw_ver == 94)
-    // {
-    //     if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
-    // }
-    // else if (gconf.year == 2017 or gconf.year == 2018)
-    // {
-    //     if (!( isMVAHZZNoIsofall17(elIdx, true)         )) return false;
-// //        if (!isVetoElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
-    // }
     return true;
     break;
 
@@ -2531,7 +2511,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   case(VVV_fo_noiso_v5):
     if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.01  )) return false;
     if (!( threeChargeAgree(elIdx)                       )) return false;
-    if (gconf.cmssw_ver != 94)
+    if (gconf.year == 2016 and gconf.cmssw_ver == 80)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
         {
@@ -2546,26 +2526,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     {
         if (!( isMVAwp80NoIsofall17V2(elIdx, true)       )) return false;
     }
-    // if (gconf.year == 2016 and gconf.cmssw_ver != 94)
-    // {
-    //     if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
-    //     {
-    //         if (!( getMVAoutput(elIdx)           > 0.941 )) return false;
-    //     }
-    //     else
-    //     {
-    //         if (!( getMVAoutput(elIdx)           > 0.925 )) return false;
-    //     }
-    // }
-    // else if (gconf.year == 2016 and gconf.cmssw_ver == 94)
-    // {
-    //     if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
-    // }
-    // else if (gconf.year == 2017 or gconf.year == 2018)
-    // {
-    //     if (!( isMVAwp80NoIsofall17(elIdx, true)         )) return false;
-// //        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
-    // }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
     return true;
@@ -2598,7 +2558,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
   case(VVV_3l_fo_noiso_v5):
     if (!( fabs(cms3.els_ip3d()[elIdx])          < 0.015 )) return false;
-    if (gconf.cmssw_ver != 94)
+    if (gconf.year == 2016 and gconf.cmssw_ver == 80)
     {
         if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
         {
@@ -2613,26 +2573,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     {
         if (!( isMVAwp90NoIsofall17V2(elIdx, true)       )) return false;
     }
-    // if (gconf.year == 2016 and gconf.cmssw_ver != 94)
-    // {
-    //     if (fabs(cms3.els_etaSC()[elIdx]) <= 1.479)
-    //     {
-    //         if (!( getMVAoutput(elIdx)           > 0.92  )) return false;
-    //     }
-    //     else
-    //     {
-    //         if (!( getMVAoutput(elIdx)           > 0.88  )) return false;
-    //     }
-    // }
-    // else if (gconf.year == 2016 and gconf.cmssw_ver == 94)
-    // {
-    //     if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
-    // }
-    // else if (gconf.year == 2017 or gconf.year == 2018)
-    // {
-    //     if (!( isMVAwp90NoIsofall17(elIdx, true)         )) return false;
-// //        if (!isLooseElectronPOGfall17noIso_v2(elIdx)) return false; // Cut-based for testing purpose
-    // }
     if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
     return true;
