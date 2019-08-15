@@ -1893,7 +1893,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
 	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
 	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v6)) return false; //loose MVA working point 
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v7)) return false; //loose MVA working point 
 	  else return true;
       break;
 

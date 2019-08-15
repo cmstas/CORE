@@ -253,7 +253,7 @@ bool passElectronSelection_ZMET_thirdlepton_v4(int index, bool vetoTransition, b
 	  && fabs(cms3.els_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
   if( eta24
 	  && fabs(cms3.els_p4()[index].eta()) > 2.5    ) return false; // eta < 2.5
-  if( !electronID( index, ZMET_looseMVA_v2 )       ) return false; // Electron ID  
+  if( !electronID( index, ZMET_looseMVA_v3 )       ) return false; // Electron ID  
 
     return true;
 }
