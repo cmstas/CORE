@@ -52,6 +52,7 @@ void GlobalConfig::GetConfigsFromDatasetName(TString dsname)
   if (dsname.Contains("102X")
       || dsname.Contains("17Sep2018")    // 2018 data ReReco
       || dsname.Contains("D-PromptReco") // PromptReco for Era D
+      || dsname.Contains("D-22Jan2019") // 22Jan2019 for Era D
       ) cmssw_ver = 102;
 
   if (year == 2016 && cmssw_ver == 80) {
