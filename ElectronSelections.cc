@@ -1825,8 +1825,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
-	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
 	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v7)) return false; //tight MVA working point 
 	  else return true;
 
@@ -1854,9 +1852,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
-	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v6)) return false; //tight MVA working point 
+	  	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v6)) return false; //tight MVA working point 
 	  else return true;
 
       break;
@@ -1869,8 +1865,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
-	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
 	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v5)) return false; //tight MVA working point 
 	  else return true;
 	  break;
@@ -1891,9 +1885,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
-	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v7)) return false; //loose MVA working point 
+	  	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v7)) return false; //loose MVA working point 
 	  else return true;
       break;
 
@@ -1912,8 +1904,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
-	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
 	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v6)) return false; //loose MVA working point 
 	  else return true;
       break;
@@ -1932,8 +1922,6 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
-	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
 	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v5)) return false; //loose MVA working point 
 	  else return true;
 	  break;

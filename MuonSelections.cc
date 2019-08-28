@@ -902,8 +902,6 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
         {
             if (!isMediumMuonPOG(muIdx)               ) return false;
         }
-	    if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	    if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
 	    if (muMiniRelIsoCMS3_EA( muIdx, 4) > 0.2  ) return false;
 	    else return true;
 
@@ -918,41 +916,59 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
         {
             if (!isMediumMuonPOG(muIdx)               ) return false;
         }
-	    if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	    if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
 	    if (muMiniRelIsoCMS3_EA( muIdx, 4) > 0.4  ) return false;
 	    else return true;
 
         break;
   
     case(ZMET_mediumMu_v3):
-      if (!isMediumMuonPOG_forICHEP(muIdx)      ) return false;
-	  if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	  if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
+      if(gconf.cmssw_ver >= 94 || gconf.year >= 2017)
+      {
+        if(!passesMuonPOG(muID::CutBasedIdMedium,muIdx)) return false;
+      }
+      else
+      {
+        if (!isMediumMuonPOG_forICHEP(muIdx)      ) return false;
+      }
 	  if (muMiniRelIsoCMS3_EA( muIdx, 1) > 0.2  ) return false;
 	  else return true;
       break;
   
     case(ZMET_mediumMu_veto_v3):
-      if (!isMediumMuonPOG_forICHEP(muIdx)      ) return false;
-	  if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	  if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
+      if(gconf.cmssw_ver >= 94 || gconf.year >= 2017)
+      {
+        if(!passesMuonPOG(muID::CutBasedIdMedium,muIdx)) return false;
+      }
+      else
+      {
+        if (!isMediumMuonPOG_forICHEP(muIdx)      ) return false;
+      }
 	  if (muMiniRelIsoCMS3_EA( muIdx, 1) > 0.4  ) return false;
 	  else return true;
       break;
   
     case(ZMET_mediumMu_v2):
-      if (!isMediumMuonPOG(muIdx)               ) return false;
-	  if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	  if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
+      if(gconf.cmssw_ver >= 94 || gconf.year >= 2017)
+      {
+        if(!passesMuonPOG(muID::CutBasedIdMedium,muIdx)) return false;
+      }
+      else
+      {
+        if (!isMediumMuonPOG(muIdx)               ) return false;
+      }
 	  if (muMiniRelIsoCMS3_EA( muIdx, 1) > 0.2  ) return false;
 	  else return true;
       break;
   
     case(ZMET_mediumMu_veto_v2):
-      if (!isMediumMuonPOG(muIdx)               ) return false;
-	  if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	  if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
+      if(gconf.cmssw_ver >= 94 || gconf.year >= 2017)
+      {
+        if(!passesMuonPOG(muID::CutBasedIdMedium,muIdx)) return false;
+      }
+      else
+      {
+        if (!isMediumMuonPOG(muIdx)               ) return false;
+      }
 	  if (muMiniRelIsoCMS3_EA( muIdx, 1) > 0.4  ) return false;
 	  else return true;
       break;
