@@ -2493,7 +2493,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     }
     else
     {
-        if (!( isMVAwpLooseIsofall17V2(elIdx, true)         )) return false;
+        if (!( isMVAwpLooseNoIsofall17V2(elIdx, true)   )) return false;
     }
     return true;
     break;
