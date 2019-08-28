@@ -894,22 +894,36 @@ bool muonID(unsigned int muIdx, id_level_t id_level){
    //
 
      case(ZMET_mediumMu_v4):
-      if (!isMediumMuonPOG(muIdx)               ) return false;
-	  if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	  if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
-	  if (muMiniRelIsoCMS3_EA( muIdx, 4) > 0.2  ) return false;
-	  else return true;
+        if(gconf.cmssw_ver >= 94 || gconf.year >= 2017)
+        {
+            if(!passesMuonPOG(muID::CutBasedIdMedium,muIdx)) return false;
+        }
+        else
+        {
+            if (!isMediumMuonPOG(muIdx)               ) return false;
+        }
+	    if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
+	    if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
+	    if (muMiniRelIsoCMS3_EA( muIdx, 4) > 0.2  ) return false;
+	    else return true;
 
-      break;
+        break;
 
      case(ZMET_mediumMu_veto_v4):
-      if (!isMediumMuonPOG(muIdx)               ) return false;
-	  if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
-	  if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
-	  if (muMiniRelIsoCMS3_EA( muIdx, 4) > 0.4  ) return false;
-	  else return true;
+        if(gconf.cmssw_ver >= 94 || gconf.year >= 2017)
+        {
+          if(!passesMuonPOG(muID::CutBasedIdMedium,muIdx)) return false;
+        }
+        else
+        {
+            if (!isMediumMuonPOG(muIdx)               ) return false;
+        }
+	    if (fabs(mus_dxyPV() .at(muIdx))   > 0.05 ) return false;
+	    if (fabs(mus_dzPV()  .at(muIdx))   > 0.1  ) return false;
+	    if (muMiniRelIsoCMS3_EA( muIdx, 4) > 0.4  ) return false;
+	    else return true;
 
-      break;
+        break;
   
     case(ZMET_mediumMu_v3):
       if (!isMediumMuonPOG_forICHEP(muIdx)      ) return false;
