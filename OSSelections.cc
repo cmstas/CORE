@@ -10,6 +10,75 @@
 
 using namespace tas;
 
+float els_dzPV_firstPV(unsigned int elIdx)
+{
+/*This function exists because nanoAOD does not have any quality checks
+for PV, and computes dZ and dxy blindly with the first PV*/
+
+    float dz = 0;
+    if(vtxs_ndof().at(0) < 4|| vtxs_position().at(0).Rho() > 2) //Might need to check for chi2 if required!!!!
+    {
+        unsigned int idx = 1;
+        //Finding out the PV that was used to compute dz
+        for(; idx < vtxs_ndof().size(); idx++)
+        {
+            if(vtxs_ndof().at(idx) >= 4 && vtxs_position().at(idx).Rho() <=2)
+                break;
+        }
+        //idx has the index of the vertex that was originally used to compute dz
+        if(els_dzPV().at(elIdx) >=0)  
+        {
+            //Computed wrt another vertex. We simply adjust dz because
+            //original dz computation involves subtle beamspot alignment fixing
+            //and stuff
+            dz = els_dzPV().at(elIdx) + (vtxs_position().at(idx).Z() - vtxs_position().at(0).Z());
+        }
+        else
+        {
+            //dz = -999, we do the best we can by simply computing difference in Zs. Coming here also means that idx = vtx_ndof().size()
+            dz = els_trk_vertex_p4().at(elIdx).Z() - vtxs_position().at(0).Z();
+        }
+
+        return dz;
+    }
+    else
+    {
+        return els_dzPV().at(elIdx);
+    }
+    //Shouldn't really be coming here
+    return 10000;
+
+}
+
+
+float els_dxyPV_firstPV(unsigned int elIdx)
+{
+    /*This function exists because nanoAOD does not have any quality checks
+for PV, and computes dZ and dxy blindly with the first PV*/
+
+    float dxy = 0;
+    if(vtxs_ndof().at(0) < 4 || vtxs_position().at(0).Rho() > 2)
+    {
+        unsigned int idx = 1;
+        for(; idx < vtxs_ndof().size();idx++)
+        {
+            if(vtxs_ndof().at(idx) >= 4 && vtxs_position().at(idx).Rho() <= 2)
+                break;
+        }
+        //idx has the index of the vertex that was originally used to compute dxy
+        dxy = sqrt(pow((els_trk_vertex_p4().at(elIdx).X() - vtxs_position().at(0).X()),2) + pow((els_trk_vertex_p4().at(elIdx).Y() - vtxs_position().at(0).Y()),2));
+        return dxy;
+    }
+    else
+    {
+        return els_dxyPV().at(elIdx);
+    }
+
+    //Shouldn't really be coming here]
+    return 100000;
+}
+
+
 bool overlapMuon_ZMET_v1( int index , float ptcut ){
   for( unsigned int muind = 0; muind < cms3.mus_p4().size(); muind++ ){
     float dr = ROOT::Math::VectorUtil::DeltaR( cms3.els_p4().at(index) , cms3.mus_p4().at(muind) );    
@@ -92,8 +161,8 @@ bool passElectronSelection_ZMET_v6(int index, bool vetoTransition, bool eta24 ){
   if( !electronID( index, ZMET_tightMVA_v2 )       ) return false; // Electron ID  
 
   //IP & trigger cuts to be compatible with multilepton baseline cuts
-  if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
-  if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+  if (abs(els_dzPV_firstPV(index)) >= 0.1                       ) return false;// dZ < 0.1
+  if (abs(els_dxyPV_firstPV(index)) >= 0.05                      ) return false;// dR < 0.05
   if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
   return true;
 }
@@ -108,11 +177,12 @@ bool passElectronSelection_ZMET_v7(int index, bool vetoTransition, bool eta24)
 	  && fabs(cms3.els_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
   if( eta24
 	  && fabs(cms3.els_p4()[index].eta()) > 2.4    ) return false; // eta < 2.4
+   
   if( !electronID( index, ZMET_tightMVA_v3 )       ) return false; // Electron ID  
 
   //IP & trigger cuts to be compatible with multilepton baseline cuts
-  if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
-  if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+  if (abs(els_dzPV_firstPV(index)) >= 0.1                       ) return false;// dZ < 0.1
+  if (abs(els_dxyPV_firstPV(index)) >= 0.05                      ) return false;// dR < 0.05
   if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
   return true;
 }
@@ -129,8 +199,8 @@ bool passElectronSelection_ZMET_v8(int index, bool vetoTransition, bool eta24)
     if( !electronID( index, ZMET_tightMVA_v4 )       ) return false; // Electron ID  
 
     //IP & trigger cuts to be compatible with multilepton baseline cuts
-    if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
-    if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+    if (abs(els_dzPV_firstPV(index)) >= 0.1                       ) return false;// dZ < 0.1
+    if (abs(els_dxyPV_firstPV(index)) >= 0.05                      ) return false;// dR < 0.05
     if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
     return true;
 
@@ -248,12 +318,19 @@ bool passElectronSelection_ZMET_thirdlepton_v1(int index, bool vetoTransition, b
 bool passElectronSelection_ZMET_thirdlepton_v4(int index, bool vetoTransition, bool eta24)
 {
     if( fabs(cms3.els_p4().at(index).pt()) < 10.0    ) return false; // pT > 10 GeV - Minimum pT cut
-  if( vetoTransition
+    if( vetoTransition
 	  && fabs(cms3.els_p4().at(index).eta()) > 1.4
 	  && fabs(cms3.els_p4().at(index).eta()) < 1.6  ) return false; // veto x-ition region
-  if( eta24
+    if( eta24
 	  && fabs(cms3.els_p4()[index].eta()) > 2.5    ) return false; // eta < 2.5
-  if( !electronID( index, ZMET_looseMVA_v3 )       ) return false; // Electron ID  
+
+
+      //IP & trigger cuts to be compatible with multilepton baseline cuts
+    if (abs(els_dzPV_firstPV(index)) >= 0.1                       ) return false;// dZ < 0.1
+    if (abs(els_dxyPV_firstPV(index)) >= 0.05                      ) return false;// dR < 0.05
+    if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
+
+    if( !electronID( index, ZMET_looseMVA_v3 )       ) return false; // Electron ID  
 
     return true;
 }
@@ -269,8 +346,8 @@ bool passElectronSelection_ZMET_thirdlepton_v3(int index, bool vetoTransition, b
   if( !electronID( index, ZMET_looseMVA_v2 )       ) return false; // Electron ID  
 
   //IP & trigger cuts to be compatible with multilepton baseline cuts
-  if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
-  if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+  if (abs(els_dzPV_firstPV(index)) >= 0.1                       ) return false;// dZ < 0.1
+  if (abs(els_dxyPV_firstPV(index)) >= 0.05                      ) return false;// dR < 0.05
   if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
   return true;
 
@@ -287,8 +364,8 @@ bool passElectronSelection_ZMET_thirdlepton_v2(int index, bool vetoTransition, b
   if( !electronID( index, ZMET_looseMVA_v1 )       ) return false; // Electron ID  
 
   //IP & trigger cuts to be compatible with multilepton baseline cuts
-  if (abs(els_dzPV()  .at(index)) >= 0.1                       ) return false;// dZ < 0.1
-  if (abs(els_dxyPV() .at(index)) >= 0.05                      ) return false;// dR < 0.05
+  if (abs(els_dzPV_firstPV(index)) >= 0.1                       ) return false;// dZ < 0.1
+  if (abs(els_dxyPV_firstPV(index)) >= 0.05                      ) return false;// dR < 0.05
   if (abs(els_ip3d()  .at(index))/els_ip3derr().at(index) >= 8 ) return false;// SIP3D < 8
   return true;
 }
@@ -301,7 +378,7 @@ bool passMuonSelection_ZMET(int index){
 
   int year = gconf.year;
   if(year == 2016)
-    return passMuonSelection_ZMET_v5( index, true, true );
+    return passMuonSelection_ZMET_v7( index, true, true );
   else if(year == 2017)
       return passMuonSelection_ZMET_v8(index,true,true);
   else if(year==2018)
@@ -322,6 +399,8 @@ bool passMuonSelection_ZMET_v9(int index, bool vetoTransition, bool eta24)
     if( !muonID( index, ZMET_mediumMu_v4 )              ) return false; // medium Muon ID  
 
     //IP cuts to be compatible with multilepton baseline cuts
+    if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+	if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
     if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
     return true;
 
@@ -340,6 +419,8 @@ bool passMuonSelection_ZMET_v8(int index, bool vetoTransition, bool eta24)
   if( !muonID( index, ZMET_mediumMu_v4 )              ) return false; // medium Muon ID  
 
   //IP cuts to be compatible with multilepton baseline cuts
+  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
  
@@ -369,6 +450,8 @@ bool passMuonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24 ){
   if( !muonID( index, ZMET_mediumMu_v3 )              ) return false; // medium Muon ID  
 
   //IP cuts to be compatible with multilepton baseline cuts
+  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
@@ -383,6 +466,8 @@ bool passMuonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24 ){
   if( !muonID( index, ZMET_mediumMu_v2 )              ) return false; // medium Muon ID  
 
   //IP cuts to be compatible with multilepton baseline cuts
+  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
@@ -453,6 +538,22 @@ bool passMuonSelection_ZMET_v1(int index, bool vetoTransition, bool eta24 ){
   return true;
 }
 
+
+bool passMuonSelection_ZMET_veto(int index)
+{
+    if(gconf.year == 2016)
+    {
+        passMuonSelection_ZMET_veto_v3(index,false,true);
+    }
+    else if(gconf.year == 2017 || gconf.year == 2018)
+    {
+        passMuonSelection_ZMET_veto_v4(index,false,true);
+    }
+
+    return false;
+}
+
+
 bool passMuonSelection_ZMET_veto_v4(int index, bool vetoTransition, bool eta24)
 {
     if( fabs(cms3.mus_p4().at(index).pt()) < 10.0       ) return false; // pT > 10 GeV - Minimum pT cut
@@ -464,6 +565,8 @@ bool passMuonSelection_ZMET_veto_v4(int index, bool vetoTransition, bool eta24)
   if( !muonID( index, ZMET_mediumMu_veto_v4 )         ) return false; // medium Muon ID with looser iso
 
   //IP cuts to be compatible with multilepton baseline cuts
+  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 
@@ -492,6 +595,8 @@ bool passMuonSelection_ZMET_veto_v2(int index, bool vetoTransition, bool eta24 )
   if( !muonID( index, ZMET_mediumMu_veto_v3 )         ) return false; // medium Muon ID with looser iso
 
   //IP cuts to be compatible with multilepton baseline cuts
+  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
@@ -507,6 +612,9 @@ bool passMuonSelection_ZMET_veto_v1(int index, bool vetoTransition, bool eta24 )
   if( !muonID( index, ZMET_mediumMu_veto_v2 )         ) return false; // medium Muon ID with looser iso
 
   //IP cuts to be compatible with multilepton baseline cuts
+  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
+
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
