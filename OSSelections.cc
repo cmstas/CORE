@@ -5,8 +5,9 @@
 #include "ElectronSelections.h"
 #include "PhotonSelections.h"
 #include "JetSelections.h"
-
+#include "VertexSelections.h"
 #include "Math/VectorUtil.h"
+#include "Tools/utils.h"
 
 using namespace tas;
 
@@ -15,67 +16,103 @@ float els_dzPV_firstPV(unsigned int elIdx)
 /*This function exists because nanoAOD does not have any quality checks
 for PV, and computes dZ and dxy blindly with the first PV*/
 
-    float dz = 0;
-    if(vtxs_ndof().at(0) < 4|| vtxs_position().at(0).Rho() > 2) //Might need to check for chi2 if required!!!!
-    {
-        unsigned int idx = 1;
-        //Finding out the PV that was used to compute dz
-        for(; idx < vtxs_ndof().size(); idx++)
-        {
-            if(vtxs_ndof().at(idx) >= 4 && vtxs_position().at(idx).Rho() <=2)
-                break;
-        }
-        //idx has the index of the vertex that was originally used to compute dz
-        if(els_dzPV().at(elIdx) >=0)  
-        {
-            //Computed wrt another vertex. We simply adjust dz because
-            //original dz computation involves subtle beamspot alignment fixing
-            //and stuff
-            dz = els_dzPV().at(elIdx) + (vtxs_position().at(idx).Z() - vtxs_position().at(0).Z());
-        }
-        else
-        {
-            //dz = -999, we do the best we can by simply computing difference in Zs. Coming here also means that idx = vtx_ndof().size()
-            dz = els_trk_vertex_p4().at(elIdx).Z() - vtxs_position().at(0).Z();
-        }
+    float dz = -999;
 
-        return dz;
-    }
-    else
-    {
+    int first_good_vertex = firstGoodVertex();
+    if(first_good_vertex == 0)
         return els_dzPV().at(elIdx);
-    }
-    //Shouldn't really be coming here
-    return 10000;
 
+    LorentzVector track_vertex = els_trk_vertex_p4().at(elIdx);
+    LorentzVector primary_vertex = vtxs_position().at(0);
+    LorentzVector track_p4 = els_trk_p4().at(elIdx);
+
+        //Reproducing dz computation from CMSSW : https://github.com/cms-sw/cmssw/blob/0b6f294b44aef89ab2b5251053531bbdb212f720/DataFormats/TrackReco/interface/TrackBase.h#L666
+    dz = (track_vertex.Z() - primary_vertex.Z()) - ((track_vertex.X() - primary_vertex.X()) * track_p4.X() + (track_vertex.Y() - primary_vertex.Y()) * track_p4.Y())/track_p4.Pt() * track_p4.Z()/track_p4.Pt();
+
+    return dz;    
 }
 
 
 float els_dxyPV_firstPV(unsigned int elIdx)
 {
     /*This function exists because nanoAOD does not have any quality checks
-for PV, and computes dZ and dxy blindly with the first PV*/
+for PV, and computes dZ and dxy blindly with the first PV*/ 
 
-    float dxy = 0;
-    if(vtxs_ndof().at(0) < 4 || vtxs_position().at(0).Rho() > 2)
-    {
-        unsigned int idx = 1;
-        for(; idx < vtxs_ndof().size();idx++)
-        {
-            if(vtxs_ndof().at(idx) >= 4 && vtxs_position().at(idx).Rho() <= 2)
-                break;
-        }
-        //idx has the index of the vertex that was originally used to compute dxy
-        dxy = sqrt(pow((els_trk_vertex_p4().at(elIdx).X() - vtxs_position().at(0).X()),2) + pow((els_trk_vertex_p4().at(elIdx).Y() - vtxs_position().at(0).Y()),2));
+    float dxy = -999;
+    int first_good_vertex = firstGoodVertex();
+    if(first_good_vertex == 0)
+        return els_dxyPV().at(elIdx);
+
+    LorentzVector track_vertex = els_trk_vertex_p4().at(elIdx);
+    LorentzVector primary_vertex = vtxs_position().at(0);
+    LorentzVector track_p4 = els_trk_p4().at(elIdx);
+
+    //Reproducing dz computation from CMSSW : https://github.com/cms-sw/cmssw/blob/0b6f294b44aef89ab2b5251053531bbdb212f720/DataFormats/TrackReco/interface/TrackBase.h#L646
+   
+    dxy =  (-(track_vertex.X() - primary_vertex.X()) * track_p4.Y() + (track_vertex.Y() - primary_vertex.Y()) * track_p4.X()) / track_p4.Pt();
+
         return dxy;
+}
+
+//Since we don't have muons track vertices stored in CMS4, we go to the isotracks collection to get them muon tracks out
+int mus_findOverlapIsotrack(unsigned int muIdx)
+{
+   float lowestDR = 0.1;
+   size_t closestIsotrack = -1;
+   for(size_t iit = 0; iit < cms3.isotracks_p4().size(); iit++)
+   {
+       float currentDR = DeltaR(cms3.isotracks_p4().at(iit),cms3.mus_p4().at(muIdx));  
+	if(currentDR < lowestDR && abs(cms3.isotracks_particleId().at(iit)) == 13)
+       {
+	    lowestDR = currentDR;
+            closestIsotrack = iit;
+       }
+   }
+   return closestIsotrack;
+}
+
+float mus_dzPV_firstPV(unsigned int muIdx)
+{
+    int first_good_vertex = firstGoodVertex();
+    if(first_good_vertex == 0)
+        return mus_dzPV().at(muIdx);
+    
+    int overlap_isotrack_index = mus_findOverlapIsotrack(muIdx);
+    if(overlap_isotrack_index >= 0)
+
+    {
+        /*if(first_good_vertex == 0)
+        {
+          cout<<endl<<"Muon dz from CMSSW="<<mus_dzPV().at(muIdx)<<endl;
+          cout<<"Muon dz from isotrack="<<cms3.isotracks_dz().at(overlap_isotrack_index)<<endl;
+          cout<<"Delta R="<<DeltaR(mus_p4().at(muIdx),isotracks_p4().at(overlap_isotrack_index))<<endl;
+        }*/
+	return cms3.isotracks_dz().at(overlap_isotrack_index); 
     }
     else
-    {
-        return els_dxyPV().at(elIdx);
-    }
+        return -999;
+}
 
-    //Shouldn't really be coming here]
-    return 100000;
+float mus_dxyPV_firstPV(unsigned int muIdx)
+{
+    int first_good_vertex = firstGoodVertex();
+    if(first_good_vertex == 0)
+        return mus_dxyPV().at(muIdx);
+
+    int overlap_isotrack_index = mus_findOverlapIsotrack(muIdx);
+    if(overlap_isotrack_index >= 0)
+    {
+        /*if(first_good_vertex == 0)
+        {
+          cout<<endl<<"Muon dxy from CMSSW="<<mus_dxyPV().at(muIdx)<<endl;
+          cout<<"Muon dxy from isotrack="<<cms3.isotracks_dxy().at(overlap_isotrack_index)<<endl;
+          cout<<"Delta R="<<DeltaR(mus_p4().at(muIdx),isotracks_p4().at(overlap_isotrack_index))<<endl;
+	}*/
+	    return cms3.isotracks_dxy().at(overlap_isotrack_index); 
+    }
+    else
+        return -999;
+
 }
 
 
@@ -91,7 +128,7 @@ bool overlapMuon_ZMET_v1( int index , float ptcut ){
 }
 
 bool overlapElectron_ZMET_v3(int index, float ptcut)
-{
+    {
     for( unsigned int elind = 0; elind < cms3.els_p4().size(); elind++ ){
     float dr = ROOT::Math::VectorUtil::DeltaR( cms3.photons_p4().at(index) , cms3.els_p4().at(elind) );    
     if( dr > 0.2                                          ) continue;
@@ -399,8 +436,8 @@ bool passMuonSelection_ZMET_v9(int index, bool vetoTransition, bool eta24)
     if( !muonID( index, ZMET_mediumMu_v4 )              ) return false; // medium Muon ID  
 
     //IP cuts to be compatible with multilepton baseline cuts
-    if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
-	if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
+    if (fabs(mus_dxyPV_firstPV(index))   > 0.05 ) return false;
+	if (fabs(mus_dzPV_firstPV(index))   > 0.1  ) return false;
     if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
     return true;
 
@@ -419,8 +456,8 @@ bool passMuonSelection_ZMET_v8(int index, bool vetoTransition, bool eta24)
   if( !muonID( index, ZMET_mediumMu_v4 )              ) return false; // medium Muon ID  
 
   //IP cuts to be compatible with multilepton baseline cuts
-  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
-  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
+  if (fabs(mus_dxyPV_firstPV(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV_firstPV(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
  
@@ -450,8 +487,8 @@ bool passMuonSelection_ZMET_v6(int index, bool vetoTransition, bool eta24 ){
   if( !muonID( index, ZMET_mediumMu_v3 )              ) return false; // medium Muon ID  
 
   //IP cuts to be compatible with multilepton baseline cuts
-  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
-  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
+  if (fabs(mus_dxyPV_firstPV(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV_firstPV(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
@@ -466,8 +503,8 @@ bool passMuonSelection_ZMET_v5(int index, bool vetoTransition, bool eta24 ){
   if( !muonID( index, ZMET_mediumMu_v2 )              ) return false; // medium Muon ID  
 
   //IP cuts to be compatible with multilepton baseline cuts
-  if (fabs(mus_dxyPV() .at(index))   > 0.05 ) return false;
-  if (fabs(mus_dzPV()  .at(index))   > 0.1  ) return false;
+  if (fabs(mus_dxyPV_firstPV(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV_firstPV(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
