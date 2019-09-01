@@ -74,6 +74,24 @@ int mus_findOverlapIsotrack(unsigned int muIdx)
 float mus_dzPV_firstPV(unsigned int muIdx)
 {
     int first_good_vertex = firstGoodVertex();
+    float dz_difference = 0;
+    if(first_good_vertex == 0)
+        return mus_dzPV().at(muIdx);
+
+    //Fancy ass dz calculation comin' up
+   
+    LorentzVector best_PV = vtxs_position().at(first_good_vertex);
+    LorentzVector first_PV = vtxs_position().at(0);
+    LorentzVector track_p4 = mus_trk_p4().at(muIdx);
+
+    dz_difference = (best_PV.Z() - first_PV.Z()) - ((best_PV.X() - first_PV.X()) * track_p4.X() + (best_PV.Y() - first_PV.Y()) * track_p4.Y())/track_p4.Pt() * track_p4.Z()/track_p4.Pt();
+
+    return mus_dzPV().at(muIdx) + dz_difference;    
+}
+
+/*float mus_dzPV_firstPV(unsigned int muIdx)
+{
+    int first_good_vertex = firstGoodVertex();
     if(first_good_vertex == 0)
         return mus_dzPV().at(muIdx);
     
@@ -81,19 +99,31 @@ float mus_dzPV_firstPV(unsigned int muIdx)
     if(overlap_isotrack_index >= 0)
 
     {
-        /*if(first_good_vertex == 0)
-        {
-          cout<<endl<<"Muon dz from CMSSW="<<mus_dzPV().at(muIdx)<<endl;
-          cout<<"Muon dz from isotrack="<<cms3.isotracks_dz().at(overlap_isotrack_index)<<endl;
-          cout<<"Delta R="<<DeltaR(mus_p4().at(muIdx),isotracks_p4().at(overlap_isotrack_index))<<endl;
-        }*/
-	return cms3.isotracks_dz().at(overlap_isotrack_index); 
+        return cms3.isotracks_dz().at(overlap_isotrack_index); 
     }
     else
         return -999;
-}
+}*/
 
 float mus_dxyPV_firstPV(unsigned int muIdx)
+{
+    int first_good_veretx = firstGoodVertex();
+    float dxy_difference = 0;
+    if(first_good_vertex == 0)
+        return mus_dxyPV().at(muIdx);
+
+    LorentzVector best_PV = vtxs_position().at(first_good_vertex);
+    LorentzVector first_PV = vtxs_position().at(0);
+    LorentzVector track_p4 = mus_trk_p4().at(muIdx);
+
+    dxy_difference = (-(best_PV.X() - first_PV.X()) * track_p4.Y() + (best_PV.Y() - first_PV.Y()) * track_p4.X()) / track_p4.Pt();
+
+    return mus_dxyPV().at(muIdx) + dxy_difference;
+
+
+}
+
+/*float mus_dxyPV_firstPV(unsigned int muIdx)
 {
     int first_good_vertex = firstGoodVertex();
     if(first_good_vertex == 0)
@@ -102,18 +132,12 @@ float mus_dxyPV_firstPV(unsigned int muIdx)
     int overlap_isotrack_index = mus_findOverlapIsotrack(muIdx);
     if(overlap_isotrack_index >= 0)
     {
-        /*if(first_good_vertex == 0)
-        {
-          cout<<endl<<"Muon dxy from CMSSW="<<mus_dxyPV().at(muIdx)<<endl;
-          cout<<"Muon dxy from isotrack="<<cms3.isotracks_dxy().at(overlap_isotrack_index)<<endl;
-          cout<<"Delta R="<<DeltaR(mus_p4().at(muIdx),isotracks_p4().at(overlap_isotrack_index))<<endl;
-	}*/
 	    return cms3.isotracks_dxy().at(overlap_isotrack_index); 
     }
     else
         return -999;
 
-}
+}*/
 
 
 bool overlapMuon_ZMET_v1( int index , float ptcut ){
