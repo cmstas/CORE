@@ -84,6 +84,10 @@ float mus_dzPV_firstPV(unsigned int muIdx)
     LorentzVector first_PV = vtxs_position().at(0);
     LorentzVector track_p4 = mus_trk_p4().at(muIdx);
 
+    //Stop-gap for 0 inner track Pt
+    if(track_p4.pt() == 0)
+        return -9999; 
+
     dz_difference = (best_PV.Z() - first_PV.Z()) - ((best_PV.X() - first_PV.X()) * track_p4.X() + (best_PV.Y() - first_PV.Y()) * track_p4.Y())/track_p4.Pt() * track_p4.Z()/track_p4.Pt();
 
     return mus_dzPV().at(muIdx) + dz_difference;    
@@ -115,6 +119,9 @@ float mus_dxyPV_firstPV(unsigned int muIdx)
     LorentzVector best_PV = vtxs_position().at(first_good_vertex);
     LorentzVector first_PV = vtxs_position().at(0);
     LorentzVector track_p4 = mus_trk_p4().at(muIdx);
+
+    if(track_p4.pt() == 0)
+        return -9999;
 
     dxy_difference = (-(best_PV.X() - first_PV.X()) * track_p4.Y() + (best_PV.Y() - first_PV.Y()) * track_p4.X()) / track_p4.Pt();
 
