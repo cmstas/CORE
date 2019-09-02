@@ -111,7 +111,7 @@ float mus_dzPV_firstPV(unsigned int muIdx)
 
 float mus_dxyPV_firstPV(unsigned int muIdx)
 {
-    int first_good_veretx = firstGoodVertex();
+    int first_good_vertex = firstGoodVertex();
     float dxy_difference = 0;
     if(first_good_vertex == 0)
         return mus_dxyPV().at(muIdx);
