@@ -5,7 +5,7 @@
 
 //Development Notes
   //Original Author: Alex (UCSB), who stole functions from Indara, Jason, Giuseppe
-  //POG Electron IDs are defined in: 
+  //POG Electron IDs are defined in:
   //https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammaCutBasedIdentification#Electron_ID_Working_Points
 
 readMVA* globalEleMVAreader = 0;
@@ -25,19 +25,19 @@ using namespace tas;
 
 bool isVetoElectronPOG(unsigned int elIdx){
   if (fabs(els_etaSC().at(elIdx)) <= 1.479){
-    if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false; 
-    if (fabs(els_dPhiIn().at(elIdx)) >= 0.8) return false; 
-    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false; 
-    if (els_hOverE().at(elIdx) >= 0.15) return false; 
+    if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
+    if (fabs(els_dPhiIn().at(elIdx)) >= 0.8) return false;
+    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false;
+    if (els_hOverE().at(elIdx) >= 0.15) return false;
     if (fabs(els_dxyPV().at(elIdx)) >= 0.04) return false;
-    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false; 
+    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false;
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
-    if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false; 
-    if (fabs(els_dPhiIn().at(elIdx)) >= 0.7) return false; 
-    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false; 
+    if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false;
+    if (fabs(els_dPhiIn().at(elIdx)) >= 0.7) return false;
+    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false;
     if (fabs(els_dxyPV().at(elIdx)) >= 0.04) return false;
-    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false; 
+    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false;
   }
   else return false;
 
@@ -53,7 +53,7 @@ bool isLooseElectronPOG(unsigned int elIdx){
     if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
     if (fabs(els_dPhiIn().at(elIdx)) >= 0.15) return false;
     if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false;
-    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false; 
+    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false;
     if (els_exp_innerlayers().at(elIdx) > 1) return false;
   }
   else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
@@ -63,8 +63,8 @@ bool isLooseElectronPOG(unsigned int elIdx){
     if (els_conv_vtx_flag().at(elIdx) ) return false;
     if (fabs(els_dEtaIn().at(elIdx)) >= 0.009) return false;
     if (fabs(els_dPhiIn().at(elIdx)) >= 0.10) return false;
-    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false; 
-    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false; 
+    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false;
+    if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false;
     if (els_exp_innerlayers().at(elIdx) > 1) return false;
   }
   else return false;
@@ -74,24 +74,24 @@ bool isLooseElectronPOG(unsigned int elIdx){
 bool isMediumElectronPOG(unsigned int elIdx){
   if (fabs(els_etaSC().at(elIdx)) <= 1.479){
     if (fabs(els_dEtaIn().at(elIdx)) >= 0.004) return false;
-    if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false; 
-    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false; 
-    if (els_hOverE().at(elIdx) >= 0.12) return false; 
+    if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false;
+    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false;
+    if (els_hOverE().at(elIdx) >= 0.12) return false;
     if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
     if (els_conv_vtx_flag().at(elIdx)) return false;
     if (els_exp_innerlayers().at(elIdx) > 1) return false;
-    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false; 
-    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false;
+    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
   }
   else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
     if (els_conv_vtx_flag().at(elIdx)) return false;
     if (els_exp_innerlayers().at(elIdx) > 0) return false;
-    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false; 
-    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false;
+    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
     if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
-    if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false; 
-    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false; 
-    if (els_hOverE().at(elIdx) >= 0.1) return false; 
+    if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false;
+    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false;
+    if (els_hOverE().at(elIdx) >= 0.1) return false;
     if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
   }
   else return false;
@@ -101,23 +101,23 @@ bool isMediumElectronPOG(unsigned int elIdx){
 bool isTightElectronPOG(unsigned int elIdx){
   if (fabs(els_etaSC().at(elIdx)) <= 1.479){
     if (fabs(els_dEtaIn().at(elIdx)) >= 0.004) return false;
-    if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false; 
-    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false; 
-    if (els_hOverE().at(elIdx) >= 0.12) return false; 
+    if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false;
+    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false;
+    if (els_hOverE().at(elIdx) >= 0.12) return false;
     if (fabs((1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
-    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false; 
-    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+    if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false;
+    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
     if (els_conv_vtx_flag().at(elIdx)) return false;
     if (els_exp_innerlayers().at(elIdx) > 0) return false;
   }
   else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
     if (fabs(els_dEtaIn().at(elIdx)) >= 0.005) return false;
-    if (fabs(els_dPhiIn().at(elIdx)) >= 0.02) return false; 
-    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false; 
-    if (els_hOverE().at(elIdx) >= 0.1) return false; 
+    if (fabs(els_dPhiIn().at(elIdx)) >= 0.02) return false;
+    if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false;
+    if (els_hOverE().at(elIdx) >= 0.1) return false;
     if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
     if (fabs(els_dxyPV().at(elIdx)) >= 0.02) return false;
-    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
     if (els_conv_vtx_flag().at(elIdx)) return false;
     if (els_exp_innerlayers().at(elIdx) > 0) return false;
   }
@@ -137,26 +137,26 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(SS_veto_noiso_v1):
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
-        if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false; 
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.8) return false; 
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false; 
-        if (els_hOverE().at(elIdx) >= 0.15) return false; 
+        if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.8) return false;
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false;
+        if (els_hOverE().at(elIdx) >= 0.15) return false;
       }
       else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
-        if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false; 
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.7) return false; 
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false; 
+        if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false;
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.7) return false;
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false;
       }
       else return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       break;
 
     case(SS_veto_v1):
-      if (electronID(elIdx, SS_veto_noiso_v1)==0) return false; 
-      if (eleRelIso03(elIdx, analysis) >= 0.50) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v1)==0) return false;
+      if (eleRelIso03(elIdx, analysis) >= 0.50) return false;
       return true;
       break;
 
@@ -167,25 +167,25 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(SS_veto_noiso_v2):
       //trigger match cuts
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
-        if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false; 
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.15) return false; 
+        if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false;
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.15) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.011) return false; 
-        if (els_hOverE().at(elIdx) >= 0.12) return false; 
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.011) return false;
+        if (els_hOverE().at(elIdx) >= 0.12) return false;
       }
       else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
-        if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false; 
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.1) return false; 
+        if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false;
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.1) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.031) return false; 
-        if (els_hOverE().at(elIdx) >= 0.1) return false; 
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.031) return false;
+        if (els_hOverE().at(elIdx) >= 0.1) return false;
       }
       else return false;
       if (fabs(els_etaSC().at(elIdx)) > 2.4) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0) {
 	cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	return false;
@@ -194,8 +194,8 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_veto_v2):
-      if (electronID(elIdx, SS_veto_noiso_v2)==0) return false; 
-      if (eleRelIso03(elIdx, analysis) >= 0.50) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v2)==0) return false;
+      if (eleRelIso03(elIdx, analysis) >= 0.50) return false;
       return true;
       break;
 
@@ -208,7 +208,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -217,7 +217,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_veto_v3):
-      if (electronID(elIdx, SS_veto_noiso_v3)==0) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v3)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx) >= 0.40) return false;
       return true;
       break;
@@ -226,7 +226,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
-      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -245,7 +245,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -254,7 +254,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_veto_v4):
-      if (electronID(elIdx, SS_veto_noiso_v4)==0) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v4)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
       return true;
       break;
@@ -263,7 +263,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
-      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -282,7 +282,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -291,7 +291,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_veto_v5):
-      if (electronID(elIdx, SS_veto_noiso_v5)==0) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v5)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -302,7 +302,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
-      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -321,7 +321,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -330,7 +330,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_veto_v6):
-      if (electronID(elIdx, SS_veto_noiso_v6)==0) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v6)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -341,7 +341,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
-      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -360,7 +360,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -369,7 +369,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_veto_v7):
-      if (electronID(elIdx, SS_veto_noiso_v7)==0) return false; 
+      if (electronID(elIdx, SS_veto_noiso_v7)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -380,7 +380,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_etaSC().at(elIdx)) > 2.5) return false;
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
-      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      //if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -399,7 +399,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (els_conv_vtx_flag().at(elIdx)) return false;
       if (els_exp_innerlayers().at(elIdx) > 1) return false;
       if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+      if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       if (globalEleMVAreader==0){
 	    cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
 	    return false;
@@ -408,7 +408,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(WW_veto_v1):
-      if (electronID(elIdx, WW_veto_noiso_v1)==0) return false; 
+      if (electronID(elIdx, WW_veto_noiso_v1)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx) >= 0.40) return false;
       return true;
       break;
@@ -439,7 +439,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (!isVetoElectronPOGspring15_v1(elIdx)) return false;
       return true;
       break;
-      
+
    ////////////////////
    /// HAD veto v1 ////
    ////////////////////
@@ -447,26 +447,26 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       // same as POG veto, except using sigmaIEtaIEta (not _full5x5)
     case(HAD_veto_noiso_v1):
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
-	if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false; 
-	if (fabs(els_dPhiIn().at(elIdx)) >= 0.8) return false; 
-	if (els_sigmaIEtaIEta().at(elIdx) >= 0.01) return false; 
-	if (els_hOverE().at(elIdx) >= 0.15) return false; 
+	if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
+	if (fabs(els_dPhiIn().at(elIdx)) >= 0.8) return false;
+	if (els_sigmaIEtaIEta().at(elIdx) >= 0.01) return false;
+	if (els_hOverE().at(elIdx) >= 0.15) return false;
 	if (fabs(els_dxyPV().at(elIdx)) >= 0.04) return false;
-	if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false; 
+	if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false;
       }
       else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
-	if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false; 
-	if (fabs(els_dPhiIn().at(elIdx)) >= 0.7) return false; 
-	if (els_sigmaIEtaIEta().at(elIdx) >= 0.03) return false; 
+	if (fabs(els_dEtaIn().at(elIdx)) >= 0.01) return false;
+	if (fabs(els_dPhiIn().at(elIdx)) >= 0.7) return false;
+	if (els_sigmaIEtaIEta().at(elIdx) >= 0.03) return false;
 	if (fabs(els_dxyPV().at(elIdx)) >= 0.04) return false;
-	if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false; 
+	if (fabs(els_dzPV().at(elIdx)) >= 0.2) return false;
       }
       return true;
       break;
 
     case(HAD_veto_v1):
       if (electronID(elIdx, HAD_veto_noiso_v1)==0) return false;
-      if (eleRelIso03(elIdx, analysis) >= 0.15) return false; 
+      if (eleRelIso03(elIdx, analysis) >= 0.15) return false;
       return true;
       break;
 
@@ -484,7 +484,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // // now using mini iso
     // case(HAD_veto_v2):
     //   if (electronID(elIdx, HAD_veto_noiso_v2)==0) return false;
-    //   if (elMiniRelIso(elIdx) > 0.1) return false; 
+    //   if (elMiniRelIso(elIdx) > 0.1) return false;
     //   return true;
     //   break;
 
@@ -495,7 +495,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // same ID as v2, but use CMS3 miniIso with EA corrections
     case(HAD_veto_v3):
       if (electronID(elIdx, HAD_veto_noiso_v3)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false;
       return true;
       break;
 
@@ -513,7 +513,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_veto_v4):
       if (electronID(elIdx, HAD_veto_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false;
       return true;
       break;
 
@@ -543,26 +543,26 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_veto_v5):
         if (electronID(elIdx, HAD_veto_noiso_v5)==0) return false;
-        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false;
         return true;
       break;
 
 //   ////////////////////
 //   /// HAD veto v5 (80X cut-based ID: never actually adopted)////
 //   ////////////////////
-//      
+//
 //      // use Spring15 POG veto ID
 //    case(HAD_veto_noiso_v5):
 //      if (!isVetoElectronPOGspring16noIso_v1(elIdx)) return false;
-//      if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.2) return false;// abs(d0)       //LooseIP2D                          
-//      if (fabs(els_dzPV()             .at(elIdx))                       >= 0.5) return false;// abs(dz)  
+//      if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.2) return false;// abs(d0)       //LooseIP2D
+//      if (fabs(els_dzPV()             .at(elIdx))                       >= 0.5) return false;// abs(dz)
 //      return true;
 //      break;
-//      
+//
 //      // updated EA values
 //    case(HAD_veto_v5):
 //      if (electronID(elIdx, HAD_veto_noiso_v5)==0) return false;
-//      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
+//      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false;
 //      return true;
 //      break;
 
@@ -606,7 +606,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(STOP_loose_v1):
       if (!isLooseElectronPOG(elIdx)) return false;
-      if (eleRelIso03(elIdx, STOP) >= 0.15) return false; 
+      if (eleRelIso03(elIdx, STOP) >= 0.15) return false;
       return true;
       break;
 
@@ -637,16 +637,16 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(SS_fo_noiso_v1):
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.004) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false; 
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false; 
-        if (els_hOverE().at(elIdx) >= 0.12) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false;
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false;
+        if (els_hOverE().at(elIdx) >= 0.12) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false; 
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false; 
-        if (els_hOverE().at(elIdx) >= 0.1) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false;
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false;
+        if (els_hOverE().at(elIdx) >= 0.1) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else return false;
@@ -657,8 +657,8 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_fo_v1):
-      if (electronID(elIdx, SS_fo_noiso_v1)==0) return false; 
-      if (eleRelIso03(elIdx, analysis) >= 0.50) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v1)==0) return false;
+      if (eleRelIso03(elIdx, analysis) >= 0.50) return false;
       return true;
       break;
 
@@ -681,8 +681,8 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_fo_v2):
-      if (electronID(elIdx, SS_fo_noiso_v2)==0) return false; 
-      if (eleRelIso03(elIdx, analysis) >= 0.50) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v2)==0) return false;
+      if (eleRelIso03(elIdx, analysis) >= 0.50) return false;
       return true;
       break;
 
@@ -721,13 +721,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_fo_v3):
-      if (electronID(elIdx, SS_fo_noiso_v3)==0) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v3)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_v3):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_v3)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_v3)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx) >= 0.40) return false;
       return true;
       break;
@@ -767,13 +767,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_fo_v4):
-      if (electronID(elIdx, SS_fo_noiso_v4)==0) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v4)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_v4):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_v4)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_v4)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,1) >= 0.40) return false;
       return true;
       break;
@@ -826,19 +826,19 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_fo_v5):
-      if (electronID(elIdx, SS_fo_noiso_v5)==0) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v5)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_v5):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_v5)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_v5)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v5):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v5)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v5)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -863,9 +863,9 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
       break;
-      
+
     case(SS_fo_v6):
-      if (electronID(elIdx, SS_fo_noiso_v6)==0) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v6)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -887,13 +887,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_fo_looseMVA_v6):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_v6)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_v6)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v6):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v6)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v6)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -931,9 +931,9 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
       break;
-      
+
     case(SS_fo_v7):
-      if (electronID(elIdx, SS_fo_noiso_v7)==0) return false; 
+      if (electronID(elIdx, SS_fo_noiso_v7)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,3) >= 0.40) return false;
       return true;
       break;
@@ -955,13 +955,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_fo_looseMVA_v7):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_v7)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_v7)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
 
     case(SS_fo_looseMVA_no3chg_v7):
-      if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v7)==0) return false; 
+      if (electronID(elIdx, SS_fo_looseMVA_noiso_no3chg_v7)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) >= 0.40) return false;
       return true;
       break;
@@ -1004,13 +1004,13 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(WW_fo_v1):
-      if (electronID(elIdx, WW_fo_noiso_v1)==0) return false; 
+      if (electronID(elIdx, WW_fo_noiso_v1)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx) >= 0.40) return false;
       return true;
       break;
 
     case(WW_fo_looseMVA_v1):
-      if (electronID(elIdx, WW_fo_looseMVA_noiso_v1)==0) return false; 
+      if (electronID(elIdx, WW_fo_looseMVA_noiso_v1)==0) return false;
       if (elMiniRelIsoCMS3_EA(elIdx) >= 0.40) return false;
       return true;
       break;
@@ -1021,19 +1021,19 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(WW_fo_noiso_v2):
 
-      //      if (electronID(elIdx, WW_veto_noiso_v2)==0) return false; 
+      //      if (electronID(elIdx, WW_veto_noiso_v2)==0) return false;
       if (!isTriggerSafenoIso_v1(elIdx)) return false;
-      if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.1) return false;// abs(d0)                                 
-	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.373) return false;// abs(dz)                                 
-	if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+      if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.1) return false;// abs(d0)
+	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.373) return false;// abs(dz)
+	if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
       }
       else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.2) return false;// abs(d0)                                 
-	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.602) return false;// abs(dz)                                  
+	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.2) return false;// abs(d0)
+	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.602) return false;// abs(dz)
 	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
       }
       else return false;
       return true;
@@ -1042,7 +1042,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(WW_fo_v2):
 
-      if (electronID(elIdx, WW_fo_noiso_v2)==0) return false; 
+      if (electronID(elIdx, WW_fo_noiso_v2)==0) return false;
       if (!isTriggerSafe_v1(elIdx)) return false;
       return true;
       break;
@@ -1054,17 +1054,17 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(WW_fo_noiso_v3):
 
       if (!isTriggerSafenoIso_v2(elIdx)) return false;
-      if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.1) return false;// abs(d0)                                 
-	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.373) return false;// abs(dz)                                 
-	if (els_exp_innerlayers()       .at(elIdx)                        > 0        ) return false;// expectedMissingInnerHits 
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+      if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.1) return false;// abs(d0)
+	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.373) return false;// abs(dz)
+	if (els_exp_innerlayers()       .at(elIdx)                        > 0        ) return false;// expectedMissingInnerHits
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
       }
       else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.2) return false;// abs(d0)                                 
-	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.602) return false;// abs(dz)                                  
+	if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.2) return false;// abs(d0)
+	if (fabs(els_dzPV()             .at(elIdx))                       >= 0.602) return false;// abs(dz)
 	if (els_exp_innerlayers()       .at(elIdx)                        > 0        ) return false;// expectedMissingInnerHits
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
       }
       else return false;
       return true;
@@ -1073,7 +1073,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(WW_fo_v3):
 
-      if (electronID(elIdx, WW_fo_noiso_v2)==0) return false; 
+      if (electronID(elIdx, WW_fo_noiso_v2)==0) return false;
       if (!isTriggerSafe_v2(elIdx)) return false;
       return true;
       break;
@@ -1114,7 +1114,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     // case(HAD_loose_v2):
     //   if (electronID(elIdx, HAD_loose_noiso_v2)==0) return false;
-    //   if (elMiniRelIso(elIdx) > 0.1) return false; 
+    //   if (elMiniRelIso(elIdx) > 0.1) return false;
     //   return true;
     //   break;
 
@@ -1125,7 +1125,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // same ID as v2, but use CMS3 miniIso with EA corrections
     case(HAD_loose_v3):
       if (electronID(elIdx, HAD_loose_noiso_v3)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false;
       return true;
       break;
 
@@ -1142,7 +1142,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_loose_v4):
       if (electronID(elIdx, HAD_loose_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false;
       return true;
       break;
 
@@ -1169,7 +1169,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_loose_v5):
         if (electronID(elIdx, HAD_loose_noiso_v5)==0) return false;
-        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false;
         return true;
       break;
 
@@ -1188,7 +1188,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(STOP_medium_v1):
       if (!isMediumElectronPOG(elIdx)) return false;
-      if (eleRelIso03(elIdx, STOP) >= 0.15) return false; 
+      if (eleRelIso03(elIdx, STOP) >= 0.15) return false;
       return true;
       break;
 
@@ -1220,16 +1220,16 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(HAD_medium_v1):
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.004) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false; 
-        if (els_sigmaIEtaIEta().at(elIdx) >= 0.01) return false; 
-        if (els_hOverE().at(elIdx) >= 0.12) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false;
+        if (els_sigmaIEtaIEta().at(elIdx) >= 0.01) return false;
+        if (els_hOverE().at(elIdx) >= 0.12) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false; 
-        if (els_sigmaIEtaIEta().at(elIdx) >= 0.03) return false; 
-        if (els_hOverE().at(elIdx) >= 0.1) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false;
+        if (els_sigmaIEtaIEta().at(elIdx) >= 0.03) return false;
+        if (els_hOverE().at(elIdx) >= 0.1) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else return false;
@@ -1248,7 +1248,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     // case(HAD_medium_v2):
     //   if (electronID(elIdx, HAD_medium_noiso_v2)==0) return false;
-    //   if (elMiniRelIso(elIdx) > 0.1) return false; 
+    //   if (elMiniRelIso(elIdx) > 0.1) return false;
     //   return true;
     //   break;
 
@@ -1259,7 +1259,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // same ID as v2, but use CMS3 miniIso with EA corrections
     case(HAD_medium_v3):
       if (electronID(elIdx, HAD_medium_noiso_v3)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false;
       return true;
       break;
 
@@ -1276,7 +1276,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_medium_v4):
       if (electronID(elIdx, HAD_medium_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false;
       return true;
       break;
 
@@ -1303,7 +1303,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_medium_v5):
         if (electronID(elIdx, HAD_medium_noiso_v5)==0) return false;
-        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false;
         return true;
       break;
 
@@ -1315,16 +1315,16 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(SS_medium_noiso_v1):
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.004) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false; 
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false; 
-        if (els_hOverE().at(elIdx) >= 0.12) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.06) return false;
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.01) return false;
+        if (els_hOverE().at(elIdx) >= 0.12) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.007) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false; 
-        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false; 
-        if (els_hOverE().at(elIdx) >= 0.1) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false;
+        if (els_sigmaIEtaIEta_full5x5().at(elIdx) >= 0.03) return false;
+        if (els_hOverE().at(elIdx) >= 0.1) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else return false;
@@ -1336,8 +1336,8 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       break;
 
     case(SS_medium_v1):
-      if (electronID(elIdx, SS_medium_noiso_v1)==0) return false; 
-      if (eleRelIso03(elIdx, analysis) >= 0.10) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v1)==0) return false;
+      if (eleRelIso03(elIdx, analysis) >= 0.10) return false;
       return true;
       break;
 
@@ -1360,8 +1360,8 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_medium_v2):
-      if (electronID(elIdx, SS_medium_noiso_v2)==0) return false; 
-      if (eleRelIso03(elIdx, analysis) >= 0.10) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v2)==0) return false;
+      if (eleRelIso03(elIdx, analysis) >= 0.10) return false;
       return true;
       break;
 
@@ -1384,12 +1384,12 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_medium_v3):
-      if (electronID(elIdx, SS_medium_noiso_v3)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v3)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(0.10, 0.70, 7.0, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, 0.10, 0.70, 7.0, 0, 0);
       break;
 
-    case(SS_medium_looseMVA_noip_v3): 
+    case(SS_medium_looseMVA_noip_v3):
     case(SS_medium_noip_v3):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_noip_v3)==0) return false;//make sure it's tighter than FO
       if (globalEleMVAreader==0) {
@@ -1425,12 +1425,12 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_medium_v4):
-      if (electronID(elIdx, SS_medium_noiso_v4)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v4)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(0.10, 0.76, 7.6, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, 0.10, 0.76, 7.6, 1, 1);
       break;
 
-    case(SS_medium_looseMVA_noip_v4): 
+    case(SS_medium_looseMVA_noip_v4):
     case(SS_medium_noip_v4):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_noip_v4)==0) return false;//make sure it's tighter than FO
       if (globalEleMVAreader==0){
@@ -1479,18 +1479,18 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_medium_v5):
-      if (electronID(elIdx, SS_medium_noiso_v5)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v5)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
     case(SS_medium_no3chg_v5):
-      if (electronID(elIdx, SS_medium_noiso_no3chg_v5)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_no3chg_v5)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
-    case(SS_medium_looseMVA_noip_v5): 
+    case(SS_medium_looseMVA_noip_v5):
     case(SS_medium_noip_v5):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_noip_v5)==0) return false;//make sure it's tighter than FO
       if (globalEleMVAreader==0){
@@ -1528,18 +1528,18 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_medium_v6):
-      if (electronID(elIdx, SS_medium_noiso_v6)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v6)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
     case(SS_medium_no3chg_v6):
-      if (electronID(elIdx, SS_medium_noiso_no3chg_v6)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_no3chg_v6)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
-    case(SS_medium_looseMVA_noip_v6): 
+    case(SS_medium_looseMVA_noip_v6):
     case(SS_medium_noip_v6):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_noip_v6)==0) return false;//make sure it's tighter than FO
       if (globalEleMVAreader==0){
@@ -1577,18 +1577,18 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(SS_medium_v7):
-      if (electronID(elIdx, SS_medium_noiso_v7)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_v7)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
     case(SS_medium_no3chg_v7):
-      if (electronID(elIdx, SS_medium_noiso_no3chg_v7)==0) return false; 
+      if (electronID(elIdx, SS_medium_noiso_no3chg_v7)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, gconf.multiiso_el_minireliso, gconf.multiiso_el_ptratio, gconf.multiiso_el_ptrel, gconf.ea_version, 2);
       break;
 
-    case(SS_medium_looseMVA_noip_v7): 
+    case(SS_medium_looseMVA_noip_v7):
     case(SS_medium_noip_v7):
       if (electronID(elIdx, SS_fo_looseMVA_noiso_noip_v7)==0) return false;//make sure it's tighter than FO
       if (globalEleMVAreader==0){
@@ -1624,12 +1624,12 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       return globalEleMVAreader->passesElectronMVAid(elIdx, id_level);
 
     case(WW_medium_v1):
-      if (electronID(elIdx, WW_medium_noiso_v1)==0) return false; 
+      if (electronID(elIdx, WW_medium_noiso_v1)==0) return false;
       if (elIDCacheSet) return passMultiIsoCuts(0.10, 0.70, 7.0, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, 0.10, 0.70, 7.0, 0, 0);
       break;
 
-    case(WW_medium_looseMVA_noip_v1): 
+    case(WW_medium_looseMVA_noip_v1):
     case(WW_medium_noip_v1):
       if (electronID(elIdx, WW_fo_looseMVA_noiso_noip_v1)==0) return false;//make sure it's tighter than FO
       if (els_exp_innerlayers().at(elIdx) > 0) return false;
@@ -1641,7 +1641,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
       if (elIDCacheSet) return passMultiIsoCuts(0.10, 0.70, 7.0, elID_cache.getMiniiso(elIdx), elID_cache.getPtratio(elIdx), elID_cache.getPtrel(elIdx) );
       else return passMultiIso(11, elIdx, 0.10, 0.70, 7.0, 0, 0);
       break;
-      
+
    ////////////////////
    /// WW medium v2 ///
    ////////////////////
@@ -1684,10 +1684,10 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     case(STOP_tight_v1):
       if (!isTightElectronPOG(elIdx)) return false;
-      if (eleRelIso03(elIdx, STOP) >= 0.10) return false; 
+      if (eleRelIso03(elIdx, STOP) >= 0.10) return false;
       return true;
       break;
-  
+
     case(STOP_tight_v2):
       if (!isTightElectronPOGphys14noIso_v2(elIdx)) return false;
       //if ( elMiniRelIso(elIdx, true, 0.0, true, false) > 0.1) return false;
@@ -1716,16 +1716,16 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     case(HAD_tight_v1):
       if (fabs(els_etaSC().at(elIdx)) <= 1.479){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.004) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false; 
-        if (els_sigmaIEtaIEta().at(elIdx) >= 0.01) return false; 
-        if (els_hOverE().at(elIdx) >= 0.12) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.03) return false;
+        if (els_sigmaIEtaIEta().at(elIdx) >= 0.01) return false;
+        if (els_hOverE().at(elIdx) >= 0.12) return false;
         if (fabs((1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else if((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){
         if (fabs(els_dEtaIn().at(elIdx)) >= 0.005) return false;
-        if (fabs(els_dPhiIn().at(elIdx)) >= 0.02) return false; 
-        if (els_sigmaIEtaIEta().at(elIdx) >= 0.03) return false; 
-        if (els_hOverE().at(elIdx) >= 0.1) return false; 
+        if (fabs(els_dPhiIn().at(elIdx)) >= 0.02) return false;
+        if (els_sigmaIEtaIEta().at(elIdx) >= 0.03) return false;
+        if (els_hOverE().at(elIdx) >= 0.1) return false;
         if (fabs( (1.0/els_ecalEnergy().at(elIdx)) - (els_eOverPIn().at(elIdx)/els_ecalEnergy().at(elIdx)) ) >= 0.05) return false;
       }
       else return false;
@@ -1744,7 +1744,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
     // case(HAD_tight_v2):
     //   if (electronID(elIdx, HAD_tight_noiso_v2)==0) return false;
-    //   if (elMiniRelIso(elIdx) > 0.1) return false; 
+    //   if (elMiniRelIso(elIdx) > 0.1) return false;
     //   return true;
     //   break;
 
@@ -1755,7 +1755,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // same ID as v2, but use CMS3 miniIso with EA corrections
     case(HAD_tight_v3):
       if (electronID(elIdx, HAD_tight_noiso_v3)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx) > 0.1) return false;
       return true;
       break;
 
@@ -1772,7 +1772,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_tight_v4):
       if (electronID(elIdx, HAD_tight_noiso_v4)==0) return false;
-      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false; 
+      if (elMiniRelIsoCMS3_EA(elIdx,gconf.ea_version) > 0.1) return false;
       return true;
       break;
 
@@ -1798,7 +1798,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     // updated EA values
     case(HAD_tight_v5):
         if (electronID(elIdx, HAD_tight_noiso_v5)==0) return false;
-        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false; 
+        if (elMiniRelIsoCMS3_EA(elIdx, gconf.ea_version) > 0.1) return false;
         return true;
       break;
 
@@ -1809,6 +1809,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     //
     //
     case(ZMET_tightMVA_v4):
+    //2018
       if(electronID(elIdx, ZMET_tightMVA_noiso_v4) == 0) return false;
      if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.1)
          return false;
@@ -1825,18 +1826,32 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v7)) return false; //tight MVA working point 
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v7)) return false; //tight MVA working point
 	  else return true;
 
     break;
 
     case(ZMET_tightMVA_v2): // updated EA values
+    //2016
 	  if( electronID(elIdx, ZMET_tightMVA_noiso_v2)==0 ) return false; // tight MVA id no iso
 	  if( elMiniRelIsoCMS3_EA( elIdx, 1 ) > 0.1        ) return false; // minireliso < 0.1
 	  else return true;
 	  break;
 
+    case(ZMET_tightMVA_noiso_v2):
+      if (globalEleMVAreader==0) {
+        cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
+        return false;
+      }
+	    if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
+	    if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
+	    if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
+	    if (!globalEleMVAreader->passesElectronMVAid(elIdx, ZMET_tightMVA_noiso_v2,true)) return false; //tight MVA working point
+	    else return true;
+	  break;
+
     case(ZMET_tightMVA_v3):
+    //2017
       if(electronID(elIdx,ZMET_tightMVA_noiso_v3) == 0)
           return false;
       if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.1)
@@ -1852,27 +1867,17 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v6)) return false; //tight MVA working point 
+	  	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v6)) return false; //tight MVA working point
 	  else return true;
 
       break;
-    
-    case(ZMET_tightMVA_noiso_v2):
-	  if (globalEleMVAreader==0) {
-		cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
-		return false;
-	  }
-	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
-	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
-	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v5)) return false; //tight MVA working point 
-	  else return true;
-	  break;
+
 
 	  // loose MVA used to veto on electrons to stay synced with edge/multilepton
 
-    
+
     case(ZMET_looseMVA_v3):
+    //2018
       if(electronID(elIdx, ZMET_looseMVA_noiso_v3) == 0) return false;
       if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.4) return false;
       break;
@@ -1885,13 +1890,14 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v7)) return false; //loose MVA working point 
+	  	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v7)) return false; //loose MVA working point
 	  else return true;
       break;
 
 
 
     case(ZMET_looseMVA_v2):
+    //2017
       if(electronID(elIdx, ZMET_looseMVA_noiso_v2) == 0) return false;
       if(elMiniRelIsoCMS3_EA(elIdx,4) > 0.4) return false;
       break;
@@ -1904,11 +1910,12 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v6)) return false; //loose MVA working point 
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v6)) return false; //loose MVA working point
 	  else return true;
       break;
 
     case(ZMET_looseMVA_v1): // updated EA values
+    //2016
 	  if( electronID(elIdx, ZMET_looseMVA_noiso_v1)==0 ) return false; // loose MVA id no iso
 	  if( elMiniRelIsoCMS3_EA( elIdx, 1 ) > 0.4        ) return false; // minireliso < 0.4
 	  else return true;
@@ -1922,16 +1929,16 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (fabs(els_etaSC()     .at(elIdx)) >  2.5 ) return false;
 	  if (els_conv_vtx_flag()  .at(elIdx)         ) return false;
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_fo_looseMVA_noiso_noip_v5)) return false; //loose MVA working point 
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, ZMET_looseMVA_noiso_v1,true)) return false; //loose MVA working point
 	  else return true;
 	  break;
-	  
+
     case(ZMET_tightMVA_v1):
 	  if( electronID(elIdx, ZMET_tightMVA_noiso_v1)==0 ) return false; // tight MVA id no iso
 	  // if( elMiniRelIso( elIdx, true, 0.0, false, true ) != elMiniRelIsoCMS3_EA( elIdx ) ){ // this is a check. delete me later
 	  // 	std::cout<<"pfcandiso: "<< elMiniRelIso( elIdx, true, 0.0, false, true ) << endl;
 	  // 	std::cout<<"cms3iso:   "<< elMiniRelIsoCMS3_EA( elIdx ) << endl;
-  // }	  
+  // }
 	  // // if( elMiniRelIso( elIdx, true, 0.0, false, true ) > 0.1 ) return false;
 	  if( elMiniRelIsoCMS3_EA( elIdx ) > 0.1           ) return false; // minireliso < 0.1
 	  else return true;
@@ -1947,10 +1954,10 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 	  if (els_exp_innerlayers().at(elIdx)  >  0   ) return false;
 	  if (fabs(els_dzPV()      .at(elIdx)) >= 0.1 ) return false;
 	  if (fabs(els_dxyPV()     .at(elIdx)) >= 0.05) return false;
-	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v3)) return false; //tight MVA working point 
+	  if (!globalEleMVAreader->passesElectronMVAid(elIdx, SS_medium_noip_v3)) return false; //tight MVA working point
 	  else return true;
 	  break;
-	  
+
 	/////////////////////
 	/// ZMET loose v1 ///
 	/////////////////////
@@ -1968,7 +1975,7 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
   case(ZMET_loose_v1):
 	if (!isLooseElectronPOGphys14noIso(elIdx)) return false;
-	if (eleRelIso03(elIdx, analysis) >= 0.15) return false; 
+	if (eleRelIso03(elIdx, analysis) >= 0.15) return false;
 	else return true;
 	break;
 
@@ -1985,24 +1992,24 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   // Veto Leptons
 
   case(VVV_cutbased_veto_bak1):
-    if (electronID(elIdx, VVV_cutbased_veto_noiso)==0) return false; 
+    if (electronID(elIdx, VVV_cutbased_veto_noiso)==0) return false;
     // using Spring 16 with Veto working point
     // https://indico.cern.ch/event/482677/contributions/2259342/attachments/1316731/1972911/talk_electron_ID_spring16_update.pdf
     // https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2#Offline_selection_criteria
-    if (fabs(els_etaSC().at(elIdx)) <= 1.479) { 
-      if (eleRelIso03EA(elIdx,2) >= 0.175) return false; 
+    if (fabs(els_etaSC().at(elIdx)) <= 1.479) {
+      if (eleRelIso03EA(elIdx,2) >= 0.175) return false;
     }
     else {
-      if (eleRelIso03EA(elIdx,2) >= 0.159) return false; 
+      if (eleRelIso03EA(elIdx,2) >= 0.159) return false;
     }
     return true;
     break;
 
   case(VVV_cutbased_veto_noiso_bak1):
     // using Spring 16 with Veto working point
-    if (electronID(elIdx, VVV_cutbased_veto_noiso_noip)==0) return false; 
+    if (electronID(elIdx, VVV_cutbased_veto_noiso_noip)==0) return false;
     if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
     return true;
     break;
 
@@ -2015,19 +2022,19 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_veto):
-    if (electronID(elIdx, VVV_cutbased_veto_noiso)==0) return false; 
+    if (electronID(elIdx, VVV_cutbased_veto_noiso)==0) return false;
     // using Spring 16 with Veto working point
     // https://indico.cern.ch/event/482677/contributions/2259342/attachments/1316731/1972911/talk_electron_ID_spring16_update.pdf
     // https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2#Offline_selection_criteria
-    if (eleRelIso03EA(elIdx,2) >= 0.4) return false; 
+    if (eleRelIso03EA(elIdx,2) >= 0.4) return false;
     return true;
     break;
 
   case(VVV_cutbased_veto_noiso):
     // using Spring 16 with Veto working point
-    if (electronID(elIdx, VVV_cutbased_veto_noiso_noip)==0) return false; 
+    if (electronID(elIdx, VVV_cutbased_veto_noiso_noip)==0) return false;
     if (fabs(els_dxyPV().at(elIdx)) >= 0.05) return false;
-    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false; 
+    if (fabs(els_dzPV().at(elIdx)) >= 0.1) return false;
     return true;
     break;
 
@@ -2043,15 +2050,15 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
   //Fakable Objects
 
   case(VVV_cutbased_fo):
-    if (electronID(elIdx, VVV_cutbased_fo_noiso)==0) return false; 
+    if (electronID(elIdx, VVV_cutbased_fo_noiso)==0) return false;
     // using Spring 16 with Loose working point
     // https://indico.cern.ch/event/482677/contributions/2259342/attachments/1316731/1972911/talk_electron_ID_spring16_update.pdf
     // https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2#Offline_selection_criteria
-    /*if (fabs(els_etaSC().at(elIdx)) <= 1.479) { 
-      if (eleRelIso03EA(elIdx,2) >=  0.0994) return false; 
+    /*if (fabs(els_etaSC().at(elIdx)) <= 1.479) {
+      if (eleRelIso03EA(elIdx,2) >=  0.0994) return false;
     }
     else {
-      if (eleRelIso03EA(elIdx,2) >= 0.107) return false; 
+      if (eleRelIso03EA(elIdx,2) >= 0.107) return false;
     }*/
     if (eleRelIso03EA(elIdx,2) >= 0.2) return false; //No longer using Loose Working Point Recommendation.
     return true;
@@ -2075,12 +2082,12 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_MVAbased_tight):
-    if (electronID(elIdx, VVV_MVAbased_tight_noiso)==0) return false; 
-    if (fabs(els_etaSC().at(elIdx)) <= 1.479) { 
-      if (eleRelIso03EA(elIdx,2) >= 0.0588) return false; 
+    if (electronID(elIdx, VVV_MVAbased_tight_noiso)==0) return false;
+    if (fabs(els_etaSC().at(elIdx)) <= 1.479) {
+      if (eleRelIso03EA(elIdx,2) >= 0.0588) return false;
     }
     else {
-      if (eleRelIso03EA(elIdx,2) >= 0.0571) return false; 
+      if (eleRelIso03EA(elIdx,2) >= 0.0571) return false;
     }
     return true;
     break;
@@ -2101,12 +2108,12 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     break;
 
   case(VVV_cutbased_tight):
-    if (electronID(elIdx, VVV_cutbased_tight_noiso)==0) return false; 
-    if (fabs(els_etaSC().at(elIdx)) <= 1.479) { 
-      if (eleRelIso03EA(elIdx,2) >= 0.0588) return false; 
+    if (electronID(elIdx, VVV_cutbased_tight_noiso)==0) return false;
+    if (fabs(els_etaSC().at(elIdx)) <= 1.479) {
+      if (eleRelIso03EA(elIdx,2) >= 0.0588) return false;
     }
     else {
-      if (eleRelIso03EA(elIdx,2) >= 0.0571) return false; 
+      if (eleRelIso03EA(elIdx,2) >= 0.0571) return false;
     }
     return true;
     break;
@@ -3087,11 +3094,11 @@ bool isMVAIsofall17V2(unsigned int elIdx, bool use_miniaod,
 
 bool isVetoElectronPOGphys14(unsigned int elIdx){
   if (!isVetoElectronPOGphys14noIso(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03DB(elIdx)                                          >= 0.164369) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03DB(elIdx)                                          >= 0.164369) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03DB(elIdx)                                          >= 0.212604) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03DB(elIdx)                                          >= 0.212604) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3099,11 +3106,11 @@ bool isVetoElectronPOGphys14(unsigned int elIdx){
 
 bool isVetoElectronPOGphys14_v2(unsigned int elIdx){
   if (!isVetoElectronPOGphys14noIso_v2(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx)                                          >= 0.158721) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx)                                          >= 0.158721) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx)                                          >= 0.177032) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx)                                          >= 0.177032) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3111,11 +3118,11 @@ bool isVetoElectronPOGphys14_v2(unsigned int elIdx){
 
 bool isVetoElectronPOGspring15_v1(unsigned int elIdx){
   if (!isVetoElectronPOGspring15noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.126) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.126) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.144) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.144) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3123,11 +3130,11 @@ bool isVetoElectronPOGspring15_v1(unsigned int elIdx){
 
 bool isVetoElectronPOGspring16_v1(unsigned int elIdx){
   if (!isVetoElectronPOGspring16noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx, 2) >= 0.175) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx, 2) >= 0.175) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx, 2) >= 0.159) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx, 2) >= 0.159) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3147,11 +3154,11 @@ bool isVetoElectronPOGfall17_v2(unsigned int elIdx){
 
 bool isLooseElectronPOGphys14(unsigned int elIdx){
   if (!isLooseElectronPOGphys14noIso(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03DB(elIdx)                                          >= 0.120026) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03DB(elIdx)                                          >= 0.120026) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03DB(elIdx)                                          >= 0.162914) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03DB(elIdx)                                          >= 0.162914) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3159,11 +3166,11 @@ bool isLooseElectronPOGphys14(unsigned int elIdx){
 
 bool isLooseElectronPOGphys14_v2(unsigned int elIdx){
   if (!isLooseElectronPOGphys14noIso_v2(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx)                                          >= 0.130136) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx)                                          >= 0.130136) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx)                                          >= 0.163368) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx)                                          >= 0.163368) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3171,11 +3178,11 @@ bool isLooseElectronPOGphys14_v2(unsigned int elIdx){
 
 bool isLooseElectronPOGspring15_v1(unsigned int elIdx){
   if (!isLooseElectronPOGspring15noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0893) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0893) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.121) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.121) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3183,11 +3190,11 @@ bool isLooseElectronPOGspring15_v1(unsigned int elIdx){
 
 bool isLooseElectronPOGspring16_v1(unsigned int elIdx){
   if (!isLooseElectronPOGspring16noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx, 2) >= 0.0994) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx, 2) >= 0.0994) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx, 2) >= 0.107) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx, 2) >= 0.107) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3207,11 +3214,11 @@ bool isLooseElectronPOGfall17_v2(unsigned int elIdx){
 
 bool isMediumElectronPOGphys14(unsigned int elIdx){
   if (!isMediumElectronPOGphys14noIso(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03DB(elIdx)                                          >= 0.097213) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03DB(elIdx)                                          >= 0.097213) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03DB(elIdx)                                          >= 0.116708) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03DB(elIdx)                                          >= 0.116708) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3219,11 +3226,11 @@ bool isMediumElectronPOGphys14(unsigned int elIdx){
 
 bool isMediumElectronPOGphys14_v2(unsigned int elIdx){
   if (!isMediumElectronPOGphys14noIso_v2(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx)                                          >= 0.107587) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx)                                          >= 0.107587) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx)                                          >= 0.113254) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx)                                          >= 0.113254) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3231,11 +3238,11 @@ bool isMediumElectronPOGphys14_v2(unsigned int elIdx){
 
 bool isMediumElectronPOGspring15_v1(unsigned int elIdx){
   if (!isMediumElectronPOGspring15noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0766) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0766) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0678) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0678) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3243,11 +3250,11 @@ bool isMediumElectronPOGspring15_v1(unsigned int elIdx){
 
 bool isMediumElectronPOGspring16_v1(unsigned int elIdx){
   if (!isMediumElectronPOGspring16noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx, 2) >= 0.0695) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx, 2) >= 0.0695) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx, 2) >= 0.0821) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx, 2) >= 0.0821) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3267,11 +3274,11 @@ bool isMediumElectronPOGfall17_v2(unsigned int elIdx){
 
 bool isTightElectronPOGphys14(unsigned int elIdx){
   if (!isTightElectronPOGphys14noIso(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03DB(elIdx)                                          >= 0.074355) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03DB(elIdx)                                          >= 0.074355) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03DB(elIdx)                                          >= 0.090185) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03DB(elIdx)                                          >= 0.090185) return false;// PF isolation w/dBeta PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3279,11 +3286,11 @@ bool isTightElectronPOGphys14(unsigned int elIdx){
 
 bool isTightElectronPOGphys14_v2(unsigned int elIdx){
   if (!isTightElectronPOGphys14noIso_v2(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx)                                          >= 0.069537) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx)                                          >= 0.069537) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx)                                          >= 0.078265) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx)                                          >= 0.078265) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3291,11 +3298,11 @@ bool isTightElectronPOGphys14_v2(unsigned int elIdx){
 
 bool isTightElectronPOGspring15_v1(unsigned int elIdx){
   if (!isTightElectronPOGspring15noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0354) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0354) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0646) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03_90ContEA(elIdx)                                          >= 0.0646) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3303,11 +3310,11 @@ bool isTightElectronPOGspring15_v1(unsigned int elIdx){
 
 bool isTightElectronPOGspring16_v1(unsigned int elIdx){
   if (!isTightElectronPOGspring16noIso_v1(elIdx)) return false;
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (eleRelIso03EA(elIdx, 2) >= 0.0588) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (eleRelIso03EA(elIdx, 2) >= 0.0588) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (eleRelIso03EA(elIdx, 2) >= 0.0571) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3) 
+    if (eleRelIso03EA(elIdx, 2) >= 0.0571) return false;// PF isolation w/EA PU correction / pT (cone dR=0.3)
   }
   else return false;
   return true;
@@ -3330,113 +3337,113 @@ bool isTightElectronPOGfall17_v2(unsigned int elIdx){
 //========================
 
 bool isVetoElectronPOGphys14noIso(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.011100) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.016315) return false;// abs(dEtaIn) 			   
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.252044) return false;// abs(dPhiIn) 			   
-    if (els_hOverE()                                     .at(elIdx)   >= 0.345843) return false;// hOverE 				   	
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.248070) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.060279) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.800538) return false;// abs(dz) 				   
-	if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.011100) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.016315) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.252044) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.345843) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.248070) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.060279) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.800538) return false;// abs(dz)
+	if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.033987) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.010671) return false;// abs(dEtaIn) 			    
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.245263) return false;// abs(dPhiIn) 			    
-    if (els_hOverE()                                     .at(elIdx)   >= 0.134691) return false;// hOverE 				    
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.157160) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.273097) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.885860) return false;// abs(dz) 				    
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.033987) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.010671) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.245263) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.134691) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.157160) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.273097) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.885860) return false;// abs(dz)
 	if (els_exp_innerlayers()       .at(elIdx)                        > 3        ) return false;// expectedMissingInnerHits
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isVetoElectronPOGphys14noIso_v2(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.011586) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.013625) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.230374) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.181130) return false;// hOverE                                       
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.011586) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.013625) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.230374) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.181130) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.295751) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.094095) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.713070) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.295751) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.094095) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.713070) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.031849) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.011932) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.255450) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.223870) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.031849) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.011932) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.255450) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.223870) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.155501) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.342293) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.953461) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.155501) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.342293) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.953461) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 3        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isVetoElectronPOGspring15noIso_v1(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0114) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0152) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.216) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.181) return false;// hOverE                                       
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0114) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0152) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.216) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.181) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.207) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0564) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.472) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.207) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0564) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.472) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0352) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0113) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.237) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.116) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0352) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0113) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.237) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.116) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.174) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.222) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.921) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.174) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.222) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.921) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 3        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 // This is the 80X tuning. It comes with no IP cuts, which have to be included later. It also uses a different DEta
-bool isVetoElectronPOGspring16noIso_v1(unsigned int elIdx){ 
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0115) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00749) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.228) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.356) return false;// hOverE                                       
+bool isVetoElectronPOGspring16noIso_v1(unsigned int elIdx){
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0115) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00749) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.228) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.356) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.299) return false;// ooEmooP                             
-    if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto   
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.299) return false;// ooEmooP
+    if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.037) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00895) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.213) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.211) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.037) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00895) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.213) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.211) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.15) return false;// ooEmooP                             
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.15) return false;// ooEmooP
     if (els_exp_innerlayers()       .at(elIdx)                        > 3        ) return false;// expectedMissingInnerHits
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
@@ -3467,113 +3474,113 @@ bool isVetoElectronPOGfall17noIso_v2(unsigned int elIdx){
 }
 
 bool isLooseElectronPOGphys14noIso(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010557) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.012442) return false;// abs(dEtaIn) 			   
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.072624) return false;// abs(dPhiIn) 			   
-    if (els_hOverE()                                     .at(elIdx)   >= 0.121476) return false;// hOverE 				   
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.221803) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.022664) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.173670) return false;// abs(dz) 				   
-	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010557) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.012442) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.072624) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.121476) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.221803) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.022664) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.173670) return false;// abs(dz)
+	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.032602) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.010654) return false;// abs(dEtaIn) 			    
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.145129) return false;// abs(dPhiIn) 			    
-    if (els_hOverE()                                     .at(elIdx)   >= 0.131862) return false;// hOverE 				    
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.142283) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.097358) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.198444) return false;// abs(dz) 				    
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.032602) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.010654) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.145129) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.131862) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.142283) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.097358) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.198444) return false;// abs(dz)
 	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isLooseElectronPOGphys14noIso_v2(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010331) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.009277) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.094739) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.093068) return false;// hOverE                                  
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010331) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.009277) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.094739) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.093068) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.189968) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.035904) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.075496) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.189968) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.035904) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.075496) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.031838) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.009833) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.149934) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.115754) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.031838) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.009833) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.149934) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.115754) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.140662) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.099266) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.197897) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.140662) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.099266) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.197897) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isLooseElectronPOGspring15noIso_v1(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0103) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0105) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.115) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.104) return false;// hOverE                                  
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0103) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0105) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.115) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.104) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.102) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0261) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.41) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.102) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0261) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.41) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0301) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00814) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.182) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0897) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0301) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00814) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.182) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0897) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.126) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.118) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.822) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.126) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.118) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.822) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 // This is the 80X tuning. It comes with no IP cuts, which have to be included later. It also uses a different DEta
-bool isLooseElectronPOGspring16noIso_v1(unsigned int elIdx){ 
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.011) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00477) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.222) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.298) return false;// hOverE                                       
+bool isLooseElectronPOGspring16noIso_v1(unsigned int elIdx){
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.011) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00477) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.222) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.298) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.241) return false;// ooEmooP                             
-    if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto  
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.241) return false;// ooEmooP
+    if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0314) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00868) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.213) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.101) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0314) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00868) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.213) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.101) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.14) return false;// ooEmooP                             
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.14) return false;// ooEmooP
     if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
@@ -3604,113 +3611,113 @@ bool isLooseElectronPOGfall17noIso_v2(unsigned int elIdx){
 }
 
 bool isMediumElectronPOGphys14noIso(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010399) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.007641) return false;// abs(dEtaIn) 			   
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.032643) return false;// abs(dPhiIn) 			   
-    if (els_hOverE()                                     .at(elIdx)   >= 0.060662) return false;// hOverE 				   
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.153897) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.011811) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.070775) return false;// abs(dz) 				   
-	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010399) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.007641) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.032643) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.060662) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.153897) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.011811) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.070775) return false;// abs(dz)
+	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.029524) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.009285) return false;// abs(dEtaIn) 			    
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.042447) return false;// abs(dPhiIn) 			    
-    if (els_hOverE()                                     .at(elIdx)   >= 0.104263) return false;// hOverE 				    
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.137468) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.051682) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.180720) return false;// abs(dz) 				    
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.029524) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.009285) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.042447) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.104263) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.137468) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.051682) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.180720) return false;// abs(dz)
 	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isMediumElectronPOGphys14noIso_v2(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.009996) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.008925) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.035973) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.050537) return false;// hOverE                                  
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.009996) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.008925) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.035973) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.050537) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.091942) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.012235) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.042020) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.091942) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.012235) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.042020) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.030135) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.007429) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.067879) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.086782) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.030135) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.007429) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.067879) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.086782) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.100683) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.036719) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.138142) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.100683) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.036719) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.138142) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isMediumElectronPOGspring15noIso_v1(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0101) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0103) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0336) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0876) return false;// hOverE                                  
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0101) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.0103) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0336) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0876) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0174) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0118) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.373) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0174) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0118) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.373) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0283) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00733) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.114) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0678) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0283) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00733) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.114) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0678) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0898) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0739) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.602) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0898) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0739) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.602) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 // This is the 80X tuning. It comes with no IP cuts, which have to be included later. It also uses a different DEta
-bool isMediumElectronPOGspring16noIso_v1(unsigned int elIdx){ 
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.00998) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00311) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.103) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.253) return false;// hOverE                                       
+bool isMediumElectronPOGspring16noIso_v1(unsigned int elIdx){
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.00998) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00311) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.103) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.253) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.134) return false;// ooEmooP                             
-    if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto   
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.134) return false;// ooEmooP
+    if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0298) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00609) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.045) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0878) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0298) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00609) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.045) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0878) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.13) return false;// ooEmooP                             
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.13) return false;// ooEmooP
     if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto 
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
@@ -3741,113 +3748,113 @@ bool isMediumElectronPOGfall17noIso_v2(unsigned int elIdx){
 }
 
 bool isTightElectronPOGphys14noIso(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010181) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.006574) return false;// abs(dEtaIn) 			   
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.022868) return false;// abs(dPhiIn) 			   
-    if (els_hOverE()                                     .at(elIdx)   >= 0.037553) return false;// hOverE 				   
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.131191) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.009924) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.015310) return false;// abs(dz) 				   
-	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.010181) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.006574) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.022868) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.037553) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.131191) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.009924) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.015310) return false;// abs(dz)
+	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.028766) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.005681) return false;// abs(dEtaIn) 			    
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.032046) return false;// abs(dPhiIn) 			    
-    if (els_hOverE()                                     .at(elIdx)   >= 0.081902) return false;// hOverE 				    
-	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) - 							                           
-			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.106055) return false;// ooEmooP				   
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.027261) return false;// abs(d0)				   
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.147154) return false;// abs(dz) 				    
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.028766) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.005681) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.032046) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.081902) return false;// hOverE
+	if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
+			  (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.106055) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.027261) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.147154) return false;// abs(dz)
 	if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+	if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isTightElectronPOGphys14noIso_v2(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.009947) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.006046) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.028092) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.045772) return false;// hOverE                                  
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.009947) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.006046) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.028092) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.045772) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.020118) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.008790) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.021226) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.020118) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.008790) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.021226) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.028237) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.007057) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.030159) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.067778) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.028237) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.007057) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.030159) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.067778) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.098919) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.027984) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.133431) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.098919) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.027984) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.133431) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 bool isTightElectronPOGspring15noIso_v1(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0101) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00926) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0336) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0597) return false;// hOverE                                  
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0101) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00926) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0336) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0597) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.012) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0111) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.0466) return false;// abs(dz)                                 
-        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits 
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.012) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0111) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.0466) return false;// abs(dz)
+        if (els_exp_innerlayers()       .at(elIdx)                        > 2        ) return false;// expectedMissingInnerHits
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0279) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00724) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0918) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0615) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0279) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn()                                .at(elIdx))  >= 0.00724) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0918) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0615) return false;// hOverE
         if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.00999) return false;// ooEmooP                             
-    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0351) return false;// abs(d0)                                 
-    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.417) return false;// abs(dz)                                  
+                          (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.00999) return false;// ooEmooP
+    if (fabs(els_dxyPV()            .at(elIdx))                       >= 0.0351) return false;// abs(d0)
+    if (fabs(els_dzPV()             .at(elIdx))                       >= 0.417) return false;// abs(dz)
         if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+        if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
 }
 
 // This is the 80X tuning. It comes with no IP cuts, which have to be included later. It also uses a different DEta
-bool isTightElectronPOGspring16noIso_v1(unsigned int elIdx){ 
-  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel 
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.00998) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00318) return false;// abs(dEtaIn)                     
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0816) return false;// abs(dPhiIn)                     
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0414) return false;// hOverE                                       
+bool isTightElectronPOGspring16noIso_v1(unsigned int elIdx){
+  if (fabs(els_etaSC().at(elIdx)) <= 1.479){                                                    // Barrel
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.00998) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00318) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0816) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0414) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0129) return false;// ooEmooP                             
-    if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits 
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto   
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0129) return false;// ooEmooP
+    if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.479) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
-    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0292) return false;// full5x5_sigmaIetaIeta   
-    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00605) return false;// abs(dEtaIn)                      
-    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0394) return false;// abs(dPhiIn)                      
-    if (els_hOverE()                                     .at(elIdx)   >= 0.0641) return false;// hOverE                                   
+    if (els_sigmaIEtaIEta_full5x5()                      .at(elIdx)   >= 0.0292) return false;// full5x5_sigmaIetaIeta
+    if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx) )  >= 0.00605) return false;// abs(dEtaIn)
+    if (fabs(els_dPhiIn()                                .at(elIdx))  >= 0.0394) return false;// abs(dPhiIn)
+    if (els_hOverE()                                     .at(elIdx)   >= 0.0641) return false;// hOverE
     if (fabs( (1.0/els_ecalEnergy()                      .at(elIdx)) -
-	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0129) return false;// ooEmooP                             
+	      (els_eOverPIn().at(elIdx)/els_ecalEnergy() .at(elIdx))) >= 0.0129) return false;// ooEmooP
     if (els_exp_innerlayers()       .at(elIdx)                        > 1        ) return false;// expectedMissingInnerHits
-    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto    
+    if (els_conv_vtx_flag()         .at(elIdx)                                   ) return false;// pass conversion veto
   }
   else return false;
   return true;
@@ -3882,18 +3889,18 @@ bool isTightElectronPOGfall17noIso_v2(unsigned int elIdx){
 // list of cuts modules: https://github.com/ikrav/cmssw/blob/egm_id_7.4.12_v1/RecoEgamma/ElectronIdentification/python/Identification/heepElectronID_tools.py#L258
 // cut modules: https://github.com/ikrav/cmssw/tree/egm_id_7.4.12_v1/RecoEgamma/ElectronIdentification/plugins/cuts
 bool isHEEPV60(unsigned int elIdx){
-  if (fabs(els_etaSC().at(elIdx)) <= 1.4442){ 
+  if (fabs(els_etaSC().at(elIdx)) <= 1.4442){
     if (els_isEcalDriven()                                                   .at(elIdx)   == false  ) return false;
     if (fabs(els_dEtaIn().at(elIdx) - els_etaSC().at(elIdx) + els_scSeedEta().at(elIdx))  >=  0.004 ) return false;
     if (fabs(els_dPhiIn()                                                    .at(elIdx))  >=  0.06  ) return false;
     if (els_hOverE().at(elIdx) >= 1/els_eSC().at(elIdx) + 0.05                                      ) return false;
     if ( els_e2x5Max_full5x5().at(elIdx) / els_e5x5_full5x5().at(elIdx) <= 0.94 &&
 	 els_e1x5_full5x5().at(elIdx)    / els_e5x5_full5x5().at(elIdx) <= 0.83                     ) return false;
-    if ( (els_ecalIso().at(elIdx) + els_hcalDepth1TowerSumEt().at(elIdx) ) 
+    if ( (els_ecalIso().at(elIdx) + els_hcalDepth1TowerSumEt().at(elIdx) )
 	 >= 2 + 0.03*els_p4().at(elIdx).pt() + 0.28 * evt_fixgridfastjet_all_rho()                  ) return false;
     if (els_tkIso()                                                          .at(elIdx)   >=  5     ) return false;
     if (els_exp_innerlayers()                                                .at(elIdx)   > 1       ) return false;
-    if (fabs(els_dxyPV()                                                     .at(elIdx))  >= 0.02   ) return false;                                 
+    if (fabs(els_dxyPV()                                                     .at(elIdx))  >= 0.02   ) return false;
   }
   else if ((fabs(els_etaSC().at(elIdx)) > 1.566) && (fabs(els_etaSC().at(elIdx)) < 2.5)){       // Endcap
     if (els_isEcalDriven()                                                   .at(elIdx)   == false  ) return false;
@@ -3901,19 +3908,19 @@ bool isHEEPV60(unsigned int elIdx){
     if (fabs(els_dPhiIn()                                                    .at(elIdx))  >=  0.06  ) return false;
     if (els_hOverE().at(elIdx) >= 5/els_eSC().at(elIdx) + 0.05                                      ) return false;
     if (els_sigmaIEtaIEta_full5x5()                                          .at(elIdx)   >=  0.03  ) return false;
-    if ( els_p4().at(elIdx).pt() < 50 && 
-	 ( (els_ecalIso().at(elIdx) + els_hcalDepth1TowerSumEt().at(elIdx))  
+    if ( els_p4().at(elIdx).pt() < 50 &&
+	 ( (els_ecalIso().at(elIdx) + els_hcalDepth1TowerSumEt().at(elIdx))
 	   >= 2.5 + 0.28 * evt_fixgridfastjet_all_rho() )                                           ) return false;
     if ( els_p4().at(elIdx).pt() > 50 &&
-	 ( (els_ecalIso().at(elIdx) + els_hcalDepth1TowerSumEt().at(elIdx)) 
+	 ( (els_ecalIso().at(elIdx) + els_hcalDepth1TowerSumEt().at(elIdx))
 	   >= 2   + 0.03*(els_p4().at(elIdx).pt()-50) + 0.28 * evt_fixgridfastjet_all_rho() )       ) return false;
     if (els_tkIso()                                                          .at(elIdx)   >=  5     ) return false;
     if (els_exp_innerlayers()                                                .at(elIdx)   > 1       ) return false;
-    if (fabs(els_dxyPV()                                                     .at(elIdx))  >= 0.05   ) return false;     
+    if (fabs(els_dxyPV()                                                     .at(elIdx))  >= 0.05   ) return false;
   }
   else return false; // HEEP does not use the crack region
   return true;
-  
+
 }
 
 int eleTightID(unsigned int elIdx, analysis_t analysis, int version){
@@ -4014,7 +4021,7 @@ void readMVA::DumpValues(){
   cout << "ele_isbarrel:                 " << ele_isbarrel_                 << endl;
   cout << "ele_isendcap:                 " << ele_isendcap_                 << endl;
   cout << "scl_eta:                      " << scl_eta_                      << endl;
-  //additional variables for 25ns version    
+  //additional variables for 25ns version
   cout << "ele_gsfhits:                  " << ele_gsfhits_                  << endl;
   cout << "ele_expectedMissingInnerHits: " << ele_expectedMissingInnerHits_ << endl;
   cout << "ele_convVtxFitProbability:    " << ele_convVtxFitProbability_    << endl;
@@ -4030,29 +4037,29 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
   if (!use_miniaod_) {
 
   //Declare all variables
-  ele_kfhits_           = 0;  
-  ele_oldsigmaietaieta_ = 0;  
-  ele_oldsigmaiphiiphi_ = 0;  
-  ele_oldcircularity_   = 0;  
-  ele_oldr9_            = 0;  
-  ele_scletawidth_      = 0;  
-  ele_sclphiwidth_      = 0;  
-  ele_he_               = 0;  
-  ele_kfchi2_           = 0;  
-  ele_chi2_hits_        = 0;  
-  ele_fbrem_            = 0;  
-  ele_ep_               = 0;  
-  ele_eelepout_         = 0;  
-  ele_IoEmIop_          = 0;  
-  ele_deltaetain_       = 0;  
-  ele_deltaphiin_       = 0;  
-  ele_deltaetaseed_     = 0;  
+  ele_kfhits_           = 0;
+  ele_oldsigmaietaieta_ = 0;
+  ele_oldsigmaiphiiphi_ = 0;
+  ele_oldcircularity_   = 0;
+  ele_oldr9_            = 0;
+  ele_scletawidth_      = 0;
+  ele_sclphiwidth_      = 0;
+  ele_he_               = 0;
+  ele_kfchi2_           = 0;
+  ele_chi2_hits_        = 0;
+  ele_fbrem_            = 0;
+  ele_ep_               = 0;
+  ele_eelepout_         = 0;
+  ele_IoEmIop_          = 0;
+  ele_deltaetain_       = 0;
+  ele_deltaphiin_       = 0;
+  ele_deltaetaseed_     = 0;
   ele_psEoverEraw_      = 0;
-  ele_pT_               = 0; 
-  ele_isbarrel_         = 0; 
-  ele_isendcap_         = 0; 
-  scl_eta_              = 0; 
-  //additional variables for 25ns version    
+  ele_pT_               = 0;
+  ele_isbarrel_         = 0;
+  ele_isendcap_         = 0;
+  scl_eta_              = 0;
+  //additional variables for 25ns version
   ele_gsfhits_                  = 0;
   ele_expectedMissingInnerHits_ = 0;
   ele_convVtxFitProbability_    = 0;
@@ -4092,7 +4099,7 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
     files.push_back(Form("%s/data/electronID_mva_Spring16_HZZ_V1_EE_5.weights.xml"  , path.c_str())); // GP does not go below 10 GeV, so use HZZ
     files.push_back(Form("%s/data/electronID_mva_Spring16_HZZ_V1_EB1_5.weights.xml" , path.c_str()));
     files.push_back(Form("%s/data/electronID_mva_Spring16_HZZ_V1_EB2_5.weights.xml" , path.c_str()));
-  } 
+  }
 
   //Loop over Files
   for (unsigned int i = 0; i < 6; i++){
@@ -4123,7 +4130,7 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
 	readers[i]->AddVariable( "ele_deltaetain"       , &ele_deltaetain_       );
 	readers[i]->AddVariable( "ele_deltaphiin"       , &ele_deltaphiin_       );
 	readers[i]->AddVariable( "ele_deltaetaseed"     , &ele_deltaetaseed_     );
-	
+
 	readers[i]->AddSpectator("ele_pT"               , &ele_pT_               );
 	readers[i]->AddSpectator("ele_isbarrel"         , &ele_isbarrel_         );
 	readers[i]->AddSpectator("ele_isendcap"         , &ele_isendcap_         );
@@ -4142,7 +4149,7 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
 	readers[i]->AddVariable( "ele_oldr9"            , &ele_oldr9_            );
 	readers[i]->AddVariable( "ele_scletawidth"      , &ele_scletawidth_      );
 	readers[i]->AddVariable( "ele_sclphiwidth"      , &ele_sclphiwidth_      );
-	readers[i]->AddVariable( "ele_oldhe"            , &ele_oldhe_            ); 
+	readers[i]->AddVariable( "ele_oldhe"            , &ele_oldhe_            );
 
 	readers[i]->AddVariable( "ele_kfhits"           , &ele_kfhits_           );
 	readers[i]->AddVariable( "ele_kfchi2"           , &ele_kfchi2_           );
@@ -4165,8 +4172,8 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
 	if (i == 0 || i == 3){
 	  readers[i]->AddVariable( "ele_psEoverEraw"      , &ele_psEoverEraw_      );
 	}
-	
-	if (i >= 3) { // low pT HZZ MVA requires spectator variables 
+
+	if (i >= 3) { // low pT HZZ MVA requires spectator variables
 	  readers[i]->AddSpectator("ele_pt"               , &ele_pT_               );
 	  readers[i]->AddSpectator("ele_isEE"             , &ele_isendcap_         );
 	  readers[i]->AddSpectator("ele_isEB"             , &ele_isbarrel_         );
@@ -4180,7 +4187,7 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
 	  readers[i]->AddSpectator("ele_eClass"           , &dummySpectator_);
 	  readers[i]->AddSpectator("mc_ele_matchedFromCB" , &dummySpectator_);
 	}
-	
+
       }
     } else {
       //Add all variables to reader
@@ -4209,7 +4216,7 @@ void readMVA::InitMVA(string path, bool v25ns, bool use_miniaod, int MVAversion)
       readers[i]->AddSpectator("ele_isendcap"         , &ele_isendcap_         );
       readers[i]->AddSpectator("scl_eta"              , &scl_eta_              );
     }
-    
+
 
     // Debugging
     // std::cout<<"About to call it on file "<<files[i]<<endl;
@@ -4234,15 +4241,15 @@ float readMVA::MVA(unsigned int index){
 
   //Load all variables from tree
   ele_kfhits_           = tas::els_ckf_laywithmeas().at(index);
-  ele_oldsigmaietaieta_ = tas::els_sigmaIEtaIEta_full5x5().at(index); 
+  ele_oldsigmaietaieta_ = tas::els_sigmaIEtaIEta_full5x5().at(index);
   ele_oldsigmaiphiiphi_ = tas::els_sigmaIPhiIPhi_full5x5().at(index);
-  ele_oldcircularity_   = 1.0 - tas::els_e1x5_full5x5().at(index)/tas::els_e5x5_full5x5().at(index); 
-  ele_oldr9_            = tas::els_r9_full5x5().at(index); 
+  ele_oldcircularity_   = 1.0 - tas::els_e1x5_full5x5().at(index)/tas::els_e5x5_full5x5().at(index);
+  ele_oldr9_            = tas::els_r9_full5x5().at(index);
   ele_scletawidth_      = tas::els_etaSCwidth().at(index);
   ele_sclphiwidth_      = tas::els_phiSCwidth().at(index);
   ele_he_               = tas::els_hOverE().at(index);
   // this is hack to calculate full5x5_hcalOverEcal(), which we are missing in CMS3
-  ele_oldhe_            = tas::els_hOverE().at(index) * tas::els_ecalEnergy().at(index) / tas::els_eSC().at(index); 
+  ele_oldhe_            = tas::els_hOverE().at(index) * tas::els_ecalEnergy().at(index) / tas::els_eSC().at(index);
   ele_psEoverEraw_      = tas::els_eSCPresh().at(index)/tas::els_eSCRaw().at(index);
   ele_kfchi2_           = tas::els_ckf_chi2().at(index)/tas::els_ckf_ndof().at(index);
   ele_chi2_hits_        = tas::els_chi2().at(index)/tas::els_ndof().at(index);
@@ -4253,11 +4260,11 @@ float readMVA::MVA(unsigned int index){
   ele_deltaetain_       = fabs(tas::els_dEtaIn().at(index));
   ele_deltaphiin_       = fabs(tas::els_dPhiIn().at(index));
   ele_deltaetaseed_     = fabs(tas::els_dEtaOut().at(index));
-  ele_pT_               = tas::els_p4().at(index).pt(); 
-  ele_isbarrel_         = fabs(tas::els_etaSC().at(index)) < 1.479 ? 1 : 0; 
-  ele_isendcap_         = fabs(tas::els_etaSC().at(index)) > 1.479 ? 1 : 0; 
-  scl_eta_              = tas::els_etaSC().at(index); 
-  //additional variables for 25ns version    
+  ele_pT_               = tas::els_p4().at(index).pt();
+  ele_isbarrel_         = fabs(tas::els_etaSC().at(index)) < 1.479 ? 1 : 0;
+  ele_isendcap_         = fabs(tas::els_etaSC().at(index)) > 1.479 ? 1 : 0;
+  scl_eta_              = tas::els_etaSC().at(index);
+  //additional variables for 25ns version
   if (v25ns_) {
     ele_gsfhits_                  = tas::els_nlayers().at(index);
     ele_expectedMissingInnerHits_ = tas::els_exp_innerlayers().at(index);
@@ -4265,7 +4272,7 @@ float readMVA::MVA(unsigned int index){
   }
   dummySpectator_ = 999;
 
-  //bindVariables  
+  //bindVariables
   if(ele_fbrem_ < -1.) ele_fbrem_ = -1.;
   ele_deltaetain_ = fabs(ele_deltaetain_);
   if(ele_deltaetain_ > 0.06) ele_deltaetain_ = 0.06;
@@ -4276,7 +4283,7 @@ float readMVA::MVA(unsigned int index){
   ele_deltaetaseed_ = fabs(ele_deltaetaseed_);
   if(ele_deltaetaseed_ > 0.2) ele_deltaetaseed_ = 0.2;
   if(ele_oldcircularity_ < -1.) ele_oldcircularity_ = -1;
-  if(ele_oldcircularity_ > 2.) ele_oldcircularity_ = 2.; 
+  if(ele_oldcircularity_ > 2.) ele_oldcircularity_ = 2.;
   if(ele_oldr9_ > 5) ele_oldr9_ = 5;
   if(ele_chi2_hits_ > 200.) ele_chi2_hits_ = 200;
   if(ele_kfchi2_ > 10.) ele_kfchi2_ = 10.;
@@ -4298,8 +4305,8 @@ float readMVA::MVA(unsigned int index){
 
 }
 
-bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level){
-  float disc = getMVAoutput(index, use_miniaod_);
+bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level,bool latest_2016_MVA){
+  float disc = getMVAoutput(index, use_miniaod_,latest_2016_MVA);
   // careful, the MVA(index) call sets value of scl_eta_, so we must directly use the branch here in case use_miniaod_ is true
   float aeta = fabs(tas::els_etaSC().at(index));
   float pt = tas::els_p4().at(index).pt();
@@ -4309,7 +4316,7 @@ bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level){
   float ptmin = 15;
   float ptmax = 25;
   auto mvacut = [ptmin,ptmax](float A, float B, float C, float pt_) {
-      return pt_>10 ? std::min(A, std::max(B,A + (B-A)/(ptmax-ptmin)*(pt_-ptmin))) : C; 
+      return pt_>10 ? std::min(A, std::max(B,A + (B-A)/(ptmax-ptmin)*(pt_-ptmin))) : C;
   };
   // C if pT<10, A if pT=10, B if pt>=25, lerp between A,B for pT in [10,25]
   auto mvacut2017 = [](float A, float B, float C, float pt_) {
@@ -4318,6 +4325,15 @@ bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level){
       else {
           return A + (B-A)/15.0f*(pt_-10.0f);
       }
+  };
+
+  auto mvacut201694x = [](float A, float B, float C, float pt_,float ptmin_, float ptmax_)
+  {
+    if(pt_ < ptmin_) return C;
+    else if(pt_ >= ptmax_) return B;
+    else{
+      return A + (B-A)/(ptmax_ - ptmin_) * (pt_ - ptmin_);
+    }
   };
 
   switch (id_level){
@@ -4439,6 +4455,24 @@ bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level){
     if (aeta > 1.479)                   return disc > mvacut2017(1.054,2.359,1.054,pt);
     break;
 
+  case (ZMET_tightMVA_noiso_v2):
+  //New mvacut values for 2016 94Xv2
+  //Source : https://twiki.cern.ch/twiki/pub/CMS/SUSLeptonSF/Run2_SUSYwp_EleCB_MVA_8Jan19.pdf
+
+  if(aeta < 0.8) return disc > mvacut201694x(3.447-0.063*15,3.447+0.063*15,3.447-0.063*15,pt,10,40);
+  else if(aeta < 1.479) return disc > mvacut201694x(2.522-0.058*15,2.522+0.058*15,2.522-0.058*15,pt,10,40);
+  else if(aeta < 2.5) return disc > mvacut201694x(1.555-0.075*15,1.555+0.075*15,1.555-0.075*15,pt,10,40);
+  break;
+
+  case(ZMET_looseMVA_noiso_v1):
+  //VLooseFO for 2016 94x MVA v2
+  //Source : https://twiki.cern.ch/twiki/pub/CMS/SUSLeptonSF/Run2_SUSYwp_EleCB_MVA_8Jan19.pdf
+
+  if(aeta < 0.8) return disc > mvacut201694x(-0.259,-0.388,-0.259,pt,10,25);
+  else if(aeta < 1.479) return disc > mvacut201694x(-0.256,-0.696,-0.256,pt,10,25);
+  else if(aeta < 2.5) return disc > mvacut201694x(-1.630,-1.219,-1.630,pt,10,25);
+  break;
+
   case (SS_fo_noiso_v4):
   case (SS_fo_v4):
   case(SS_medium_noiso_v4):
@@ -4494,35 +4528,45 @@ void createAndInitMVA(std::string pathToCORE, bool v25ns, bool use_miniaod, int 
     return;
   }
   globalEleMVAreader = new readMVA();
-  globalEleMVAreader->InitMVA(pathToCORE, v25ns, use_miniaod, MVAversion); 
+  globalEleMVAreader->InitMVA(pathToCORE, v25ns, use_miniaod, MVAversion);
 }
 
 bool passesMVAforID(unsigned int index, id_level_t id_level) {
     return globalEleMVAreader->passesElectronMVAid(index, id_level);
 }
 
-float getMVAoutput(unsigned int index, bool use_miniaod){
+float MVAoutput_94xv2(unsigned int index)
+{
+    // Fun reverse-engineering-because-of-lack-of-documentation-or-announcement...
+    // WPs for Fall17V2 MVA are for a *RAW* BDT output (hence cut values >1)
+    // Default ValueMaps for VID give the scaled value (forced to [-1,1]), so we
+    // need to unscale them here in order to use the WP cut values.
+    // See s11, 21 of https://rembserj.web.cern.ch/rembserj/slides/180321_egamma.pdf
+    // Invert eqn in https://github.com/cms-sw/cmssw/blob/3ebe268b47b1c848fca2aeb2a2379df02b46ebd5/RecoEgamma/EgammaTools/interface/MVAValueMapProducer.h#L144
+    // since our CMS4 has the non-raw values.
+    float notraw = els_VIDFall17V2NoIsoMvaValue().at(index);
+    if (notraw >  1.0-1.e-6) notraw =  1.0-1.e-6; // protect against inf, -inf due to FP rounding issues
+    if (notraw < -1.0+1.e-6) notraw = -1.0+1.e-6;
+
+    return -0.5*log((2.0/(notraw+1))-1.0);
+}
+
+float getMVAoutput(unsigned int index, bool use_miniaod, bool latest_2016_MVA){
   if (globalEleMVAreader==0) {
     cout << "readMVA=0, please create and init it (e.g with createAndInitMVA function)" << endl;
     return -999.;
   }
   if (use_miniaod) {
       if (gconf.year == 2016) {
-          return (gconf.cmssw_ver == 94 ? els_VIDSpring16GPMvaValue().at(index) : els_VIDNonTrigMvaValue().at(index));
+        //Latest SUSY EGamma recommendation is to use 94xV2 for 2016
+        if(gconf.cmssw_ver == 94 && latest_2016_MVA)
+           return MVAoutput_94xv2(index);
+
+          else return (gconf.cmssw_ver == 94 ? els_VIDSpring16GPMvaValue().at(index) : els_VIDNonTrigMvaValue().at(index));
       }
       else if (gconf.year == 2017) return els_VIDFall17NoIsoMvaValue().at(index);
       else if (gconf.year == 2018) {
-          // Fun reverse-engineering-because-of-lack-of-documentation-or-announcement...
-          // WPs for Fall17V2 MVA are for a *RAW* BDT output (hence cut values >1)
-          // Default ValueMaps for VID give the scaled value (forced to [-1,1]), so we
-          // need to unscale them here in order to use the WP cut values.
-          // See s11, 21 of https://rembserj.web.cern.ch/rembserj/slides/180321_egamma.pdf
-          // Invert eqn in https://github.com/cms-sw/cmssw/blob/3ebe268b47b1c848fca2aeb2a2379df02b46ebd5/RecoEgamma/EgammaTools/interface/MVAValueMapProducer.h#L144
-          // since our CMS4 has the non-raw values.
-          float notraw = els_VIDFall17V2NoIsoMvaValue().at(index);
-          if (notraw >  1.0-1.e-6) notraw =  1.0-1.e-6; // protect against inf, -inf due to FP rounding issues
-          if (notraw < -1.0+1.e-6) notraw = -1.0+1.e-6;
-          return -0.5*log((2.0/(notraw+1))-1.0);
+        return MVAoutput_94xv2(index);
       }
       else {
           // should yell here, but return pre-added-config-object-to-CORE value instead
@@ -4585,7 +4629,7 @@ bool isTriggerSafe_v2(unsigned int elIdx) {
   if (!isTriggerSafenoIso_v2(elIdx)) return false;
 
   if (fabs(els_etaSC().at(elIdx)) <= 1.479) {
-      
+
     if ((els_ecalPFClusterIso().at(elIdx)-evt_fixgridfastjet_allcalo_rho()*0.165)/els_p4().at(elIdx).pt() >= 0.160) return false;
     if ((els_hcalPFClusterIso().at(elIdx)-evt_fixgridfastjet_allcalo_rho()*0.060)/els_p4().at(elIdx).pt() >= 0.120) return false;
     if (els_tkIso().at(elIdx)/els_p4().at(elIdx).pt() >= 0.080) return false;
@@ -4597,7 +4641,7 @@ bool isTriggerSafe_v2(unsigned int elIdx) {
     if (els_tkIso().at(elIdx)/els_p4().at(elIdx).pt() >= 0.080) return false;
 
   }
-  
+
   return true;
 
 }
