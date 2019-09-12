@@ -11,5 +11,7 @@ bool passElectronSelection_VVV_v1(int index, id_level_t id_string, bool vetoTran
 bool passMuonSelection_VVV(int index, id_level_t id_string);
 bool passMuonSelection_VVV_v1(int index, id_level_t id_string, bool vetoTransition, bool eta24);
 
+bool isPt10POGVetoElectron(int idx);
+bool isPt10POGVetoMuon(int idx);
 
 #endif

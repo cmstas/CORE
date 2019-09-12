@@ -3,6 +3,7 @@
 #include "VVVSelections.h"
 #include "MuonSelections.h"
 #include "ElectronSelections.h"
+#include "IsolationTools.h"
 
 #include "Math/VectorUtil.h"
 
@@ -52,4 +53,47 @@ bool passMuonSelection_VVV_v1(int index, id_level_t id_string, bool vetoTransiti
   if( eta24 && fabs(cms3.mus_p4()[index].eta()) > 2.4 ) return false; // eta < 2.5
   if( !muonID( index, id_string ) ) return false; // Muon ID  
   return true;
+}
+
+//##############################################################################################################
+// Very Loose Lepton ID
+bool isPt10POGVetoElectron(int idx)
+{
+    if (!( cms3.els_p4()[idx].pt() > 10.          )) return false;
+    if (!( isVetoElectronPOGfall17_v2(idx)        )) return false;
+    if (!( fabs(cms3.els_p4()[idx].eta()) < 2.5   )) return false;
+    if (fabs(cms3.els_etaSC()[idx]) <= 1.479)
+    {
+        if (!( fabs(cms3.els_dzPV()[idx]) < 0.1       )) return false;
+        if (!( fabs(cms3.els_dxyPV()[idx]) < 0.05     )) return false;
+    }
+    else
+    {
+        if (!( fabs(cms3.els_dzPV()[idx]) < 0.2       )) return false;
+        if (!( fabs(cms3.els_dxyPV()[idx]) < 0.1      )) return false;
+    }
+    if (!( fabs(cms3.els_ip3d()[idx] / cms3.els_ip3derr()[idx]) < 4. )) return false;
+    return true;
+}
+
+//##############################################################################################################
+// Very Loose Lepton ID
+bool isPt10POGVetoMuon(int idx)
+{
+    if (!( cms3.mus_p4()[idx].pt() > 10.        )) return false;
+    if (!( isMediumMuonPOG(idx)                 )) return false;
+    if (!( fabs(cms3.mus_p4()[idx].eta()) < 2.4 )) return false;
+    if (!( muRelIso04DB(idx)  < 0.25            )) return false;
+    if (fabs(cms3.mus_p4()[idx].eta()) <= 1.479)
+    {
+        if (!( fabs(cms3.mus_dzPV()[idx]) < 0.1       )) return false;
+        if (!( fabs(cms3.mus_dxyPV()[idx]) < 0.05     )) return false;
+    }
+    else
+    {
+        if (!( fabs(cms3.mus_dzPV()[idx]) < 0.2       )) return false;
+        if (!( fabs(cms3.mus_dxyPV()[idx]) < 0.1      )) return false;
+    }
+    if (!( fabs(cms3.mus_ip3d()[idx] / cms3.mus_ip3derr()[idx]) < 4. )) return false;
+    return true;
 }
