@@ -611,11 +611,11 @@ bool passMuonSelection_ZMET_veto(int index)
 {
     if(gconf.year == 2016)
     {
-        passMuonSelection_ZMET_veto_v3(index,false,true);
+        return passMuonSelection_ZMET_veto_v3(index,false,true);
     }
     else if(gconf.year == 2017 || gconf.year == 2018)
     {
-        passMuonSelection_ZMET_veto_v4(index,false,true);
+        return passMuonSelection_ZMET_veto_v4(index,false,true);
     }
 
     return false;
@@ -633,8 +633,8 @@ bool passMuonSelection_ZMET_veto_v4(int index, bool vetoTransition, bool eta24)
   if( !muonID( index, ZMET_mediumMu_veto_v4 )         ) return false; // medium Muon ID with looser iso
 
   //IP cuts to be compatible with multilepton baseline cuts
-  if (fabs(mus_dxyPV_firstPV() .at(index))   > 0.05 ) return false;
-  if (fabs(mus_dzPV_firstPV()  .at(index))   > 0.1  ) return false;
+  if (fabs(mus_dxyPV_firstPV(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV_firstPV(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 
@@ -663,8 +663,8 @@ bool passMuonSelection_ZMET_veto_v2(int index, bool vetoTransition, bool eta24 )
   if( !muonID( index, ZMET_mediumMu_veto_v3 )         ) return false; // medium Muon ID with looser iso
 
   //IP cuts to be compatible with multilepton baseline cuts
-  if (fabs(mus_dxyPV_firstPV() .at(index))   > 0.05 ) return false;
-  if (fabs(mus_dzPV_firstPV()  .at(index))   > 0.1  ) return false;
+  if (fabs(mus_dxyPV_firstPV(index))   > 0.05 ) return false;
+  if (fabs(mus_dzPV_firstPV(index))   > 0.1  ) return false;
   if (abs(mus_ip3d().at(index))/mus_ip3derr().at(index) >= 8) return false;// sip3d < 8
   return true;
 }
