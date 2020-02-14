@@ -4486,9 +4486,9 @@ bool readMVA::passesElectronMVAid(unsigned int index, id_level_t id_level,bool l
   //VLooseFO for 2016 94x MVA v2
   //Source : https://twiki.cern.ch/twiki/pub/CMS/SUSLeptonSF/Run2_SUSYwp_EleCB_MVA_8Jan19.pdf
 
-  if(aeta < 0.8) return disc > mvacut201694x(-0.259,-0.388,-0.259,pt,10,25);
-  else if(aeta < 1.479) return disc > mvacut201694x(-0.256,-0.696,-0.256,pt,10,25);
-  else if(aeta < 2.5) return disc > mvacut201694x(-1.630,-1.219,-1.630,pt,10,25);
+  if(aeta < 0.8) return disc > mvacut201694x(-0.388-0.109*15,-0.388,-0.259,pt,10,25);
+  else if(aeta < 1.479) return disc > mvacut201694x(-0.696-0.106*15,-0.696,-0.256,pt,10,25);
+  else if(aeta < 2.5) return disc > mvacut201694x(-1.219-0.148*15,-1.219,-1.630,pt,10,25);
   break;
 
   case (SS_fo_noiso_v4):
