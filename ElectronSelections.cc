@@ -2521,14 +2521,20 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     {
         if (!( isMVAwp80NoIsofall17V2(elIdx, true)       )) return false;
     }
-    if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
+    if (gconf.year == 2016)
+    {
+        if (!( isTriggerSafenoIso_v1(elIdx)              )) return false;
+    }
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
     return true;
     break;
 
   case(VVV_fo_v5):
     if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_fo) < gconf.el_reliso_fo )) return false;
-    if (!( isTriggerSafe_v1(elIdx)                     )) return false;
+    if (gconf.year == 2016)
+    {
+        if (!( isTriggerSafe_v1(elIdx)                 )) return false;
+    }
     if (!( electronID(elIdx, VVV_fo_noiso_v5) )) return false;
     return true;
     break;
@@ -2543,7 +2549,10 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
   case(VVV_tight_v5):
     if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_tight) < gconf.el_reliso_tight )) return false;
-    if (!( isTriggerSafe_v1(elIdx)                        )) return false;
+    if (gconf.year == 2016)
+    {
+        if (!( isTriggerSafe_v1(elIdx)                    )) return false;
+    }
     if (!( electronID(elIdx, VVV_tight_noiso_v5) )) return false;
     return true;
     break;
@@ -2568,14 +2577,20 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
     {
         if (!( isMVAwp90NoIsofall17V2(elIdx, true)       )) return false;
     }
-    if (!( isTriggerSafenoIso_v1(elIdx)                  )) return false;
+    if (gconf.year == 2016)
+    {
+        if (!( isTriggerSafenoIso_v1(elIdx)              )) return false;
+    }
     if (!( electronID(elIdx, VVV_veto_noiso_v5) )) return false;
     return true;
     break;
 
   case(VVV_3l_fo_v5):
     if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_3l_fo) < gconf.el_reliso_3l_fo )) return false;
-    if (!( isTriggerSafe_v1(elIdx)                     )) return false;
+    if (gconf.year == 2016)
+    {
+        if (!( isTriggerSafe_v1(elIdx)                 )) return false;
+    }
     if (!( electronID(elIdx, VVV_3l_fo_noiso_v5) )) return false;
     return true;
     break;
@@ -2590,7 +2605,10 @@ bool electronID(unsigned int elIdx, id_level_t id_level){
 
   case(VVV_3l_tight_v5):
     if (!( eleRelIso03EA(elIdx, gconf.ea_version, gconf.el_addlep_3l_tight) < gconf.el_reliso_3l_tight )) return false;
-    if (!( isTriggerSafe_v1(elIdx)                        )) return false;
+    if (gconf.year == 2016)
+    {
+        if (!( isTriggerSafe_v1(elIdx)                    )) return false;
+    }
     if (!( electronID(elIdx, VVV_3l_tight_noiso_v5) )) return false;
     return true;
     break;
